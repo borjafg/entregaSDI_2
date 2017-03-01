@@ -1,0 +1,6 @@
+Se crean fechas al mismo tiempo, solucion
+
+
+
+INSERT into tcategories values (27,'Categoria 1 para usuario 27',25, DATE_ADD(current_timestamp, 1 second));
+INSERT into tcategories values (28,'Categoria 2 para usuario 28',25, DATE_ADD(current_timestamp, 3 second));

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+    http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
+	version="2.1">
+
+	<persistence-unit name="task_manager"
+		transaction-type="RESOURCE_LOCAL">
+
+		<!-- <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider> -->
+		<non-jta-data-source>java:jboss/datasources/TaskManagerDS</non-jta-data-source>
+
+		<class>uo.sdi.model.Category</class>
+		<class>uo.sdi.model.Task</class>
+		<class>uo.sdi.model.User</class>
+
+		<!--<properties> <property name="eclipselink.logging.level" value="OFF" 
+			/> <property name="jboss.entity.manager.factory.jndi.name" value="java:/fatoriaEclipselink" 
+			/> <property name="eclipselink.target-server" value="JBoss" /> <property 
+			name="TargetDatabase" value="HSQL" /> </properties> -->
+
+		<properties>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect" />
+			<property name="jboss.entity.manager.factory.jndi.name"
+				value="java:/fatoriaEclipselink" />
+		</properties>
+
+	</persistence-unit>
+
+</persistence> 
