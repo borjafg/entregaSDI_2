@@ -6,21 +6,25 @@
 
 	<display-name>sdi-nnnnn</display-name>
 
-	<welcome-file-list>
-		<welcome-file>index.html</welcome-file>
-		<welcome-file>index.htm</welcome-file>
-		<welcome-file>index.jsp</welcome-file>
-		<welcome-file>default.html</welcome-file>
-		<welcome-file>default.htm</welcome-file>
-		<welcome-file>default.jsp</welcome-file>
-	</welcome-file-list>
 
-	<!-- Parámetros de contexto -->
+	<!-- ============================== -->
+	<!-- === Parámetros de contexto === -->
+	<!-- ============================== -->
 
 	<context-param>
 		<param-name>javax.faces.PROJECT_STAGE</param-name>
 		<param-value>Development</param-value>
 	</context-param>
+
+	<context-param>
+		<param-name>primefaces.THEME</param-name>
+		<param-value>cupertino</param-value>
+	</context-param>
+
+
+	<!-- =============================== -->
+	<!-- === Declaración de Servlets === -->
+	<!-- =============================== -->
 
 	<servlet>
 		<servlet-name>Faces Servlet</servlet-name>
@@ -28,9 +32,29 @@
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 
+
+	<!-- ========================= -->
+	<!-- === Mapeo de Servlets === -->
+	<!-- ========================= -->
+
 	<servlet-mapping>
 		<servlet-name>Faces Servlet</servlet-name>
 		<url-pattern>*.xhtml</url-pattern>
 	</servlet-mapping>
+
+
+	<!-- ========================= -->
+	<!-- === Páginas de inicio === -->
+	<!-- ========================= -->
+
+	<welcome-file-list>
+		<welcome-file>login.xhtml</welcome-file>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+	</welcome-file-list>
 
 </web-app>
