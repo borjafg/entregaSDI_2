@@ -6,9 +6,9 @@ import javax.faces.context.FacesContext;
 
 import uo.sdi.presentation.util.MessageManager;
 
-@ManagedBean(name = "bean_database")
+@ManagedBean(name = "bean_database_management")
 @RequestScoped
-public class BeanDataBase {
+public class BeanDatabaseManagement {
 
     public String deleteAndInsert() {
 	FacesContext contexto = FacesContext.getCurrentInstance();

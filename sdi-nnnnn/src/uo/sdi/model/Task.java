@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -36,9 +37,11 @@ public class Task {
     // categoria a la pertenece la tarea (la categoria tiene dentro de ella
     // a qué usuario pertenece)
     @ManyToOne
+    @JoinColumn(name = "category_id", referencedColumnName = "id")
     private Category category;
 
     @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user; // Usuario al que pertenece la tarea
 
     Task() {
@@ -129,11 +132,11 @@ public class Task {
 	    }
 	}
     }
-    
-    void _setCategory(Category category){
+
+    void _setCategory(Category category) {
 	this.category = category;
     }
-    
+
     public User getUser() {
 	return user;
     }

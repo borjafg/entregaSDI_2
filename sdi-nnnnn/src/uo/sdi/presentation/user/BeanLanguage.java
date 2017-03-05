@@ -8,7 +8,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
-@ManagedBean(name = "bean_language")
+@ManagedBean(name = "bean_language_config")
 @SessionScoped
 public class BeanLanguage implements Serializable {
 

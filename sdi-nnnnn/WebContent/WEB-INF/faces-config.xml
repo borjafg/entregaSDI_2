@@ -27,21 +27,20 @@
 	</managed-bean>
 
 	<managed-bean>
-		<managed-bean-name>config_idioma</managed-bean-name>
+		<managed-bean-name>bean_language_config</managed-bean-name>
 		<managed-bean-class>uo.sdi.presentation.user.BeanLanguage</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
-	
+
 	<managed-bean>
-		<managed-bean-name>bean_admin_users</managed-bean-name>
-		<managed-bean-class>uo.sdi.presentation.admin.BeanAdminUsers</managed-bean-class>
+		<managed-bean-name>bean_users_list</managed-bean-name>
+		<managed-bean-class>uo.sdi.presentation.admin.BeanUsersList</managed-bean-class>
 		<managed-bean-scope>view</managed-bean-scope>
 	</managed-bean>
-	
-	
+
 	<managed-bean>
-		<managed-bean-name>bean_database</managed-bean-name>
-		<managed-bean-class>uo.sdi.presentation.admin.BeanDataBase</managed-bean-class>
+		<managed-bean-name>bean_database_management</managed-bean-name>
+		<managed-bean-class>uo.sdi.presentation.admin.BeanDatabaseManagement</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 

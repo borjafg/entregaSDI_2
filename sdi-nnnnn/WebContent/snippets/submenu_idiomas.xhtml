@@ -5,13 +5,13 @@
 	xmlns:f="http://java.sun.com/jsf/core">
 
 	<p:submenu style="float:right" label="#{msgs.textoIdioma}"
-		icon="fa fa-language">
+		icon="ui-icon-wrench">
 
 		<p:menuitem value="#{msgs.enlaceIdiomaES}" immediate="true"
-			actionListener="#{bean_language.setSpanish}" update="@all" />
+			actionListener="#{bean_language_config.setSpanish}" update="@all" />
 
 		<p:menuitem value="#{msgs.enlaceIdiomaEN}" immediate="true"
-			actionListener="#{bean_language.setEnglish}" update="@all" />
+			actionListener="#{bean_language_config.setEnglish}" update="@all" />
 	</p:submenu>
 
 </ui:composition>
