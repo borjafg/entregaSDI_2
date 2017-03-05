@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pageflow:Pageflow xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14885646375180" configfile="/sdi-nnnnn/WebContent/WEB-INF/faces-config.xml"/>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14885646375180" configfile="/sdi-nnnnn/WebContent/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" id="pf14886561639490" referenceLink="//@navigationRule.0/@fromViewId|"/>
+  <nodes xsi:type="pageflow:PFPage" name="login.xhtml" id="pf148867156559825" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf148867156559826 pf148867156559827 pf148867156559828" inlinks="pf148867156559826" path="/login.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="principal_administrador.xhtml" id="pf148867156559829" referenceLink="//@navigationRule.0/@navigationCase.1/@toViewId|" inlinks="pf148867156559827" path="/principal_administrador.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="principal_usuario.xhtml" id="pf148867156559830" referenceLink="//@navigationRule.0/@navigationCase.2/@toViewId|" inlinks="pf148867156559828" path="/principal_usuario.xhtml"/>
+  <links id="pf148867156559826" target="pf148867156559825" source="pf148867156559825" outcome="fallo" fromaction="#{bean_login.dologin}"/>
+  <links id="pf148867156559827" target="pf148867156559829" source="pf148867156559825" outcome="admin" fromaction="#{bean_login.dologin}"/>
+  <links id="pf148867156559828" target="pf148867156559830" source="pf148867156559825" outcome="usuario" fromaction="#{bean_login.dologin}"/>
+</pageflow:Pageflow>

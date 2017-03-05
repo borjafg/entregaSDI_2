@@ -1,10 +1,13 @@
 package uo.sdi.dto;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import uo.sdi.model.Task;
 
-public class TaskDTO {
+public class TaskDTO implements Serializable {
+
+    private static final long serialVersionUID = -4452890417360L;
 
     private Long id;
 
@@ -72,8 +75,7 @@ public class TaskDTO {
 	final int prime = 31;
 	int result = 1;
 
-	result = prime * result + ((created == null) ? 0 : created.hashCode());
-	result = prime * result + ((userId == null) ? 0 : userId.hashCode());
+	result = prime * result + ((id == null) ? 0 : id.hashCode());
 
 	return result;
     }
@@ -91,16 +93,10 @@ public class TaskDTO {
 
 	TaskDTO other = (TaskDTO) obj;
 
-	if (created == null) {
-	    if (other.created != null)
+	if (id == null) {
+	    if (other.id != null)
 		return false;
-	} else if (!created.equals(other.created))
-	    return false;
-
-	if (userId == null) {
-	    if (other.userId != null)
-		return false;
-	} else if (!userId.equals(other.userId))
+	} else if (!id.equals(other.id))
 	    return false;
 
 	return true;

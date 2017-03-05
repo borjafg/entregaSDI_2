@@ -10,24 +10,29 @@
 			update="@all" />
 	</ui:define>
 
-	<ui:define name="titulo">#{msgs.tituloLogin}</ui:define>
-
 	<ui:define name="cuerpo_form">
-		#{msgs.login_usuario}
-		<h:panelGroup>
-			<p:inputText id="campo_login">
-			</p:inputText>
-			<p:message for="campo_login" />
-		</h:panelGroup>
-		
-		#{msgs.login_contrasena}
-		<h:panelGroup>
-			<p:inputText id="campo_password">
-			</p:inputText>
-			<p:message for="campo_password" />
-		</h:panelGroup>
+		<p:panel id="panel_login" header="#{msgs.tituloLogin}">
 
-		<p:commandButton />
+			<h:panelGrid columns="3" cellpadding="5">
+				<p:outputLabel for="usuario" value="#{msgs.login_usuario}" />
+				<p:inputText id="usuario" value="#{bean_login.login}"
+					required="true" placeholder="#{msgs.login_placeholder_usuario}"
+					requiredMessage="#{msgs.login_usuario_requerido}" size="30" />
+				<p:message for="usuario" />
+
+				<p:outputLabel for="contrasena" value="#{msgs.login_contrasena}" />
+				<p:inputText id="contrasena" value="#{bean_login.password}"
+					required="true" placeholder="#{msgs.login_placeholder_contrasena}"
+					requiredMessage="#{msgs.login_contrasena_requerida}" size="30" />
+				<p:message for="contrasena" />
+
+				<p:outputLabel value="" />
+				<p:commandButton value="#{msgs.login_boton}" update="@form"
+					action="#{bean_login.dologin}" />
+			</h:panelGrid>
+
+			<p:messages for="panel_login" showDetail="true" closable="true" />
+		</p:panel>
 	</ui:define>
 
 </ui:composition>

@@ -21,6 +21,20 @@
 		<param-value>cupertino</param-value>
 	</context-param>
 
+	<context-param>
+		<param-name>logLevel</param-name>
+		<param-value>DEBUG</param-value>
+	</context-param>
+
+
+	<!-- ================= -->
+	<!-- === Listeners === -->
+	<!-- ================= -->
+
+	<listener>
+		<listener-class>uo.sdi.listener.LoggingInitialization</listener-class>
+	</listener>
+
 
 	<!-- =============================== -->
 	<!-- === Declaración de Servlets === -->

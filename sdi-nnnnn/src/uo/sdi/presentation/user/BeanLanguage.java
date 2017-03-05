@@ -8,9 +8,9 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
-@ManagedBean(name = "config_idioma")
+@ManagedBean(name = "bean_language")
 @SessionScoped
-public class BeanSettings implements Serializable {
+public class BeanLanguage implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

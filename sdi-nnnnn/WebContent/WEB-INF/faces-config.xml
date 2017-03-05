@@ -21,15 +21,28 @@
 	<!-- =================== -->
 
 	<managed-bean>
-		<managed-bean-name>beanLogin</managed-bean-name>
+		<managed-bean-name>bean_login</managed-bean-name>
 		<managed-bean-class>uo.sdi.presentation.user.BeanLogin</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
-	
+
 	<managed-bean>
 		<managed-bean-name>config_idioma</managed-bean-name>
-		<managed-bean-class>uo.sdi.presentation.user.BeanSettings</managed-bean-class>
+		<managed-bean-class>uo.sdi.presentation.user.BeanLanguage</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	
+	<managed-bean>
+		<managed-bean-name>bean_admin_users</managed-bean-name>
+		<managed-bean-class>uo.sdi.presentation.admin.BeanAdminUsers</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
+	</managed-bean>
+	
+	
+	<managed-bean>
+		<managed-bean-name>bean_database</managed-bean-name>
+		<managed-bean-class>uo.sdi.presentation.admin.BeanDataBase</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 
 
@@ -37,8 +50,30 @@
 	<!-- === Reglas de navegación === -->
 	<!-- ============================ -->
 
-	<!-- - - - - - - - - - - - - - - - - - - -->
-	<!-- - - Cambiar datos (alta, editar) - - -->
-	<!-- - - - - - - - - - - - - - - - - - - -->
+	<!-- - - - - - - - -->
+	<!-- - - Login - - -->
+	<!-- - - - - - - - -->
+
+	<navigation-rule>
+		<from-view-id>/login.xhtml</from-view-id>
+
+		<navigation-case>
+			<from-action>#{bean_login.dologin}</from-action>
+			<from-outcome>fallo</from-outcome>
+			<to-view-id>/login.xhtml</to-view-id>
+		</navigation-case>
+
+		<navigation-case>
+			<from-action>#{bean_login.dologin}</from-action>
+			<from-outcome>admin</from-outcome>
+			<to-view-id>/principal_administrador.xhtml</to-view-id>
+		</navigation-case>
+
+		<navigation-case>
+			<from-action>#{bean_login.dologin}</from-action>
+			<from-outcome>usuario</from-outcome>
+			<to-view-id>/principal_usuario.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
 
 </faces-config>

@@ -3,7 +3,6 @@ package uo.sdi.presentation.user;
 import java.io.Serializable;
 import java.util.Map;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
@@ -16,7 +15,7 @@ import uo.sdi.model.types.UserStatus;
 import uo.sdi.presentation.util.MessageManager;
 import alb.util.log.Log;
 
-@ManagedBean(name = "beanLogin")
+@ManagedBean(name = "bean_login")
 @RequestScoped
 public class BeanLogin implements Serializable {
 
@@ -26,10 +25,10 @@ public class BeanLogin implements Serializable {
     private String password = "";
 
     // ==============================
-    // Métodos de lógica
+    // Métodos
     // ==============================
 
-    public String login() {
+    public String dologin() {
 	FacesContext contexto = FacesContext.getCurrentInstance();
 	UserService userServ = Services.getUserService();
 	UserDTO user = null;
@@ -39,33 +38,57 @@ public class BeanLogin implements Serializable {
 	}
 
 	catch (Exception excep) { // Error al comprobar los datos
-	    Log.error("Ha ocurrido un error al intentar comprobar los datos del"
-		    + " usuario");
+	    Log.error("Ha ocurrido un error al intentar comprobar los datos "
+		    + "del usuario [%s]", login);
 
-//	    MessageManager.error(contexto, );
+	    MessageManager.error(contexto, "panel_login", "login_error");
 
-	    return "error";
+	    return "fallo";
 	}
 
-	if (user != null && user.getStatus().equals(UserStatus.ENABLED)) {
-	    putUserInSession(user);
+	// (1) Se ha encontrado el usuario
+	if (user != null) {
 
-	    if (user.getIsAdmin() == true) {
-		Log.info("El administrador con login [%s] ha iniciado sesión.",
-			user.getLogin());
+	    // (2) La cuenta se encuentra deshabilitada
+	    if (user.getStatus().equals(UserStatus.DISABLED)) {
+		Log.debug("Se ha intentado iniciar sesión con una cuenta de "
+			+ "usuario deshabilitada: [%s]", user.getLogin());
 
-		return "admin";
+		MessageManager.warning(contexto, "panel_login",
+			"login_usuario_deshabilitado");
+
+		return "fallo";
 	    }
 
+	    // (2) La cuenta está habilitada
 	    else {
-		return "usuario";
+		putUserInSession(user);
+
+		// (3) El usuario es administrador
+		if (user.getIsAdmin() == true) {
+		    Log.info("El administrador con login [%s] ha iniciado "
+			    + "sesión.", user.getLogin());
+
+		    return "admin";
+		}
+
+		// (3) El usuario no es un administrador
+		else {
+		    Log.info("El usuario con login [%s] ha iniciado sesión.",
+			    user.getLogin());
+
+		    return "usuario";
+		}
 	    }
 	}
 
+	// (1) No se ha encontrado el usuario
 	else {
+	    Log.debug("Se ha intentado iniciar sesión (sin éxito) con el "
+		    + "siguiente usuario: [%s]", login);
 
-//	    MessageManager.register(contexto, "j_idt9:loginButton",
-//		    "loginError_sendButton", FacesMessage.SEVERITY_ERROR);
+	    MessageManager.warning(contexto, "panel_login",
+		    "login_usuario_no_existe");
 
 	    return "fallo";
 	}

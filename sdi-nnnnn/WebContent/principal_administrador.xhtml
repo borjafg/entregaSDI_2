@@ -12,9 +12,10 @@
 	</h:head>
 
 	<h:body>
-		<h:form id="form_menu_anonimo">
+		<h:form id="form_menu_administrador">
 			<p:menubar>
-				<ui:insert name="opcion_menu" />
+				<p:menuitem value="#{msgs.administrador_menu_reinicio}"
+					action="#{bean_database.deleteAndInsert}" />
 
 				<ui:include src="/snippets/submenu_idiomas.xhtml" />
 			</p:menubar>
@@ -22,10 +23,15 @@
 
 		<p:spacer />
 
-		<h:form id="form_anonimo">
-			<ui:insert name="cuerpo_form" />
-		</h:form>
+		<p:spacer />
+
+		<p:dataTable var="usuario" value="#{bean_admin_users.users}">
+			<p:column headerText="Id" sortBy="#{car.id}">
+				<h:outputText value="#{usuario.id}" />
+			</p:column>
+		</p:dataTable>
 	</h:body>
+
 </f:view>
 
 </html>
