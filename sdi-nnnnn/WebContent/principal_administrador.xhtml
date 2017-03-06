@@ -15,12 +15,14 @@
 		<h:form id="form_menu_administrador">
 			<p:menubar>
 				<p:menuitem value="#{msgs.administrador_menu_reinicio}"
-					action="#{bean_database_management.deleteAndInsert}" />
+					action="#{bean_database_management.restartData}" />
 
 				<ui:include src="/snippets/submenu_idiomas.xhtml" />
 			</p:menubar>
 		</h:form>
 
+		<p:spacer />
+		<p:messages for="mensajes_administrador" />
 		<p:spacer />
 
 		<p:dataTable var="usuario" value="#{bean_users_list.users}"
@@ -48,30 +50,37 @@
 
 
 			<p:column>
-				<p:commandLink action="#{bean_users_list.changeStatus(usuario)}"
-					immediate="true" type="submit" update="tabla_usuarios"
-					value="#{msgs.administrador_boton_cambiar_estado}" />
+				<h:form>
+					<p:commandLink action="#{bean_users_list.changeStatus(usuario)}"
+						immediate="true" type="submit" update="tabla_usuarios"
+						value="#{msgs.administrador_boton_cambiar_estado}" />
+				</h:form>
 			</p:column>
 
 			<p:column>
-				<p:commandLink action="#{bean_users_list.deleteUser(usuario)}"
-					immediate="true" type="submit" update="tabla_usuarios"
-					value="#{msgs.administrador_boton_eliminar_usuario}">
+				<h:form>
+					<p:commandLink action="#{bean_users_list.deleteUser(usuario)}"
+						immediate="true" type="submit" update="tabla_usuarios"
+						value="#{msgs.administrador_boton_eliminar_usuario}">
 
-					<p:confirm header="#{msgs.administrador_cabecera_eliminar_usuario}"
-						message="#{msgs.administrador_mensaje_eliminar_usuario}"
-						icon="ui-icon-alert" />
-				</p:commandLink>
+						<p:confirm
+							header="#{msgs.administrador_cabecera_eliminar_usuario}"
+							message="#{msgs.administrador_mensaje_eliminar_usuario}"
+							icon="ui-icon-alert" />
+					</p:commandLink>
+
+					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+						<p:commandButton
+							value="#{msgs.administrador_confirmar_eliminacion}" type="button"
+							styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+
+						<p:commandButton value="#{msgs.administrador_denegar_eliminacion}"
+							type="button" styleClass="ui-confirmdialog-no"
+							icon="ui-icon-close" />
+					</p:confirmDialog>
+				</h:form>
 			</p:column>
 		</p:dataTable>
-
-		<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-			<p:commandButton value="#{msgs.administrador_confirmar_eliminacion}"
-				type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-			
-			<p:commandButton value="#{msgs.administrador_denegar_eliminacion}"
-				type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-		</p:confirmDialog>
 	</h:body>
 </f:view>
 

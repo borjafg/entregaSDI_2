@@ -6,12 +6,12 @@
 	template="/templates/template_anonimo.xhtml">
 
 	<ui:define name="opcion_menu">
-		<p:menuitem value="#{msgs.enlaceRegistro}" immediate="true"
+		<p:menuitem value="#{msgs.login_enlace_registro}" immediate="true"
 			update="@all" />
 	</ui:define>
 
 	<ui:define name="cuerpo_form">
-		<p:panel id="panel_login" header="#{msgs.tituloLogin}">
+		<p:panel id="panel_login" header="#{msgs.login_titulo_panel}">
 
 			<h:panelGrid columns="3" cellpadding="5">
 				<p:outputLabel for="usuario" value="#{msgs.login_usuario}" />
@@ -23,7 +23,8 @@
 				<p:outputLabel for="contrasena" value="#{msgs.login_contrasena}" />
 				<p:inputText id="contrasena" value="#{bean_login.password}"
 					required="true" placeholder="#{msgs.login_placeholder_contrasena}"
-					requiredMessage="#{msgs.login_contrasena_requerida}" size="30" />
+					requiredMessage="#{msgs.login_contrasena_requerida}" size="30"
+					type="password" />
 				<p:message for="contrasena" />
 
 				<p:outputLabel value="" />

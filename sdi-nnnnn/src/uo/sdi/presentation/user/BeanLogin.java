@@ -41,9 +41,7 @@ public class BeanLogin implements Serializable {
 	    Log.error("Ha ocurrido un error al intentar comprobar los datos "
 		    + "del usuario [%s]", login);
 
-	    MessageManager.error(contexto, "panel_login", "login_error");
-
-	    return "fallo";
+	    return "error";
 	}
 
 	// (1) Se ha encontrado el usuario

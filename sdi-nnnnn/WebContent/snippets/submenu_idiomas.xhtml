@@ -4,13 +4,13 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://java.sun.com/jsf/core">
 
-	<p:submenu style="float:right" label="#{msgs.textoIdioma}"
+	<p:submenu style="float:right" label="#{msgs.menu_idioma}"
 		icon="ui-icon-wrench">
 
-		<p:menuitem value="#{msgs.enlaceIdiomaES}" immediate="true"
+		<p:menuitem value="#{msgs.menu_idioma_es}" immediate="true"
 			actionListener="#{bean_language_config.setSpanish}" update="@all" />
 
-		<p:menuitem value="#{msgs.enlaceIdiomaEN}" immediate="true"
+		<p:menuitem value="#{msgs.menu_idioma_en}" immediate="true"
 			actionListener="#{bean_language_config.setEnglish}" update="@all" />
 	</p:submenu>
 

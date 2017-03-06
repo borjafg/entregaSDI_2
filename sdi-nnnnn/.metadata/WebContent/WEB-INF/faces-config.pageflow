@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14885646375180" configfile="/sdi-nnnnn/WebContent/WEB-INF/faces-config.xml">
-  <nodes xsi:type="pageflow:PFPage" x="355" y="444" id="pf14886561639490" referenceLink="//@navigationRule.0/@fromViewId|"/>
-  <nodes xsi:type="pageflow:PFPage" name="login.xhtml" id="pf14887212364750" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf14887212364751 pf14887212364752 pf14887212364753" inlinks="pf14887212364751" path="/login.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="principal_administrador.xhtml" id="pf14887212364754" referenceLink="//@navigationRule.0/@navigationCase.1/@toViewId|" inlinks="pf14887212364752" path="/principal_administrador.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="principal_usuario.xhtml" id="pf14887212364755" referenceLink="//@navigationRule.0/@navigationCase.2/@toViewId|" inlinks="pf14887212364753" path="/principal_usuario.xhtml"/>
-  <links id="pf14887212364751" target="pf14887212364750" source="pf14887212364750" outcome="fallo" fromaction="#{bean_login.dologin}"/>
-  <links id="pf14887212364752" target="pf14887212364754" source="pf14887212364750" outcome="admin" fromaction="#{bean_login.dologin}"/>
-  <links id="pf14887212364753" target="pf14887212364755" source="pf14887212364750" outcome="usuario" fromaction="#{bean_login.dologin}"/>
+  <nodes xsi:type="pageflow:PFPage" x="122" y="178" id="pf14886561639490" referenceLink="//@navigationRule.0/@fromViewId|"/>
+  <nodes xsi:type="pageflow:PFPage" name="login.xhtml" x="554" y="562" id="pf14887931416210" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" outlinks="pf14887931553952 pf14887931553953 pf14887931553954" inlinks="pf14887931553952 pf14888074656892" path="/login.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="principal_administrador.xhtml" x="770" y="370" id="pf14887931553955" referenceLink="//@navigationRule.2/@navigationCase.1/@toViewId|" inlinks="pf14887931553953" path="/principal_administrador.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="principal_usuario.xhtml" x="770" y="754" id="pf14887931553956" referenceLink="//@navigationRule.2/@navigationCase.2/@toViewId|" inlinks="pf14887931553954" path="/principal_usuario.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="*" x="122" y="562" id="pf14887931778329" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf148879317783210" path="*"/>
+  <nodes xsi:type="pageflow:PFPage" name="error.xhtml" x="338" y="562" id="pf148879317783211" referenceLink="//@navigationRule.1/@fromViewId|" outlinks="pf14888074656892" inlinks="pf148879317783210" path="/error.xhtml"/>
+  <links id="pf14887931553953" target="pf14887931553955" source="pf14887931416210" outcome="admin" fromaction="#{bean_login.dologin}"/>
+  <links id="pf14887931553954" target="pf14887931553956" source="pf14887931416210" outcome="usuario" fromaction="#{bean_login.dologin}"/>
+  <links id="pf148879317783210" target="pf148879317783211" source="pf14887931778329" outcome="error"/>
+  <links id="pf14887931553952" target="pf14887931416210" source="pf14887931416210" outcome="fallo" fromaction="#{bean_login.dologin}">
+    <bendPoints d1Height="-36" d2Height="-36"/>
+    <bendPoints d1Width="-64" d1Height="-36" d2Width="-64" d2Height="-36"/>
+    <bendPoints d1Width="-64" d2Width="-64"/>
+  </links>
+  <links id="pf14888074656892" target="pf14887931416210" source="pf148879317783211" outcome="volver" redirect="true"/>
 </pageflow:Pageflow>

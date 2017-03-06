@@ -24,7 +24,7 @@ public class Jpa {
 
     private static EntityManagerFactory getEmf() {
 	if (emf == null) {
-	    emf = jndiFind("java:/fatoriaEclipselink");
+	    emf = jndiFind("java:jboss/entityManagerFactories/hibernateFactory");
 	}
 
 	return emf;

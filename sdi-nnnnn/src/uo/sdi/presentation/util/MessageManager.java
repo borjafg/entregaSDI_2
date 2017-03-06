@@ -55,30 +55,6 @@ public class MessageManager {
     }
 
     /**
-     * Registra un mensaje de error relacionado con un componente para que sea
-     * mostrado en la vista correspondiente.
-     * 
-     * @param context
-     *            se usara para almacenar el mensaje de error.
-     * 
-     * @param componentID
-     *            id del componente sobre el que hay que registrar el error.
-     * 
-     * @param messageKey
-     *            identificador que permite obtener el mensaje a mostrar de
-     *            entre los que hay en un fichero de properties.
-     * 
-     */
-    public static void error(FacesContext context, String componentID,
-	    String messageKey) {
-
-	String cabecera = Messages.getMessage(context, "cabecera_error");
-
-	guardar(context, componentID, cabecera, messageKey,
-		FacesMessage.SEVERITY_ERROR);
-    }
-
-    /**
      * Guarda un mensaje en el contexto. Es usado por los demás métodos para
      * evitar la duplicación de código.
      * 

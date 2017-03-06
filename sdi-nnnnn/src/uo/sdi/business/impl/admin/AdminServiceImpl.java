@@ -5,6 +5,7 @@ import java.util.List;
 import uo.sdi.business.AdminService;
 import uo.sdi.business.exception.BusinessException;
 import uo.sdi.business.impl.admin.command.DeepDeleteUserCommand;
+import uo.sdi.business.impl.admin.command.RestartDatabase;
 import uo.sdi.business.impl.admin.command.DisableUserCommand;
 import uo.sdi.business.impl.admin.command.EnableUserCommand;
 import uo.sdi.business.impl.admin.command.FindAllUsers;
@@ -19,6 +20,11 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public void deepDeleteUser(final Long id) throws BusinessException {
 	new CommandExecutor<Void>().execute(new DeepDeleteUserCommand(id));
+    }
+
+    @Override
+    public void restartDatabase() throws BusinessException {
+	new CommandExecutor<Void>().execute(new RestartDatabase());
     }
 
     @Override

@@ -5,12 +5,14 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 import uo.sdi.business.AdminService;
 import uo.sdi.business.Services;
 import uo.sdi.business.exception.BusinessException;
 import uo.sdi.dto.UserDTO;
 import uo.sdi.model.types.UserStatus;
+import uo.sdi.presentation.util.MessageManager;
 import alb.util.log.Log;
 
 @ManagedBean(name = "bean_users_list")
@@ -33,7 +35,7 @@ public class BeanUsersList implements Serializable {
      * Carga la lista de usuarios que hay en el sistema.
      * 
      */
-    private void loadUsers() {
+    protected void loadUsers() {
 	try {
 	    users = Services.getAdminService().findAllUsers();
 
@@ -46,7 +48,7 @@ public class BeanUsersList implements Serializable {
 		    + "sistema");
 
 	    throw new RuntimeException("Error al listar los usuarios del "
-		    + "sistema");
+		    + "sistema", ex);
 	}
     }
 
@@ -62,13 +64,19 @@ public class BeanUsersList implements Serializable {
      * 
      */
     public String deleteUser(UserDTO user) {
+	FacesContext contexto = FacesContext.getCurrentInstance();
 	Long id = user.getId();
 
 	try {
 	    AdminService adminServ = Services.getAdminService();
 
 	    adminServ.deepDeleteUser(id);
+	    Log.debug("Se ha eliminado con exito la cuenta del usuario con"
+		    + "id [%d]", id);
 	    loadUsers();
+
+	    MessageManager.warning(contexto, "mensajes_administrador",
+		    "administrador_exito_borrar_usuario");
 
 	    return "exito";
 	}
@@ -78,6 +86,9 @@ public class BeanUsersList implements Serializable {
 		    + "id [%d]", id);
 	    Log.error(bs);
 	    loadUsers();
+
+	    MessageManager.warning(contexto, "mensajes_administrador",
+		    "administrador_fallo_borrar_usuario");
 
 	    return "fallo";
 	}
@@ -102,6 +113,7 @@ public class BeanUsersList implements Serializable {
      * 
      */
     public String changeStatus(UserDTO user) {
+	FacesContext contexto = FacesContext.getCurrentInstance();
 	Long id = user.getId();
 
 	try {
@@ -121,6 +133,9 @@ public class BeanUsersList implements Serializable {
 			+ "id [%d]", id);
 		loadUsers();
 
+		MessageManager.warning(contexto, "mensajes_administrador",
+			"administrador_exito_cambiar_estado");
+
 		return "exito";
 	    }
 
@@ -128,6 +143,9 @@ public class BeanUsersList implements Serializable {
 		Log.debug("No se ha podido cambiar el estado del usuario con "
 			+ "id [%d] porque no existe.", id);
 		loadUsers();
+
+		MessageManager.warning(contexto, "mensajes_administrador",
+			"administrador_fallo_cambiar_estado");
 
 		return "fallo";
 	    }
@@ -139,12 +157,39 @@ public class BeanUsersList implements Serializable {
 	    Log.error(bs);
 	    loadUsers();
 
+	    MessageManager.warning(contexto, "mensajes_administrador",
+		    "administrador_fallo_cambiar_estado");
+
 	    return "fallo";
 	}
 
 	catch (Exception ex) {
 	    Log.error("Ha ocurrido un error al intentar cambiar el estado del "
 		    + "usuario con id [%d]", id);
+	    Log.error(ex);
+
+	    return "error";
+	}
+    }
+
+    public String restartData() {
+	try {
+	    FacesContext contexto = FacesContext.getCurrentInstance();
+	    Services.getAdminService().restartDatabase();
+
+	    Log.debug("Se ha reinicado la base de datos");
+	    loadUsers();
+
+	    MessageManager.warning(contexto, "mensajes_administrador",
+		    "administrador_exito_reinicio_base_datos");
+
+	    return "exito";
+	}
+
+	catch (Exception ex) {
+	    Log.error("Ha ocurrido un error al intentar borrar todos los "
+		    + "usuario de la base de datos y sus tareas y categorías "
+		    + "asociadas.");
 	    Log.error(ex);
 
 	    return "error";

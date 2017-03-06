@@ -71,4 +71,13 @@
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
 
+
+	<!-- ======================= -->
+	<!-- === Página de error === -->
+	<!-- ======================= -->
+
+	<error-page>
+		<location>/error.xhtml</location>
+	</error-page>
+
 </web-app>
