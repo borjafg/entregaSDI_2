@@ -14,6 +14,7 @@ public class UserDTO implements Serializable {
     private String login;
     private String email;
     private String password;
+    private String repeatPassword;
     private Boolean isAdmin = false;
 
     private UserStatus status = UserStatus.ENABLED;
@@ -59,6 +60,14 @@ public class UserDTO implements Serializable {
 
     public UserStatus getStatus() {
 	return status;
+    }
+    
+    public String getRepeatPassword() {
+        return repeatPassword;
+    }
+
+    public void setRepeatPassword(String repeatPassword) {
+        this.repeatPassword = repeatPassword;
     }
 
     public void setStatus(UserStatus status) {
