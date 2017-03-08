@@ -27,6 +27,12 @@
 	</managed-bean>
 
 	<managed-bean>
+		<managed-bean-name>bean_registry</managed-bean-name>
+		<managed-bean-class>uo.sdi.presentation.user.BeanUserRegistry</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
 		<managed-bean-name>bean_language_config</managed-bean-name>
 		<managed-bean-class>uo.sdi.presentation.user.BeanLanguage</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
@@ -96,6 +102,24 @@
 			<from-action>#{bean_login.dologin}</from-action>
 			<from-outcome>usuario</from-outcome>
 			<to-view-id>/principal_usuario.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+
+	<navigation-rule>
+		<from-view-id>/registry.xhtml</from-view-id>
+
+		<navigation-case>
+			<from-action>#{bean_registry.registrar}</from-action>
+			<from-outcome>fallo</from-outcome>
+			<to-view-id>/registry.xhtml</to-view-id>
+		</navigation-case>
+
+
+		<navigation-case>
+			<from-action>#{bean_registry.registrar}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/registry.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 

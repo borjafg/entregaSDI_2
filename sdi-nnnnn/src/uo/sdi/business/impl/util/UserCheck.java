@@ -27,13 +27,29 @@ public class UserCheck {
     }
 
     public static void minPasswordLength(UserDTO user) throws BusinessException {
-	String check = "La contraseña debe tener al menos 6 caracteres";
-	BusinessCheck.isTrue(user.getPassword().length() >= 6, check);
+	String check = "La contraseña debe tener al menos 8 caracteres";
+	BusinessCheck.isTrue(user.getPassword().length() >= 8, check);
     }
 
     public static void notRepeatedLogin(UserDTO user) throws BusinessException {
 	User u = UserFinder.findByLogin(user.getLogin());
 	BusinessCheck.isNull(u, "Ese login ya está registrado");
+    }
+
+    public static void isValidPassword(UserDTO user) throws BusinessException {
+	String check = "La contraseña debe tener letras y numeros";
+	BusinessCheck.isTrue(isPasswordTypeCorrect(user.getPassword()), check);
+    }
+
+    public static void isSamePassword(UserDTO user) throws BusinessException {
+	String check = "Las contraseña tienen que ser iguales";
+	BusinessCheck.isTrue(user.getPassword()
+		.equals(user.getRepeatPassword()), check);
+    }
+
+    private static boolean isPasswordTypeCorrect(String password) {
+	String passPattern = "[a-zA-Z-0-9]+";
+	return Pattern.compile(passPattern).matcher(password).matches();
     }
 
     private static boolean isValidEmail(String email) {
