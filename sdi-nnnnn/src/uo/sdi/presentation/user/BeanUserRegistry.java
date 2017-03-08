@@ -35,15 +35,14 @@ public class BeanUserRegistry implements Serializable {
      */
     public String registrar() {
 	UserDTO user = new UserDTO(login);
+
 	user.setEmail(email);
 	user.setPassword(password);
-	user.setRepeatPassword(repeatPassword);
+
 	UserService userServ = Services.getUserService();
 
 	try {
-
 	    userServ.registerUser(user);
-
 	}
 
 	catch (Exception excep) { // Error al ejecutar la comprobación
@@ -52,14 +51,13 @@ public class BeanUserRegistry implements Serializable {
 	    if (excep.getMessage().equals("Ese login ya está registrado")) {
 		MessageManager.warning(contexto, "panel_registry",
 			"registry_login_ya_exite");
-	    }
-
-	    else if (excep.getMessage().equals("El email no es válido")) {
+	    } else if (excep.getMessage().equals("El email no es válido")) {
 		MessageManager.warning(contexto, "panel_registry",
 			"registry_email_no_valido");
 	    } else if (excep.getMessage().equals(
 		    "Las contraseña tienen que ser iguales")) {
-MessageManager.warning(contexto, "panel_registry", "registry_password_iguales");
+		MessageManager.warning(contexto, "panel_registry",
+			"registry_password_iguales");
 	    } else if (excep.getMessage().equals(
 		    "La contraseña debe tener al menos 8 caracteres")) {
 		MessageManager.warning(contexto, "panel_registry",
@@ -72,7 +70,9 @@ MessageManager.warning(contexto, "panel_registry", "registry_password_iguales");
 
 	    return "fallo";
 	}
+
 	Log.debug("Se ha iniciado con exito la sesión del usuario: %s", login);
+
 	return "exito";
     }
 

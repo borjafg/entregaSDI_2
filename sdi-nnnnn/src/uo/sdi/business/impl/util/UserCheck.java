@@ -41,12 +41,6 @@ public class UserCheck {
 	BusinessCheck.isTrue(isPasswordTypeCorrect(user.getPassword()), check);
     }
 
-    public static void isSamePassword(UserDTO user) throws BusinessException {
-	String check = "Las contraseña tienen que ser iguales";
-	BusinessCheck.isTrue(user.getPassword()
-		.equals(user.getRepeatPassword()), check);
-    }
-
     private static boolean isPasswordTypeCorrect(String password) {
 	String passPattern = "[a-zA-Z-0-9]+";
 	return Pattern.compile(passPattern).matcher(password).matches();

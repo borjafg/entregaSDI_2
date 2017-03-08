@@ -1,3 +1,4 @@
+
 -- ==================================
 -- Eliminación del contenido de la
 -- base de datos
@@ -214,4 +215,3 @@ INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title,
 INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (88, 4, DATE_ADD(current_timestamp, 55 second), DATE_SUB(current_date, 4 day), NULL, 9, 'tarea28', 'tarea 28 de la categoria3 de user3');
 INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (89, 4, DATE_ADD(current_timestamp, 57 second), DATE_SUB(current_date, 4 day), NULL, 9, 'tarea29', 'tarea 29 de la categoria3 de user3');
 INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (90, 4, DATE_ADD(current_timestamp, 59 second), DATE_SUB(current_date, 4 day), NULL, 9, 'tarea30', 'tarea 30 de la categoria3 de user3');
-

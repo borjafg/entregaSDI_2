@@ -44,12 +44,6 @@
 		<managed-bean-scope>view</managed-bean-scope>
 	</managed-bean>
 
-	<managed-bean>
-		<managed-bean-name>bean_database_management</managed-bean-name>
-		<managed-bean-class>uo.sdi.presentation.admin.BeanDatabaseManagement</managed-bean-class>
-		<managed-bean-scope>request</managed-bean-scope>
-	</managed-bean>
-
 
 	<!-- ============================ -->
 	<!-- === Reglas de navegación === -->
@@ -106,6 +100,10 @@
 	</navigation-rule>
 
 
+	<!-- - - - - - - - - -->
+	<!-- - - Registro - - -->
+	<!-- - - - - - - - - -->
+
 	<navigation-rule>
 		<from-view-id>/registry.xhtml</from-view-id>
 
@@ -115,11 +113,55 @@
 			<to-view-id>/registry.xhtml</to-view-id>
 		</navigation-case>
 
-
 		<navigation-case>
 			<from-action>#{bean_registry.registrar}</from-action>
 			<from-outcome>exito</from-outcome>
 			<to-view-id>/registry.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+
+	<!-- - - - - - - - - - - - -->
+	<!-- - - Administrador - - -->
+	<!-- - - - - - - - - - - - -->
+
+	<navigation-rule>
+		<from-view-id>/principal_administrador.xhtml</from-view-id>
+
+		<navigation-case>
+			<from-action>#{bean_users_list.deleteUser(usuario)}</from-action>
+			<from-outcome>fallo</from-outcome>
+			<to-view-id>/principal_administrador.xhtml</to-view-id>
+		</navigation-case>
+
+		<navigation-case>
+			<from-action>#{bean_users_list.deleteUser(usuario)}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/principal_administrador.xhtml</to-view-id>
+		</navigation-case>
+
+		<navigation-case>
+			<from-action>#{bean_users_list.changeStatus(usuario)}</from-action>
+			<from-outcome>fallo</from-outcome>
+			<to-view-id>/principal_administrador.xhtml</to-view-id>
+		</navigation-case>
+
+		<navigation-case>
+			<from-action>#{bean_users_list.changeStatus(usuario)}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/principal_administrador.xhtml</to-view-id>
+		</navigation-case>
+
+		<navigation-case>
+			<from-action>#{bean_users_list.restartData}</from-action>
+			<from-outcome>fallo</from-outcome>
+			<to-view-id>/principal_administrador.xhtml</to-view-id>
+		</navigation-case>
+
+		<navigation-case>
+			<from-action>#{bean_users_list.restartData}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/principal_administrador.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 

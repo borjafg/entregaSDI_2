@@ -35,9 +35,14 @@ public class BeanUsersList implements Serializable {
      * Carga la lista de usuarios que hay en el sistema.
      * 
      */
-    protected void loadUsers() {
+    private void loadUsers() {
 	try {
 	    users = Services.getAdminService().findAllUsers();
+
+	    // No mostrar al administrador (no debería poder eliminar su
+	    // propia cuenta o deshabilitarla)
+	    users.remove(FacesContext.getCurrentInstance().getExternalContext()
+		    .getSessionMap().get("user"));
 
 	    Log.debug("Se ha cargado con éxito la lista de usuarios que hay "
 		    + "en el sistema");
@@ -71,11 +76,11 @@ public class BeanUsersList implements Serializable {
 	    AdminService adminServ = Services.getAdminService();
 
 	    adminServ.deepDeleteUser(id);
-	    Log.debug("Se ha eliminado con exito la cuenta del usuario con"
+	    Log.debug("Se ha eliminado con exito la cuenta del usuario con "
 		    + "id [%d]", id);
 	    loadUsers();
 
-	    MessageManager.warning(contexto, "mensajes_administrador",
+	    MessageManager.info(contexto, "mensajes_administrador",
 		    "administrador_exito_borrar_usuario");
 
 	    return "exito";
@@ -133,7 +138,7 @@ public class BeanUsersList implements Serializable {
 			+ "id [%d]", id);
 		loadUsers();
 
-		MessageManager.warning(contexto, "mensajes_administrador",
+		MessageManager.info(contexto, "mensajes_administrador",
 			"administrador_exito_cambiar_estado");
 
 		return "exito";
@@ -177,19 +182,19 @@ public class BeanUsersList implements Serializable {
 	    FacesContext contexto = FacesContext.getCurrentInstance();
 	    Services.getAdminService().restartDatabase();
 
-	    Log.debug("Se ha reinicado la base de datos");
+	    Log.debug("Se ha restablecido el contenido de la base de datos");
+
 	    loadUsers();
 
-	    MessageManager.warning(contexto, "mensajes_administrador",
+	    MessageManager.info(contexto, "mensajes_administrador",
 		    "administrador_exito_reinicio_base_datos");
 
 	    return "exito";
 	}
 
 	catch (Exception ex) {
-	    Log.error("Ha ocurrido un error al intentar borrar todos los "
-		    + "usuario de la base de datos y sus tareas y categorías "
-		    + "asociadas.");
+	    Log.error("Ha ocurrido un error al intentar restablecer el "
+		    + "contenido de la base de datos");
 	    Log.error(ex);
 
 	    return "error";
