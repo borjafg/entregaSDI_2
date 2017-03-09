@@ -6,8 +6,8 @@
 	template="/templates/template_anonimo.xhtml">
 
 	<ui:define name="opcion_menu">
-		<p:menuitem value="#{msgs.login_enlace_registro}" action="/registry.xhtml" immediate="true"
-			update="@all" />
+		<p:menuitem value="#{msgs.login_enlace_registro}"
+			action="/registry.xhtml" immediate="true" update="@all" />
 	</ui:define>
 
 	<ui:define name="cuerpo_form">
@@ -15,21 +15,28 @@
 
 			<h:panelGrid columns="3" cellpadding="5">
 				<p:outputLabel for="usuario" value="#{msgs.login_usuario}" />
+
 				<p:inputText id="usuario" value="#{bean_login.login}"
 					required="true" placeholder="#{msgs.login_placeholder_usuario}"
 					requiredMessage="#{msgs.login_usuario_requerido}" size="30" />
+
 				<p:message for="usuario" />
 
+
 				<p:outputLabel for="contrasena" value="#{msgs.login_contrasena}" />
+
 				<p:inputText id="contrasena" value="#{bean_login.password}"
 					required="true" placeholder="#{msgs.login_placeholder_contrasena}"
 					requiredMessage="#{msgs.login_contrasena_requerida}" size="30"
 					type="password" />
+
 				<p:message for="contrasena" />
 
+
 				<p:outputLabel value="" />
-				<p:commandButton value="#{msgs.login_boton}" update="@form"
-					action="#{bean_login.dologin}" />
+
+				<p:commandButton id="boton_login" value="#{msgs.login_boton}"
+					update="@form" action="#{bean_login.dologin}" />
 			</h:panelGrid>
 
 			<p:messages for="panel_login" showDetail="true" closable="true" />

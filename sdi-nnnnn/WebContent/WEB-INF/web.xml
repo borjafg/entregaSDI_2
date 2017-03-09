@@ -1,83 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://java.sun.com/xml/ns/javaee"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
-	id="WebApp_ID" version="3.0">
-
-	<display-name>sdi-nnnnn</display-name>
-
-
-	<!-- ============================== -->
-	<!-- === Parámetros de contexto === -->
-	<!-- ============================== -->
-
-	<context-param>
-		<param-name>javax.faces.PROJECT_STAGE</param-name>
-		<param-value>Development</param-value>
-	</context-param>
-
-	<context-param>
-		<param-name>primefaces.THEME</param-name>
-		<param-value>cupertino</param-value>
-	</context-param>
-
-	<context-param>
-		<param-name>logLevel</param-name>
-		<param-value>DEBUG</param-value>
-	</context-param>
-
-
-	<!-- ================= -->
-	<!-- === Listeners === -->
-	<!-- ================= -->
-
-	<listener>
-		<listener-class>uo.sdi.listener.LoggingInitialization</listener-class>
-	</listener>
-
-
-	<!-- =============================== -->
-	<!-- === Declaración de Servlets === -->
-	<!-- =============================== -->
-
-	<servlet>
-		<servlet-name>Faces Servlet</servlet-name>
-		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-
-
-	<!-- ========================= -->
-	<!-- === Mapeo de Servlets === -->
-	<!-- ========================= -->
-
-	<servlet-mapping>
-		<servlet-name>Faces Servlet</servlet-name>
-		<url-pattern>*.xhtml</url-pattern>
-	</servlet-mapping>
-
-
-	<!-- ========================= -->
-	<!-- === Páginas de inicio === -->
-	<!-- ========================= -->
-
-	<welcome-file-list>
-		<welcome-file>login.xhtml</welcome-file>
-		<welcome-file>index.html</welcome-file>
-		<welcome-file>index.htm</welcome-file>
-		<welcome-file>index.jsp</welcome-file>
-		<welcome-file>default.html</welcome-file>
-		<welcome-file>default.htm</welcome-file>
-		<welcome-file>default.jsp</welcome-file>
-	</welcome-file-list>
-
-
-	<!-- ======================= -->
-	<!-- === Página de error === -->
-	<!-- ======================= -->
-
-	<error-page>
-		<location>/error.xhtml</location>
-	</error-page>
-
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>sdi2-23</display-name>
+  <context-param>
+    <param-name>javax.faces.PROJECT_STAGE</param-name>
+    <param-value>Development</param-value>
+  </context-param>
+  <context-param>
+    <param-name>primefaces.THEME</param-name>
+    <param-value>cupertino</param-value>
+  </context-param>
+  <context-param>
+    <param-name>logLevel</param-name>
+    <param-value>DEBUG</param-value>
+  </context-param>
+  <listener>
+    <listener-class>uo.sdi.listener.LoggingInitialization</listener-class>
+  </listener>
+  <servlet>
+    <servlet-name>Faces Servlet</servlet-name>
+    <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Faces Servlet</servlet-name>
+    <url-pattern>*.xhtml</url-pattern>
+  </servlet-mapping>
+  <welcome-file-list>
+    <welcome-file>login.xhtml</welcome-file>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  <error-page>
+    <location>/error.xhtml</location>
+  </error-page>
 </web-app>

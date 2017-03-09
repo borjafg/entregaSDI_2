@@ -15,14 +15,15 @@
 		<h:form id="form_menu_administrador">
 			<p:menubar>
 				<p:menuitem value="#{msgs.administrador_menu_reinicio}"
-					action="#{bean_users_list.restartData}" update="tabla_usuarios mensajes" />
+					action="#{bean_users_list.restartData}"
+					update="tabla_usuarios mensajes_admin" />
 
 				<ui:include src="/snippets/submenu_idiomas.xhtml" />
 			</p:menubar>
 		</h:form>
 
 		<p:spacer />
-		<p:messages id="mensajes" for="mensajes_administrador"
+		<p:messages id="mensajes_admin" for="mensajes_administrador"
 			showDetail="true" closable="true" />
 		<p:spacer />
 
@@ -53,7 +54,8 @@
 			<p:column>
 				<h:form>
 					<p:commandLink action="#{bean_users_list.changeStatus(usuario)}"
-						immediate="true" type="submit" update="tabla_usuarios mensajes"
+						immediate="true" type="submit"
+						update="tabla_usuarios mensajes_admin"
 						value="#{msgs.administrador_boton_cambiar_estado}" />
 				</h:form>
 			</p:column>
@@ -61,7 +63,8 @@
 			<p:column>
 				<h:form>
 					<p:commandLink action="#{bean_users_list.deleteUser(usuario)}"
-						immediate="true" type="submit" update="tabla_usuarios mensajes"
+						immediate="true" type="submit"
+						update="tabla_usuarios mensajes_admin"
 						value="#{msgs.administrador_boton_eliminar_usuario}">
 
 						<p:confirm
@@ -81,6 +84,7 @@
 					</p:confirmDialog>
 				</h:form>
 			</p:column>
+
 		</p:dataTable>
 	</h:body>
 </f:view>
