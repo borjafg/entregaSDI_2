@@ -19,6 +19,7 @@
 					update="tabla_usuarios mensajes_admin" />
 
 				<ui:include src="/snippets/submenu_idiomas.xhtml" />
+				<ui:include src="/snippets/menu_item_logout.xhtml" />
 			</p:menubar>
 		</h:form>
 
@@ -28,7 +29,7 @@
 		<p:spacer />
 
 		<p:dataTable var="usuario" value="#{bean_users_list.users}"
-			id="tabla_usuarios">
+			id="tabla_usuarios" rowIndexVar="index">
 
 			<f:facet name="header">
 				#{msgs.administrador_titulo_tabla_usuarios}
@@ -37,33 +38,37 @@
 
 			<p:column headerText="#{msgs.administrador_columna_usuario}"
 				sortBy="#{usuario.login}">
-				<h:outputText value="#{usuario.login}" />
+				<h:outputText value="#{usuario.login}" id="column_login" />
 			</p:column>
 
 			<p:column headerText="#{msgs.administrador_columna_correo}"
 				sortBy="#{usuario.email}">
-				<h:outputText value="#{usuario.email}" />
+				<h:outputText value="#{usuario.email}" id="column_email" />
 			</p:column>
 
 			<p:column headerText="#{msgs.administrador_columna_estado}"
 				sortBy="#{usuario.status}">
-				<h:outputText value="#{usuario.status.name().toLowerCase()}" />
+
+				<h:outputText value="#{usuario.status.name().toLowerCase()}"
+					id="column_status" />
 			</p:column>
 
 
-			<p:column>
-				<h:form>
+			<p:column
+				style="#{empty usuario ? '' : 'background-color: #f3f5a7;'}">
+				<h:form id="form_status">
 					<p:commandLink action="#{bean_users_list.changeStatus(usuario)}"
-						immediate="true" type="submit"
+						immediate="true" type="submit" id="button_status"
 						update="tabla_usuarios mensajes_admin"
 						value="#{msgs.administrador_boton_cambiar_estado}" />
 				</h:form>
 			</p:column>
 
-			<p:column>
-				<h:form>
+			<p:column
+				style="#{empty usuario ? '' : 'background-color: #ffcccc;'}">
+				<h:form id="form_delete">
 					<p:commandLink action="#{bean_users_list.deleteUser(usuario)}"
-						immediate="true" type="submit"
+						immediate="true" type="submit" id="button_delete"
 						update="tabla_usuarios mensajes_admin"
 						value="#{msgs.administrador_boton_eliminar_usuario}">
 

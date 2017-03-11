@@ -6,28 +6,48 @@
 	template="/templates/template_anonimo.xhtml">
 
 	<ui:define name="opcion_menu">
-		<p:menuitem value="#{msgs.registry_enlace_login}" action="/login.xhtml" immediate="true"
-			update="@all" />
+		<p:menuitem value="#{msgs.registry_enlace_login}" action="login"
+			immediate="true" update="@all" />
 	</ui:define>
 
 	<ui:define name="cuerpo_form">
 		<p:panel id="panel_registry" header="#{msgs.registry_titulo_panel}">
 
-			<h:panelGrid columns="5" cellpadding="5">
+			<h:panelGrid columns="3" cellpadding="5">
 				<p:outputLabel for="usuario" value="#{msgs.login_usuario}" />
+
 				<p:inputText id="usuario" value="#{bean_registry.login}"
 					required="true" placeholder="#{msgs.login_placeholder_usuario}"
-					requiredMessage="#{msgs.login_usuario_requerido}" size="30" />
+					requiredMessage="#{msgs.login_usuario_requerido}" size="30">
+					<f:validateLength minimum="3" />
+				</p:inputText>
+
 				<p:message for="usuario" />
 
-				<p:outputLabel for="contrasena" value="#{msgs.login_contrasena}" />
-				<p:inputText id="contrasena" value="#{bean_registry.password}"
+
+				<p:outputLabel for="contrasena1" value="#{msgs.login_contrasena}" />
+
+				<p:password id="contrasena1" value="#{bean_registry.password}"
 					required="true" placeholder="#{msgs.login_placeholder_contrasena}"
 					requiredMessage="#{msgs.login_contrasena_requerida}" size="30"
-					type="password" />
-				<p:message for="contrasena" />
+					type="password">
+					<f:validateLength minimum="8" />
+				</p:password>
+
+				<p:message for="contrasena1" />
+
+				<p:outputLabel for="contrasena2" value="#{msgs.login_contrasena}" />
+
+				<p:password id="contrasena2" value="#{bean_registry.password}"
+					required="true" placeholder="#{msgs.login_placeholder_contrasena}"
+					requiredMessage="#{msgs.login_contrasena_requerida}" size="30"
+					type="password" match="contrasena1" />
+
+				<p:message for="contrasena2" />
+
 
 				<p:outputLabel value="" />
+
 				<p:commandButton value="#{msgs.registry_boton}" update="@form"
 					action="#{bean_registry.registrar}" />
 			</h:panelGrid>

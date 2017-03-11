@@ -4,6 +4,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.After;
 import org.junit.Before;
@@ -19,6 +20,7 @@ import org.openqa.selenium.firefox.FirefoxProfile;
 import alb.util.log.Log;
 
 import com.sdi.tests.database_test.DatabaseContentsTester;
+import com.sdi.tests.page_objects.PO_AdminRow;
 import com.sdi.tests.page_objects.PO_LoginForm;
 import com.sdi.tests.utils.PropertiesReader;
 import com.sdi.tests.utils.SeleniumUtils;
@@ -173,14 +175,68 @@ public class PlantillaSDI2_Tests1617 {
     // PR05: Visualizar correctamente la lista de usuarios normales.
     @Test
     public void prueba05() {
-	assertTrue(false);
+	// (1) Hacer login
+	new PO_LoginForm().completeForm(driver, "admin", "admin");
+
+	// (2) Esperar a que se cargue la página
+	SeleniumUtils.EsperaCargaPagina(driver, "id", "tabla_usuarios", 10);
+
+	// (3) Comprobar que la página contiene los datos correctos
+	Map<String, Object> fila;
+
+	String email;
+	String status = "enabled";
+
+	for (int indexUser = 0; indexUser < 3; indexUser++) {
+	    fila = new PO_AdminRow().findRow(driver, indexUser);
+
+	    assertTrue(fila.get("login") != null
+		    && fila.get("login").equals("user" + (indexUser + 1)));
+
+	    email = "user" + (indexUser + 1) + "@mail.com";
+
+	    assertTrue(fila.get("email") != null
+		    && fila.get("email").equals(email));
+
+	    assertTrue(fila.get("status") != null
+		    && fila.get("status").equals(status));
+	}
+
+	ThreadUtil.wait(300); // Espera para ver el efecto del test
     }
 
     // PR06: Cambiar el estado de un usuario de ENABLED a DISABLED. Y tratar de
     // entrar con el usuario que se ha desactivado.
     @Test
     public void prueba06() {
-	assertTrue(false);
+	// (1) Hacer login
+	new PO_LoginForm().completeForm(driver, "admin", "admin");
+
+	// (2) Esperar a que se cargue la página
+	SeleniumUtils.EsperaCargaPagina(driver, "id", "tabla_usuarios", 10);
+
+	// (3) Buscar la primera fila y comprobar que el usuario está habilitado
+	Map<String, Object> fila = new PO_AdminRow().findRow(driver, 0);
+
+	assertTrue(fila.get("status") != null
+		&& fila.get("status").equals("enabled"));
+
+	// (4) Cambiar el estado del usuario
+	((WebElement) fila.get("button_state")).click();
+
+	// (5) Esperar a que aparezca el mensaje de éxito
+	List<WebElement> mensajes = SeleniumUtils.EsperaCargaPagina(driver,
+		"class", "ui-messages-info-detail", 8);
+	WebElement mensaje = mensajes.get(0);
+
+	assertTrue(
+		"No se encontró el mensaje de éxito al cambiar de usuario",
+		mensaje.getText().equals(
+			new PropertiesReader().getValueOf(defaultLocale,
+				"administrador_exito_cambiar_estado")));
+	
+	// (6) Intentar hacer login con ese usuario
+	
     }
 
     // PR07: Cambiar el estado de un usuario a DISABLED a ENABLED. Y Y tratar de
