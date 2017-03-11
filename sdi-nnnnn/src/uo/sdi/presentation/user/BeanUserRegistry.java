@@ -8,6 +8,7 @@ import javax.faces.context.FacesContext;
 
 import uo.sdi.business.Services;
 import uo.sdi.business.UserService;
+import uo.sdi.business.exception.BusinessException;
 import uo.sdi.dto.UserDTO;
 import uo.sdi.presentation.util.MessageManager;
 import alb.util.log.Log;
@@ -40,39 +41,27 @@ public class BeanUserRegistry implements Serializable {
 	user.setPassword(password);
 
 	UserService userServ = Services.getUserService();
-
+	FacesContext contexto = FacesContext.getCurrentInstance();
 	try {
+	    Log.debug("Vamos a registrar al usuario");
 	    userServ.registerUser(user);
-	}
+	} catch (BusinessException be) {
 
-	catch (Exception excep) { // Error al ejecutar la comprobación
-	    FacesContext contexto = FacesContext.getCurrentInstance();
-
-	    if (excep.getMessage().equals("Ese login ya está registrado")) {
-		MessageManager.warning(contexto, "panel_registry",
-			"registry_login_ya_exite");
-	    } else if (excep.getMessage().equals("El email no es válido")) {
-		MessageManager.warning(contexto, "panel_registry",
-			"registry_email_no_valido");
-	    } else if (excep.getMessage().equals(
-		    "Las contraseña tienen que ser iguales")) {
-		MessageManager.warning(contexto, "panel_registry",
-			"registry_password_iguales");
-	    } else if (excep.getMessage().equals(
-		    "La contraseña debe tener al menos 8 caracteres")) {
-		MessageManager.warning(contexto, "panel_registry",
-			"registry_password_peque");
-	    } else if (excep.getMessage().equals(
-		    "La contraseña debe tener letras y numeros")) {
-		MessageManager.warning(contexto, "panel_registry",
-			"registry_password_type");
-	    }
-
+	    MessageManager.warning(contexto, "panel_registry", be.getMessage());
+	    Log.error(
+		    "Ha ocurrido una Business exception [%s] , durante el registro de un nuevo usuario ",
+		    be.getMessage());
 	    return "fallo";
 	}
 
-	Log.debug("Se ha iniciado con exito la sesión del usuario: %s", login);
+	catch (Exception excep) { // Error al ejecutar la comprobación
+	    Log.error("Excepcion generada durante la creacion de un usario");
+	    return "error";
+	}
 
+	Log.debug("Se ha registrado con exito la sesión del usuario: %s", login);
+
+	MessageManager.info(contexto, "panel_login", "registry_exito");
 	return "exito";
     }
 
