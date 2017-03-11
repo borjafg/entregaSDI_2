@@ -11,6 +11,7 @@ import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxBinary;
@@ -86,7 +87,7 @@ public class PlantillaSDI2_Tests1617 {
 
 	SeleniumUtils.EsperaCargaPagina(driver, "id", "tabla_usuarios", 10);
 
-	ThreadUtil.wait(300); // Espera para ver el efecto del test
+	ThreadUtil.wait(800); // Espera para ver el efecto del test
     }
 
     // PR02: Fallo en la autenticación del administrador por introducir mal el
@@ -109,7 +110,7 @@ public class PlantillaSDI2_Tests1617 {
 			new PropertiesReader().getValueOf(defaultLocale,
 				"login_usuario_no_existe")));
 
-	ThreadUtil.wait(300); // Espera para ver el efecto del test
+	ThreadUtil.wait(800); // Espera para ver el efecto del test
     }
 
     // PR03: Fallo en la autenticación del administrador por introducir mal la
@@ -132,7 +133,7 @@ public class PlantillaSDI2_Tests1617 {
 			new PropertiesReader().getValueOf(defaultLocale,
 				"login_usuario_no_existe")));
 
-	ThreadUtil.wait(300); // Espera para ver el efecto del test
+	ThreadUtil.wait(800); // Espera para ver el efecto del test
     }
 
     // PR04: Probar que la base de datos contiene los datos insertados con
@@ -164,6 +165,8 @@ public class PlantillaSDI2_Tests1617 {
 	// (6) Comprobar que los datos son los que deberían ser
 	try {
 	    new DatabaseContentsTester().test();
+
+	    ThreadUtil.wait(800);
 	}
 
 	catch (Exception ex) {
@@ -202,7 +205,7 @@ public class PlantillaSDI2_Tests1617 {
 		    && fila.get("status").equals(status));
 	}
 
-	ThreadUtil.wait(300); // Espera para ver el efecto del test
+	ThreadUtil.wait(800); // Espera para ver el efecto del test
     }
 
     // PR06: Cambiar el estado de un usuario de ENABLED a DISABLED. Y tratar de
@@ -234,28 +237,205 @@ public class PlantillaSDI2_Tests1617 {
 		mensaje.getText().equals(
 			new PropertiesReader().getValueOf(defaultLocale,
 				"administrador_exito_cambiar_estado")));
-	
+
+	ThreadUtil.wait(1000); // Espera para ver el efecto del test
+
+	// (5) Cerrar sesión
+	WebElement logout = driver.findElement(By
+		.id("form_menu_administrador:boton_logout"));
+	logout.click();
+
+	SeleniumUtils.EsperaCargaPagina(driver, "id",
+		"form_anonimo:boton_login", 10);
+
 	// (6) Intentar hacer login con ese usuario
-	
+	new PO_LoginForm().completeForm(driver, (String) fila.get("login"),
+		(String) fila.get("login"));
+
+	// (7) Comprobar que no fue posible
+	mensajes = SeleniumUtils.EsperaCargaPagina(driver, "class",
+		"ui-messages-warn-detail", 8);
+	mensaje = mensajes.get(0);
+
+	assertTrue(
+		"No se encontró el mensaje de usuario deshabilitado",
+		mensaje.getText().equals(
+			new PropertiesReader().getValueOf(defaultLocale,
+				"login_usuario_deshabilitado")));
+
+	ThreadUtil.wait(1000); // Espera para ver el efecto del test
     }
 
-    // PR07: Cambiar el estado de un usuario a DISABLED a ENABLED. Y Y tratar de
+    // PR07: Cambiar el estado de un usuario a DISABLED a ENABLED, y tratar de
     // entrar con el usuario que se ha activado.
     @Test
     public void prueba07() {
-	assertTrue(false);
+	// (1) Hacer login
+	new PO_LoginForm().completeForm(driver, "admin", "admin");
+
+	// (2) Esperar a que se cargue la página
+	SeleniumUtils.EsperaCargaPagina(driver, "id", "tabla_usuarios", 10);
+
+	// (3) Buscar la primera fila y comprobar que el usuario está habilitado
+	Map<String, Object> fila = new PO_AdminRow().findRow(driver, 0);
+
+	assertTrue(fila.get("status") != null
+		&& fila.get("status").equals("disabled"));
+
+	// (4) Cambiar el estado del usuario
+	((WebElement) fila.get("button_state")).click();
+
+	// (5) Esperar a que aparezca el mensaje de éxito
+	List<WebElement> mensajes = SeleniumUtils.EsperaCargaPagina(driver,
+		"class", "ui-messages-info-detail", 8);
+	WebElement mensaje = mensajes.get(0);
+
+	assertTrue(
+		"No se encontró el mensaje de éxito al cambiar de usuario",
+		mensaje.getText().equals(
+			new PropertiesReader().getValueOf(defaultLocale,
+				"administrador_exito_cambiar_estado")));
+
+	ThreadUtil.wait(800); // Espera para ver el efecto del test
+
+	// (5) Cerrar sesión
+	WebElement logout = driver.findElement(By
+		.id("form_menu_administrador:boton_logout"));
+	logout.click();
+
+	SeleniumUtils.EsperaCargaPagina(driver, "id",
+		"form_anonimo:boton_login", 10);
+
+	// (6) Intentar hacer login con ese usuario
+	new PO_LoginForm().completeForm(driver, (String) fila.get("login"),
+		(String) fila.get("login"));
+
+	// (7) Comprobar que pudo hacer login
+	// SeleniumUtils.EsperaCargaPagina(driver, "id", "idPaginaUsuario", 10);
+
+	ThreadUtil.wait(800); // Espera para ver el efecto del test
     }
 
     // PR08: Ordenar por Login
     @Test
     public void prueba08() {
-	assertTrue(false);
+	// (1) Hacer login
+	new PO_LoginForm().completeForm(driver, "admin", "admin");
+
+	// (2) Esperar a que se cargue la página
+	List<WebElement> titulos = SeleniumUtils.EsperaCargaPagina(driver,
+		"id", "tabla_usuarios:column_login_title", 10);
+	WebElement titulo = titulos.get(0);
+
+	// (3) Ordenar por login (ASC)
+	titulo.click();
+	ThreadUtil.wait(1000); // Espera para ver el efecto del test
+
+	// (4) Comprobar que la los datos están ordenados
+	Map<String, Object> filaAnterior = new PO_AdminRow().findRow(driver, 0);
+	Map<String, Object> filaActual;
+
+	String loginAnterior = (String) filaAnterior.get("login");
+	String loginActual;
+
+	for (int indexUser = 1; indexUser < 3; indexUser++) {
+	    filaActual = new PO_AdminRow().findRow(driver, indexUser);
+	    loginActual = (String) filaActual.get("login");
+
+	    assertTrue("Los usuarios no están ordenados",
+		    loginAnterior.compareTo(loginActual) == -1);
+
+	    filaAnterior = filaActual;
+	    loginAnterior = loginActual;
+	}
+
+	ThreadUtil.wait(1000); // Espera para ver el efecto del test
+
+	// (3) Ordenar por login (DESC)
+	titulo.click();
+
+	// (4) Comprobar que los datos están ordenados
+
+	/*
+	 * El último usuario evaluado antes es el que aparecerá ahora en la
+	 * primera fila de la tabla. Por está razón no hay que extraer el valor
+	 * de la primera fila de la tabla y guardarla en la variable
+	 * loginAnterior.
+	 */
+
+	for (int indexUser = 1; indexUser < 3; indexUser++) {
+	    filaActual = new PO_AdminRow().findRow(driver, indexUser);
+	    loginActual = (String) filaActual.get("login");
+
+	    assertTrue("Los usuarios no están ordenados",
+		    loginAnterior.compareTo(loginActual) == 1);
+
+	    filaAnterior = filaActual;
+	    loginAnterior = loginActual;
+	}
+
+	ThreadUtil.wait(1000); // Espera para ver el efecto del test
     }
 
     // PR09: Ordenar por Email
     @Test
     public void prueba09() {
-	assertTrue(false);
+	// (1) Hacer login
+	new PO_LoginForm().completeForm(driver, "admin", "admin");
+
+	// (2) Esperar a que se cargue la página
+	List<WebElement> titulos = SeleniumUtils.EsperaCargaPagina(driver,
+		"id", "tabla_usuarios:column_email_title", 10);
+	WebElement titulo = titulos.get(0);
+
+	// (3) Ordenar por email (ASC)
+	titulo.click();
+	ThreadUtil.wait(1000); // Espera para ver el efecto del test
+
+	// (4) Comprobar que los datos están ordenados
+	Map<String, Object> filaAnterior = new PO_AdminRow().findRow(driver, 0);
+	Map<String, Object> filaActual;
+
+	String emailAnterior = (String) filaAnterior.get("email");
+	String emailActual;
+
+	for (int indexUser = 1; indexUser < 3; indexUser++) {
+	    filaActual = new PO_AdminRow().findRow(driver, indexUser);
+	    emailActual = (String) filaActual.get("email");
+
+	    assertTrue("Los usuarios no están ordenados",
+		    emailAnterior.compareTo(emailActual) == -1);
+
+	    filaAnterior = filaActual;
+	    emailAnterior = emailActual;
+	}
+
+	ThreadUtil.wait(1000); // Espera para ver el efecto del test
+
+	// (3) Ordenar por email (DESC)
+	titulo.click();
+
+	// (4) Comprobar que la los datos están ordenados
+
+	/*
+	 * El último usuario evaluado antes es el que aparecerá ahora en la
+	 * primera fila de la tabla. Por está razón no hay que extraer el valor
+	 * de la primera fila de la tabla y guardarla en la variable
+	 * emailAnterior.
+	 */
+
+	for (int indexUser = 1; indexUser < 3; indexUser++) {
+	    filaActual = new PO_AdminRow().findRow(driver, indexUser);
+	    emailActual = (String) filaActual.get("email");
+
+	    assertTrue("Los usuarios no están ordenados",
+		    emailAnterior.compareTo(emailActual) == 1);
+
+	    filaAnterior = filaActual;
+	    emailAnterior = emailActual;
+	}
+
+	ThreadUtil.wait(1000); // Espera para ver el efecto del test
     }
 
     // PR10: Ordenar por Status

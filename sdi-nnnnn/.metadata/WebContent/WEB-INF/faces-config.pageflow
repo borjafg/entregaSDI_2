@@ -1,35 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14885646375180" configfile="/sdi-nnnnn/WebContent/WEB-INF/faces-config.xml">
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14885646375180" configfile="/sdi2-23/WebContent/WEB-INF/faces-config.xml">
   <nodes xsi:type="pageflow:PFPage" x="122" y="178" id="pf14886561639490" referenceLink="//@navigationRule.0/@fromViewId|"/>
-  <nodes xsi:type="pageflow:PFPage" name="login.xhtml" x="554" y="562" id="pf14887931416210" referenceLink="//@navigationRule.2/@fromViewId|" outlinks="pf14887931553952 pf14887931553953 pf14887931553954" inlinks="pf14887931553952 pf14888074656892" path="/login.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="principal_administrador.xhtml" x="770" y="370" id="pf14887931553955" referenceLink="//@navigationRule.4/@navigationCase.5/@toViewId|" outlinks="pf148901289904110 pf148901290197611 pf148901293914512 pf148901293914513 pf148901296808814 pf148901296808815" inlinks="pf14887931553953 pf148901289904110 pf148901290197611 pf148901293914512 pf148901293914513 pf148901296808814 pf148901296808815" path="/principal_administrador.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="principal_usuario.xhtml" x="770" y="754" id="pf14887931553956" referenceLink="//@navigationRule.2/@navigationCase.2/@toViewId|" inlinks="pf14887931553954" path="/principal_usuario.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="*" x="122" y="562" id="pf14887931778329" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf148879317783210" path="*"/>
-  <nodes xsi:type="pageflow:PFPage" name="error.xhtml" x="338" y="562" id="pf148879317783211" referenceLink="//@navigationRule.1/@fromViewId|" outlinks="pf14888074656892" inlinks="pf148879317783210" path="/error.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="registry.xhtml" x="122" y="947" id="pf14890127957880" referenceLink="//@navigationRule.4/@navigationCase.1/@toViewId|" outlinks="pf14890127957881 pf14890127957882" inlinks="pf14890127957881 pf14890127957882" path="/registry.xhtml"/>
-  <links id="pf14887931553953" target="pf14887931553955" source="pf14887931416210" outcome="admin" fromaction="#{bean_login.dologin}"/>
-  <links id="pf14887931553954" target="pf14887931553956" source="pf14887931416210" outcome="usuario" fromaction="#{bean_login.dologin}"/>
-  <links id="pf148879317783210" target="pf148879317783211" source="pf14887931778329" outcome="error"/>
-  <links id="pf14888074656892" target="pf14887931416210" source="pf148879317783211" outcome="volver" redirect="true"/>
-  <links id="pf14887931553952" target="pf14887931416210" source="pf14887931416210" outcome="fallo" fromaction="#{bean_login.dologin}">
-    <bendPoints d1Height="-36" d2Height="-36"/>
-    <bendPoints d1Width="-64" d1Height="-36" d2Width="-64" d2Height="-36"/>
-    <bendPoints d1Width="-64" d2Width="-64"/>
-  </links>
-  <links id="pf14890127957881" target="pf14890127957880" source="pf14890127957880" outcome="fallo" fromaction="#{bean_registry.registrar}">
-    <bendPoints d1Height="-36" d2Height="-36"/>
-    <bendPoints d1Width="-64" d1Height="-36" d2Width="-64" d2Height="-36"/>
-    <bendPoints d1Width="-64" d2Width="-64"/>
-  </links>
-  <links id="pf14890127957882" target="pf14890127957880" source="pf14890127957880" outcome="exito" fromaction="#{bean_registry.registrar}">
-    <bendPoints d1Height="-66" d2Height="-66"/>
-    <bendPoints d1Width="-94" d1Height="-66" d2Width="-94" d2Height="-66"/>
-    <bendPoints d1Width="-94" d2Width="-94"/>
-  </links>
-  <links id="pf148901289904110" target="pf14887931553955" source="pf14887931553955" outcome="fallo" fromaction="#{bean_users_list.deleteUser(usuario)}"/>
-  <links id="pf148901290197611" target="pf14887931553955" source="pf14887931553955" outcome="exito" fromaction="#{bean_users_list.deleteUser(usuario)}"/>
-  <links id="pf148901293914512" target="pf14887931553955" source="pf14887931553955" outcome="fallo" fromaction="#{bean_users_list.changeStatus(usuario)}"/>
-  <links id="pf148901293914513" target="pf14887931553955" source="pf14887931553955" outcome="exito" fromaction="#{bean_users_list.changeStatus(usuario)}"/>
-  <links id="pf148901296808814" target="pf14887931553955" source="pf14887931553955" outcome="fallo" fromaction="#{bean_users_list.restartData}"/>
-  <links id="pf148901296808815" target="pf14887931553955" source="pf14887931553955" outcome="exito" fromaction="#{bean_users_list.restartData}"/>
+  <nodes xsi:type="pageflow:PFPage" name="*" id="pf14892572761980" referenceLink="//@navigationRule.1/@fromViewId|" outlinks="pf14892572761981 pf148925732853721" path="*"/>
+  <nodes xsi:type="pageflow:PFPage" name="error.xhtml" id="pf14892572761982" referenceLink="//@navigationRule.2/@fromViewId|" outlinks="pf14892572761983" inlinks="pf14892572761981" path="/error.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="login.xhtml" id="pf14892572761984" referenceLink="//@navigationRule.3/@fromViewId|" outlinks="pf14892572761985 pf14892572761986 pf14892572761987" inlinks="pf14892572761983 pf14892572761985 pf148925732853721" path="/login.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="principal_administrador.xhtml" id="pf14892572761988" referenceLink="//@navigationRule.5/@navigationCase.5/@toViewId|" outlinks="pf14892572761989 pf148925727619810 pf148925727619811 pf148925727619812 pf148925727619813 pf148925727619814" inlinks="pf14892572761986 pf14892572761989 pf148925727619810 pf148925727619811 pf148925727619812 pf148925727619813 pf148925727619814" path="/principal_administrador.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="principal_usuario.xhtml" id="pf148925727619815" referenceLink="//@navigationRule.3/@navigationCase.2/@toViewId|" inlinks="pf14892572761987" path="/principal_usuario.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="registry.xhtml" id="pf148925727619816" referenceLink="//@navigationRule.4/@navigationCase.1/@toViewId|" outlinks="pf148925727619917 pf148925727619918" inlinks="pf148925727619917 pf148925727619918" path="/registry.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" id="pf148925729831619" referenceLink="//@navigationRule.0/@fromViewId|"/>
+  <links id="pf14892572761981" target="pf14892572761982" source="pf14892572761980" outcome="error"/>
+  <links id="pf14892572761983" target="pf14892572761984" source="pf14892572761982" outcome="volver" redirect="true"/>
+  <links id="pf14892572761985" target="pf14892572761984" source="pf14892572761984" outcome="fallo" fromaction="#{bean_login.dologin}"/>
+  <links id="pf14892572761986" target="pf14892572761988" source="pf14892572761984" outcome="admin" fromaction="#{bean_login.dologin}"/>
+  <links id="pf14892572761987" target="pf148925727619815" source="pf14892572761984" outcome="usuario" fromaction="#{bean_login.dologin}"/>
+  <links id="pf148925727619917" target="pf148925727619816" source="pf148925727619816" outcome="fallo" fromaction="#{bean_registry.registrar}"/>
+  <links id="pf148925727619918" target="pf148925727619816" source="pf148925727619816" outcome="exito" fromaction="#{bean_registry.registrar}"/>
+  <links id="pf14892572761989" target="pf14892572761988" source="pf14892572761988" outcome="fallo" fromaction="#{bean_users_list.deleteUser(usuario)}"/>
+  <links id="pf148925727619810" target="pf14892572761988" source="pf14892572761988" outcome="exito" fromaction="#{bean_users_list.deleteUser(usuario)}"/>
+  <links id="pf148925727619811" target="pf14892572761988" source="pf14892572761988" outcome="fallo" fromaction="#{bean_users_list.changeStatus(usuario)}"/>
+  <links id="pf148925727619812" target="pf14892572761988" source="pf14892572761988" outcome="exito" fromaction="#{bean_users_list.changeStatus(usuario)}"/>
+  <links id="pf148925727619813" target="pf14892572761988" source="pf14892572761988" outcome="fallo" fromaction="#{bean_users_list.restartData}"/>
+  <links id="pf148925727619814" target="pf14892572761988" source="pf14892572761988" outcome="exito" fromaction="#{bean_users_list.restartData}"/>
+  <links id="pf148925732853721" target="pf14892572761984" source="pf14892572761980" outcome="exito" fromaction="#{bean_login.dologout}"/>
 </pageflow:Pageflow>

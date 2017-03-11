@@ -9,6 +9,7 @@
 <f:view locale="#{bean_language_config.locale}">
 	<h:head>
 		<title>#{msgs.tituloHead}</title>
+		<link rel="stylesheet" type="text/css" href="css/mi_menu.css" />
 	</h:head>
 
 	<h:body>
@@ -37,17 +38,17 @@
 
 
 			<p:column headerText="#{msgs.administrador_columna_usuario}"
-				sortBy="#{usuario.login}">
+				sortBy="#{usuario.login}" id="column_login_title">
 				<h:outputText value="#{usuario.login}" id="column_login" />
 			</p:column>
 
 			<p:column headerText="#{msgs.administrador_columna_correo}"
-				sortBy="#{usuario.email}">
+				sortBy="#{usuario.email}" id="column_email_title">
 				<h:outputText value="#{usuario.email}" id="column_email" />
 			</p:column>
 
 			<p:column headerText="#{msgs.administrador_columna_estado}"
-				sortBy="#{usuario.status}">
+				sortBy="#{usuario.status}" id="column_status_title">
 
 				<h:outputText value="#{usuario.status.name().toLowerCase()}"
 					id="column_status" />

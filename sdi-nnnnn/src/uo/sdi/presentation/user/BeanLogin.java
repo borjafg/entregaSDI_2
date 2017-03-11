@@ -10,8 +10,8 @@ import javax.servlet.http.HttpSession;
 
 import uo.sdi.business.Services;
 import uo.sdi.business.UserService;
+import uo.sdi.business.exception.BusinessException;
 import uo.sdi.dto.UserDTO;
-import uo.sdi.model.types.UserStatus;
 import uo.sdi.presentation.util.MessageManager;
 import alb.util.log.Log;
 
@@ -37,6 +37,18 @@ public class BeanLogin implements Serializable {
 	    user = userServ.findLoggableUser(login, password);
 	}
 
+	// La cuenta se encuentra deshabilitada
+	catch (BusinessException bs) {
+	    Log.error("Se ha intentado iniciar sesión con una cuenta de "
+		    + "usuario deshabilitada: [%s]", login);
+	    Log.error("Error: %s", bs.getMessage());
+
+	    MessageManager.warning(contexto, "panel_login",
+		    "login_usuario_deshabilitado");
+
+	    return "fallo";
+	}
+
 	catch (Exception excep) { // Error al comprobar los datos
 	    Log.error("Ha ocurrido un error al intentar comprobar los datos "
 		    + "del usuario [%s]", login);
@@ -46,41 +58,26 @@ public class BeanLogin implements Serializable {
 
 	// (1) Se ha encontrado el usuario
 	if (user != null) {
+	    putUserInSession(user);
 
-	    // (2) La cuenta se encuentra deshabilitada
-	    if (user.getStatus().equals(UserStatus.DISABLED)) {
-		Log.debug("Se ha intentado iniciar sesión con una cuenta de "
-			+ "usuario deshabilitada: [%s]", user.getLogin());
+	    // (2) El usuario es administrador
+	    if (user.getIsAdmin() == true) {
+		Log.info("El administrador con login [%s] ha iniciado "
+			+ "sesión.", user.getLogin());
 
-		MessageManager.warning(contexto, "panel_login",
-			"login_usuario_deshabilitado");
-
-		return "fallo";
+		return "admin";
 	    }
 
-	    // (2) La cuenta está habilitada
+	    // (2) El usuario no es un administrador
 	    else {
-		putUserInSession(user);
+		Log.info("El usuario con login [%s] ha iniciado sesión.",
+			user.getLogin());
 
-		// (3) El usuario es administrador
-		if (user.getIsAdmin() == true) {
-		    Log.info("El administrador con login [%s] ha iniciado "
-			    + "sesión.", user.getLogin());
-
-		    return "admin";
-		}
-
-		// (3) El usuario no es un administrador
-		else {
-		    Log.info("El usuario con login [%s] ha iniciado sesión.",
-			    user.getLogin());
-
-		    return "usuario";
-		}
+		return "usuario";
 	    }
 	}
 
-	// (1) No se ha encontrado el usuario
+	// (3) No se ha encontrado el usuario
 	else {
 	    Log.debug("Se ha intentado iniciar sesión (sin éxito) con el "
 		    + "siguiente usuario: [%s]", login);
@@ -92,13 +89,15 @@ public class BeanLogin implements Serializable {
 	}
     }
 
-    public void logout() {
+    public String dologout() {
 	HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
 		.getExternalContext().getSession(true);
 
 	session.invalidate();
 
 	Log.debug("Terminada la sesion del usuario");
+
+	return "exito";
     }
 
     private void putUserInSession(UserDTO user) {
