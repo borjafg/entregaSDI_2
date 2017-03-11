@@ -22,11 +22,13 @@ public class RegisterUserCommand implements Command<Void> {
 	UserCheck.minLoginLength(user);
 	UserCheck.minPasswordLength(user);
 	UserCheck.notRepeatedLogin(user);
+	UserCheck.isValidPassword(user);
 
 	User newUser = new User(user.getLogin());
 
 	newUser.setEmail(user.getEmail());
 	newUser.setPassword(user.getPassword());
+	
 
 	Jpa.getManager().persist(newUser);
 

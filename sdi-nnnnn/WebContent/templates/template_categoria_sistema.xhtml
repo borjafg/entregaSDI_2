@@ -5,46 +5,29 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
-
 <f:view locale="#{bean_language_config.locale}">
+
 	<h:head>
 		<title>#{msgs.tituloHead}</title>
 	</h:head>
 
 	<h:body>
-		<h:form id="form_menu_usuario">
+		<h:form id="form_menu_categorias_sistema">
 			<p:menubar>
+				<ui:insert name="opcion_menu" />
+
 				<ui:include src="/snippets/submenu_idiomas.xhtml" />
-				<ui:include src="/snippets/menu_item_logout.xhtml" />
 			</p:menubar>
 		</h:form>
-
 		<p:spacer />
 
-		<p:messages id="mensajes_user" for="mensajes_usuario"
-			showDetail="true" closable="true" />
-		<p:spacer />
-		
-		<h:panelGrid columns="3" cellpadding="5">
-		
-		<p:commandButton action="listarTareasInbox" value="#{msgs.inbox}" id="Inbox"/>
-		
-		<p:commandButton action="listarTareasHoy" value="#{msgs.hoy}" id="Hoy"/>
-		
-		<p:commandButton action="listarTareasSemana" value="#{msgs.semana}" id="Semana"/>
-		
-		</h:panelGrid>
-		
-		
-		
-		
-		
-		
-
-
-
-
+		<h:form id="form_categoria_sistema">
+			<ui:insert name="cuerpo_categoria_sistema" />
+		</h:form>
 
 	</h:body>
+
+
+
 </f:view>
 </html>

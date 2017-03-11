@@ -14,34 +14,46 @@
 		<p:panel id="panel_registry" header="#{msgs.registry_titulo_panel}">
 
 			<h:panelGrid columns="3" cellpadding="5">
-				<p:outputLabel for="usuario" value="#{msgs.login_usuario}" />
+				<p:outputLabel for="usuario" value="#{msgs.registry_usuario}" />
 
 				<p:inputText id="usuario" value="#{bean_registry.login}"
-					required="true" placeholder="#{msgs.login_placeholder_usuario}"
-					requiredMessage="#{msgs.login_usuario_requerido}" size="30">
+					required="true" placeholder="#{msgs.registry_placeholder_usuario}"
+					requiredMessage="#{msgs.registry_usuario_requerido}" size="30">
 					<f:validateLength minimum="3" />
 				</p:inputText>
 
 				<p:message for="usuario" />
 
+				<p:outputLabel for="email" value="#{msgs.registry_email}" />
 
-				<p:outputLabel for="contrasena1" value="#{msgs.login_contrasena}" />
+				<p:inputText id="email" value="#{bean_registry.email}" required="true"
+					placeholder="#{msgs.registry_placeholder_email}"
+					requiredMessage="#{msgs.registry_email_requerido}" size="30">
+				</p:inputText>
+
+				<p:message for="email " />
+
+				<p:outputLabel for="contrasena1" value="#{msgs.registry_contrasena}" />
 
 				<p:password id="contrasena1" value="#{bean_registry.password}"
-					required="true" placeholder="#{msgs.login_placeholder_contrasena}"
-					requiredMessage="#{msgs.login_contrasena_requerida}" size="30"
-					type="password">
-					<f:validateLength minimum="8" />
+					required="true"
+					placeholder="#{msgs.registry_placeholder_contrasena}"
+					requiredMessage="#{msgs.registry_contrasena_requerida}" size="30"
+					type="password" match="contrasena2">
+					<f:validateLength minimum="8" /> 
 				</p:password>
 
 				<p:message for="contrasena1" />
 
-				<p:outputLabel for="contrasena2" value="#{msgs.login_contrasena}" />
+				<p:outputLabel for="contrasena2"
+					value="#{msgs.registry_contrasena_rep}" />
 
-				<p:password id="contrasena2" value="#{bean_registry.password}"
-					required="true" placeholder="#{msgs.login_placeholder_contrasena}"
-					requiredMessage="#{msgs.login_contrasena_requerida}" size="30"
-					type="password" match="contrasena1" />
+				<p:password id="contrasena2" value="#{bean_registry.repeatPassword}"
+					required="true"
+					placeholder="#{msgs.registry_placeholder_contrasena_rep}"
+					requiredMessage="#{msgs.registry_contrasena_requerida}" size="30"
+					type="password"  />
+					
 
 				<p:message for="contrasena2" />
 
