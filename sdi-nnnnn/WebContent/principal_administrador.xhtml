@@ -15,7 +15,7 @@
 		<h:form id="form_menu_administrador">
 			<p:menubar>
 				<p:menuitem value="#{msgs.administrador_menu_reinicio}"
-					action="#{bean_users_list.restartData}"
+					action="#{bean_users_list.restartData}" id="boton_reinicio"
 					update="tabla_usuarios mensajes_admin" />
 
 				<ui:include src="/snippets/submenu_idiomas.xhtml" />

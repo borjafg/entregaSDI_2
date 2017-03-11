@@ -10,13 +10,15 @@ import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 
+import alb.util.log.Log;
+
+import com.sdi.tests.database_test.DatabaseContentsTester;
 import com.sdi.tests.page_objects.PO_LoginForm;
 import com.sdi.tests.utils.PropertiesReader;
 import com.sdi.tests.utils.SeleniumUtils;
@@ -135,8 +137,37 @@ public class PlantillaSDI2_Tests1617 {
     // conexión correcta a la base de datos.
     @Test
     public void prueba04() {
-	assertTrue(false);
-	// ¿Hay que conectarse a la base de datos para probarlo?
+	// (1) Hacer login como administrador
+	new PO_LoginForm().completeForm(driver, "admin", "admin");
+
+	// (2) Esperar a que aparezca la opción de reiniciar la base de datos
+	List<WebElement> elements = SeleniumUtils.EsperaCargaPagina(driver,
+		"id", "form_menu_administrador:boton_reinicio", 10);
+
+	// (3) Hacer click en el item de menu
+	elements.get(0).click();
+
+	// (4) Esperar a que aparezca el mensaje de éxito
+	List<WebElement> mensajes = SeleniumUtils.EsperaCargaPagina(driver,
+		"class", "ui-messages-info-detail", 8);
+	WebElement mensaje = mensajes.get(0);
+
+	// (5) Comprobar que es el mensaje adecuado
+	assertTrue(
+		"No se encontró el mensaje de login inválido",
+		mensaje.getText().equals(
+			new PropertiesReader().getValueOf(defaultLocale,
+				"administrador_exito_reinicio_base_datos")));
+
+	// (6) Comprobar que los datos son los que deberían ser
+	try {
+	    new DatabaseContentsTester().test();
+	}
+
+	catch (Exception ex) {
+	    Log.error(ex);
+	    assertTrue(false); // Ante cualquier error el test falla
+	}
     }
 
     // PR05: Visualizar correctamente la lista de usuarios normales.
@@ -146,7 +177,7 @@ public class PlantillaSDI2_Tests1617 {
     }
 
     // PR06: Cambiar el estado de un usuario de ENABLED a DISABLED. Y tratar de
-    // entrar con el usuario que se desactivado.
+    // entrar con el usuario que se ha desactivado.
     @Test
     public void prueba06() {
 	assertTrue(false);
