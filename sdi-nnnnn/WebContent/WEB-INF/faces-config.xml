@@ -165,4 +165,31 @@
 		</navigation-case>
 	</navigation-rule>
 
+
+	<!-- - - - - - - - - - - - -->
+	<!-- - - Usuario - - - - - -->
+	<!-- - - - - - - - - - - - -->
+
+	<navigation-rule>
+		<from-view-id>/principal_usuario.xhtml</from-view-id>
+
+		<navigation-case>
+			<from-outcome>listarTareasInbox</from-outcome>
+			<to-view-id>/listar_tareas_inbox.xhtml</to-view-id>
+		</navigation-case>
+
+		<navigation-case>
+			<from-outcome>listarTareasHoy</from-outcome>
+			<to-view-id>/listar_tareas_hoy.xhtml</to-view-id>
+		</navigation-case>
+
+		<navigation-case>
+			<from-outcome>listarTareasSemana</from-outcome>
+			<to-view-id>/listar_tareas_semana.xhtml</to-view-id>
+		</navigation-case>
+
+	</navigation-rule>
+
+
+
 </faces-config>
