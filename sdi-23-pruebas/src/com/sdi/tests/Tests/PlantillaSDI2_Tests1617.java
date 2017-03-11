@@ -353,6 +353,7 @@ public class PlantillaSDI2_Tests1617 {
 
 	// (3) Ordenar por login (DESC)
 	titulo.click();
+	ThreadUtil.wait(600);
 
 	// (4) Comprobar que los datos están ordenados
 
@@ -414,6 +415,7 @@ public class PlantillaSDI2_Tests1617 {
 
 	// (3) Ordenar por email (DESC)
 	titulo.click();
+	ThreadUtil.wait(600);
 
 	// (4) Comprobar que la los datos están ordenados
 
