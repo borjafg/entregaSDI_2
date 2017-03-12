@@ -27,33 +27,59 @@
 		<p:spacer />
 
 
-		<p:panelGrid style="text-align:center;" columns="3" layout="grid">
-			<p:column headerText="sfdasd">						
-					<p:commandButton action="inbox" id="inbox"
+		<!-- Poner en cada row style="border:none;" -->
+		<!-- probablemente con css -->
+		<p:panel>
+			<f:facet name="header">
+				<h:outputText style="text-align: center;"
+					value="#{msgs.principal_usuario_titulo_panel}" />
+			</f:facet>
+
+			<p:panelGrid style="text-align:center;" columns="3" layout="grid"
+				styleClass="ui-panelgrid-blank">
+
+
+				<p:panelGrid columns="1" layout="grid"
+					styleClass="ui-panelgrid-blank">
+
+					<h:outputText style="font-size:22px; font-weight:bold;"
 						value="#{msgs.principal_usuario_inbox}" />
-				
-			</p:column>
+					<h:panelGroup>
+						<h:outputText value="¿Ver tareas terminadas?" />
+						<p:spacer height="1px" width="10px" />
+						<p:selectBooleanCheckbox id="check_terminadas" />
+					</h:panelGroup>
+					<p:commandButton action="inbox" id="inbox"
+						value="#{msgs.principal_usuario_botones_listar}" />
+				</p:panelGrid>
 
 
+				<p:panelGrid columns="1" layout="grid"
+					styleClass="ui-panelgrid-blank">
 
-			<p:commandButton action="hoy" id="hoy"
-				value="#{msgs.principal_usuario_hoy}" />
-
-			<p:commandButton action="semana" id="semana"
-				value="#{msgs.principal_usuario_semana}" />
-
-		</p:panelGrid>
-
-
-
+					<h:outputText style="font-size:22px; font-weight:bold;"
+						value="#{msgs.principal_usuario_hoy}" />
+					<p:spacer />
+					<p:commandButton action="hoy" id="hoy"
+						value="#{msgs.principal_usuario_botones_listar}" />
+				</p:panelGrid>
 
 
+				<p:panelGrid columns="1" layout="grid"
+					styleClass="ui-panelgrid-blank">
+
+					<h:outputText style="font-size:22px; font-weight:bold;"
+						value="#{msgs.principal_usuario_semana}" />
+					<p:spacer />
+					<p:commandButton action="semana" id="semana"
+						value="#{msgs.principal_usuario_botones_listar}" />
+				</p:panelGrid>
 
 
-
-
-
+			</p:panelGrid>
+		</p:panel>
 
 	</h:body>
 </f:view>
+
 </html>
