@@ -9,21 +9,21 @@
 
 	<h:head>
 		<title>#{msgs.tituloHead}</title>
+		<link rel="stylesheet" type="text/css" href="css/mi_menu.css" />
 	</h:head>
 
 	<h:body>
 		<h:form id="form_menu_categorias_sistema">
 			<p:menubar>
-				<ui:insert name="opcion_menu" />
+				<p:menuitem value="listar_tareas_volver" action="volver" />
 
 				<ui:include src="/snippets/submenu_idiomas.xhtml" />
+				<ui:include src="/snippets/menu_item_logout.xhtml"></ui:include>
 			</p:menubar>
 		</h:form>
 		<p:spacer />
 
-		<h:form id="form_categoria_sistema">
-			<ui:insert name="cuerpo_categoria_sistema" />
-		</h:form>
+
 
 	</h:body>
 

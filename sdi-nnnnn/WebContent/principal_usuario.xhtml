@@ -9,6 +9,7 @@
 <f:view locale="#{bean_language_config.locale}">
 	<h:head>
 		<title>#{msgs.tituloHead}</title>
+		<link rel="stylesheet" type="text/css" href="css/mi_menu.css" />
 	</h:head>
 
 	<h:body>
@@ -24,22 +25,30 @@
 		<p:messages id="mensajes_user" for="mensajes_usuario"
 			showDetail="true" closable="true" />
 		<p:spacer />
-		
-		<h:panelGrid columns="3" cellpadding="5">
-		
-		<p:commandButton action="listarTareasInbox" value="#{msgs.inbox}" id="Inbox"/>
-		
-		<p:commandButton action="listarTareasHoy" value="#{msgs.hoy}" id="Hoy"/>
-		
-		<p:commandButton action="listarTareasSemana" value="#{msgs.semana}" id="Semana"/>
-		
-		</h:panelGrid>
-		
-		
-		
-		
-		
-		
+
+
+		<p:panelGrid style="text-align:center;" columns="3" layout="grid">
+			<p:column headerText="sfdasd">						
+					<p:commandButton action="inbox" id="inbox"
+						value="#{msgs.principal_usuario_inbox}" />
+				
+			</p:column>
+
+
+
+			<p:commandButton action="hoy" id="hoy"
+				value="#{msgs.principal_usuario_hoy}" />
+
+			<p:commandButton action="semana" id="semana"
+				value="#{msgs.principal_usuario_semana}" />
+
+		</p:panelGrid>
+
+
+
+
+
+
 
 
 

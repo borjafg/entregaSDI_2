@@ -189,22 +189,62 @@
 		<from-view-id>/principal_usuario.xhtml</from-view-id>
 
 		<navigation-case>
-			<from-outcome>listarTareasInbox</from-outcome>
+			<from-outcome>inbox</from-outcome>
 			<to-view-id>/listar_tareas_inbox.xhtml</to-view-id>
 		</navigation-case>
 
 		<navigation-case>
-			<from-outcome>listarTareasHoy</from-outcome>
+			<from-outcome>hoy</from-outcome>
 			<to-view-id>/listar_tareas_hoy.xhtml</to-view-id>
 		</navigation-case>
 
 		<navigation-case>
-			<from-outcome>listarTareasSemana</from-outcome>
+			<from-outcome>semana</from-outcome>
 			<to-view-id>/listar_tareas_semana.xhtml</to-view-id>
 		</navigation-case>
 
 	</navigation-rule>
-
-
+	
+	<!-- - - - - - - - - - - - -->
+	<!-- Listar tareas hoy - - -->
+	<!-- - - - - - - - - - - - -->
+	
+	<navigation-rule>
+		<from-view-id>/listar_hoy.xhtml</from-view-id>
+		
+		<navigation-case>
+			<from-outcome>volver</from-outcome>
+			<to-view-id>/principal_usuario.xhtml</to-view-id>
+		</navigation-case>
+	
+	</navigation-rule>
+	
+	<!-- - - - - - - - - - - - -->
+	<!-- Listar tareas inbox - -->
+	<!-- - - - - - - - - - - - -->
+	
+	<navigation-rule>
+		<from-view-id>/listar_inbox.xhtml</from-view-id>
+		
+		<navigation-case>
+			<from-outcome>volver</from-outcome>
+			<to-view-id>/principal_usuario.xhtml</to-view-id>
+		</navigation-case>
+	
+	</navigation-rule>
+	
+	<!-- - - - - - - - - - - - -->
+	<!-- Listar tareas semana  -->
+	<!-- - - - - - - - - - - - -->
+	
+	<navigation-rule>
+		<from-view-id>/listar_semana.xhtml</from-view-id>
+		
+		<navigation-case>
+			<from-outcome>volver</from-outcome>
+			<to-view-id>/principal_usuario.xhtml</to-view-id>
+		</navigation-case>
+	
+	</navigation-rule>
 
 </faces-config>
