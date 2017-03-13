@@ -13,6 +13,7 @@ import uo.sdi.business.exception.BusinessException;
 import uo.sdi.dto.UserDTO;
 import uo.sdi.model.types.UserStatus;
 import uo.sdi.presentation.util.MessageManager;
+import uo.sdi.presentation.util.UserInfo;
 import alb.util.log.Log;
 
 @ManagedBean(name = "bean_users_list")
@@ -41,8 +42,15 @@ public class BeanUsersList implements Serializable {
 
 	    // No mostrar al administrador (no debería poder eliminar su
 	    // propia cuenta o deshabilitarla)
-	    users.remove(FacesContext.getCurrentInstance().getExternalContext()
-		    .getSessionMap().get("user"));
+	    UserInfo userInfo = (UserInfo) FacesContext.getCurrentInstance()
+		    .getExternalContext().getSessionMap().get("user");
+
+	    for (UserDTO user : users) {
+		if (user.getId().equals(userInfo.getId())) {
+		    users.remove(user);
+		    break;
+		}
+	    }
 
 	    Log.debug("Se ha cargado con éxito la lista de usuarios que hay "
 		    + "en el sistema");

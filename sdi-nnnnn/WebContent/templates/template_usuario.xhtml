@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<f:view locale="#{bean_language_config.locale}">
+	<h:head>
+		<title>#{msgs.tituloHead}</title>
+		<link rel="stylesheet" type="text/css"
+			href="#{request.getContextPath()}/css/menu_logout_user.css" />
+		<ui:insert name="estilos" />
+	</h:head>
+
+	<h:body>
+		<h:form id="form_menu_superior">
+			<p:menubar>
+				<f:facet name="options" class="menu_derecha">
+					<p:panelGrid columns="1" id="tabla_login_usuario"
+						styleClass="ui-panelgrid-blank">
+
+						<h:panelGroup>
+							<h:outputText style="font-weight: bold;" value="Login:" />
+							<p:spacer height="1px" width="7px" />
+							<h:outputText value="#{sessionScope.user.login}" />
+						</h:panelGroup>
+					</p:panelGrid>
+				</f:facet>
+
+				<ui:insert name="items_menu" />
+
+				<ui:include src="/snippets/menu_item_logout.xhtml" />
+				<ui:include src="/snippets/submenu_idiomas.xhtml" />
+
+			</p:menubar>
+		</h:form>
+
+		<p:spacer />
+		<p:messages id="mensajes_user" for="mensajes_usuario"
+			showDetail="true" closable="true" />
+		<p:spacer />
+
+		<ui:insert name="cuerpo" />
+
+	</h:body>
+</f:view>
+
+</html>

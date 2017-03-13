@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
@@ -13,10 +13,11 @@ import uo.sdi.business.UserService;
 import uo.sdi.business.exception.BusinessException;
 import uo.sdi.dto.UserDTO;
 import uo.sdi.presentation.util.MessageManager;
+import uo.sdi.presentation.util.UserInfo;
 import alb.util.log.Log;
 
 @ManagedBean(name = "bean_login")
-@RequestScoped
+@SessionScoped
 public class BeanLogin implements Serializable {
 
     private static final long serialVersionUID = -6023176887921451L;
@@ -104,7 +105,7 @@ public class BeanLogin implements Serializable {
 	Map<String, Object> session = FacesContext.getCurrentInstance()
 		.getExternalContext().getSessionMap();
 
-	session.put("user", user);
+	session.put("user", new UserInfo(user));
     }
 
     // ==============================

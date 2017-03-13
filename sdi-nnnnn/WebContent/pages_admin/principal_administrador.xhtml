@@ -9,18 +9,19 @@
 <f:view locale="#{bean_language_config.locale}">
 	<h:head>
 		<title>#{msgs.tituloHead}</title>
-		<link rel="stylesheet" type="text/css" href="css/mi_menu.css" />
+		<link rel="stylesheet" type="text/css"
+			href="${request.getContextPath()}/css/menu_logout_admin.css" />
 	</h:head>
 
 	<h:body>
-		<h:form id="form_menu_administrador">
+		<h:form id="form_menu_superior">
 			<p:menubar>
 				<p:menuitem value="#{msgs.administrador_menu_reinicio}"
 					action="#{bean_users_list.restartData}" id="boton_reinicio"
 					update="tabla_usuarios mensajes_admin" />
 
-				<ui:include src="/snippets/submenu_idiomas.xhtml" />
 				<ui:include src="/snippets/menu_item_logout.xhtml" />
+				<ui:include src="/snippets/submenu_idiomas.xhtml" />
 			</p:menubar>
 		</h:form>
 

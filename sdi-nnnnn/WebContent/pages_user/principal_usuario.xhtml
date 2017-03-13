@@ -1,54 +1,37 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/template_usuario.xhtml">
 
-<f:view locale="#{bean_language_config.locale}">
-	<h:head>
-		<title>#{msgs.tituloHead}</title>
-		<link rel="stylesheet" type="text/css" href="css/mi_menu.css" />
-	</h:head>
+	<ui:define name="estilos">
+		<link rel="stylesheet" type="text/css"
+			href="#{request.getContextPath()}/css/categorias_sistema.css" />
+	</ui:define>
 
-	<h:body>
-		<h:form id="form_menu_usuario">
-			<p:menubar>
-				<ui:include src="/snippets/submenu_idiomas.xhtml" />
-				<ui:include src="/snippets/menu_item_logout.xhtml" />
-			</p:menubar>
-		</h:form>
-
-		<p:spacer />
-
-		<p:messages id="mensajes_user" for="mensajes_usuario"
-			showDetail="true" closable="true" />
-		<p:spacer />
-
-
-		<!-- Poner en cada row style="border:none;" -->
-		<!-- probablemente con css -->
+	<ui:define name="cuerpo">
 		<p:panel>
 			<f:facet name="header">
 				<h:outputText style="text-align: center;"
 					value="#{msgs.principal_usuario_titulo_panel}" />
 			</f:facet>
 
-			<p:panelGrid style="text-align:center;" columns="3" layout="grid"
-				styleClass="ui-panelgrid-blank">
-
+			<p:panelGrid columns="3" layout="grid" id="menu_superior"
+				style="text-align:center;" styleClass="ui-panelgrid-blank">
 
 				<p:panelGrid columns="1" layout="grid"
 					styleClass="ui-panelgrid-blank">
 
 					<h:outputText style="font-size:22px; font-weight:bold;"
 						value="#{msgs.principal_usuario_inbox}" />
+
 					<h:panelGroup>
 						<h:outputText value="¿Ver tareas terminadas?" />
 						<p:spacer height="1px" width="10px" />
 						<p:selectBooleanCheckbox id="check_terminadas" />
 					</h:panelGroup>
+
 					<p:commandButton action="inbox" id="inbox"
 						value="#{msgs.principal_usuario_botones_listar}" />
 				</p:panelGrid>
@@ -75,11 +58,8 @@
 						value="#{msgs.principal_usuario_botones_listar}" />
 				</p:panelGrid>
 
-
 			</p:panelGrid>
 		</p:panel>
+	</ui:define>
 
-	</h:body>
-</f:view>
-
-</html>
+</ui:composition>
