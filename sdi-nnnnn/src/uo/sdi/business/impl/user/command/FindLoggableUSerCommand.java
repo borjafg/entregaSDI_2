@@ -25,7 +25,7 @@ public class FindLoggableUSerCommand implements Command<UserDTO> {
 	if (user != null) {
 	    if (user.getStatus().equals(UserStatus.DISABLED)) {
 		throw new BusinessException("El usuario está deshabilitado",
-			"bussines_exception_usuario_deshabilitado");
+			"login_usuario_deshabilitado");
 	    }
 
 	    return TypeConverter.convertUser(user);
