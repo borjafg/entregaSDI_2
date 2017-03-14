@@ -64,7 +64,7 @@ public class User {
     public void eliminarTarea(Task tarea) throws BusinessException {
 	if (!tasks.contains(tarea)) {
 	    throw new BusinessException("El usuario no tiene asignada esa "
-		    + "tarea.");
+		    + "tarea.","");
 	}
 
 	Association.Classifies.unlink(tarea, tarea.getCategory());
@@ -88,12 +88,12 @@ public class User {
 	    throws BusinessException {
 
 	if (!categories.contains(categoria)) {
-	    throw new BusinessException("La categoria no pertenece al usuario");
+	    throw new BusinessException("La categoria no pertenece al usuario","");
 	}
 
 	if (categoria.getTasks().size() > 0) {
 	    throw new BusinessException("No se puede eliminar una categoria "
-		    + "que tiene tareas asociadas.");
+		    + "que tiene tareas asociadas.","");
 	}
 
 	categories.remove(categoria);

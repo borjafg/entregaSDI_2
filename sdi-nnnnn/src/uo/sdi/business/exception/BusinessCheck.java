@@ -37,7 +37,7 @@ public class BusinessCheck {
 	    throws BusinessException {
 	if (condition == true)
 	    return;
-	throw new BusinessException(errorMsg);
+	throw new BusinessException(errorMsg,errorMsg);
     }
 
 }
