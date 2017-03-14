@@ -12,7 +12,8 @@ import uo.sdi.persistence.CategoryFinder;
 public class TaskCheck {
 
     public static void isUserValid(User user) throws BusinessException {
-	BusinessCheck.isNotNull(user, "El usuario no existe.");
+	BusinessCheck.isNotNull(user, "El usuario no existe.",
+		"errores_usuario_no_existe");
 
 	BusinessCheck.isTrue(user.getStatus().equals(UserStatus.ENABLED),
 		"El usuario está deshabilitado.");
@@ -33,7 +34,8 @@ public class TaskCheck {
 
     public static void categoryExists(Task task) throws BusinessException {
 	Category c = CategoryFinder.findById(task.getCategory().getId());
-	BusinessCheck.isNotNull(c, "La categoria no existe");
+	BusinessCheck.isNotNull(c, "La categoria no existe",
+		"errores_categoria_no_exite");
     }
 
 }

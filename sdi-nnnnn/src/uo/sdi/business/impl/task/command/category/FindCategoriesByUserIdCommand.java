@@ -24,7 +24,8 @@ public class FindCategoriesByUserIdCommand implements
     public List<CategoryDTO> execute() throws BusinessException {
 	User user = UserFinder.findById(userId);
 
-	BusinessCheck.isNotNull(userId, "El usuario no existe");
+	BusinessCheck.isNotNull(userId, "El usuario no existe",
+		"errores_usuario_no_existe");
 
 	return TypeConverter.convertCategories(CategoryFinder.findByUserId(user
 		.getId()));

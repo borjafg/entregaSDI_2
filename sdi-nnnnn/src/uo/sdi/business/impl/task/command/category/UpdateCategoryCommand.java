@@ -20,7 +20,8 @@ public class UpdateCategoryCommand implements Command<Void> {
     public Void execute() throws BusinessException {
 	Category category = CategoryFinder.findById(categ.getId());
 
-	BusinessCheck.isNotNull(category, "La categoria no existe");
+	BusinessCheck.isNotNull(category, "La categoria no existe",
+		"errores_usuario_no_existe");
 
 	CategoryCheck.nameIsNotNull(categ);
 	CategoryCheck.nameIsNotEmpty(categ);

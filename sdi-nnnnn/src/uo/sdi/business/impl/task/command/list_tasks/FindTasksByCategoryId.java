@@ -22,7 +22,8 @@ public class FindTasksByCategoryId implements Command<List<TaskDTO>> {
     public List<TaskDTO> execute() throws BusinessException {
 	Category categ = CategoryFinder.findById(categId);
 
-	BusinessCheck.isNotNull(categ, "La categoria no existe.");
+	BusinessCheck.isNotNull(categ, "La categoria no existe.",
+		"errores_usuario_no_existe");
 
 	return TypeConverter.convertTasks(categ.getTasks());
     }
