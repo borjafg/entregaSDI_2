@@ -17,23 +17,21 @@
 	<h:body>
 		<h:form id="form_menu_superior">
 			<p:menubar>
-				<f:facet name="options" class="menu_derecha">
-					<p:panelGrid columns="1" id="tabla_login_usuario"
-						styleClass="ui-panelgrid-blank">
+				<ui:insert name="items_menu" />
 
+				<p:submenu label="#{msgs.menu_user_cuenta}" style="float: right;">
+					<p:menuitem>
 						<h:panelGroup>
 							<h:outputText style="font-weight: bold;" value="Login:" />
 							<p:spacer height="1px" width="7px" />
 							<h:outputText value="#{sessionScope.user.login}" />
 						</h:panelGroup>
-					</p:panelGrid>
-				</f:facet>
+					</p:menuitem>
 
-				<ui:insert name="items_menu" />
+					<ui:include src="/snippets/menu_item_logout.xhtml" />
+				</p:submenu>
 
-				<ui:include src="/snippets/menu_item_logout.xhtml" />
 				<ui:include src="/snippets/submenu_idiomas.xhtml" />
-
 			</p:menubar>
 		</h:form>
 

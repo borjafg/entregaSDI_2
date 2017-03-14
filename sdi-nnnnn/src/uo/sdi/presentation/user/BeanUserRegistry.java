@@ -11,6 +11,7 @@ import uo.sdi.business.UserService;
 import uo.sdi.business.exception.BusinessException;
 import uo.sdi.dto.UserDTO;
 import uo.sdi.presentation.util.MessageManager;
+import uo.sdi.presentation.util.Messages;
 import alb.util.log.Log;
 
 @ManagedBean(name = "bean_registry")
@@ -42,15 +43,19 @@ public class BeanUserRegistry implements Serializable {
 
 	UserService userServ = Services.getUserService();
 	FacesContext contexto = FacesContext.getCurrentInstance();
+
 	try {
 	    Log.debug("Vamos a registrar al usuario");
 	    userServ.registerUser(user);
-	} catch (BusinessException be) {
+	}
 
+	catch (BusinessException be) {
 	    MessageManager.warning(contexto, "panel_registry", be.getMessage());
-	    Log.error(
-		    "Ha ocurrido una Business exception [%s] , durante el registro de un nuevo usuario ",
-		    be.getMessage());
+
+	    Log.error("Ha ocurrido un error durante el registro de un nuevo "
+		    + "usuario. Causa del error: %s",
+		    Messages.getMessage(contexto, be.getMessage()));
+
 	    return "fallo";
 	}
 
@@ -59,9 +64,9 @@ public class BeanUserRegistry implements Serializable {
 	    return "error";
 	}
 
-	Log.debug("Se ha registrado con exito la sesión del usuario: %s", login);
-
+	Log.debug("Se ha registrado con exito al usuario [%s]", login);
 	MessageManager.info(contexto, "panel_login", "registry_exito");
+
 	return "exito";
     }
 

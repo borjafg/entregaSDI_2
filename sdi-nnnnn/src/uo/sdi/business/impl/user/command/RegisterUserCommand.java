@@ -28,7 +28,6 @@ public class RegisterUserCommand implements Command<Void> {
 
 	newUser.setEmail(user.getEmail());
 	newUser.setPassword(user.getPassword());
-	
 
 	Jpa.getManager().persist(newUser);
 
