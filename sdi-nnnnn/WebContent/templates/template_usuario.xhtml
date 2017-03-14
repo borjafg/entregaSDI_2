@@ -9,51 +9,40 @@
 <f:view locale="#{bean_language_config.locale}">
 	<h:head>
 		<title>#{msgs.tituloHead}</title>
-		<link rel="stylesheet" type="text/css" href="css/mi_menu.css" />
+		<link rel="stylesheet" type="text/css"
+			href="#{request.getContextPath()}/css/menu_logout_user.css" />
+		<ui:insert name="estilos" />
 	</h:head>
 
 	<h:body>
-		<h:form id="form_menu_usuario">
+		<h:form id="form_menu_superior">
 			<p:menubar>
+				<ui:insert name="items_menu" />
+
+				<p:submenu label="#{msgs.menu_user_cuenta}" style="float: right;">
+					<p:menuitem>
+						<h:panelGroup>
+							<h:outputText style="font-weight: bold;" value="Login:" />
+							<p:spacer height="1px" width="7px" />
+							<h:outputText value="#{sessionScope.user.login}" />
+						</h:panelGroup>
+					</p:menuitem>
+
+					<ui:include src="/snippets/menu_item_logout.xhtml" />
+				</p:submenu>
+
 				<ui:include src="/snippets/submenu_idiomas.xhtml" />
-				<ui:include src="/snippets/menu_item_logout.xhtml" />
 			</p:menubar>
 		</h:form>
 
 		<p:spacer />
-
 		<p:messages id="mensajes_user" for="mensajes_usuario"
 			showDetail="true" closable="true" />
 		<p:spacer />
 
-
-		<p:panelGrid style="text-align:center;" columns="3" layout="grid">
-			<p:column headerText="sfdasd">						
-					<p:commandButton action="inbox" id="inbox"
-						value="#{msgs.principal_usuario_inbox}" />
-				
-			</p:column>
-
-
-
-			<p:commandButton action="hoy" id="hoy"
-				value="#{msgs.principal_usuario_hoy}" />
-
-			<p:commandButton action="semana" id="semana"
-				value="#{msgs.principal_usuario_semana}" />
-
-		</p:panelGrid>
-
-
-
-
-
-
-
-
-
-
+		<ui:insert name="cuerpo" />
 
 	</h:body>
 </f:view>
+
 </html>

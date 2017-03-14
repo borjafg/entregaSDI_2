@@ -443,7 +443,133 @@ public class PlantillaSDI2_Tests1617 {
     // PR10: Ordenar por Status
     @Test
     public void prueba10() {
-	assertTrue(false);
+	// (1) Hacer login
+	new PO_LoginForm().completeForm(driver, "admin", "admin");
+
+	// (2) Esperar a que se cargue la página
+	SeleniumUtils.EsperaCargaPagina(driver, "id",
+		"tabla_usuarios:column_status_title", 10);
+
+	// (3) Desactivar un usuario para ver el resultado de la ordenación
+
+	// -------------------------------------------------------
+
+	// (3.1) Comprobar que el usuario está habilitado
+	Map<String, Object> fila = new PO_AdminRow().findRow(driver, 0);
+
+	assertTrue(fila.get("status") != null
+		&& fila.get("status").equals("enabled"));
+
+	// (3.2) Cambiar el estado del usuario
+	((WebElement) fila.get("button_state")).click();
+
+	// (3.3) Esperar a que aparezca el mensaje de éxito
+	List<WebElement> mensajes = SeleniumUtils.EsperaCargaPagina(driver,
+		"class", "ui-messages-info-detail", 8);
+	WebElement mensaje = mensajes.get(0);
+
+	assertTrue(
+		"No se encontró el mensaje de éxito al cambiar de usuario",
+		mensaje.getText().equals(
+			new PropertiesReader().getValueOf(defaultLocale,
+				"administrador_exito_cambiar_estado")));
+
+	ThreadUtil.wait(800); // Espera para ver el efecto del test
+
+	// -------------------------------------------------------
+
+	// (4) Ordenar por status (ASC)
+	WebElement titulo = driver.findElement(By
+		.id("tabla_usuarios:column_status_title"));
+
+	ThreadUtil.wait(200);
+
+	titulo.click();
+	ThreadUtil.wait(1000); // Espera para ver el efecto del test
+
+	// (5) Comprobar que los datos están ordenados
+	Map<String, Object> filaAnterior = new PO_AdminRow().findRow(driver, 0);
+	Map<String, Object> filaActual;
+
+	String statusAnterior = (String) filaAnterior.get("status");
+	String statusActual;
+
+	for (int indexUser = 1; indexUser < 3; indexUser++) {
+	    filaActual = new PO_AdminRow().findRow(driver, indexUser);
+	    statusActual = (String) filaActual.get("status");
+
+	    assertTrue("Los usuarios no están ordenados",
+		    statusAnterior.compareTo(statusActual) == 1
+			    || statusAnterior.compareTo(statusActual) == 0);
+
+	    filaAnterior = filaActual;
+	    statusAnterior = statusActual;
+	}
+
+	ThreadUtil.wait(800); // Espera para ver el efecto del test
+
+	// (6) Ordenar por status (DESC)
+	titulo.click();
+	ThreadUtil.wait(600);
+
+	// (7) Comprobar que la los datos están ordenados
+
+	/*
+	 * El último usuario evaluado antes es el que aparecerá ahora en la
+	 * primera fila de la tabla. Por está razón no hay que extraer el valor
+	 * de la primera fila de la tabla y guardarla en la variable
+	 * statusAnterior.
+	 */
+
+	for (int indexUser = 1; indexUser < 3; indexUser++) {
+	    filaActual = new PO_AdminRow().findRow(driver, indexUser);
+	    statusActual = (String) filaActual.get("status");
+
+	    assertTrue("Los usuarios no están ordenados",
+		    statusAnterior.compareTo(statusActual) == -1
+			    || statusAnterior.compareTo(statusActual) == 0);
+
+	    filaAnterior = filaActual;
+	    statusAnterior = statusActual;
+	}
+
+	ThreadUtil.wait(700);
+
+	// (8) Volver a activar el usuario
+
+	// -------------------------------------------------------
+
+	// (8.1) Comprobar que el usuario está habilitado
+	fila = new PO_AdminRow().findRow(driver, 0);
+
+	assertTrue(fila.get("status") != null
+		&& fila.get("status").equals("disabled"));
+
+	// (8.2) Cambiar el estado del usuario
+	((WebElement) fila.get("button_state")).click();
+
+	// (8.3) Esperar a que aparezca el mensaje de éxito
+	mensajes = SeleniumUtils.EsperaCargaPagina(driver, "class",
+		"ui-messages-info-detail", 8);
+	mensaje = mensajes.get(0);
+	
+	assertTrue(
+		"No se encontró el mensaje de éxito al cambiar de usuario",
+		mensaje.getText().equals(
+			new PropertiesReader().getValueOf(defaultLocale,
+				"administrador_exito_cambiar_estado")));
+
+	ThreadUtil.wait(400);
+	
+	// (8.4) Comprobar que el usuario está habilitado
+	fila = new PO_AdminRow().findRow(driver, 0);
+
+	assertTrue(fila.get("status") != null
+		&& fila.get("status").equals("enabled"));
+
+	// -------------------------------------------------------
+
+	ThreadUtil.wait(800); // Espera para ver el efecto del test
     }
 
     // PR11: Borrar una cuenta de usuario normal y datos relacionados.

@@ -33,7 +33,7 @@ public class UserCheck {
 
     public static void notRepeatedLogin(UserDTO user) throws BusinessException {
 	User u = UserFinder.findByLogin(user.getLogin());
-	BusinessCheck.isNull(u, "registry_login_ya_exite");
+	BusinessCheck.isNull(u, "registry_login_ya_existe");
     }
 
     public static void isValidPassword(UserDTO user) throws BusinessException {

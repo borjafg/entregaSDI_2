@@ -23,7 +23,7 @@
 	<managed-bean>
 		<managed-bean-name>bean_login</managed-bean-name>
 		<managed-bean-class>uo.sdi.presentation.user.BeanLogin</managed-bean-class>
-		<managed-bean-scope>request</managed-bean-scope>
+		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 
 	<managed-bean>
@@ -59,7 +59,7 @@
 		<navigation-case>
 			<from-action>#{bean_login.dologout}</from-action>
 			<from-outcome>exito</from-outcome>
-			<to-view-id>/login.xhtml</to-view-id>
+			<to-view-id>/pages_no_user/login.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 
@@ -73,16 +73,16 @@
 
 		<navigation-case>
 			<from-outcome>error</from-outcome>
-			<to-view-id>/error.xhtml</to-view-id>
+			<to-view-id>/pages_other/error.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 
 	<navigation-rule>
-		<from-view-id>/error.xhtml</from-view-id>
+		<from-view-id>/pages_other/error.xhtml</from-view-id>
 
 		<navigation-case>
 			<from-outcome>volver</from-outcome>
-			<to-view-id>/login.xhtml</to-view-id>
+			<to-view-id>/pages_no_user/login.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
 	</navigation-rule>
@@ -93,24 +93,24 @@
 	<!-- - - - - - - - -->
 
 	<navigation-rule>
-		<from-view-id>/login.xhtml</from-view-id>
+		<from-view-id>/pages_no_user/login.xhtml</from-view-id>
 
 		<navigation-case>
 			<from-action>#{bean_login.dologin}</from-action>
 			<from-outcome>fallo</from-outcome>
-			<to-view-id>/login.xhtml</to-view-id>
+			<to-view-id>/pages_no_user/login.xhtml</to-view-id>
 		</navigation-case>
 
 		<navigation-case>
 			<from-action>#{bean_login.dologin}</from-action>
 			<from-outcome>admin</from-outcome>
-			<to-view-id>/principal_administrador.xhtml</to-view-id>
+			<to-view-id>/pages_admin/principal_administrador.xhtml</to-view-id>
 		</navigation-case>
 
 		<navigation-case>
 			<from-action>#{bean_login.dologin}</from-action>
 			<from-outcome>usuario</from-outcome>
-			<to-view-id>/principal_usuario.xhtml</to-view-id>
+			<to-view-id>/pages_user/principal_usuario.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 
@@ -120,18 +120,18 @@
 	<!-- - - - - - - - - -->
 
 	<navigation-rule>
-		<from-view-id>/registry.xhtml</from-view-id>
+		<from-view-id>/pages_no_user/registry.xhtml</from-view-id>
 
 		<navigation-case>
 			<from-action>#{bean_registry.registrar}</from-action>
 			<from-outcome>fallo</from-outcome>
-			<to-view-id>/registry.xhtml</to-view-id>
+			<to-view-id>/pages_no_user/registry.xhtml</to-view-id>
 		</navigation-case>
 
 		<navigation-case>
 			<from-action>#{bean_registry.registrar}</from-action>
 			<from-outcome>exito</from-outcome>
-			<to-view-id>/login.xhtml</to-view-id>
+			<to-view-id>/pages_no_user/login.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 
@@ -141,42 +141,42 @@
 	<!-- - - - - - - - - - - - -->
 
 	<navigation-rule>
-		<from-view-id>/principal_administrador.xhtml</from-view-id>
+		<from-view-id>/pages_admin/principal_administrador.xhtml</from-view-id>
 
 		<navigation-case>
 			<from-action>#{bean_users_list.deleteUser(usuario)}</from-action>
 			<from-outcome>fallo</from-outcome>
-			<to-view-id>/principal_administrador.xhtml</to-view-id>
+			<to-view-id>/pages_admin/principal_administrador.xhtml</to-view-id>
 		</navigation-case>
 
 		<navigation-case>
 			<from-action>#{bean_users_list.deleteUser(usuario)}</from-action>
 			<from-outcome>exito</from-outcome>
-			<to-view-id>/principal_administrador.xhtml</to-view-id>
+			<to-view-id>/pages_admin/principal_administrador.xhtml</to-view-id>
 		</navigation-case>
 
 		<navigation-case>
 			<from-action>#{bean_users_list.changeStatus(usuario)}</from-action>
 			<from-outcome>fallo</from-outcome>
-			<to-view-id>/principal_administrador.xhtml</to-view-id>
+			<to-view-id>/pages_admin/principal_administrador.xhtml</to-view-id>
 		</navigation-case>
 
 		<navigation-case>
 			<from-action>#{bean_users_list.changeStatus(usuario)}</from-action>
 			<from-outcome>exito</from-outcome>
-			<to-view-id>/principal_administrador.xhtml</to-view-id>
+			<to-view-id>/pages_admin/principal_administrador.xhtml</to-view-id>
 		</navigation-case>
 
 		<navigation-case>
 			<from-action>#{bean_users_list.restartData}</from-action>
 			<from-outcome>fallo</from-outcome>
-			<to-view-id>/principal_administrador.xhtml</to-view-id>
+			<to-view-id>/pages_admin/principal_administrador.xhtml</to-view-id>
 		</navigation-case>
 
 		<navigation-case>
 			<from-action>#{bean_users_list.restartData}</from-action>
 			<from-outcome>exito</from-outcome>
-			<to-view-id>/principal_administrador.xhtml</to-view-id>
+			<to-view-id>/pages_admin/principal_administrador.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 
@@ -186,21 +186,21 @@
 	<!-- - - - - - - - - - - - -->
 
 	<navigation-rule>
-		<from-view-id>/principal_usuario.xhtml</from-view-id>
+		<from-view-id>/pages_user/principal_usuario.xhtml</from-view-id>
 
 		<navigation-case>
 			<from-outcome>inbox</from-outcome>
-			<to-view-id>/listar_tareas_inbox.xhtml</to-view-id>
+			<to-view-id>/pages_user/listar_tareas_inbox.xhtml</to-view-id>
 		</navigation-case>
 
 		<navigation-case>
 			<from-outcome>hoy</from-outcome>
-			<to-view-id>/listar_tareas_hoy.xhtml</to-view-id>
+			<to-view-id>/pages_user/listar_tareas_hoy.xhtml</to-view-id>
 		</navigation-case>
 
 		<navigation-case>
 			<from-outcome>semana</from-outcome>
-			<to-view-id>/listar_tareas_semana.xhtml</to-view-id>
+			<to-view-id>/pages_user/listar_tareas_semana.xhtml</to-view-id>
 		</navigation-case>
 
 	</navigation-rule>
@@ -210,11 +210,11 @@
 	<!-- - - - - - - - - - - - -->
 	
 	<navigation-rule>
-		<from-view-id>/listar_hoy.xhtml</from-view-id>
+		<from-view-id>/pages_user/listar_hoy.xhtml</from-view-id>
 		
 		<navigation-case>
 			<from-outcome>volver</from-outcome>
-			<to-view-id>/principal_usuario.xhtml</to-view-id>
+			<to-view-id>/pages_user/principal_usuario.xhtml</to-view-id>
 		</navigation-case>
 	
 	</navigation-rule>
@@ -224,11 +224,11 @@
 	<!-- - - - - - - - - - - - -->
 	
 	<navigation-rule>
-		<from-view-id>/listar_inbox.xhtml</from-view-id>
+		<from-view-id>/pages_user/listar_inbox.xhtml</from-view-id>
 		
 		<navigation-case>
 			<from-outcome>volver</from-outcome>
-			<to-view-id>/principal_usuario.xhtml</to-view-id>
+			<to-view-id>/pages_user/principal_usuario.xhtml</to-view-id>
 		</navigation-case>
 	
 	</navigation-rule>
@@ -238,11 +238,11 @@
 	<!-- - - - - - - - - - - - -->
 	
 	<navigation-rule>
-		<from-view-id>/listar_semana.xhtml</from-view-id>
+		<from-view-id>/pages_user/listar_semana.xhtml</from-view-id>
 		
 		<navigation-case>
 			<from-outcome>volver</from-outcome>
-			<to-view-id>/principal_usuario.xhtml</to-view-id>
+			<to-view-id>/pages_user/principal_usuario.xhtml</to-view-id>
 		</navigation-case>
 	
 	</navigation-rule>
