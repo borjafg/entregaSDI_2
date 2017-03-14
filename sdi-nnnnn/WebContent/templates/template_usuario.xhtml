@@ -19,18 +19,7 @@
 			<p:menubar>
 				<ui:insert name="items_menu" />
 
-				<p:submenu label="#{msgs.menu_user_cuenta}" style="float: right;">
-					<p:menuitem>
-						<h:panelGroup>
-							<h:outputText style="font-weight: bold;" value="Login:" />
-							<p:spacer height="1px" width="7px" />
-							<h:outputText value="#{sessionScope.user.login}" />
-						</h:panelGroup>
-					</p:menuitem>
-
-					<ui:include src="/snippets/menu_item_logout.xhtml" />
-				</p:submenu>
-
+				<ui:include src="/snippets/submenu_user_admin.xhtml" />
 				<ui:include src="/snippets/submenu_idiomas.xhtml" />
 			</p:menubar>
 		</h:form>
