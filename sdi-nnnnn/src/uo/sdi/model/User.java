@@ -64,7 +64,7 @@ public class User {
     public void eliminarTarea(Task tarea) throws BusinessException {
 	if (!tasks.contains(tarea)) {
 	    throw new BusinessException("El usuario no tiene asignada esa "
-		    + "tarea.","");
+		    + "tarea.","bussines_exception_usuario_tarea");
 	}
 
 	Association.Classifies.unlink(tarea, tarea.getCategory());
