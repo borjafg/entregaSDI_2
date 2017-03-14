@@ -17,10 +17,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import alb.util.log.Log;
 
 import com.sdi.tests.database_test.DatabaseContentsTester;
+import com.sdi.tests.database_test.UserDeletedTester;
 import com.sdi.tests.page_objects.PO_AdminRow;
 import com.sdi.tests.page_objects.PO_LoginForm;
 import com.sdi.tests.utils.PropertiesReader;
@@ -145,7 +148,7 @@ public class PlantillaSDI2_Tests1617 {
 
 	// (2) Esperar a que aparezca la opción de reiniciar la base de datos
 	List<WebElement> elements = SeleniumUtils.EsperaCargaPagina(driver,
-		"id", "form_menu_administrador:boton_reinicio", 10);
+		"id", "form_menu_superior:boton_reinicio", 10);
 
 	// (3) Hacer click en el item de menu
 	elements.get(0).click();
@@ -241,9 +244,9 @@ public class PlantillaSDI2_Tests1617 {
 	ThreadUtil.wait(1000); // Espera para ver el efecto del test
 
 	// (5) Cerrar sesión
-	WebElement logout = driver.findElement(By
-		.id("form_menu_administrador:boton_logout"));
-	logout.click();
+	SeleniumUtils.ClickSubopcionMenuHover(driver,
+		"form_menu_superior:submenu_usuario",
+		"form_menu_superior:boton_logout");
 
 	SeleniumUtils.EsperaCargaPagina(driver, "id",
 		"form_anonimo:boton_login", 10);
@@ -299,9 +302,9 @@ public class PlantillaSDI2_Tests1617 {
 	ThreadUtil.wait(800); // Espera para ver el efecto del test
 
 	// (5) Cerrar sesión
-	WebElement logout = driver.findElement(By
-		.id("form_menu_administrador:boton_logout"));
-	logout.click();
+	SeleniumUtils.ClickSubopcionMenuHover(driver,
+		"form_menu_superior:submenu_usuario",
+		"form_menu_superior:boton_logout");
 
 	SeleniumUtils.EsperaCargaPagina(driver, "id",
 		"form_anonimo:boton_login", 10);
@@ -552,7 +555,7 @@ public class PlantillaSDI2_Tests1617 {
 	mensajes = SeleniumUtils.EsperaCargaPagina(driver, "class",
 		"ui-messages-info-detail", 8);
 	mensaje = mensajes.get(0);
-	
+
 	assertTrue(
 		"No se encontró el mensaje de éxito al cambiar de usuario",
 		mensaje.getText().equals(
@@ -560,7 +563,7 @@ public class PlantillaSDI2_Tests1617 {
 				"administrador_exito_cambiar_estado")));
 
 	ThreadUtil.wait(400);
-	
+
 	// (8.4) Comprobar que el usuario está habilitado
 	fila = new PO_AdminRow().findRow(driver, 0);
 
@@ -575,7 +578,83 @@ public class PlantillaSDI2_Tests1617 {
     // PR11: Borrar una cuenta de usuario normal y datos relacionados.
     @Test
     public void prueba11() {
-	assertTrue(false);
+	// (1) Hacer login como administrador
+	new PO_LoginForm().completeForm(driver, "admin", "admin");
+
+	// (2) Esperar a que aparezca la tabla de usuarios
+	SeleniumUtils.EsperaCargaPagina(driver, "id", "tabla_usuarios", 10);
+
+	ThreadUtil.wait(800);
+
+	// (3) Buscar el boton de eliminar usuario
+	int numfila = 0;
+
+	Map<String, Object> fila = new PO_AdminRow().findRow(driver, numfila);
+
+	// (4) Eliminar al usuario
+	((WebElement) fila.get("button_delete")).click();
+
+	ThreadUtil.wait(800);
+
+	WebElement botonBorrar = driver.findElement(By.id("tabla_usuarios:"
+		+ numfila + ":form_delete:confirm_delete"));
+
+	botonBorrar.click();
+
+	ThreadUtil.wait(800);
+
+	// (5) Esperar a que aparezca el mensaje de éxito
+	List<WebElement> mensajes = SeleniumUtils.EsperaCargaPagina(driver,
+		"class", "ui-messages-info-detail", 8);
+	WebElement mensaje = mensajes.get(0);
+
+	// (6) Comprobar que es el mensaje adecuado
+	assertTrue(
+		"No se encontró el mensaje de usuario eliminado",
+		mensaje.getText().equals(
+			new PropertiesReader().getValueOf(defaultLocale,
+				"administrador_exito_reinicio_base_datos")));
+
+	ThreadUtil.wait(1100);
+
+	// (7) Cerrar sesión
+	SeleniumUtils.ClickSubopcionMenuHover(driver,
+		"form_menu_superior:submenu_usuario",
+		"form_menu_superior:boton_logout");
+
+	SeleniumUtils.EsperaCargaPagina(driver, "id",
+		"form_anonimo:boton_login", 10);
+
+	ThreadUtil.wait(400);
+
+	// (8) Intentar hacer login con ese usuario
+	new PO_LoginForm().completeForm(driver, (String) fila.get("login"),
+		(String) fila.get("login"));
+
+	// (9) Comprobar que no se puede iniciar sesión
+	mensajes = SeleniumUtils.EsperaCargaPagina(driver, "class",
+		"ui-messages-warn-detail", 8);
+
+	mensaje = mensajes.get(0);
+
+	// (10) Comprobar que es el mensaje adecuado
+	assertTrue(
+		"No se encontró el mensaje de login inválido",
+		mensaje.getText().equals(
+			new PropertiesReader().getValueOf(defaultLocale,
+				"login_usuario_no_existe")));
+
+	// (11) Comprobar que realmente se borraron sus datos
+	try {
+	    new UserDeletedTester().test();
+
+	    ThreadUtil.wait(400);
+	}
+
+	catch (Exception ex) {
+	    Log.error(ex);
+	    assertTrue(false); // Ante cualquier error el test falla
+	}
     }
 
     // -------------------

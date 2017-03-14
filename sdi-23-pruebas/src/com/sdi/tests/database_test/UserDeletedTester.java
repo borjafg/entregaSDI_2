@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import com.sdi.tests.database_test.util.DatabaseInfo;
 import com.sdi.tests.database_test.util.ScriptReader;
 
-public class DatabaseContentsTester {
+public class UserDeletedTester {
 
     /**
      * Comprueba que en la base de datos hay los datos correctos.
@@ -24,7 +24,7 @@ public class DatabaseContentsTester {
 	ResultSet rs;
 	String query;
 
-	ScriptReader reader = new ScriptReader("prueba_reinicio.script");
+	ScriptReader reader = new ScriptReader("prueba_borrado_usuario.script");
 	query = reader.readLine();
 
 	Connection conexion = null;
@@ -37,7 +37,8 @@ public class DatabaseContentsTester {
 		prep = conexion.prepareStatement(query);
 		rs = prep.executeQuery();
 
-		assertTrue(rs.next()); // Se encuentra el objeto correspondiente
+		assertTrue(!rs.next()); // Se encuentra el objeto
+					// correspondiente
 
 		prep.close();
 		rs.close();
@@ -58,7 +59,7 @@ public class DatabaseContentsTester {
 	    }
 
 	    assertTrue("Error al ejecutar las consultas que comprueban "
-		    + "que la base de datos tiene los datos adecuados.", false);
+		    + "que el usuario y sus datos se han eliminado.", false);
 	}
     }
 
