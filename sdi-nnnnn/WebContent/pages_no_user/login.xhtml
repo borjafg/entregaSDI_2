@@ -6,41 +6,43 @@
 	template="/templates/template_anonimo.xhtml">
 
 	<ui:define name="opcion_menu">
-		<p:menuitem value="#{msgs.login_enlace_registro}"
-			action="registro" immediate="true" update="@all" />
+		<p:menuitem value="#{msgs.login_enlace_registro}" action="registro"
+			immediate="true" update="@all" />
 	</ui:define>
+
 
 	<ui:define name="cuerpo_form">
-		<p:panel id="panel_login" header="#{msgs.login_titulo_panel}">
+		<h:panelGrid columns="1" cellpadding="5" style="margin: 0 auto;">
+			<p:panel id="panel_login" header="#{msgs.login_titulo_panel}">
 
-			<h:panelGrid columns="3" cellpadding="5">
-				<p:outputLabel for="usuario" value="#{msgs.login_usuario}" />
+				<h:panelGrid columns="3" cellpadding="5">
+					<p:outputLabel for="usuario" value="#{msgs.login_usuario}" />
 
-				<p:inputText id="usuario" value="#{bean_login.login}"
-					required="true" placeholder="#{msgs.login_placeholder_usuario}"
-					requiredMessage="#{msgs.login_usuario_requerido}" size="30" />
+					<p:inputText id="usuario" value="#{bean_login.login}"
+						required="true" placeholder="#{msgs.login_placeholder_usuario}"
+						requiredMessage="#{msgs.login_usuario_requerido}" size="30" />
 
-				<p:message for="usuario" />
-
-
-				<p:outputLabel for="contrasena" value="#{msgs.login_contrasena}" />
-
-				<p:inputText id="contrasena" value="#{bean_login.password}"
-					required="true" placeholder="#{msgs.login_placeholder_contrasena}"
-					requiredMessage="#{msgs.login_contrasena_requerida}" size="30"
-					type="password" />
-
-				<p:message for="contrasena" />
+					<p:message for="usuario" />
 
 
-				<p:outputLabel value="" />
+					<p:outputLabel for="contrasena" value="#{msgs.login_contrasena}" />
 
-				<p:commandButton id="boton_login" value="#{msgs.login_boton}"
-					update="@form" action="#{bean_login.dologin}" />
-			</h:panelGrid>
+					<p:inputText id="contrasena" value="#{bean_login.password}"
+						required="true" placeholder="#{msgs.login_placeholder_contrasena}"
+						requiredMessage="#{msgs.login_contrasena_requerida}" size="30"
+						type="password" />
 
-			<p:messages for="panel_login" showDetail="true" closable="true" />
-		</p:panel>
+					<p:message for="contrasena" />
+
+
+					<p:outputLabel value="" />
+
+					<p:commandButton id="boton_login" value="#{msgs.login_boton}"
+						update="@form" action="#{bean_login.dologin}" />
+				</h:panelGrid>
+
+				<p:messages for="panel_login" showDetail="true" closable="true" />
+			</p:panel>
+		</h:panelGrid>
 	</ui:define>
-
 </ui:composition>
