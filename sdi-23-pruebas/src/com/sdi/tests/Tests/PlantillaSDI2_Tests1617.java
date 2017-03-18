@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.After;
 import org.junit.Before;
@@ -17,8 +18,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import alb.util.log.Log;
 
@@ -88,7 +87,8 @@ public class PlantillaSDI2_Tests1617 {
 	// Ya se comprueba si no se carga en un assert que con contiene el
 	// metodo que espera por la carga de la página
 
-	SeleniumUtils.EsperaCargaPagina(driver, "id", "tabla_usuarios", 10);
+	SeleniumUtils.EsperaCargaPagina(driver, "id",
+		"form_admin:tabla_usuarios", 10);
 
 	ThreadUtil.wait(800); // Espera para ver el efecto del test
     }
@@ -185,7 +185,8 @@ public class PlantillaSDI2_Tests1617 {
 	new PO_LoginForm().completeForm(driver, "admin", "admin");
 
 	// (2) Esperar a que se cargue la página
-	SeleniumUtils.EsperaCargaPagina(driver, "id", "tabla_usuarios", 10);
+	SeleniumUtils.EsperaCargaPagina(driver, "id",
+		"form_admin:tabla_usuarios", 10);
 
 	// (3) Comprobar que la página contiene los datos correctos
 	Map<String, Object> fila;
@@ -219,7 +220,8 @@ public class PlantillaSDI2_Tests1617 {
 	new PO_LoginForm().completeForm(driver, "admin", "admin");
 
 	// (2) Esperar a que se cargue la página
-	SeleniumUtils.EsperaCargaPagina(driver, "id", "tabla_usuarios", 10);
+	SeleniumUtils.EsperaCargaPagina(driver, "id",
+		"form_admin:tabla_usuarios", 10);
 
 	// (3) Buscar la primera fila y comprobar que el usuario está habilitado
 	Map<String, Object> fila = new PO_AdminRow().findRow(driver, 0);
@@ -277,7 +279,8 @@ public class PlantillaSDI2_Tests1617 {
 	new PO_LoginForm().completeForm(driver, "admin", "admin");
 
 	// (2) Esperar a que se cargue la página
-	SeleniumUtils.EsperaCargaPagina(driver, "id", "tabla_usuarios", 10);
+	SeleniumUtils.EsperaCargaPagina(driver, "id",
+		"form_admin:tabla_usuarios", 10);
 
 	// (3) Buscar la primera fila y comprobar que el usuario está habilitado
 	Map<String, Object> fila = new PO_AdminRow().findRow(driver, 0);
@@ -451,7 +454,7 @@ public class PlantillaSDI2_Tests1617 {
 
 	// (2) Esperar a que se cargue la página
 	SeleniumUtils.EsperaCargaPagina(driver, "id",
-		"tabla_usuarios:column_status_title", 10);
+		"form_admin:tabla_usuarios:column_status_title", 10);
 
 	// (3) Desactivar un usuario para ver el resultado de la ordenación
 
@@ -483,7 +486,7 @@ public class PlantillaSDI2_Tests1617 {
 
 	// (4) Ordenar por status (ASC)
 	WebElement titulo = driver.findElement(By
-		.id("tabla_usuarios:column_status_title"));
+		.id("form_admin:tabla_usuarios:column_status_title"));
 
 	ThreadUtil.wait(200);
 
@@ -582,26 +585,31 @@ public class PlantillaSDI2_Tests1617 {
 	new PO_LoginForm().completeForm(driver, "admin", "admin");
 
 	// (2) Esperar a que aparezca la tabla de usuarios
-	SeleniumUtils.EsperaCargaPagina(driver, "id", "tabla_usuarios", 10);
+	SeleniumUtils.EsperaCargaPagina(driver, "id",
+		"form_admin:tabla_usuarios", 10);
+
+	ThreadUtil.wait(500);
+
+	// (3) Reiniciar la base de datos
+	((WebElement) driver.findElement(By
+		.id("form_menu_superior:boton_reinicio"))).click();
+
+	SeleniumUtils.EsperaCargaPagina(driver, "class",
+		"ui-messages-info-detail", 8);
 
 	ThreadUtil.wait(800);
 
-	// (3) Buscar el boton de eliminar usuario
-	int numfila = 0;
+	// (3) Buscar el boton de eliminar usuario y hacer click
+	Map<String, Object> fila = new PO_AdminRow().findRow(driver, 0);
 
-	Map<String, Object> fila = new PO_AdminRow().findRow(driver, numfila);
-
-	// (4) Eliminar al usuario
+	String login = (String) fila.get("login");
 	((WebElement) fila.get("button_delete")).click();
 
-	ThreadUtil.wait(800);
+	ThreadUtil.wait(1000);
 
-	WebElement botonBorrar = driver.findElement(By.id("tabla_usuarios:"
-		+ numfila + ":form_delete:confirm_delete"));
+	driver.findElement(By.id("form_admin:confirm_delete")).click();
 
-	botonBorrar.click();
-
-	ThreadUtil.wait(800);
+	ThreadUtil.wait(1000);
 
 	// (5) Esperar a que aparezca el mensaje de éxito
 	List<WebElement> mensajes = SeleniumUtils.EsperaCargaPagina(driver,
@@ -613,9 +621,9 @@ public class PlantillaSDI2_Tests1617 {
 		"No se encontró el mensaje de usuario eliminado",
 		mensaje.getText().equals(
 			new PropertiesReader().getValueOf(defaultLocale,
-				"administrador_exito_reinicio_base_datos")));
+				"administrador_exito_borrar_usuario")));
 
-	ThreadUtil.wait(1100);
+	ThreadUtil.wait(900);
 
 	// (7) Cerrar sesión
 	SeleniumUtils.ClickSubopcionMenuHover(driver,
@@ -625,11 +633,10 @@ public class PlantillaSDI2_Tests1617 {
 	SeleniumUtils.EsperaCargaPagina(driver, "id",
 		"form_anonimo:boton_login", 10);
 
-	ThreadUtil.wait(400);
+	ThreadUtil.wait(500);
 
 	// (8) Intentar hacer login con ese usuario
-	new PO_LoginForm().completeForm(driver, (String) fila.get("login"),
-		(String) fila.get("login"));
+	new PO_LoginForm().completeForm(driver, login, login);
 
 	// (9) Comprobar que no se puede iniciar sesión
 	mensajes = SeleniumUtils.EsperaCargaPagina(driver, "class",

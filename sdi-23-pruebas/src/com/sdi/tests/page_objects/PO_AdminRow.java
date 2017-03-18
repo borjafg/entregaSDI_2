@@ -42,30 +42,31 @@ public class PO_AdminRow {
 	// Información del usuario
 	// ------------------------------
 
-	WebElement login = driver.findElement(By.id("tabla_usuarios:" + index
-		+ ":column_login"));
+	WebElement login = driver.findElement(By
+		.id("form_admin:tabla_usuarios:" + index + ":column_login"));
 	row.put("login", login.getText());
 
-	WebElement email = driver.findElement(By.id("tabla_usuarios:" + index
-		+ ":column_email"));
+	WebElement email = driver.findElement(By
+		.id("form_admin:tabla_usuarios:" + index + ":column_email"));
 	row.put("email", email.getText());
 
-	WebElement state = driver.findElement(By.id("tabla_usuarios:" + index
-		+ ":column_status"));
+	WebElement state = driver.findElement(By
+		.id("form_admin:tabla_usuarios:" + index + ":column_status"));
 	row.put("status", state.getText());
 
 	// -------------------------------------------
-	// Botones que permiten alterarlo
+	// Botones que permiten alterar su cuenta
 	// -------------------------------------------
 
 	row.put("button_state",
-		driver.findElement(By.id("tabla_usuarios:" + index
-			+ ":form_status:button_status")));
+		driver.findElement(By.id("form_admin:tabla_usuarios:" + index
+			+ ":button_status")));
 
 	row.put("button_delete",
-		driver.findElement(By.id("tabla_usuarios:" + index
-			+ ":form_delete:button_delete")));
+		driver.findElement(By.id("form_admin:tabla_usuarios:" + index
+			+ ":button_delete")));
 
 	return row;
     }
+
 }

@@ -37,8 +37,8 @@ public class UserDeletedTester {
 		prep = conexion.prepareStatement(query);
 		rs = prep.executeQuery();
 
-		assertTrue(!rs.next()); // Se encuentra el objeto
-					// correspondiente
+		// No se encuentran los datos del usuario
+		assertTrue(!rs.next());
 
 		prep.close();
 		rs.close();
