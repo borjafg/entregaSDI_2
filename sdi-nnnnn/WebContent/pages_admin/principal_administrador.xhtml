@@ -18,7 +18,7 @@
 			<p:menubar>
 				<p:menuitem value="#{msgs.administrador_menu_reinicio}"
 					action="#{bean_users_list.restartData}" id="boton_reinicio"
-					update="tabla_usuarios mensajes_admin" />
+					update="form_admin:tabla_usuarios mensajes_admin" />
 
 				<ui:include src="/snippets/submenu_user_admin.xhtml" />
 				<ui:include src="/snippets/submenu_idiomas.xhtml" />
@@ -30,48 +30,44 @@
 			showDetail="true" closable="true" />
 		<p:spacer />
 
-		<p:dataTable var="usuario" value="#{bean_users_list.users}"
-			id="tabla_usuarios" rowIndexVar="index">
+		<h:form id="form_admin">
+			<p:dataTable var="usuario" value="#{bean_users_list.users}"
+				id="tabla_usuarios" rowIndexVar="index">
 
-			<f:facet name="header">
-				#{msgs.administrador_titulo_tabla_usuarios}
-			</f:facet>
-
-
-			<p:column headerText="#{msgs.administrador_columna_usuario}"
-				sortBy="#{usuario.login}" id="column_login_title">
-				<h:outputText value="#{usuario.login}" id="column_login" />
-			</p:column>
-
-			<p:column headerText="#{msgs.administrador_columna_correo}"
-				sortBy="#{usuario.email}" id="column_email_title">
-				<h:outputText value="#{usuario.email}" id="column_email" />
-			</p:column>
-
-			<p:column headerText="#{msgs.administrador_columna_estado}"
-				sortBy="#{usuario.status}" id="column_status_title">
-
-				<h:outputText value="#{usuario.status.name().toLowerCase()}"
-					id="column_status" />
-			</p:column>
+				<f:facet name="header">#{msgs.administrador_titulo_tabla_usuarios}</f:facet>
 
 
-			<p:column
-				style="#{empty usuario ? '' : 'background-color: #f3f5a7;'}">
-				<h:form id="form_status">
+				<p:column headerText="#{msgs.administrador_columna_usuario}"
+					sortBy="#{usuario.login}" id="column_login_title">
+					<h:outputText value="#{usuario.login}" id="column_login" />
+				</p:column>
+
+				<p:column headerText="#{msgs.administrador_columna_correo}"
+					sortBy="#{usuario.email}" id="column_email_title">
+					<h:outputText value="#{usuario.email}" id="column_email" />
+				</p:column>
+
+				<p:column headerText="#{msgs.administrador_columna_estado}"
+					sortBy="#{usuario.status}" id="column_status_title">
+
+					<h:outputText value="#{usuario.status.name().toLowerCase()}"
+						id="column_status" />
+				</p:column>
+
+
+				<p:column
+					style="#{empty usuario ? '' : 'background-color: #f3f5a7;'}">
 					<p:commandLink action="#{bean_users_list.changeStatus(usuario)}"
 						immediate="true" type="submit" id="button_status"
-						update="tabla_usuarios mensajes_admin"
+						update="form_admin:tabla_usuarios mensajes_admin"
 						value="#{msgs.administrador_boton_cambiar_estado}" />
-				</h:form>
-			</p:column>
+				</p:column>
 
-			<p:column
-				style="#{empty usuario ? '' : 'background-color: #ffcccc;'}">
-				<h:form id="form_delete">
+				<p:column
+					style="#{empty usuario ? '' : 'background-color: #ffcccc;'}">
 					<p:commandLink action="#{bean_users_list.deleteUser(usuario)}"
 						immediate="true" type="submit" id="button_delete"
-						update="tabla_usuarios mensajes_admin"
+						update="form_admin:tabla_usuarios mensajes_admin"
 						value="#{msgs.administrador_boton_eliminar_usuario}">
 
 						<p:confirm
@@ -79,20 +75,21 @@
 							message="#{msgs.administrador_mensaje_eliminar_usuario}"
 							icon="ui-icon-alert" />
 					</p:commandLink>
+				</p:column>
+			</p:dataTable>
 
-					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-						<p:commandButton id="confirm_delete" icon="ui-icon-check"
-							value="#{msgs.administrador_confirmar_eliminacion}" type="button"
-							styleClass="ui-confirmdialog-yes" />
 
-						<p:commandButton value="#{msgs.administrador_denegar_eliminacion}"
-							type="button" styleClass="ui-confirmdialog-no"
-							icon="ui-icon-close" />
-					</p:confirmDialog>
-				</h:form>
-			</p:column>
+			<p:confirmDialog id="dialog_borrado" global="true"
+				showEffect="fade" hideEffect="fade">
 
-		</p:dataTable>
+				<p:commandButton id="confirm_delete" icon="ui-icon-check"
+					value="#{msgs.administrador_confirmar_eliminacion}" type="button"
+					styleClass="ui-confirmdialog-yes" />
+
+				<p:commandButton value="#{msgs.administrador_denegar_eliminacion}"
+					type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
+		</h:form>
 	</h:body>
 </f:view>
 
