@@ -50,11 +50,11 @@ public class BeanUserRegistry implements Serializable {
 	}
 
 	catch (BusinessException be) {
-	    MessageManager.warning(contexto, "panel_registry", be.getMessage());
+	    MessageManager.warning(contexto, "panel_registry", be.getClaveFicheroMensajes());
 
 	    Log.error("Ha ocurrido un error durante el registro de un nuevo "
 		    + "usuario. Causa del error: %s",
-		    Messages.getMessage(contexto, be.getMessage()));
+		   be.getMessage());
 
 	    return "fallo";
 	}

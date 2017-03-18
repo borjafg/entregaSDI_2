@@ -39,13 +39,12 @@ public class BeanLogin implements Serializable {
 	}
 
 	// La cuenta se encuentra deshabilitada
-	catch (BusinessException bs) {
-	    Log.error("Se ha intentado iniciar sesión con una cuenta de "
-		    + "usuario deshabilitada: [%s]", login);
-	    Log.error("Error: %s", bs.getMessage());
+	catch (BusinessException bs) {	   
+	    Log.error("No se ha podido hacer login con el usuario [%s]. "
+	    	+ "Causa: %s",login, bs.getMessage());
 
 	    MessageManager.warning(contexto, "panel_login",
-		    "login_usuario_deshabilitado");
+		    bs.getClaveFicheroMensajes());
 
 	    return "fallo";
 	}

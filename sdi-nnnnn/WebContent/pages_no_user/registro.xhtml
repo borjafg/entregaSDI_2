@@ -29,7 +29,10 @@
 
 					<p:inputText id="email" value="#{bean_registry.email}"
 						required="true" placeholder="#{msgs.registry_placeholder_email}"
-						requiredMessage="#{msgs.registry_email_requerido}" size="30">
+						requiredMessage="#{msgs.registry_email_requerido}" size="30"
+						validatorMessage="#{msgs.registry_email_no_valido}">
+						<f:validateRegex
+							pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
 					</p:inputText>
 
 					<p:message for="email " />
@@ -41,7 +44,8 @@
 						required="true"
 						placeholder="#{msgs.registry_placeholder_contrasena}"
 						requiredMessage="#{msgs.registry_contrasena_requerida}" size="30"
-						type="password" match="contrasena2">
+						validatorMessage="#{msgs.error_password}" type="password"
+						match="contrasena2">
 						<f:validateLength minimum="8" />
 					</p:password>
 

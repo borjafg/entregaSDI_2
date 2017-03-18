@@ -42,7 +42,8 @@ public class UserCheck {
     }
 
     private static boolean isPasswordTypeCorrect(String password) {
-	String passPattern = "[a-zA-Z-0-9]+";
+	String passPattern = "([0-9a-zA-Z]*[a-zA-Z]+[0-9a-zA-Z]*[0-9]+[0-9a-zA-Z]*)|"
+		+ "([0-9a-zA-Z]*[0-9]+[0-9a-zA-Z]*[a-zA-Z]+[0-9a-zA-Z]*)";
 	return Pattern.compile(passPattern).matcher(password).matches();
     }
 

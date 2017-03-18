@@ -4,15 +4,19 @@ public class BusinessException extends Exception {
 
     private static final long serialVersionUID = 4001710687990554589L;
     
-    String claveExcepcion = "";
+    private String claveFicheroMensajes = "";
     
     
+    public String getClaveFicheroMensajes() {
+        return claveFicheroMensajes;
+    }
+
     public BusinessException() {
     }
 
     public BusinessException(String message,String clave) {
 	super(message);
-	this.claveExcepcion = clave;
+	this.claveFicheroMensajes = clave;
     }
 
     public BusinessException(Throwable cause) {
@@ -22,5 +26,7 @@ public class BusinessException extends Exception {
     public BusinessException(String message, Throwable cause) {
 	super(message, cause);
     }
+    
+    
 
 }

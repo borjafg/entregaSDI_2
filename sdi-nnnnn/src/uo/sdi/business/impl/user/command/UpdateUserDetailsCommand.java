@@ -21,7 +21,7 @@ public class UpdateUserDetailsCommand implements Command<Void> {
 	User previous = UserFinder.findById(user.getId());
 
 	BusinessCheck.isNotNull(previous, "El usuario no existe",
-		"errores_usuario_no_existe");
+		"error_usuario_no_existe");
 	UserCheck.isValidEmailSyntax(user);
 	UserCheck.minLoginLength(user);
 	UserCheck.minPasswordLength(user);

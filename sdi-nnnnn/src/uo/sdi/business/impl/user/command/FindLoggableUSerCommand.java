@@ -31,7 +31,8 @@ public class FindLoggableUSerCommand implements Command<UserDTO> {
 	    return TypeConverter.convertUser(user);
 	}
 
-	return null;
+	throw new BusinessException("El usuario no existe o la contraseña es "
+		+ "incorrecta.","error_usuario_no_existe");
     }
 
 }
