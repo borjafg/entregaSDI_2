@@ -25,6 +25,8 @@ import com.sdi.tests.database_test.DatabaseContentsTester;
 import com.sdi.tests.database_test.UserDeletedTester;
 import com.sdi.tests.page_objects.PO_AdminRow;
 import com.sdi.tests.page_objects.PO_LoginForm;
+import com.sdi.tests.page_objects.PO_RegistryForm;
+import com.sdi.tests.utils.DatabaseReload;
 import com.sdi.tests.utils.PropertiesReader;
 import com.sdi.tests.utils.SeleniumUtils;
 import com.sdi.tests.utils.ThreadUtil;
@@ -671,7 +673,32 @@ public class PlantillaSDI2_Tests1617 {
     // PR12: Crear una cuenta de usuario normal con datos válidos.
     @Test
     public void prueba12() {
-	assertTrue(false);
+
+	// (1) reiniciamos la base de datos
+
+	new DatabaseReload().reload(driver);
+
+	// (2) cambiamos a la pestaña de registro
+	WebElement registrarseEnlace = driver.findElement(By
+		.id("form_menu_superior:enlace_registro"));
+	registrarseEnlace.click();
+	ThreadUtil.wait(600);
+	// (3) rellenamos el formulario
+	new PO_RegistryForm().completeForm(driver, "usuario4",
+		"usuario4@mail.com", "password123", "password123");
+	ThreadUtil.wait(1200);
+	
+	//(4) Sacamos la lista de elementos
+	List<WebElement> mensajes = SeleniumUtils.EsperaCargaPagina(driver,
+		"class", "ui-messages-info-detail", 8);
+
+	assertTrue(
+		"No se ha encontrado el mensaje de registro correcto",
+		mensajes.get(0)
+			.getText()
+			.equals(new PropertiesReader().getValueOf(
+				defaultLocale, "registry_exito")));
+
     }
 
     // PR13: Crear una cuenta de usuario normal con login repetido.
