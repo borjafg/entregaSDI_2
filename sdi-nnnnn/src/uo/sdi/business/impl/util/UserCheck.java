@@ -11,33 +11,33 @@ import uo.sdi.persistence.UserFinder;
 public class UserCheck {
 
     public static void isNotAdmin(UserDTO user) throws BusinessException {
-	String check = "registry_nuevo_admin";
+	String check = "error_registry_nuevo_admin";
 	BusinessCheck.isFalse(user.getIsAdmin(), check);
     }
 
     public static void isValidEmailSyntax(UserDTO user)
 	    throws BusinessException {
-	String check = "registry_email_no_valido";
+	String check = "error_registry_email_no_valido";
 	BusinessCheck.isTrue(isValidEmail(user.getEmail()), check);
     }
 
     public static void minLoginLength(UserDTO user) throws BusinessException {
-	String check = "registry_min_login_length";
+	String check = "error_registry_min_login_length";
 	BusinessCheck.isTrue(user.getLogin().length() >= 3, check);
     }
 
     public static void minPasswordLength(UserDTO user) throws BusinessException {
-	String check = "registry_password_peque";
+	String check = "error_registry_password_peque";
 	BusinessCheck.isTrue(user.getPassword().length() >= 8, check);
     }
 
     public static void notRepeatedLogin(UserDTO user) throws BusinessException {
 	User u = UserFinder.findByLogin(user.getLogin());
-	BusinessCheck.isNull(u, "registry_login_ya_existe");
+	BusinessCheck.isNull(u, "error_registry_login_ya_existe");
     }
 
     public static void isValidPassword(UserDTO user) throws BusinessException {
-	String check = "registry_password_type";
+	String check = "error_registry_password_type";
 	BusinessCheck.isTrue(isPasswordTypeCorrect(user.getPassword()), check);
     }
 
