@@ -17,7 +17,7 @@ public class TaskDTO implements Serializable {
     private Date planned;
     private Date finished;
 
-    private Long categoryId;
+    private CategoryDTO category;
     private Long userId;
 
     public TaskDTO(Task tarea) {
@@ -27,10 +27,10 @@ public class TaskDTO implements Serializable {
 	this.comments = tarea.getComments();
 	this.created = tarea.getCreated();
 	this.planned = tarea.getPlanned();
-	this.categoryId = null;
+	this.category = null;
 
 	if (tarea.getCategory() != null) {
-	    this.categoryId = tarea.getCategory().getId();
+	    this.category = new CategoryDTO(tarea.getCategory());
 	}
 
 	this.userId = tarea.getUser().getId();
@@ -38,7 +38,7 @@ public class TaskDTO implements Serializable {
 
     public TaskDTO(String title, Long categoryId, Long userId) {
 	this.title = title;
-	this.categoryId = categoryId;
+	this.category = new CategoryDTO(categoryId);
 	this.userId = userId;
     }
 
@@ -66,8 +66,8 @@ public class TaskDTO implements Serializable {
 	return finished;
     }
 
-    public Long getCategoryId() {
-	return categoryId;
+    public CategoryDTO getCategory() {
+	return category;
     }
 
     public Long getUserId() {
@@ -110,7 +110,7 @@ public class TaskDTO implements Serializable {
     public String toString() {
 	return "TaskDTO [id=" + id + ", title=" + title + ", comments="
 		+ comments + ", created=" + created + ", planned=" + planned
-		+ ", finished=" + finished + ", categoryId=" + categoryId
+		+ ", finished=" + finished + ", category=" + category
 		+ ", userId=" + userId + "]";
     }
 

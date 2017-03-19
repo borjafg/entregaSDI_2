@@ -19,17 +19,37 @@
 				<h:outputText value="#{tarea.title}" id="columna_titulo" />
 			</p:column>
 
+
 			<p:column headerText="Titulo columna comments"
 				sortBy="#{tarea.comments}" id="columna_comentarios_titulo">
 
 				<h:outputText value="#{tarea.comments}" id="columna_comentarios" />
 			</p:column>
 
+
 			<p:column headerText="Titulo columna created"
-				sortBy="#{tarea.created}" id="column_login_title">
+				sortBy="#{tarea.created}" id="columna_creada_titulo">
 
 				<h:outputText value="#{tarea.created}" id="columna_creada">
-					<f:convertDateTime dateStyle="short" type="date"  />
+					<f:convertDateTime dateStyle="short" type="date" />
+				</h:outputText>
+			</p:column>
+
+
+			<p:column headerText="Titulo columna planned"
+				sortBy="#{tarea.planned}" id="columna_planeada_titulo">
+
+				<h:outputText value="#{tarea.planned}" id="columna_planeada">
+					<f:convertDateTime dateStyle="short" type="date" />
+				</h:outputText>
+			</p:column>
+
+
+			<p:column headerText="Titulo columna finished"
+				sortBy="#{tarea.finished}" id="columna_finalizada_titulo">
+
+				<h:outputText value="#{tarea.finished}" id="columna_finalizada">
+					<f:convertDateTime dateStyle="short" type="date" />
 				</h:outputText>
 			</p:column>
 

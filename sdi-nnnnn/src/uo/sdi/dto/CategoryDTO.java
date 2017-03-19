@@ -15,6 +15,14 @@ public class CategoryDTO implements Serializable {
 
     private Long userId;
 
+    /**
+     * Sólo se usa para asociar una tarea con su categoría.
+     * 
+     */
+    CategoryDTO(Long id) {
+	this.id = id;
+    }
+
     public CategoryDTO(Category category) {
 	this.id = category.getId();
 	this.name = category.getName();
