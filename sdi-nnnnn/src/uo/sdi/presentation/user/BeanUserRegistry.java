@@ -11,7 +11,6 @@ import uo.sdi.business.UserService;
 import uo.sdi.business.exception.BusinessException;
 import uo.sdi.dto.UserDTO;
 import uo.sdi.presentation.util.MessageManager;
-import uo.sdi.presentation.util.Messages;
 import alb.util.log.Log;
 
 @ManagedBean(name = "bean_registry")
@@ -63,6 +62,8 @@ public class BeanUserRegistry implements Serializable {
 	    Log.error("Excepcion generada durante la creacion de un usario");
 	    return "error";
 	}
+	
+	contexto.getExternalContext().getFlash().setKeepMessages(true);
 
 	Log.debug("Se ha registrado con exito al usuario [%s]", login);
 	MessageManager.info(contexto, "panel_login", "registry_exito");

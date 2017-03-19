@@ -25,6 +25,8 @@ import com.sdi.tests.database_test.DatabaseContentsTester;
 import com.sdi.tests.database_test.UserDeletedTester;
 import com.sdi.tests.page_objects.PO_AdminRow;
 import com.sdi.tests.page_objects.PO_LoginForm;
+import com.sdi.tests.page_objects.PO_RegistryForm;
+import com.sdi.tests.utils.DatabaseReload;
 import com.sdi.tests.utils.PropertiesReader;
 import com.sdi.tests.utils.SeleniumUtils;
 import com.sdi.tests.utils.ThreadUtil;
@@ -671,19 +673,94 @@ public class PlantillaSDI2_Tests1617 {
     // PR12: Crear una cuenta de usuario normal con datos válidos.
     @Test
     public void prueba12() {
-	assertTrue(false);
+
+	// (1) reiniciamos la base de datos
+
+	new DatabaseReload().reload(driver);
+
+	// (2) cambiamos a la pestaña de registro
+	WebElement registrarseEnlace = driver.findElement(By
+		.id("form_menu_superior:enlace_registro"));
+	registrarseEnlace.click();
+	ThreadUtil.wait(600);
+	// (3) rellenamos el formulario
+	new PO_RegistryForm().completeForm(driver, "usuario4",
+		"usuario4@mail.com", "password123", "password123");
+	ThreadUtil.wait(1200);
+
+	// (4) Sacamos la lista de elementos
+	List<WebElement> mensajes = SeleniumUtils.EsperaCargaPagina(driver,
+		"class", "ui-messages-info-detail", 8);
+	ThreadUtil.wait(600);
+
+	// (5) validamos la salida
+	assertTrue(
+		"No se ha encontrado el mensaje de registro correcto",
+		mensajes.get(0)
+			.getText()
+			.equals(new PropertiesReader().getValueOf(
+				defaultLocale, "registry_exito")));
+
     }
 
     // PR13: Crear una cuenta de usuario normal con login repetido.
+    // Prueba dependiente de la prueba 12
     @Test
     public void prueba13() {
-	assertTrue(false);
+	// (1) cambiamos a la pestaña de registro
+	WebElement registrarseEnlace = driver.findElement(By
+		.id("form_menu_superior:enlace_registro"));
+	registrarseEnlace.click();
+	ThreadUtil.wait(600);
+
+	// (2) rellenamos el formulario
+	new PO_RegistryForm().completeForm(driver, "usuario4",
+		"usuario4@mail.com", "password123", "password123");
+	ThreadUtil.wait(1200);
+
+	// (3) Sacamos la lista de elementos
+	List<WebElement> mensajes = SeleniumUtils.EsperaCargaPagina(driver,
+		"class", "ui-messages-warn-detail", 8);
+
+	ThreadUtil.wait(600);
+	// (4) Validacion de la salida
+	assertTrue(
+		"No se ha encontrado el mensaje de login ya existente",
+		mensajes.get(0)
+			.getText()
+			.equals(new PropertiesReader()
+				.getValueOf(defaultLocale,
+					"error_registry_login_ya_existe")));
     }
 
     // PR14: Crear una cuenta de usuario normal con Email incorrecto.
     @Test
     public void prueba14() {
-	assertTrue(false);
+	// (1) cambiamos a la pestaña de registro
+	WebElement registrarseEnlace = driver.findElement(By
+		.id("form_menu_superior:enlace_registro"));
+	registrarseEnlace.click();
+	ThreadUtil.wait(600);
+
+	// (2) rellenamos el formulario
+	new PO_RegistryForm().completeForm(driver, "usuario5",
+		"usuario5mailcom", "password123", "password123");
+	ThreadUtil.wait(1200);
+
+	// (3) Sacamos la lista de elementos
+	List<WebElement> mensajes = SeleniumUtils.EsperaCargaPagina(driver,
+		"class", "ui-message-error-detail", 8);
+	System.out.println(mensajes.get(0).getText());
+	ThreadUtil.wait(600);
+	// (4) Validacion de la salida
+	assertTrue(
+		"No se ha encontrado el mensaje de mail incorrecto",
+		mensajes.get(0)
+			.getText()
+			.equals(new PropertiesReader()
+				.getValueOf(defaultLocale,
+					"error_registry_email_no_valido")));
+
     }
 
     // PR15: Crear una cuenta de usuario normal con Password incorrecta.

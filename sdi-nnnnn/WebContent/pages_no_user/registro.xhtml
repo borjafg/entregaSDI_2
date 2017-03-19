@@ -6,7 +6,7 @@
 	template="/templates/template_anonimo.xhtml">
 
 	<ui:define name="opcion_menu">
-		<p:menuitem value="#{msgs.registry_enlace_login}" action="login"
+		<p:menuitem id="enlace_login" value="#{msgs.registry_enlace_login}" action="login"
 			immediate="true" update="@all" />
 	</ui:define>
 
@@ -30,7 +30,7 @@
 					<p:inputText id="email" value="#{bean_registry.email}"
 						required="true" placeholder="#{msgs.registry_placeholder_email}"
 						requiredMessage="#{msgs.registry_email_requerido}" size="30"
-						validatorMessage="#{msgs.registry_email_no_valido}">
+						validatorMessage="#{msgs.error_registry_email_no_valido}">
 						<f:validateRegex
 							pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
 					</p:inputText>
@@ -66,7 +66,7 @@
 
 					<p:outputLabel value="" />
 
-					<p:commandButton value="#{msgs.registry_boton}" update="@form"
+					<p:commandButton id="boton_registry" value="#{msgs.registry_boton}" update="@form"
 						action="#{bean_registry.registrar}" />
 				</h:panelGrid>
 
