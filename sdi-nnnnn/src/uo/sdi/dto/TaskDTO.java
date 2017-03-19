@@ -27,8 +27,12 @@ public class TaskDTO implements Serializable {
 	this.comments = tarea.getComments();
 	this.created = tarea.getCreated();
 	this.planned = tarea.getPlanned();
+	this.categoryId = null;
 
-	this.categoryId = tarea.getCategory().getId();
+	if (tarea.getCategory() != null) {
+	    this.categoryId = tarea.getCategory().getId();
+	}
+
 	this.userId = tarea.getUser().getId();
     }
 

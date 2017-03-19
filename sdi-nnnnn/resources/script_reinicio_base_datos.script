@@ -5,8 +5,8 @@
 -- ==================================
 
 delete from TTasks where 1 = 1;       -- Eliminar todas las filas
-delete from tcategories where 1 = 1; -- Eliminar todas las filas
-delete from tusers where id <> 1;    -- Eliminar todos menos el administrador
+delete from tcategories where 1 = 1;  -- Eliminar todas las filas
+delete from tusers where id <> 1;     -- Eliminar todos menos el administrador
 
 
 -- ==================================
