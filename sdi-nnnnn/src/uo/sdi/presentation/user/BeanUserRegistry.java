@@ -66,7 +66,7 @@ public class BeanUserRegistry implements Serializable {
 	contexto.getExternalContext().getFlash().setKeepMessages(true);
 
 	Log.debug("Se ha registrado con exito al usuario [%s]", login);
-	MessageManager.info(contexto, "panel_login", "registry_exito");
+	MessageManager.info(contexto, "panel_login", "registro_exito");
 
 	return "exito";
     }
