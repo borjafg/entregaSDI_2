@@ -31,10 +31,13 @@ public class CreateTaskCommand implements Command<Task> {
 
 	Task task = new Task(taskDTO.getTitle(), user);
 
-	if (taskDTO.getCategoryId() != null) {
-	    Category categ = CategoryFinder.findById(taskDTO.getCategoryId());
+	if (taskDTO.getCategory() != null) {
+	    Category categ = CategoryFinder.findById(taskDTO.getCategory()
+		    .getId());
+
 	    BusinessCheck.isNotNull(categ, "La categoria no existe",
 		    "errores_categoria_no_exite");
+
 	    task.setCategory(categ);
 	}
 
