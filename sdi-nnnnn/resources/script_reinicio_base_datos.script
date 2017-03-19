@@ -165,7 +165,7 @@ INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title,
 -- Usuario 3: diez tareas para los siguientes seis días (sin categoría)
 
 INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (61, 4, DATE_ADD(current_timestamp, 1 second), DATE_ADD(current_date, 1 day), NULL, NULL, 'tarea01', 'tarea 01 de user3');
-INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (62, 4, DATE_ADD(current_timestamp, 3 second), DATE_ADD(current_date, 1 day), NULL, NULL, 'tarea2', 'tarea 02 de user3');
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (62, 4, DATE_ADD(current_timestamp, 3 second), DATE_ADD(current_date, 1 day), NULL, NULL, 'tarea02', 'tarea 02 de user3');
 
 INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (63, 4, DATE_ADD(current_timestamp, 5 second), DATE_ADD(current_date, 2 day), NULL, NULL, 'tarea03', 'tarea 03 de user3');
 INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (64, 4, DATE_ADD(current_timestamp, 7 second), DATE_ADD(current_date, 2 day), NULL, NULL, 'tarea04', 'tarea 04 de user3');

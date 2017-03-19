@@ -35,7 +35,7 @@ public class DatabaseReload {
 	SeleniumUtils.EsperaCargaPagina(driver, "id",
 		"form_anonimo:boton_login", 10);
 
-	ThreadUtil.wait(1000);
+	ThreadUtil.wait(1100);
     }
 
 }

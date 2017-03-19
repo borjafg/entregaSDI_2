@@ -210,7 +210,7 @@ public class PlantillaSDI2_Tests1617 {
 		    && fila.get("status").equals(status));
 	}
 
-	ThreadUtil.wait(800); // Espera para ver el efecto del test
+	ThreadUtil.wait(900); // Espera para ver el efecto del test
     }
 
     // PR06: Cambiar el estado de un usuario de ENABLED a DISABLED. Y tratar de
@@ -246,7 +246,7 @@ public class PlantillaSDI2_Tests1617 {
 
 	ThreadUtil.wait(1000); // Espera para ver el efecto del test
 
-	// (5) Cerrar sesión
+	// (6) Cerrar sesión
 	SeleniumUtils.ClickSubopcionMenuHover(driver,
 		"form_menu_superior:submenu_usuario",
 		"form_menu_superior:boton_logout");
@@ -254,11 +254,11 @@ public class PlantillaSDI2_Tests1617 {
 	SeleniumUtils.EsperaCargaPagina(driver, "id",
 		"form_anonimo:boton_login", 10);
 
-	// (6) Intentar hacer login con ese usuario
+	// (7) Intentar hacer login con ese usuario
 	new PO_LoginForm().completeForm(driver, (String) fila.get("login"),
 		(String) fila.get("login"));
 
-	// (7) Comprobar que no fue posible
+	// (8) Comprobar que no fue posible
 	mensajes = SeleniumUtils.EsperaCargaPagina(driver, "class",
 		"ui-messages-warn-detail", 8);
 	mensaje = mensajes.get(0);
@@ -267,7 +267,7 @@ public class PlantillaSDI2_Tests1617 {
 		"No se encontró el mensaje de usuario deshabilitado",
 		mensaje.getText().equals(
 			new PropertiesReader().getValueOf(defaultLocale,
-				"login_usuario_deshabilitado")));
+				"error_login_usuario_deshabilitado")));
 
 	ThreadUtil.wait(1000); // Espera para ver el efecto del test
     }
@@ -305,7 +305,7 @@ public class PlantillaSDI2_Tests1617 {
 
 	ThreadUtil.wait(800); // Espera para ver el efecto del test
 
-	// (5) Cerrar sesión
+	// (6) Cerrar sesión
 	SeleniumUtils.ClickSubopcionMenuHover(driver,
 		"form_menu_superior:submenu_usuario",
 		"form_menu_superior:boton_logout");
@@ -313,12 +313,12 @@ public class PlantillaSDI2_Tests1617 {
 	SeleniumUtils.EsperaCargaPagina(driver, "id",
 		"form_anonimo:boton_login", 10);
 
-	// (6) Intentar hacer login con ese usuario
+	// (7) Intentar hacer login con ese usuario
 	new PO_LoginForm().completeForm(driver, (String) fila.get("login"),
 		(String) fila.get("login"));
 
-	// (7) Comprobar que pudo hacer login
-	// SeleniumUtils.EsperaCargaPagina(driver, "id", "idPaginaUsuario", 10);
+	// (8) Comprobar que se pudo hacer login
+	SeleniumUtils.EsperaCargaPagina(driver, "id", "panel_categorias", 10);
 
 	ThreadUtil.wait(800); // Espera para ver el efecto del test
     }
@@ -600,7 +600,7 @@ public class PlantillaSDI2_Tests1617 {
 
 	ThreadUtil.wait(800);
 
-	// (3) Buscar el boton de eliminar usuario y hacer click
+	// (4) Buscar el boton de eliminar usuario y hacer click
 	Map<String, Object> fila = new PO_AdminRow().findRow(driver, 0);
 
 	String login = (String) fila.get("login");
@@ -672,9 +672,7 @@ public class PlantillaSDI2_Tests1617 {
     // PR12: Crear una cuenta de usuario normal con datos válidos.
     @Test
     public void prueba12() {
-
 	// (1) reiniciamos la base de datos
-
 	new DatabaseReload().reload(driver);
 
 	// (2) cambiamos a la pestaña de registro
@@ -682,6 +680,7 @@ public class PlantillaSDI2_Tests1617 {
 		.id("form_menu_superior:enlace_registro"));
 	registrarseEnlace.click();
 	ThreadUtil.wait(600);
+
 	// (3) rellenamos el formulario
 	new PO_RegistryForm().completeForm(driver, "usuario4",
 		"usuario4@mail.com", "password123", "password123");
@@ -699,7 +698,6 @@ public class PlantillaSDI2_Tests1617 {
 			.getText()
 			.equals(new PropertiesReader().getValueOf(
 				defaultLocale, "registro_exito")));
-
     }
 
     // PR13: Crear una cuenta de usuario normal con login repetido.
@@ -709,6 +707,7 @@ public class PlantillaSDI2_Tests1617 {
 	// (1) cambiamos a la pestaña de registro
 	WebElement registrarseEnlace = driver.findElement(By
 		.id("form_menu_superior:enlace_registro"));
+
 	registrarseEnlace.click();
 	ThreadUtil.wait(600);
 
@@ -720,8 +719,8 @@ public class PlantillaSDI2_Tests1617 {
 	// (3) Sacamos la lista de elementos
 	List<WebElement> mensajes = SeleniumUtils.EsperaCargaPagina(driver,
 		"class", "ui-messages-warn-detail", 8);
-
 	ThreadUtil.wait(600);
+
 	// (4) Validacion de la salida
 	assertTrue(
 		"No se ha encontrado el mensaje de login ya existente",
@@ -749,8 +748,8 @@ public class PlantillaSDI2_Tests1617 {
 	// (3) Sacamos la lista de elementos
 	List<WebElement> mensajes = SeleniumUtils.EsperaCargaPagina(driver,
 		"class", "ui-message-error-detail", 8);
-
 	ThreadUtil.wait(600);
+
 	// (4) Validacion de la salida
 	assertTrue(
 		"No se ha encontrado el mensaje de mail incorrecto",
@@ -759,15 +758,12 @@ public class PlantillaSDI2_Tests1617 {
 			.equals(new PropertiesReader()
 				.getValueOf(defaultLocale,
 					"error_registro_email_no_valido")));
-
     }
 
     // PR15: Crear una cuenta de usuario normal con Password incorrecta.
     @Test
     public void prueba15() {
-
 	// (1) reiniciamos la base de datos
-
 	new DatabaseReload().reload(driver);
 
 	// (2) cambiamos a la pestaña de registro
@@ -775,10 +771,12 @@ public class PlantillaSDI2_Tests1617 {
 		.id("form_menu_superior:enlace_registro"));
 	registrarseEnlace.click();
 	ThreadUtil.wait(600);
+
 	// (3) rellenamos el formulario [caso contraseña solo numeros]
 	new PO_RegistryForm().completeForm(driver, "usuario5",
 		"usuario5@mail.com", "123456789", "123456789");
 	ThreadUtil.wait(1200);
+
 	// (4) Sacamos la lista de elementos
 	List<WebElement> mensajes = SeleniumUtils.EsperaCargaPagina(driver,
 		"class", "ui-messages-warn-detail", 8);
@@ -792,10 +790,12 @@ public class PlantillaSDI2_Tests1617 {
 			.equals(new PropertiesReader().getValueOf(
 				defaultLocale,
 				"error_registro_password_contenido")));
+
 	// (6) rellenamos el formulario [caso contraseña solo letras]
 	new PO_RegistryForm().completeForm(driver, "usuario5",
 		"usuario5@mail.com", "asdfghjkl", "asdfghjkl");
 	ThreadUtil.wait(1200);
+
 	// (7) Sacamos la lista de elementos
 	mensajes = SeleniumUtils.EsperaCargaPagina(driver, "class",
 		"ui-messages-warn-detail", 8);
@@ -814,10 +814,12 @@ public class PlantillaSDI2_Tests1617 {
 	// digitos]
 	new PO_RegistryForm().completeForm(driver, "usuario5",
 		"usuario5@mail.com", "a1", "a1");
+
 	// (10) Sacamos la lista de elementos
 	mensajes = SeleniumUtils.EsperaCargaPagina(driver, "class",
 		"ui-message-error-detail", 8);
 	ThreadUtil.wait(600);
+
 	// (11) validamos la salida
 	assertTrue(
 		"No se ha encontrado el mensaje de contraseña inválida",
@@ -825,14 +827,17 @@ public class PlantillaSDI2_Tests1617 {
 			.getText()
 			.equals(new PropertiesReader().getValueOf(
 				defaultLocale, "error_registro_password")));
+
 	// (12) rellenamos el formulario [caso contraseñas distintas]
 	new PO_RegistryForm().completeForm(driver, "usuario5",
 		"usuario5@mail.com", "asdfghjkl1234", "asdfghjkl123");
 	ThreadUtil.wait(1200);
+
 	// (13) Sacamos la lista de elementos
 	mensajes = SeleniumUtils.EsperaCargaPagina(driver, "class",
 		"ui-message-error-detail", 8);
 	ThreadUtil.wait(600);
+
 	// (14) validamos la salida
 	assertTrue(
 		"No se ha encontrado el mensaje de contraseña inválida",
