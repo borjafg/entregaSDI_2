@@ -112,7 +112,7 @@ public class PlantillaSDI2_Tests1617 {
 		"No se encontró el mensaje de login inválido",
 		mensaje.getText().equals(
 			new PropertiesReader().getValueOf(defaultLocale,
-				"login_usuario_no_existe")));
+				"error_login_usuario_no_existe")));
 
 	ThreadUtil.wait(800); // Espera para ver el efecto del test
     }
@@ -135,7 +135,7 @@ public class PlantillaSDI2_Tests1617 {
 		"No se encontró el mensaje de login inválido",
 		mensaje.getText().equals(
 			new PropertiesReader().getValueOf(defaultLocale,
-				"login_usuario_no_existe")));
+				"error_login_usuario_no_existe")));
 
 	ThreadUtil.wait(800); // Espera para ver el efecto del test
     }
@@ -790,7 +790,8 @@ public class PlantillaSDI2_Tests1617 {
 		mensajes.get(0)
 			.getText()
 			.equals(new PropertiesReader().getValueOf(
-				defaultLocale, "error_registro_password_type")));
+				defaultLocale,
+				"error_registro_password_contenido")));
 	// (6) rellenamos el formulario [caso contraseña solo letras]
 	new PO_RegistryForm().completeForm(driver, "usuario5",
 		"usuario5@mail.com", "asdfghjkl", "asdfghjkl");
@@ -806,7 +807,8 @@ public class PlantillaSDI2_Tests1617 {
 		mensajes.get(0)
 			.getText()
 			.equals(new PropertiesReader().getValueOf(
-				defaultLocale, "error_registro_password_type")));
+				defaultLocale,
+				"error_registro_password_contenido")));
 
 	// (9) rellenamos el formulario [caso longitud contraseña inferior a 8
 	// digitos]
@@ -822,7 +824,7 @@ public class PlantillaSDI2_Tests1617 {
 		mensajes.get(0)
 			.getText()
 			.equals(new PropertiesReader().getValueOf(
-				defaultLocale, "error_password")));
+				defaultLocale, "error_registro_password")));
 	// (12) rellenamos el formulario [caso contraseñas distintas]
 	new PO_RegistryForm().completeForm(driver, "usuario5",
 		"usuario5@mail.com", "asdfghjkl1234", "asdfghjkl123");
@@ -837,7 +839,7 @@ public class PlantillaSDI2_Tests1617 {
 		mensajes.get(0)
 			.getText()
 			.equals(new PropertiesReader().getValueOf(
-				defaultLocale, "error_password")));
+				defaultLocale, "error_registro_password")));
     }
 
     // -------------------

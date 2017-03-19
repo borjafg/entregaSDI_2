@@ -35,19 +35,19 @@ select id from TCategories where id = 9 and user_id = 4 and name = 'Categoria3';
 
 -- Usuario 1: diez tareas para los siguientes seis días (sin categoría)
 
-select id from TTasks where id = 1 and user_id = 2 and planned = DATE_ADD(current_date, 1 day) and finished is NULL and category_id is NULL and title = 'tarea1' and comments = 'tarea 1 de user1';
-select id from TTasks where id = 2 and user_id = 2 and planned = DATE_ADD(current_date, 1 day) and finished is NULL and category_id is NULL and title = 'tarea2' and comments = 'tarea 2 de user1';
+select id from TTasks where id = 1 and user_id = 2 and planned = DATE_ADD(current_date, 1 day) and finished is NULL and category_id is NULL and title = 'tarea01' and comments = 'tarea 01 de user1';
+select id from TTasks where id = 2 and user_id = 2 and planned = DATE_ADD(current_date, 1 day) and finished is NULL and category_id is NULL and title = 'tarea02' and comments = 'tarea 02 de user1';
 
-select id from TTasks where id = 3 and user_id = 2 and planned = DATE_ADD(current_date, 2 day) and finished is NULL and category_id is NULL and title = 'tarea3' and comments = 'tarea 3 de user1';
-select id from TTasks where id = 4 and user_id = 2 and planned = DATE_ADD(current_date, 2 day) and finished is NULL and category_id is NULL and title = 'tarea4' and comments = 'tarea 4 de user1';
+select id from TTasks where id = 3 and user_id = 2 and planned = DATE_ADD(current_date, 2 day) and finished is NULL and category_id is NULL and title = 'tarea03' and comments = 'tarea 03 de user1';
+select id from TTasks where id = 4 and user_id = 2 and planned = DATE_ADD(current_date, 2 day) and finished is NULL and category_id is NULL and title = 'tarea04' and comments = 'tarea 04 de user1';
 
-select id from TTasks where id = 5 and user_id = 2 and planned = DATE_ADD(current_date, 3 day) and finished is NULL and category_id is NULL and title = 'tarea5' and comments = 'tarea 5 de user1';
-select id from TTasks where id = 6 and user_id = 2 and planned = DATE_ADD(current_date, 3 day) and finished is NULL and category_id is NULL and title = 'tarea6' and comments = 'tarea 6 de user1';
+select id from TTasks where id = 5 and user_id = 2 and planned = DATE_ADD(current_date, 3 day) and finished is NULL and category_id is NULL and title = 'tarea05' and comments = 'tarea 05 de user1';
+select id from TTasks where id = 6 and user_id = 2 and planned = DATE_ADD(current_date, 3 day) and finished is NULL and category_id is NULL and title = 'tarea06' and comments = 'tarea 06 de user1';
 
-select id from TTasks where id = 7 and user_id = 2 and planned = DATE_ADD(current_date, 4 day) and finished is NULL and category_id is NULL and title = 'tarea7' and comments = 'tarea 7 de user1';
-select id from TTasks where id = 8 and user_id = 2 and planned = DATE_ADD(current_date, 4 day) and finished is NULL and category_id is NULL and title = 'tarea8' and comments = 'tarea 8 de user1';
+select id from TTasks where id = 7 and user_id = 2 and planned = DATE_ADD(current_date, 4 day) and finished is NULL and category_id is NULL and title = 'tarea07' and comments = 'tarea 07 de user1';
+select id from TTasks where id = 8 and user_id = 2 and planned = DATE_ADD(current_date, 4 day) and finished is NULL and category_id is NULL and title = 'tarea08' and comments = 'tarea 08 de user1';
 
-select id from TTasks where id = 9 and user_id = 2 and planned = DATE_ADD(current_date, 5 day) and finished is NULL and category_id is NULL and title = 'tarea9' and comments = 'tarea 9 de user1';
+select id from TTasks where id = 9 and user_id = 2 and planned = DATE_ADD(current_date, 5 day) and finished is NULL and category_id is NULL and title = 'tarea09' and comments = 'tarea 09 de user1';
 select id from TTasks where id = 10 and user_id = 2 and planned = DATE_ADD(current_date, 6 day) and finished is NULL and category_id is NULL and title = 'tarea10' and comments = 'tarea 10 de user1';
 
 
@@ -94,19 +94,19 @@ select id from TTasks where id = 30 and user_id = 2 and planned = DATE_SUB(curre
 
 -- Usuario 2: diez tareas para los siguientes seis días (sin categoría)
 
-select id from TTasks where id = 31 and user_id = 3 and planned = DATE_ADD(current_date, 1 day) and finished is NULL and category_id is NULL and title = 'tarea1' and comments = 'tarea 1 de user2';
-select id from TTasks where id = 32 and user_id = 3 and planned = DATE_ADD(current_date, 1 day) and finished is NULL and category_id is NULL and title = 'tarea2' and comments = 'tarea 2 de user2';
+select id from TTasks where id = 31 and user_id = 3 and planned = DATE_ADD(current_date, 1 day) and finished is NULL and category_id is NULL and title = 'tarea01' and comments = 'tarea 01 de user2';
+select id from TTasks where id = 32 and user_id = 3 and planned = DATE_ADD(current_date, 1 day) and finished is NULL and category_id is NULL and title = 'tarea02' and comments = 'tarea 02 de user2';
 
-select id from TTasks where id = 33 and user_id = 3 and planned = DATE_ADD(current_date, 2 day) and finished is NULL and category_id is NULL and title = 'tarea3' and comments = 'tarea 3 de user2';
-select id from TTasks where id = 34 and user_id = 3 and planned = DATE_ADD(current_date, 2 day) and finished is NULL and category_id is NULL and title = 'tarea4' and comments = 'tarea 4 de user2';
+select id from TTasks where id = 33 and user_id = 3 and planned = DATE_ADD(current_date, 2 day) and finished is NULL and category_id is NULL and title = 'tarea03' and comments = 'tarea 03 de user2';
+select id from TTasks where id = 34 and user_id = 3 and planned = DATE_ADD(current_date, 2 day) and finished is NULL and category_id is NULL and title = 'tarea04' and comments = 'tarea 04 de user2';
 
-select id from TTasks where id = 35 and user_id = 3 and planned = DATE_ADD(current_date, 3 day) and finished is NULL and category_id is NULL and title = 'tarea5' and comments = 'tarea 5 de user2';
-select id from TTasks where id = 36 and user_id = 3 and planned = DATE_ADD(current_date, 3 day) and finished is NULL and category_id is NULL and title = 'tarea6' and comments = 'tarea 6 de user2';
+select id from TTasks where id = 35 and user_id = 3 and planned = DATE_ADD(current_date, 3 day) and finished is NULL and category_id is NULL and title = 'tarea05' and comments = 'tarea 05 de user2';
+select id from TTasks where id = 36 and user_id = 3 and planned = DATE_ADD(current_date, 3 day) and finished is NULL and category_id is NULL and title = 'tarea06' and comments = 'tarea 06 de user2';
 
-select id from TTasks where id = 37 and user_id = 3 and planned = DATE_ADD(current_date, 4 day) and finished is NULL and category_id is NULL and title = 'tarea7' and comments = 'tarea 7 de user2';
-select id from TTasks where id = 38 and user_id = 3 and planned = DATE_ADD(current_date, 4 day) and finished is NULL and category_id is NULL and title = 'tarea8' and comments = 'tarea 8 de user2';
+select id from TTasks where id = 37 and user_id = 3 and planned = DATE_ADD(current_date, 4 day) and finished is NULL and category_id is NULL and title = 'tarea07' and comments = 'tarea 07 de user2';
+select id from TTasks where id = 38 and user_id = 3 and planned = DATE_ADD(current_date, 4 day) and finished is NULL and category_id is NULL and title = 'tarea08' and comments = 'tarea 08 de user2';
 
-select id from TTasks where id = 39 and user_id = 3 and planned = DATE_ADD(current_date, 5 day) and finished is NULL and category_id is NULL and title = 'tarea9' and comments = 'tarea 9 de user2';
+select id from TTasks where id = 39 and user_id = 3 and planned = DATE_ADD(current_date, 5 day) and finished is NULL and category_id is NULL and title = 'tarea09' and comments = 'tarea 09 de user2';
 select id from TTasks where id = 40 and user_id = 3 and planned = DATE_ADD(current_date, 6 day) and finished is NULL and category_id is NULL and title = 'tarea10' and comments = 'tarea 10 de user2';
 
 
@@ -153,19 +153,19 @@ select id from TTasks where id = 60 and user_id = 3 and planned = DATE_SUB(curre
 
 -- Usuario 3: diez tareas para los siguientes seis días (sin categoría)
 
-select id from TTasks where id = 61 and user_id = 4 and planned = DATE_ADD(current_date, 1 day) and finished is NULL and category_id is NULL and title = 'tarea1' and comments = 'tarea 1 de user3';
-select id from TTasks where id = 62 and user_id = 4 and planned = DATE_ADD(current_date, 1 day) and finished is NULL and category_id is NULL and title = 'tarea2' and comments = 'tarea 2 de user3';
+select id from TTasks where id = 61 and user_id = 4 and planned = DATE_ADD(current_date, 1 day) and finished is NULL and category_id is NULL and title = 'tarea01' and comments = 'tarea 01 de user3';
+select id from TTasks where id = 62 and user_id = 4 and planned = DATE_ADD(current_date, 1 day) and finished is NULL and category_id is NULL and title = 'tarea02' and comments = 'tarea 02 de user3';
 
-select id from TTasks where id = 63 and user_id = 4 and planned = DATE_ADD(current_date, 2 day) and finished is NULL and category_id is NULL and title = 'tarea3' and comments = 'tarea 3 de user3';
-select id from TTasks where id = 64 and user_id = 4 and planned = DATE_ADD(current_date, 2 day) and finished is NULL and category_id is NULL and title = 'tarea4' and comments = 'tarea 4 de user3';
+select id from TTasks where id = 63 and user_id = 4 and planned = DATE_ADD(current_date, 2 day) and finished is NULL and category_id is NULL and title = 'tarea03' and comments = 'tarea 03 de user3';
+select id from TTasks where id = 64 and user_id = 4 and planned = DATE_ADD(current_date, 2 day) and finished is NULL and category_id is NULL and title = 'tarea04' and comments = 'tarea 04 de user3';
 
-select id from TTasks where id = 65 and user_id = 4 and planned = DATE_ADD(current_date, 3 day) and finished is NULL and category_id is NULL and title = 'tarea5' and comments = 'tarea 5 de user3';
-select id from TTasks where id = 66 and user_id = 4 and planned = DATE_ADD(current_date, 3 day) and finished is NULL and category_id is NULL and title = 'tarea6' and comments = 'tarea 6 de user3';
+select id from TTasks where id = 65 and user_id = 4 and planned = DATE_ADD(current_date, 3 day) and finished is NULL and category_id is NULL and title = 'tarea05' and comments = 'tarea 05 de user3';
+select id from TTasks where id = 66 and user_id = 4 and planned = DATE_ADD(current_date, 3 day) and finished is NULL and category_id is NULL and title = 'tarea06' and comments = 'tarea 06 de user3';
 
-select id from TTasks where id = 67 and user_id = 4 and planned = DATE_ADD(current_date, 4 day) and finished is NULL and category_id is NULL and title = 'tarea7' and comments = 'tarea 7 de user3';
-select id from TTasks where id = 68 and user_id = 4 and planned = DATE_ADD(current_date, 4 day) and finished is NULL and category_id is NULL and title = 'tarea8' and comments = 'tarea 8 de user3';
+select id from TTasks where id = 67 and user_id = 4 and planned = DATE_ADD(current_date, 4 day) and finished is NULL and category_id is NULL and title = 'tarea07' and comments = 'tarea 07 de user3';
+select id from TTasks where id = 68 and user_id = 4 and planned = DATE_ADD(current_date, 4 day) and finished is NULL and category_id is NULL and title = 'tarea08' and comments = 'tarea 08 de user3';
 
-select id from TTasks where id = 69 and user_id = 4 and planned = DATE_ADD(current_date, 5 day) and finished is NULL and category_id is NULL and title = 'tarea9' and comments = 'tarea 9 de user3';
+select id from TTasks where id = 69 and user_id = 4 and planned = DATE_ADD(current_date, 5 day) and finished is NULL and category_id is NULL and title = 'tarea09' and comments = 'tarea 09 de user3';
 select id from TTasks where id = 70 and user_id = 4 and planned = DATE_ADD(current_date, 6 day) and finished is NULL and category_id is NULL and title = 'tarea10' and comments = 'tarea 10 de user3';
 
 

@@ -22,12 +22,12 @@ public class UserCheck {
     }
 
     public static void minLoginLength(UserDTO user) throws BusinessException {
-	String check = "error_registro_min_login_length";
+	String check = "error_registro_login_longitud";
 	BusinessCheck.isTrue(user.getLogin().length() >= 3, check);
     }
 
     public static void minPasswordLength(UserDTO user) throws BusinessException {
-	String check = "error_registro_password_peque";
+	String check = "error_registro_password_longitud";
 	BusinessCheck.isTrue(user.getPassword().length() >= 8, check);
     }
 
@@ -37,7 +37,7 @@ public class UserCheck {
     }
 
     public static void isValidPassword(UserDTO user) throws BusinessException {
-	String check = "error_registro_password_type";
+	String check = "error_registro_password_contenido";
 	BusinessCheck.isTrue(isPasswordTypeCorrect(user.getPassword()), check);
     }
 
