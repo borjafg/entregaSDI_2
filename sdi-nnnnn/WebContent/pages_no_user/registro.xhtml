@@ -6,31 +6,31 @@
 	template="/templates/template_anonimo.xhtml">
 
 	<ui:define name="opcion_menu">
-		<p:menuitem id="enlace_login" value="#{msgs.registry_enlace_login}" action="login"
+		<p:menuitem id="enlace_login" value="#{msgs.registro_enlace_login}" action="login"
 			immediate="true" update="@all" />
 	</ui:define>
 
 	<ui:define name="cuerpo_form">
 		<h:panelGrid columns="1" cellpadding="5" style="margin: 0 auto;">
-			<p:panel id="panel_registry" header="#{msgs.registry_titulo_panel}">
+			<p:panel id="panel_registry" header="#{msgs.registro_titulo_panel}">
 
 				<h:panelGrid columns="3" cellpadding="5">
-					<p:outputLabel for="usuario" value="#{msgs.registry_usuario}" />
+					<p:outputLabel for="usuario" value="#{msgs.registro_usuario}" />
 
 					<p:inputText id="usuario" value="#{bean_registry.login}"
-						required="true" placeholder="#{msgs.registry_placeholder_usuario}"
-						requiredMessage="#{msgs.registry_usuario_requerido}" size="30">
+						required="true" placeholder="#{msgs.registro_placeholder_usuario}"
+						requiredMessage="#{msgs.registro_usuario_requerido}" size="30">
 						<f:validateLength minimum="3" />
 					</p:inputText>
 
 					<p:message for="usuario" />
 
-					<p:outputLabel for="email" value="#{msgs.registry_email}" />
+					<p:outputLabel for="email" value="#{msgs.registro_email}" />
 
 					<p:inputText id="email" value="#{bean_registry.email}"
-						required="true" placeholder="#{msgs.registry_placeholder_email}"
-						requiredMessage="#{msgs.registry_email_requerido}" size="30"
-						validatorMessage="#{msgs.error_registry_email_no_valido}">
+						required="true" placeholder="#{msgs.registro_placeholder_email}"
+						requiredMessage="#{msgs.registro_email_requerido}" size="30"
+						validatorMessage="#{msgs.error_registro_email_no_valido}">
 						<f:validateRegex
 							pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
 					</p:inputText>
@@ -38,12 +38,12 @@
 					<p:message for="email " />
 
 					<p:outputLabel for="contrasena1"
-						value="#{msgs.registry_contrasena}" />
+						value="#{msgs.registro_contrasena}" />
 
 					<p:password id="contrasena1" value="#{bean_registry.password}"
 						required="true"
-						placeholder="#{msgs.registry_placeholder_contrasena}"
-						requiredMessage="#{msgs.registry_contrasena_requerida}" size="30"
+						placeholder="#{msgs.registro_placeholder_contrasena}"
+						requiredMessage="#{msgs.registro_contrasena_requerida}" size="30"
 						validatorMessage="#{msgs.error_password}" type="password"
 						match="contrasena2">
 						<f:validateLength minimum="8" />
@@ -52,12 +52,12 @@
 					<p:message for="contrasena1" />
 
 					<p:outputLabel for="contrasena2"
-						value="#{msgs.registry_contrasena_rep}" />
+						value="#{msgs.registro_contrasena_rep}" />
 
 					<p:password id="contrasena2"
 						value="#{bean_registry.repeatPassword}" required="true"
-						placeholder="#{msgs.registry_placeholder_contrasena_rep}"
-						requiredMessage="#{msgs.registry_contrasena_requerida}" size="30"
+						placeholder="#{msgs.registro_placeholder_contrasena_rep}"
+						requiredMessage="#{msgs.registro_contrasena_requerida}" size="30"
 						type="password" />
 
 
@@ -66,7 +66,7 @@
 
 					<p:outputLabel value="" />
 
-					<p:commandButton id="boton_registry" value="#{msgs.registry_boton}" update="@form"
+					<p:commandButton id="boton_registry" value="#{msgs.registro_boton}" update="@form"
 						action="#{bean_registry.registrar}" />
 				</h:panelGrid>
 

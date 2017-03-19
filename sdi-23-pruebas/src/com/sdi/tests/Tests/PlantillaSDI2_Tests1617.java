@@ -699,7 +699,7 @@ public class PlantillaSDI2_Tests1617 {
 		mensajes.get(0)
 			.getText()
 			.equals(new PropertiesReader().getValueOf(
-				defaultLocale, "registry_exito")));
+				defaultLocale, "registro_exito")));
 
     }
 
@@ -730,7 +730,7 @@ public class PlantillaSDI2_Tests1617 {
 			.getText()
 			.equals(new PropertiesReader()
 				.getValueOf(defaultLocale,
-					"error_registry_login_ya_existe")));
+					"error_registro_login_ya_existe")));
     }
 
     // PR14: Crear una cuenta de usuario normal con Email incorrecto.
@@ -750,7 +750,7 @@ public class PlantillaSDI2_Tests1617 {
 	// (3) Sacamos la lista de elementos
 	List<WebElement> mensajes = SeleniumUtils.EsperaCargaPagina(driver,
 		"class", "ui-message-error-detail", 8);
-	System.out.println(mensajes.get(0).getText());
+
 	ThreadUtil.wait(600);
 	// (4) Validacion de la salida
 	assertTrue(
@@ -759,14 +759,86 @@ public class PlantillaSDI2_Tests1617 {
 			.getText()
 			.equals(new PropertiesReader()
 				.getValueOf(defaultLocale,
-					"error_registry_email_no_valido")));
+					"error_registro_email_no_valido")));
 
     }
 
     // PR15: Crear una cuenta de usuario normal con Password incorrecta.
     @Test
     public void prueba15() {
-	assertTrue(false);
+
+	// (1) reiniciamos la base de datos
+
+	new DatabaseReload().reload(driver);
+
+	// (2) cambiamos a la pestaña de registro
+	WebElement registrarseEnlace = driver.findElement(By
+		.id("form_menu_superior:enlace_registro"));
+	registrarseEnlace.click();
+	ThreadUtil.wait(600);
+	// (3) rellenamos el formulario [caso contraseña solo numeros]
+	new PO_RegistryForm().completeForm(driver, "usuario5",
+		"usuario5@mail.com", "123456789", "123456789");
+	ThreadUtil.wait(1200);
+	// (4) Sacamos la lista de elementos
+	List<WebElement> mensajes = SeleniumUtils.EsperaCargaPagina(driver,
+		"class", "ui-messages-warn-detail", 8);
+	ThreadUtil.wait(600);
+
+	// (5) validamos la salida
+	assertTrue(
+		"No se ha encontrado el mensaje de contraseña inválida",
+		mensajes.get(0)
+			.getText()
+			.equals(new PropertiesReader().getValueOf(
+				defaultLocale, "error_registro_password_type")));
+	// (6) rellenamos el formulario [caso contraseña solo letras]
+	new PO_RegistryForm().completeForm(driver, "usuario5",
+		"usuario5@mail.com", "asdfghjkl", "asdfghjkl");
+	ThreadUtil.wait(1200);
+	// (7) Sacamos la lista de elementos
+	mensajes = SeleniumUtils.EsperaCargaPagina(driver, "class",
+		"ui-messages-warn-detail", 8);
+	ThreadUtil.wait(600);
+
+	// (8) validamos la salida
+	assertTrue(
+		"No se ha encontrado el mensaje de contraseña inválida",
+		mensajes.get(0)
+			.getText()
+			.equals(new PropertiesReader().getValueOf(
+				defaultLocale, "error_registro_password_type")));
+
+	// (9) rellenamos el formulario [caso longitud contraseña inferior a 8
+	// digitos]
+	new PO_RegistryForm().completeForm(driver, "usuario5",
+		"usuario5@mail.com", "a1", "a1");
+	// (10) Sacamos la lista de elementos
+	mensajes = SeleniumUtils.EsperaCargaPagina(driver, "class",
+		"ui-message-error-detail", 8);
+	ThreadUtil.wait(600);
+	// (11) validamos la salida
+	assertTrue(
+		"No se ha encontrado el mensaje de contraseña inválida",
+		mensajes.get(0)
+			.getText()
+			.equals(new PropertiesReader().getValueOf(
+				defaultLocale, "error_password")));
+	// (12) rellenamos el formulario [caso contraseñas distintas]
+	new PO_RegistryForm().completeForm(driver, "usuario5",
+		"usuario5@mail.com", "asdfghjkl1234", "asdfghjkl123");
+	ThreadUtil.wait(1200);
+	// (13) Sacamos la lista de elementos
+	mensajes = SeleniumUtils.EsperaCargaPagina(driver, "class",
+		"ui-message-error-detail", 8);
+	ThreadUtil.wait(600);
+	// (14) validamos la salida
+	assertTrue(
+		"No se ha encontrado el mensaje de contraseña inválida",
+		mensajes.get(0)
+			.getText()
+			.equals(new PropertiesReader().getValueOf(
+				defaultLocale, "error_password")));
     }
 
     // -------------------
