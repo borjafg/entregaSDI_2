@@ -5,7 +5,7 @@ import java.util.List;
 import uo.sdi.business.exception.BusinessCheck;
 import uo.sdi.business.exception.BusinessException;
 import uo.sdi.business.impl.command.Command;
-import uo.sdi.business.impl.util.TypeConverter;
+import uo.sdi.business.impl.util.DTOadapter;
 import uo.sdi.dto.CategoryDTO;
 import uo.sdi.model.User;
 import uo.sdi.persistence.CategoryFinder;
@@ -27,7 +27,7 @@ public class FindCategoriesByUserIdCommand implements
 	BusinessCheck.isNotNull(userId, "El usuario no existe",
 		"errores_usuario_no_existe");
 
-	return TypeConverter.convertCategories(CategoryFinder.findByUserId(user
+	return DTOadapter.categoriesToDTO(CategoryFinder.findByUserId(user
 		.getId()));
     }
 

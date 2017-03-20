@@ -22,7 +22,7 @@ import uo.sdi.business.impl.task.command.task.CreateTaskCommand;
 import uo.sdi.business.impl.task.command.task.DeleteTaskCommand;
 import uo.sdi.business.impl.task.command.task.MarkTaskAsFinishedCommand;
 import uo.sdi.business.impl.task.command.task.UpdateTaskCommand;
-import uo.sdi.business.impl.util.TypeConverter;
+import uo.sdi.business.impl.util.DTOadapter;
 import uo.sdi.dto.CategoryDTO;
 import uo.sdi.dto.TaskDTO;
 import uo.sdi.model.Task;
@@ -70,7 +70,7 @@ public class TaskServiceImpl implements TaskService {
 
 		    @Override
 		    public CategoryDTO execute() throws BusinessException {
-			return TypeConverter.convertCategory(CategoryFinder
+			return DTOadapter.categoryToDTO(CategoryFinder
 				.findById(id));
 		    }
 		});
@@ -115,7 +115,7 @@ public class TaskServiceImpl implements TaskService {
 
 	    @Override
 	    public TaskDTO execute() throws BusinessException {
-		return TypeConverter.convertTask(TaskFinder.findById(taskId));
+		return DTOadapter.taskToDTO(TaskFinder.findById(taskId));
 	    }
 	});
     }

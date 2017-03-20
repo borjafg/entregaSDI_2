@@ -3,12 +3,12 @@ package uo.sdi.dto;
 import java.io.Serializable;
 import java.util.Date;
 
-import uo.sdi.model.Task;
-
 public class TaskDTO implements Serializable {
 
     private static final long serialVersionUID = -4452890417360L;
 
+    // Tiene que ser accesible a la clase
+    // que convierte un task en un TaskDTO
     private Long id;
 
     private String title;
@@ -20,27 +20,27 @@ public class TaskDTO implements Serializable {
     private CategoryDTO category;
     private Long userId;
 
-    public TaskDTO(Task tarea) {
-	this.id = tarea.getId();
-
-	this.title = tarea.getTitle();
-	this.comments = tarea.getComments();
-	this.created = tarea.getCreated();
-	this.planned = tarea.getPlanned();
-	this.category = null;
-
-	if (tarea.getCategory() != null) {
-	    this.category = new CategoryDTO(tarea.getCategory());
-	}
-
-	this.userId = tarea.getUser().getId();
+    /**
+     * Se usa para transformar una categoría en un DTO
+     */
+    public TaskDTO(Long id, Date created, Long userId) {
+	this.id = id;
+	this.created = created;
+	this.userId = userId;
     }
 
+    /**
+     * Se usa para crear una nueva categoría
+     */
     public TaskDTO(String title, Long categoryId, Long userId) {
 	this.title = title;
 	this.category = new CategoryDTO(categoryId);
 	this.userId = userId;
     }
+
+    // ===================================
+    // Getters y Setters
+    // ===================================
 
     public Long getId() {
 	return id;
@@ -50,8 +50,16 @@ public class TaskDTO implements Serializable {
 	return title;
     }
 
+    public void setTitle(String title) {
+	this.title = title;
+    }
+
     public String getComments() {
 	return comments;
+    }
+
+    public void setComments(String comments) {
+	this.comments = comments;
     }
 
     public Date getCreated() {
@@ -62,17 +70,33 @@ public class TaskDTO implements Serializable {
 	return planned;
     }
 
+    public void setPlanned(Date planned) {
+	this.planned = planned;
+    }
+
     public Date getFinished() {
 	return finished;
+    }
+
+    public void setFinished(Date finished) {
+	this.finished = finished;
     }
 
     public CategoryDTO getCategory() {
 	return category;
     }
 
+    public void setCategory(CategoryDTO category) {
+	this.category = category;
+    }
+
     public Long getUserId() {
 	return userId;
     }
+
+    // ====================================
+    // HashCode, equals y toString
+    // ====================================
 
     @Override
     public int hashCode() {

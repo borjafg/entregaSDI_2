@@ -2,7 +2,7 @@ package uo.sdi.business.impl.user.command;
 
 import uo.sdi.business.exception.BusinessException;
 import uo.sdi.business.impl.command.Command;
-import uo.sdi.business.impl.util.TypeConverter;
+import uo.sdi.business.impl.util.DTOadapter;
 import uo.sdi.dto.UserDTO;
 import uo.sdi.model.User;
 import uo.sdi.model.types.UserStatus;
@@ -28,11 +28,11 @@ public class FindLoggableUSerCommand implements Command<UserDTO> {
 			"error_login_usuario_deshabilitado");
 	    }
 
-	    return TypeConverter.convertUser(user);
+	    return DTOadapter.userToDTO(user);
 	}
 
 	throw new BusinessException("El usuario no existe o la contraseña es "
-		+ "incorrecta.","error_login_usuario_no_existe");
+		+ "incorrecta.", "error_login_usuario_no_existe");
     }
 
 }

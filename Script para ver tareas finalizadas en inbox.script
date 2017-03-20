@@ -1,0 +1,6 @@
+update TTasks set finished = date_add(current_date, 1 DAY) where id = 1;
+update TTasks set finished = date_add(current_date, 2 DAY) where id = 2;
+update TTasks set finished = date_add(current_date, 3 DAY) where id = 3;
+update TTasks set finished = date_add(current_date, 4 DAY) where id = 4;
+update TTasks set finished = date_add(current_date, 5 DAY) where id = 5;
+update TTasks set finished = date_add(current_date, 6 DAY) where id = 6;
