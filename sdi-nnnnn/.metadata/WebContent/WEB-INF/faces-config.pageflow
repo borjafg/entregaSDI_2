@@ -2,37 +2,37 @@
 <pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14885646375180" configfile="/sdi2-23/WebContent/WEB-INF/faces-config.xml">
   <nodes xsi:type="pageflow:PFPage" x="122" y="178" id="pf14886561639490" referenceLink="//@navigationRule.0/@fromViewId|"/>
   <nodes xsi:type="pageflow:PFPage" x="122" y="1333" id="pf148925729831619" referenceLink="//@navigationRule.0/@fromViewId|"/>
-  <nodes xsi:type="pageflow:PFPage" name="*" id="pf14899417938190" referenceLink="//@navigationRule.1/@fromViewId|" outlinks="pf14899417938191 pf14899417938192" path="*"/>
-  <nodes xsi:type="pageflow:PFPage" name="pages_no_user/login.xhtml" id="pf14899417938203" referenceLink="//@navigationRule.4/@navigationCase.1/@toViewId|" outlinks="pf14899417938204 pf14899417938205 pf14899417938206 pf14899417938207" inlinks="pf14899417938191 pf14899417938208 pf14899417938205 pf14899417938209" path="/pages_no_user/login.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="pages_other/error.xhtml" id="pf148994179382010" referenceLink="//@navigationRule.2/@fromViewId|" outlinks="pf14899417938208" inlinks="pf14899417938192" path="/pages_other/error.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="pages_no_user/registro.xhtml" id="pf148994179382011" referenceLink="//@navigationRule.4/@fromViewId|" outlinks="pf148994179382012 pf14899417938209" inlinks="pf14899417938204 pf148994179382012" path="/pages_no_user/registro.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="pages_admin/principal_administrador.xhtml" id="pf148994179382013" referenceLink="//@navigationRule.5/@navigationCase.5/@toViewId|" outlinks="pf148994179382014 pf148994179382015 pf148994179382016 pf148994179382017 pf148994179382018 pf148994179382019" inlinks="pf14899417938206 pf148994179382014 pf148994179382015 pf148994179382016 pf148994179382017 pf148994179382018 pf148994179382019" path="/pages_admin/principal_administrador.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="pages_user/principal_usuario.xhtml" id="pf148994179382020" referenceLink="//@navigationRule.9/@navigationCase.0/@toViewId|" outlinks="pf148994179382021 pf148994179382022 pf148994179382023" inlinks="pf14899417938207 pf148994179382024 pf148994179382025 pf148994179382026" path="/pages_user/principal_usuario.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="pages_user/listar_tareas_inbox.xhtml" id="pf148994179382027" referenceLink="//@navigationRule.6/@navigationCase.0/@toViewId|" inlinks="pf148994179382021" path="/pages_user/listar_tareas_inbox.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="pages_user/listar_tareas_hoy.xhtml" id="pf148994179382028" referenceLink="//@navigationRule.6/@navigationCase.1/@toViewId|" inlinks="pf148994179382022" path="/pages_user/listar_tareas_hoy.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="pages_user/listar_tareas_semana.xhtml" id="pf148994179382029" referenceLink="//@navigationRule.6/@navigationCase.2/@toViewId|" inlinks="pf148994179382023" path="/pages_user/listar_tareas_semana.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="pages_user/listar_hoy.xhtml" id="pf148994179382030" referenceLink="//@navigationRule.7/@fromViewId|" outlinks="pf148994179382024" path="/pages_user/listar_hoy.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="pages_user/listar_inbox.xhtml" id="pf148994179382031" referenceLink="//@navigationRule.8/@fromViewId|" outlinks="pf148994179382025" path="/pages_user/listar_inbox.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="pages_user/listar_semana.xhtml" id="pf148994179382032" referenceLink="//@navigationRule.9/@fromViewId|" outlinks="pf148994179382026" path="/pages_user/listar_semana.xhtml"/>
-  <links id="pf14899417938191" target="pf14899417938203" source="pf14899417938190" outcome="exito" redirect="true" fromaction="#{bean_login.dologout}"/>
-  <links id="pf14899417938192" target="pf148994179382010" source="pf14899417938190" outcome="error" redirect="true"/>
-  <links id="pf14899417938208" target="pf14899417938203" source="pf148994179382010" outcome="volver" redirect="true"/>
-  <links id="pf14899417938204" target="pf148994179382011" source="pf14899417938203" outcome="registro" redirect="true"/>
-  <links id="pf14899417938205" target="pf14899417938203" source="pf14899417938203" outcome="fallo" fromaction="#{bean_login.dologin}"/>
-  <links id="pf14899417938206" target="pf148994179382013" source="pf14899417938203" outcome="admin" redirect="true" fromaction="#{bean_login.dologin}"/>
-  <links id="pf14899417938207" target="pf148994179382020" source="pf14899417938203" outcome="usuario" redirect="true" fromaction="#{bean_login.dologin}"/>
-  <links id="pf148994179382012" target="pf148994179382011" source="pf148994179382011" outcome="fallo" fromaction="#{bean_registry.registrar}"/>
-  <links id="pf14899417938209" target="pf14899417938203" source="pf148994179382011" outcome="exito" redirect="true" fromaction="#{bean_registry.registrar}"/>
-  <links id="pf148994179382014" target="pf148994179382013" source="pf148994179382013" outcome="fallo" fromaction="#{bean_users_list.deleteUser(usuario)}"/>
-  <links id="pf148994179382015" target="pf148994179382013" source="pf148994179382013" outcome="exito" fromaction="#{bean_users_list.deleteUser(usuario)}"/>
-  <links id="pf148994179382016" target="pf148994179382013" source="pf148994179382013" outcome="fallo" fromaction="#{bean_users_list.changeStatus(usuario)}"/>
-  <links id="pf148994179382017" target="pf148994179382013" source="pf148994179382013" outcome="exito" fromaction="#{bean_users_list.changeStatus(usuario)}"/>
-  <links id="pf148994179382018" target="pf148994179382013" source="pf148994179382013" outcome="fallo" fromaction="#{bean_users_list.restartData}"/>
-  <links id="pf148994179382019" target="pf148994179382013" source="pf148994179382013" outcome="exito" fromaction="#{bean_users_list.restartData}"/>
-  <links id="pf148994179382021" target="pf148994179382027" source="pf148994179382020" outcome="inbox" redirect="true"/>
-  <links id="pf148994179382022" target="pf148994179382028" source="pf148994179382020" outcome="hoy" redirect="true"/>
-  <links id="pf148994179382023" target="pf148994179382029" source="pf148994179382020" outcome="semana" redirect="true"/>
-  <links id="pf148994179382024" target="pf148994179382020" source="pf148994179382030" outcome="volver" redirect="true"/>
-  <links id="pf148994179382025" target="pf148994179382020" source="pf148994179382031" outcome="volver" redirect="true"/>
-  <links id="pf148994179382026" target="pf148994179382020" source="pf148994179382032" outcome="volver" redirect="true"/>
+  <nodes xsi:type="pageflow:PFPage" name="*" id="pf14899983905320" referenceLink="//@navigationRule.1/@fromViewId|" outlinks="pf14899983905321 pf14899983905322" path="*"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages_no_user/login.xhtml" id="pf14899983905323" referenceLink="//@navigationRule.4/@navigationCase.1/@toViewId|" outlinks="pf14899983905324 pf14899983905325 pf14899983905326 pf14899983905327" inlinks="pf14899983905321 pf14899983905328 pf14899983905325 pf14899983905329" path="/pages_no_user/login.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages_other/error.xhtml" id="pf148999839053210" referenceLink="//@navigationRule.2/@fromViewId|" outlinks="pf14899983905328" inlinks="pf14899983905322" path="/pages_other/error.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages_no_user/registro.xhtml" id="pf148999839053211" referenceLink="//@navigationRule.4/@fromViewId|" outlinks="pf148999839053212 pf14899983905329" inlinks="pf14899983905324 pf148999839053212" path="/pages_no_user/registro.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages_admin/principal_administrador.xhtml" id="pf148999839053213" referenceLink="//@navigationRule.5/@navigationCase.5/@toViewId|" outlinks="pf148999839053214 pf148999839053215 pf148999839053216 pf148999839053217 pf148999839053218 pf148999839053219" inlinks="pf14899983905326 pf148999839053214 pf148999839053215 pf148999839053216 pf148999839053217 pf148999839053218 pf148999839053219" path="/pages_admin/principal_administrador.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages_user/principal_usuario.xhtml" id="pf148999839053220" referenceLink="//@navigationRule.9/@navigationCase.0/@toViewId|" outlinks="pf148999839053221 pf148999839053222 pf148999839053223" inlinks="pf14899983905327 pf148999839053224 pf148999839053225 pf148999839053226" path="/pages_user/principal_usuario.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages_user/listar_tareas_inbox.xhtml" id="pf148999839053227" referenceLink="//@navigationRule.6/@navigationCase.0/@toViewId|" inlinks="pf148999839053221" path="/pages_user/listar_tareas_inbox.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages_user/listar_tareas_hoy.xhtml" id="pf148999839053228" referenceLink="//@navigationRule.6/@navigationCase.1/@toViewId|" inlinks="pf148999839053222" path="/pages_user/listar_tareas_hoy.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages_user/listar_tareas_semana.xhtml" id="pf148999839053229" referenceLink="//@navigationRule.6/@navigationCase.2/@toViewId|" inlinks="pf148999839053223" path="/pages_user/listar_tareas_semana.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages_user/listar_hoy.xhtml" id="pf148999839053230" referenceLink="//@navigationRule.7/@fromViewId|" outlinks="pf148999839053224" path="/pages_user/listar_tareas_hoy.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages_user/listar_inbox.xhtml" id="pf148999839053231" referenceLink="//@navigationRule.8/@fromViewId|" outlinks="pf148999839053225" path="/pages_user/listar_tareas_inbox.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages_user/listar_semana.xhtml" id="pf148999839053232" referenceLink="//@navigationRule.9/@fromViewId|" outlinks="pf148999839053226" path="/pages_user/listar_tareas_semana.xhtml"/>
+  <links id="pf14899983905321" target="pf14899983905323" source="pf14899983905320" outcome="exito" redirect="true" fromaction="#{bean_login.dologout}"/>
+  <links id="pf14899983905322" target="pf148999839053210" source="pf14899983905320" outcome="error" redirect="true"/>
+  <links id="pf14899983905328" target="pf14899983905323" source="pf148999839053210" outcome="volver" redirect="true"/>
+  <links id="pf14899983905324" target="pf148999839053211" source="pf14899983905323" outcome="registro" redirect="true"/>
+  <links id="pf14899983905325" target="pf14899983905323" source="pf14899983905323" outcome="fallo" fromaction="#{bean_login.dologin}"/>
+  <links id="pf14899983905326" target="pf148999839053213" source="pf14899983905323" outcome="admin" redirect="true" fromaction="#{bean_login.dologin}"/>
+  <links id="pf14899983905327" target="pf148999839053220" source="pf14899983905323" outcome="usuario" redirect="true" fromaction="#{bean_login.dologin}"/>
+  <links id="pf148999839053212" target="pf148999839053211" source="pf148999839053211" outcome="fallo" fromaction="#{bean_registry.registrar}"/>
+  <links id="pf14899983905329" target="pf14899983905323" source="pf148999839053211" outcome="exito" redirect="true" fromaction="#{bean_registry.registrar}"/>
+  <links id="pf148999839053214" target="pf148999839053213" source="pf148999839053213" outcome="fallo" fromaction="#{bean_users_list.deleteUser(usuario)}"/>
+  <links id="pf148999839053215" target="pf148999839053213" source="pf148999839053213" outcome="exito" fromaction="#{bean_users_list.deleteUser(usuario)}"/>
+  <links id="pf148999839053216" target="pf148999839053213" source="pf148999839053213" outcome="fallo" fromaction="#{bean_users_list.changeStatus(usuario)}"/>
+  <links id="pf148999839053217" target="pf148999839053213" source="pf148999839053213" outcome="exito" fromaction="#{bean_users_list.changeStatus(usuario)}"/>
+  <links id="pf148999839053218" target="pf148999839053213" source="pf148999839053213" outcome="fallo" fromaction="#{bean_users_list.restartData}"/>
+  <links id="pf148999839053219" target="pf148999839053213" source="pf148999839053213" outcome="exito" fromaction="#{bean_users_list.restartData}"/>
+  <links id="pf148999839053221" target="pf148999839053227" source="pf148999839053220" outcome="inbox" redirect="true" fromaction="#{bean_categ.goToInbox}"/>
+  <links id="pf148999839053222" target="pf148999839053228" source="pf148999839053220" outcome="hoy" redirect="true"/>
+  <links id="pf148999839053223" target="pf148999839053229" source="pf148999839053220" outcome="semana" redirect="true"/>
+  <links id="pf148999839053224" target="pf148999839053220" source="pf148999839053230" outcome="volver" redirect="true"/>
+  <links id="pf148999839053225" target="pf148999839053220" source="pf148999839053231" outcome="volver" redirect="true"/>
+  <links id="pf148999839053226" target="pf148999839053220" source="pf148999839053232" outcome="volver" redirect="true"/>
 </pageflow:Pageflow>

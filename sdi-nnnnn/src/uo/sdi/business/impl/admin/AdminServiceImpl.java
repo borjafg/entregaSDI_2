@@ -5,13 +5,13 @@ import java.util.List;
 import uo.sdi.business.AdminService;
 import uo.sdi.business.exception.BusinessException;
 import uo.sdi.business.impl.admin.command.DeepDeleteUserCommand;
-import uo.sdi.business.impl.admin.command.RestartDatabase;
 import uo.sdi.business.impl.admin.command.DisableUserCommand;
 import uo.sdi.business.impl.admin.command.EnableUserCommand;
 import uo.sdi.business.impl.admin.command.FindAllUsers;
+import uo.sdi.business.impl.admin.command.RestartDatabase;
 import uo.sdi.business.impl.command.Command;
 import uo.sdi.business.impl.command.CommandExecutor;
-import uo.sdi.business.impl.util.TypeConverter;
+import uo.sdi.business.impl.util.DTOadapter;
 import uo.sdi.dto.UserDTO;
 import uo.sdi.persistence.UserFinder;
 
@@ -48,7 +48,7 @@ public class AdminServiceImpl implements AdminService {
 
 	    @Override
 	    public UserDTO execute() throws BusinessException {
-		return TypeConverter.convertUser(UserFinder.findById(id));
+		return DTOadapter.userToDTO(UserFinder.findById(id));
 	    }
 	});
     }

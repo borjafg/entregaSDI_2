@@ -3,8 +3,6 @@ package uo.sdi.dto;
 import java.io.Serializable;
 import java.util.Date;
 
-import uo.sdi.model.Category;
-
 public class CategoryDTO implements Serializable {
 
     private static final long serialVersionUID = -411924970180L;
@@ -16,24 +14,31 @@ public class CategoryDTO implements Serializable {
     private Long userId;
 
     /**
-     * Sólo se usa para asociar una tarea con su categoría.
-     * 
+     * Se usa para asociar una tarea con su categoría.
      */
     CategoryDTO(Long id) {
 	this.id = id;
     }
 
-    public CategoryDTO(Category category) {
-	this.id = category.getId();
-	this.name = category.getName();
-	this.created = category.getCreated();
-
-	this.userId = category.getUser().getId();
+    /**
+     * Se usa para convertir una categoría en un DTO.
+     */
+    public CategoryDTO(Long id, Date created, Long userId) {
+	this.id = id;
+	this.created = created;
+	this.userId = userId;
     }
 
+    /**
+     * Se usa para crear una nueva categoría.
+     */
     public CategoryDTO(String name) {
 	this.name = name;
     }
+
+    // ===================================
+    // Getters y Setters
+    // ===================================
 
     public Long getId() {
 	return id;
@@ -54,6 +59,10 @@ public class CategoryDTO implements Serializable {
     public Long getUserId() {
 	return userId;
     }
+
+    // ====================================
+    // HashCode, equals y toString
+    // ====================================
 
     @Override
     public int hashCode() {

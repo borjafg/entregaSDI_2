@@ -650,7 +650,7 @@ public class PlantillaSDI2_Tests1617 {
 		"No se encontró el mensaje de login inválido",
 		mensaje.getText().equals(
 			new PropertiesReader().getValueOf(defaultLocale,
-				"error_usuario_no_existe")));
+				"error_login_usuario_no_existe")));
 
 	// (11) Comprobar que realmente se borraron sus datos
 	try {

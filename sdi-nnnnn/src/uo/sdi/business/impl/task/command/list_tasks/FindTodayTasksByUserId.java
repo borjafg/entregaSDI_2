@@ -4,7 +4,7 @@ import java.util.List;
 
 import uo.sdi.business.exception.BusinessException;
 import uo.sdi.business.impl.command.Command;
-import uo.sdi.business.impl.util.TypeConverter;
+import uo.sdi.business.impl.util.DTOadapter;
 import uo.sdi.dto.TaskDTO;
 import uo.sdi.persistence.TaskFinder;
 
@@ -18,8 +18,7 @@ public class FindTodayTasksByUserId implements Command<List<TaskDTO>> {
 
     @Override
     public List<TaskDTO> execute() throws BusinessException {
-	return TypeConverter.convertTasks(TaskFinder
-		.findTodayTasksByUserId(userId));
+	return DTOadapter.tasksToDTO(TaskFinder.findTodayTasksByUserId(userId));
     }
 
 }

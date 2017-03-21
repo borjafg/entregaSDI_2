@@ -6,29 +6,39 @@
 	template="/templates/template_usuario.xhtml">
 
 	<ui:define name="items_menu">
-		<p:menuitem value="" action="true" inmediate="true" />
+		<p:menuitem value="volver" action="volver" inmediate="true" />
 	</ui:define>
 
 	<ui:define name="cuerpo">
-		<p:dataTable id="tabla_tareas" value="#{bean_inbox.tasks}" var="tarea">
+		<p:dataTable id="tabla_tareas" value="#{bean_inbox.tasks}" var="tarea"
+			rows="8" paginator="true" rowIndexVar="index"
+			paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
 
 
-			<p:column headerText="Titulo columna title" sortBy="#{tarea.title}"
-				id="columna_titulo_titulo">
+			<p:column headerText="Titulo columna titulo"
+				id="columna_titulo_titulo" sortBy="#{tarea}"
+				sortFunction="#{bean_inbox.inboxSorter.sortByTitle}">
 
-				<h:outputText value="#{tarea.title}" id="columna_titulo" />
+				<h:outputText value="#{tarea.title}" id="columna_titulo_normal"
+					rendered="#{tarea.finished eq null}" />
+
+				<h:outputText value="#{tarea.title}" id="columna_titulo_verde"
+					rendered="#{tarea.finished ne null}" style="color: #347f35;" />
 			</p:column>
 
 
-			<p:column headerText="Titulo columna comments"
-				sortBy="#{tarea.comments}" id="columna_comentarios_titulo">
+			<p:column headerText="
+					Titulo columna comments"
+				id="columna_comentarios_titulo" sortBy="#{tarea}"
+				sortFunction="#{bean_inbox.inboxSorter.sortByComments}">
 
 				<h:outputText value="#{tarea.comments}" id="columna_comentarios" />
 			</p:column>
 
 
 			<p:column headerText="Titulo columna created"
-				sortBy="#{tarea.created}" id="columna_creada_titulo">
+				id="columna_creada_titulo" sortBy="#{tarea}"
+				sortFunction="#{bean_inbox.inboxSorter.sortByCreated}">
 
 				<h:outputText value="#{tarea.created}" id="columna_creada">
 					<f:convertDateTime dateStyle="short" type="date" />
@@ -37,16 +47,25 @@
 
 
 			<p:column headerText="Titulo columna planned"
-				sortBy="#{tarea.planned}" id="columna_planeada_titulo">
+				id="columna_planeada_titulo" sortBy="#{tarea}"
+				sortFunction="#{bean_inbox.inboxSorter.sortByPlanned}">
 
-				<h:outputText value="#{tarea.planned}" id="columna_planeada">
+				<h:outputText value="#{tarea.planned}"
+					id="columna_planeada_retrasada" style="color: #b30000;"
+					rendered="#{bean_inbox.estaRetrasada(tarea) == true}">
+					<f:convertDateTime dateStyle="short" type="date" />
+				</h:outputText>
+
+				<h:outputText value="#{tarea.planned}" id="columna_planeada"
+					rendered="#{bean_inbox.estaRetrasada(tarea) == false}">
 					<f:convertDateTime dateStyle="short" type="date" />
 				</h:outputText>
 			</p:column>
 
 
 			<p:column headerText="Titulo columna finished"
-				sortBy="#{tarea.finished}" id="columna_finalizada_titulo">
+				id="columna_finalizada_titulo" sortBy="#{tarea}"
+				sortFunction="#{bean_inbox.inboxSorter.sortByFinished}">
 
 				<h:outputText value="#{tarea.finished}" id="columna_finalizada">
 					<f:convertDateTime dateStyle="short" type="date" />
