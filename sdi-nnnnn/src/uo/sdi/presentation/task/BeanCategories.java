@@ -3,15 +3,16 @@ package uo.sdi.presentation.task;
 import java.io.Serializable;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 @ManagedBean(name = "bean_categ")
-@SessionScoped
+@ViewScoped
 public class BeanCategories implements Serializable {
 
     private static final long serialVersionUID = -571806116577352L;
 
-    private Boolean mostrarFinalizadas;
+    private Boolean mostrarFinalizadas = false;
 
     public BeanCategories() {
 
@@ -26,6 +27,9 @@ public class BeanCategories implements Serializable {
     }
 
     public String goToInbox() {
+	FacesContext.getCurrentInstance().getExternalContext().getFlash()
+		.put("mostrarFinalizadas", new Boolean(mostrarFinalizadas));
+
 	return "inbox";
     }
 

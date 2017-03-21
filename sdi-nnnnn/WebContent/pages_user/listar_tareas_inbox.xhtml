@@ -5,6 +5,13 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/templates/template_usuario.xhtml">
 
+	<ui:define name="anadir_head">
+		<f:metadata>
+			<f:event type="preRenderView"
+				listener="#{bean_inbox.mantenerOpcionFiltro}" />
+		</f:metadata>
+	</ui:define>
+
 	<ui:define name="items_menu">
 		<p:menuitem value="volver" action="volver" inmediate="true" />
 	</ui:define>

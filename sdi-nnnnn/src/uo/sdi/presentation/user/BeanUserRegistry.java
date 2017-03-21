@@ -3,7 +3,7 @@ package uo.sdi.presentation.user;
 import java.io.Serializable;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 import uo.sdi.business.Services;
@@ -14,7 +14,7 @@ import uo.sdi.presentation.util.MessageManager;
 import alb.util.log.Log;
 
 @ManagedBean(name = "bean_registry")
-@RequestScoped
+@ViewScoped
 public class BeanUserRegistry implements Serializable {
 
     private static final long serialVersionUID = -345254566L;

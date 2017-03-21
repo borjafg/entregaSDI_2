@@ -23,13 +23,13 @@
 	<managed-bean>
 		<managed-bean-name>bean_login</managed-bean-name>
 		<managed-bean-class>uo.sdi.presentation.user.BeanLogin</managed-bean-class>
-		<managed-bean-scope>session</managed-bean-scope>
+		<managed-bean-scope>view</managed-bean-scope>
 	</managed-bean>
 
 	<managed-bean>
 		<managed-bean-name>bean_registry</managed-bean-name>
 		<managed-bean-class>uo.sdi.presentation.user.BeanUserRegistry</managed-bean-class>
-		<managed-bean-scope>request</managed-bean-scope>
+		<managed-bean-scope>view</managed-bean-scope>
 	</managed-bean>
 
 	<managed-bean>
@@ -47,18 +47,13 @@
 	<managed-bean>
 		<managed-bean-name>bean_categ</managed-bean-name>
 		<managed-bean-class>uo.sdi.presentation.task.BeanCategories</managed-bean-class>
-		<managed-bean-scope>session</managed-bean-scope>
+		<managed-bean-scope>view</managed-bean-scope>
 	</managed-bean>
 
 	<managed-bean>
 		<managed-bean-name>bean_inbox</managed-bean-name>
 		<managed-bean-class>uo.sdi.presentation.task.BeanInboxTasks</managed-bean-class>
 		<managed-bean-scope>view</managed-bean-scope>
-
-		<managed-property>
-			<property-name>beanCateg</property-name>
-			<value>#{bean_categ}</value>
-		</managed-property>
 	</managed-bean>
 
 
