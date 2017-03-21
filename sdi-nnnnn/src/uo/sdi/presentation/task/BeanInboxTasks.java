@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
@@ -28,20 +27,11 @@ public class BeanInboxTasks implements Serializable {
 
     private InboxSorter inboxSorter = new InboxSorter();
 
-    @ManagedProperty(value = "#{bean_categ}")
-    private BeanCategories beanCateg;
+    private boolean mostrarFinalizadas = false; // por defecto filtrar
 
     // ============================
     // Getters y Setters
     // ============================
-
-    public BeanCategories getBeanCateg() {
-	return beanCateg;
-    }
-
-    public void setBeanCateg(BeanCategories beanCateg) {
-	this.beanCateg = beanCateg;
-    }
 
     public InboxSorter getInboxSorter() {
 	return inboxSorter;
@@ -51,22 +41,40 @@ public class BeanInboxTasks implements Serializable {
 	return tasks;
     }
 
-    // ============================
-    // Inicialización
-    // ============================
+    // ===============================
+    // Inicialización y eliminación
+    // ===============================
 
     @PostConstruct
     public void init() {
-	// si no existe lo creamos e inicializamos
-	if (beanCateg == null) {
-	    Log.trace("Creando el bean_categ --> No existía");
-	    beanCateg = new BeanCategories();
+	Boolean mostrarFinalizadas = (Boolean) FacesContext
+		.getCurrentInstance().getExternalContext().getFlash()
+		.get("mostrarFinalizadas");
 
-	    FacesContext.getCurrentInstance().getExternalContext()
-		    .getSessionMap().put("bean_categ", beanCateg);
+	// Si viene de la pagina principal del usuario, en lugar
+	// de escribir directamente la URL en el navegador.
+	//
+	if (mostrarFinalizadas != null) {
+	    this.mostrarFinalizadas = mostrarFinalizadas;
 	}
 
 	cargarTareas();
+    }
+
+    /**
+     * Mientras siga en la misma página, si se indicó si mostrar tareas
+     * finalizadas o no, guardar la elección del usuario.
+     * 
+     */
+    public void mantenerOpcionFiltro() {
+	Boolean mostrarFinalizadas = (Boolean) FacesContext
+		.getCurrentInstance().getExternalContext().getFlash()
+		.get("mostrarFinalizadas");
+
+	if (mostrarFinalizadas != null) {
+	    FacesContext.getCurrentInstance().getExternalContext().getFlash()
+		    .put("mostrarFinalizadas", mostrarFinalizadas);
+	}
     }
 
     // ============================
@@ -85,8 +93,12 @@ public class BeanInboxTasks implements Serializable {
 	    Log.debug("Añadidas tareas sin finalizar del usuario [%s] que "
 		    + "se encuentran en la categoría inbox.", user.getLogin());
 
-	    if (beanCateg.getMostrarFinalizadas()) {
+	    if (mostrarFinalizadas) {
+		Log.debug("Se ha desactivado el filtro de tareas finalizadas "
+			+ "del usuario [%s]", user.getLogin());
+
 		tasks.addAll(taskServ.findFinishedInboxTasksByUserId(userId));
+
 		Log.debug("Añadidas tareas finalizadas del usuario [%s] que "
 			+ "pertenecen a la categoría inbox", user.getLogin());
 	    }

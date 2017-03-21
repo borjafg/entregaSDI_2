@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
@@ -17,7 +17,7 @@ import uo.sdi.presentation.util.UserInfo;
 import alb.util.log.Log;
 
 @ManagedBean(name = "bean_login")
-@SessionScoped
+@ViewScoped
 public class BeanLogin implements Serializable {
 
     private static final long serialVersionUID = -6023176887921451L;

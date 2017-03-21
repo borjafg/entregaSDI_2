@@ -1,0 +1,11 @@
+http://memorynotfound.com/passing-variables-in-jsf-flash-scope/
+
+
+https://javaserverfaces.java.net/nonav/docs/2.0/javadocs/javax/faces/context/Flash.html
+
+
+https://www.adictosaltrabajo.com/tutoriales/jsf2-flash-scope/
+
+
+http://stackoverflow.com/questions/25694423/pass-an-object-between-viewscoped-beans-without-using-get-params
+
