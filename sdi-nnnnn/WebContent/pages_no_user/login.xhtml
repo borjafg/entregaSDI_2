@@ -16,7 +16,7 @@
 			<p:panel id="panel_login" header="#{msgs.login_titulo_panel}">
 
 				<h:panelGrid columns="3" cellpadding="5">
-					<p:outputLabel for="usuario" value="#{msgs.login_usuario}" />
+					<p:outputLabel id="label_login" for="usuario" value="#{msgs.login_usuario}" />
 
 					<p:inputText id="usuario" value="#{bean_login.login}"
 						required="true" placeholder="#{msgs.login_placeholder_usuario}"
@@ -25,7 +25,7 @@
 					<p:message for="usuario" />
 
 
-					<p:outputLabel for="contrasena" value="#{msgs.login_contrasena}" />
+					<p:outputLabel id="label_contrasena" for="contrasena" value="#{msgs.login_contrasena}" />
 
 					<p:inputText id="contrasena" value="#{bean_login.password}"
 						required="true" placeholder="#{msgs.login_placeholder_contrasena}"

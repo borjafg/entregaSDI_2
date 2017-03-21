@@ -22,6 +22,7 @@ import alb.util.log.Log;
 
 import com.sdi.tests.database_test.DatabaseContentsTester;
 import com.sdi.tests.database_test.UserDeletedTester;
+import com.sdi.tests.internationalizationTest.ValidadorLogIn;
 import com.sdi.tests.page_objects.PO_AdminRow;
 import com.sdi.tests.page_objects.PO_LoginForm;
 import com.sdi.tests.page_objects.PO_RegistryForm;
@@ -38,6 +39,7 @@ public class PlantillaSDI2_Tests1617 {
     List<WebElement> elementos = null;
 
     private final String defaultLocale = "es";
+    private final String englishLocale = "en";
 
     public PlantillaSDI2_Tests1617() {
 
@@ -970,20 +972,90 @@ public class PlantillaSDI2_Tests1617 {
     // PR33: Salir de sesión desde cuenta de administrador.
     @Test
     public void prueba33() {
-	assertTrue(false);
+
+	// (1) Hacer login como administrador
+	new PO_LoginForm().completeForm(driver, "admin", "admin");
+	// (2) comprobamos que nos hemos logeado
+	List<WebElement> mensajes = SeleniumUtils.EsperaCargaPagina(driver,
+		"class", "ui-datatable-header ui-widget-header ui-corner-top",
+		8);
+
+	assertTrue(
+		"No se ha encontrado el nombre de la tabla",
+		mensajes.get(0)
+			.getText()
+			.equals(new PropertiesReader().getValueOf(
+				defaultLocale,
+				"administrador_titulo_tabla_usuarios")));
+
+	// (3) cerramos sesión
+	SeleniumUtils.ClickSubopcionMenuHover(driver,
+		"form_menu_superior:submenu_usuario",
+		"form_menu_superior:boton_logout");
+	// (4) comprobamos que hemos salido a la pestaña de login
+
+	mensajes = SeleniumUtils.EsperaCargaPagina(driver, "class",
+		"ui-panel-title", 8);
+
+	assertTrue(
+		"No se ha encontrado mensaje de titulo de login",
+		mensajes.get(0)
+			.getText()
+			.equals(new PropertiesReader().getValueOf(
+				defaultLocale, "login_titulo_panel")));
+
     }
 
     // PR34: Salir de sesión desde cuenta de usuario normal.
     @Test
     public void prueba34() {
-	assertTrue(false);
+
+	// (1) Hacer login como administrador
+	new PO_LoginForm().completeForm(driver, "user1", "user1");
+	// (2) comprobamos que nos hemos logeado
+	List<WebElement> mensajes = SeleniumUtils.EsperaCargaPagina(driver,
+		"class", "ui-panel-title", 8);
+
+	assertTrue(
+		"No se ha encontrado el nombre de la tabla",
+		mensajes.get(0)
+			.getText()
+			.equals(new PropertiesReader()
+				.getValueOf(defaultLocale,
+					"principal_usuario_titulo_panel")));
+
+	// (3) cerramos sesión
+	SeleniumUtils.ClickSubopcionMenuHover(driver,
+		"form_menu_superior:submenu_usuario",
+		"form_menu_superior:boton_logout");
+
+	// (4) comprobamos que hemos salido a la pestaña de login
+
+	mensajes = SeleniumUtils.EsperaCargaPagina(driver, "class",
+		"ui-panel-title", 8);
+	assertTrue(
+		"No se ha encontrado mensaje de titulo de login",
+		mensajes.get(0)
+			.getText()
+			.equals(new PropertiesReader().getValueOf(
+				defaultLocale, "login_titulo_panel")));
+
     }
 
     // PR35: Cambio del idioma por defecto a un segundo idioma. (Probar algunas
     // vistas)
     @Test
     public void prueba35() {
-	assertTrue(false);
+	// (1) Comprobamos idioma por defecto
+	new ValidadorLogIn("es",driver).comprobarTextos();
+	ThreadUtil.wait(1500);
+	
+	SeleniumUtils.ClickSubopcionMenuHover(driver,
+		"form_menu_superior:submenu_idiomas",
+		"form_menu_superior:boton_eng");
+
+	new ValidadorLogIn("en", driver);
+	ThreadUtil.wait(1500);
     }
 
     // PR36: Cambio del idioma por defecto a un segundo idioma y vuelta al

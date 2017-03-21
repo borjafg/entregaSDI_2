@@ -4,14 +4,16 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://java.sun.com/jsf/core">
 
-	<p:submenu style="float:right" label="#{msgs.menu_idioma}"
-		icon="ui-icon-wrench">
+	<p:submenu id="submenu_idiomas" style="float:right"
+		label="#{msgs.menu_idioma}" icon="ui-icon-wrench">
 
-		<p:menuitem value="#{msgs.menu_idioma_es}" immediate="true"
-			actionListener="#{bean_language_config.setSpanish}" update="@all" />
+		<p:menuitem id="boton_esp" value="#{msgs.menu_idioma_es}"
+			immediate="true" actionListener="#{bean_language_config.setSpanish}"
+			update="@all" />
 
-		<p:menuitem value="#{msgs.menu_idioma_en}" immediate="true"
-			actionListener="#{bean_language_config.setEnglish}" update="@all" />
+		<p:menuitem id="boton_eng" value="#{msgs.menu_idioma_en}"
+			immediate="true" actionListener="#{bean_language_config.setEnglish}"
+			update="@all" />
 	</p:submenu>
 
 </ui:composition>

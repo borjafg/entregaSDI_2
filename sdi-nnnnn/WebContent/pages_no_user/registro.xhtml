@@ -15,7 +15,7 @@
 			<p:panel id="panel_registry" header="#{msgs.registro_titulo_panel}">
 
 				<h:panelGrid columns="3" cellpadding="5">
-					<p:outputLabel for="usuario" value="#{msgs.registro_usuario}" />
+					<p:outputLabel id="label_login" for="usuario" value="#{msgs.registro_usuario}" />
 
 					<p:inputText id="usuario" value="#{bean_registry.login}"
 						required="true" placeholder="#{msgs.registro_placeholder_usuario}"
@@ -25,7 +25,7 @@
 
 					<p:message for="usuario" />
 
-					<p:outputLabel for="email" value="#{msgs.registro_email}" />
+					<p:outputLabel id="label_email" for="email" value="#{msgs.registro_email}" />
 
 					<p:inputText id="email" value="#{bean_registry.email}"
 						required="true" placeholder="#{msgs.registro_placeholder_email}"
@@ -37,7 +37,7 @@
 
 					<p:message for="email " />
 
-					<p:outputLabel for="contrasena1"
+					<p:outputLabel id="label_contrasena1" for="contrasena1"
 						value="#{msgs.registro_contrasena}" />
 
 					<p:password id="contrasena1" value="#{bean_registry.password}"
@@ -51,7 +51,7 @@
 
 					<p:message for="contrasena1" />
 
-					<p:outputLabel for="contrasena2"
+					<p:outputLabel id="label_contrasena2" for="contrasena2"
 						value="#{msgs.registro_contrasena_rep}" />
 
 					<p:password id="contrasena2"
