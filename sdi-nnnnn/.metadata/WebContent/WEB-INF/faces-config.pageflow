@@ -7,8 +7,8 @@
   <nodes xsi:type="pageflow:PFPage" name="pages_other/error.xhtml" x="338" y="744" id="pf148999839053210" referenceLink="//@navigationRule.2/@fromViewId|" outlinks="pf14899983905328" inlinks="pf14899983905322" path="/pages_other/error.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="pages_no_user/registro.xhtml" x="770" y="946" id="pf148999839053211" referenceLink="//@navigationRule.4/@fromViewId|" outlinks="pf148999839053212 pf14899983905329" inlinks="pf14899983905324 pf148999839053212" path="/pages_no_user/registro.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="pages_admin/principal_administrador.xhtml" x="770" y="1330" id="pf148999839053213" referenceLink="//@navigationRule.5/@navigationCase.5/@toViewId|" outlinks="pf148999839053214 pf148999839053215 pf148999839053216 pf148999839053217 pf148999839053218 pf148999839053219" inlinks="pf14899983905326 pf148999839053214 pf148999839053215 pf148999839053216 pf148999839053217 pf148999839053218 pf148999839053219" path="/pages_admin/principal_administrador.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="pages_user/principal_usuario.xhtml" x="770" y="1714" id="pf148999839053220" referenceLink="//@navigationRule.9/@navigationCase.0/@toViewId|" outlinks="pf148999839053221 pf148999839053222 pf148999839053223" inlinks="pf14899983905327 pf14901179340090 pf14901179340091 pf14901179340092" path="/pages_user/principal_usuario.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="pages_user/listar_tareas_inbox.xhtml" x="554" y="1330" id="pf148999839053227" referenceLink="//@navigationRule.8/@fromViewId|" outlinks="pf14901179340091" inlinks="pf148999839053221" path="/pages_user/listar_tareas_inbox.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages_user/principal_usuario.xhtml" x="770" y="1714" id="pf148999839053220" referenceLink="//@navigationRule.8/@navigationCase.2/@toViewId|" outlinks="pf148999839053221 pf148999839053222 pf148999839053223" inlinks="pf14899983905327 pf14901179340090 pf14901179340091 pf14901179340092" path="/pages_user/principal_usuario.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages_user/listar_tareas_inbox.xhtml" x="554" y="1330" id="pf148999839053227" referenceLink="//@navigationRule.8/@navigationCase.2/@toViewId|" outlinks="pf14901179340091 pf14902067805252 pf14902067805253" inlinks="pf148999839053221 pf14902067805252 pf14902067805253" path="/pages_user/listar_tareas_inbox.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="pages_user/listar_tareas_hoy.xhtml" x="554" y="1714" id="pf148999839053228" referenceLink="//@navigationRule.7/@fromViewId|" outlinks="pf14901179340090" inlinks="pf148999839053222" path="/pages_user/listar_tareas_hoy.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="pages_user/listar_tareas_semana.xhtml" x="554" y="2098" id="pf148999839053229" referenceLink="//@navigationRule.9/@fromViewId|" outlinks="pf14901179340092" inlinks="pf148999839053223" path="/pages_user/listar_tareas_semana.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="pages_user/listar_hoy.xhtml" x="122" y="1330" id="pf148999839053230" referenceLink="//@navigationRule.7/@fromViewId|" path="/pages_user/listar_tareas_hoy.xhtml"/>
@@ -67,4 +67,6 @@
     <bendPoints d1Width="-214" d1Height="-186" d2Width="-214" d2Height="-186"/>
     <bendPoints d1Width="-214" d2Width="-214"/>
   </links>
+  <links id="pf14902067805252" target="pf148999839053227" source="pf148999839053227" outcome="exito" redirect="true"/>
+  <links id="pf14902067805253" target="pf148999839053227" source="pf148999839053227" outcome="fallo" redirect="true"/>
 </pageflow:Pageflow>

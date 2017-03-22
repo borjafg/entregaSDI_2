@@ -80,6 +80,17 @@
 			</p:column>
 
 
+			<p:column headerText="Titulo columna finished"
+				id="columna_finalizar_titulo">
+
+				<p:commandLink value="#{msgs.listado_tareas_boton_finalizar}"
+					id="columna_finalizar" rendered="#{tarea.finished == null}"
+					action="#{bean_inbox.terminarTarea(tarea.id)}" update="form_user:tabla_tareas mensajes_user"/>
+
+				<h:outputText value="-------" rendered="#{tarea.finished != null}" />
+			</p:column>
+
+
 		</p:dataTable>
 	</ui:define>
 

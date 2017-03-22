@@ -8,11 +8,12 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
-import uo.sdi.business.Services;
 import uo.sdi.business.TaskService;
 import uo.sdi.business.exception.BusinessException;
 import uo.sdi.dto.TaskDTO;
+import uo.sdi.infrastructure.Services;
 import uo.sdi.presentation.util.InboxSorter;
+import uo.sdi.presentation.util.MessageManager;
 import uo.sdi.presentation.util.UserInfo;
 import alb.util.date.DateUtil;
 import alb.util.log.Log;
@@ -116,11 +117,55 @@ public class BeanInboxTasks implements Serializable {
 
     public boolean estaRetrasada(TaskDTO tarea) {
 	if (tarea.getFinished() == null
-		&& DateUtil.isBefore(tarea.getPlanned(), DateUtil.today())) {
+		&& alb.util.date.DateUtil.isBefore(tarea.getPlanned(),
+			DateUtil.today())) {
 	    return true;
 	}
 
 	return false;
+    }
+
+    public String terminarTarea(Long idTarea) {
+	FacesContext context = FacesContext.getCurrentInstance();
+
+	try {
+	    TaskService taskServ = Services.getTaskService();
+	    taskServ.markTaskAsFinished(idTarea);
+
+	    Log.debug("Se ha marcado como finalizada la tarea con id [%d]",
+		    idTarea);
+
+	    cargarTareas();
+
+	    MessageManager.info(context, "mensajes_usuario",
+		    "listado_tareas_inbox_exito_finalizar");
+
+	    FacesContext.getCurrentInstance().getExternalContext().getFlash()
+		    .setKeepMessages(true);
+
+	    return "exito";
+	}
+
+	catch (BusinessException bs) {
+	    Log.error("No se ha podido finalizar la tarea con id [%d]. "
+		    + "Causa: %s", idTarea, bs.getMessage());
+
+	    MessageManager.warning(context, "mensajes_usuario",
+		    bs.getClaveFicheroMensajes());
+
+	    FacesContext.getCurrentInstance().getExternalContext().getFlash()
+		    .setKeepMessages(true);
+
+	    return "fallo";
+	}
+
+	catch (Exception ex) {
+	    Log.error("Ha ocurrido un error al marcar como finalizada la tarea"
+		    + " con id [%d]", idTarea);
+	    Log.error(ex);
+
+	    return "error";
+	}
     }
 
 }

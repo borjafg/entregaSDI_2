@@ -260,6 +260,18 @@
 			<to-view-id>/pages_user/principal_usuario.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/pages_user/listar_tareas_inbox.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>fallo</from-outcome>
+			<to-view-id>/pages_user/listar_tareas_inbox.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
 
 	</navigation-rule>
 

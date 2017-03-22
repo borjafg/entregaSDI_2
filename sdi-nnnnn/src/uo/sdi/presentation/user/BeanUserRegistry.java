@@ -6,10 +6,10 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
-import uo.sdi.business.Services;
 import uo.sdi.business.UserService;
 import uo.sdi.business.exception.BusinessException;
 import uo.sdi.dto.UserDTO;
+import uo.sdi.infrastructure.Services;
 import uo.sdi.presentation.util.MessageManager;
 import alb.util.log.Log;
 

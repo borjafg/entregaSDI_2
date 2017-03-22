@@ -8,10 +8,10 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
-import uo.sdi.business.Services;
 import uo.sdi.business.UserService;
 import uo.sdi.business.exception.BusinessException;
 import uo.sdi.dto.UserDTO;
+import uo.sdi.infrastructure.Services;
 import uo.sdi.presentation.util.MessageManager;
 import uo.sdi.presentation.util.UserInfo;
 import alb.util.log.Log;

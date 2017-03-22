@@ -81,7 +81,7 @@ public class TaskFinder {
      * 
      */
     public static List<Task> findWeekTasksByUserId(Long userId) {
-	Date fecha = DateUtil.addDays(DateUtil.now(), 7);
+	Date fecha = DateUtil.addDays(DateUtil.today(), 7);
 
 	return Jpa.getManager()
 		.createNamedQuery("Task.findWeekTasksByUserId", Task.class)

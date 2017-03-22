@@ -8,9 +8,9 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 import uo.sdi.business.AdminService;
-import uo.sdi.business.Services;
 import uo.sdi.business.exception.BusinessException;
 import uo.sdi.dto.UserDTO;
+import uo.sdi.infrastructure.Services;
 import uo.sdi.model.types.UserStatus;
 import uo.sdi.presentation.util.MessageManager;
 import uo.sdi.presentation.util.UserInfo;
