@@ -33,16 +33,6 @@ public class ValidadorPrincipalAdministrador {
 			.equals(new PropertiesReader().getValueOf(idioma,
 				"administrador_titulo_tabla_usuarios")));
 
-	// validamos el boton de logout
-	mensajes = SeleniumUtils.EsperaCargaPagina(driver, "id",
-		"form_menu_superior:boton_logout", 8);
-	assertTrue(
-		"No se ha encontrado mensaje del boton de logout",
-		mensajes.get(0)
-			.getText()
-			.equals(new PropertiesReader().getValueOf(idioma,
-				"menu_user_logout")));
-
 	// validamos el boton de cambio de idioma a español
 	mensajes = SeleniumUtils.EsperaCargaPagina(driver, "id",
 		"form_menu_superior:boton_esp", 8);
@@ -117,18 +107,29 @@ public class ValidadorPrincipalAdministrador {
 			.getText()
 			.equals(new PropertiesReader().getValueOf(idioma,
 				"principal_usuario_inbox")));
-	
+
 	// validamos texto del boton de listado en categoria: semana
 
-		mensajes = SeleniumUtils.EsperaCargaPagina(driver, "id",
-			"form_user:tareas_semana", 8);
-		assertTrue(
-			"No se ha encontrado mensaje del boton para listar tareas de inbox",
-			mensajes.get(0)
-				.getText()
-				.equals(new PropertiesReader().getValueOf(idioma,
-					"principal_usuario_semana")));
-	
+	mensajes = SeleniumUtils.EsperaCargaPagina(driver, "id",
+		"form_user:tareas_semana", 8);
+	assertTrue(
+		"No se ha encontrado mensaje del boton para listar tareas de inbox",
+		mensajes.get(0)
+			.getText()
+			.equals(new PropertiesReader().getValueOf(idioma,
+				"principal_usuario_semana")));
+
+	// validamos el boton de logout
+
+	mensajes = SeleniumUtils.EsperaCargaPagina(driver, "id",
+		"form_menu_superior:boton_logout", 8);
+	assertTrue(
+		"No se ha encontrado mensaje del boton de logout",
+		mensajes.get(0)
+			.getText()
+			.equals(new PropertiesReader().getValueOf(idioma,
+				"menu_user_logout")));
+
     }
 
 }
