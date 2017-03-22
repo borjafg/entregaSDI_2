@@ -14,7 +14,7 @@
 		<h:form id="form_user">
 			<p:panel>
 				<f:facet name="header">
-					<h:outputText style="text-align: center;"
+					<h:outputText id="titulo_tabla_usuario" style="text-align: center;"
 						value="#{msgs.principal_usuario_titulo_panel}" />
 				</f:facet>
 
@@ -24,7 +24,7 @@
 					<p:panelGrid columns="1" layout="grid"
 						styleClass="ui-panelgrid-blank quitar_bordes">
 
-						<h:outputText style="font-size:22px; font-weight:bold;"
+						<h:outputText id="tareas_inbox" style="font-size:22px; font-weight:bold;"
 							value="#{msgs.principal_usuario_inbox}" />
 
 						<h:panelGroup>
@@ -42,7 +42,7 @@
 					<p:panelGrid columns="1" layout="grid"
 						styleClass="ui-panelgrid-blank quitar_bordes">
 
-						<h:outputText style="font-size:22px; font-weight:bold;"
+						<h:outputText id="tareas_hoy" style="font-size:22px; font-weight:bold;"
 							value="#{msgs.principal_usuario_hoy}" />
 						<p:spacer />
 						<p:commandButton action="hoy" id="hoy" inmediate="true"
@@ -53,7 +53,7 @@
 					<p:panelGrid columns="1" layout="grid"
 						styleClass="ui-panelgrid-blank quitar_bordes">
 
-						<h:outputText style="font-size:22px; font-weight:bold;"
+						<h:outputText id="tareas_semana" style="font-size:22px; font-weight:bold;"
 							value="#{msgs.principal_usuario_semana}" />
 						<p:spacer />
 						<p:commandButton action="semana" id="semana" inmediate="true"

@@ -7,7 +7,7 @@
 	<p:submenu id="submenu_usuario" label="#{msgs.menu_user_cuenta}" style="float: right;">
 		<p:menuitem>
 			<h:panelGroup>
-				<h:outputText style="font-weight: bold;" value="#{msgs.menu_user_login}" />
+				<h:outputText id="output_Text_user_login" style="font-weight: bold;" value="#{msgs.menu_user_login}" />
 				<p:spacer height="1px" width="7px" />
 				<h:outputText value="#{sessionScope.user.login}" />
 			</h:panelGroup>

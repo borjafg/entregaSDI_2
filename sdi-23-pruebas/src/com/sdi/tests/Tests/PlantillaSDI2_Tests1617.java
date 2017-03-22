@@ -23,6 +23,9 @@ import alb.util.log.Log;
 import com.sdi.tests.database_test.DatabaseContentsTester;
 import com.sdi.tests.database_test.UserDeletedTester;
 import com.sdi.tests.internationalizationTest.ValidadorLogIn;
+import com.sdi.tests.internationalizationTest.ValidadorPrincipalAdministrador;
+import com.sdi.tests.internationalizationTest.ValidadorPrincipalUsuario;
+import com.sdi.tests.internationalizationTest.ValidadorRegistro;
 import com.sdi.tests.page_objects.PO_AdminRow;
 import com.sdi.tests.page_objects.PO_LoginForm;
 import com.sdi.tests.page_objects.PO_RegistryForm;
@@ -1047,15 +1050,112 @@ public class PlantillaSDI2_Tests1617 {
     @Test
     public void prueba35() {
 	// (1) Comprobamos idioma por defecto
-	new ValidadorLogIn("es",driver).comprobarTextos();
+	// (1.1) comprobamos el idioma en la pagina de login
+	new ValidadorLogIn("es", driver).comprobarTextos();
+	// nos registramos como administrador
+	new PO_LoginForm().completeForm(driver, "admin", "admin");
+	// (1.2) Comprobamos el idioma en la pestaña principal de administrador
+	new ValidadorPrincipalAdministrador("es", driver);
+	// Cerramos sesion
 	ThreadUtil.wait(1500);
+	SeleniumUtils.ClickSubopcionMenuHover(driver,
+		"form_menu_superior:submenu_usuario",
+		"form_menu_superior:boton_logout");
+
+	SeleniumUtils.EsperaCargaPagina(driver, "id",
+		"form_anonimo:boton_login", 10);
+
+	ThreadUtil.wait(1500);
+	// nos logeamos como usuario normal
+	new PO_LoginForm().completeForm(driver, "user1", "user1");
+	// (1.3) Comprobamos el idioma en la ventana principal de usuario
+	new ValidadorPrincipalUsuario("es", driver);
+	// Cerramos sesion
+	ThreadUtil.wait(1500);
+	SeleniumUtils.ClickSubopcionMenuHover(driver,
+		"form_menu_superior:submenu_usuario",
+		"form_menu_superior:boton_logout");
+
+	SeleniumUtils.EsperaCargaPagina(driver, "id",
+		"form_anonimo:boton_login", 10);
+
+	ThreadUtil.wait(1500);
+	// cambiamos la ventana de registro
+	WebElement registrarseEnlace = driver.findElement(By
+		.id("form_menu_superior:enlace_registro"));
+	registrarseEnlace.click();
+	ThreadUtil.wait(600);
+	// (1.4) Comprobamos el idioma en la ventana de registro
+	new ValidadorRegistro("es", driver);
+	// cambiamos a la ventana de login
+	WebElement loginEnlace = driver.findElement(By
+		.id("form_menu_superior:enlace_login"));
+	loginEnlace.click();
+	ThreadUtil.wait(600);
+
+	// (2) Cambiamos de idioma
+	SeleniumUtils.ClickSubopcionMenuHover(driver,
+		"form_menu_superior:submenu_idiomas",
+		"form_menu_superior:boton_eng");
+	//(3) Comprobamos con el otro idioma
+	// (3.1) validamos el login
+	new ValidadorLogIn("en", driver);
+	ThreadUtil.wait(1500);
+	// nos registramos como administrador
+	new PO_LoginForm().completeForm(driver, "admin", "admin");
+	// (3.2) Comprobamos el idioma en la pestaña principal de administrador
+	new ValidadorPrincipalAdministrador("en", driver);
+	// Cerramos sesion
+	ThreadUtil.wait(1500);
+	SeleniumUtils.ClickSubopcionMenuHover(driver,
+		"form_menu_superior:submenu_usuario",
+		"form_menu_superior:boton_logout");
+
+	SeleniumUtils.EsperaCargaPagina(driver, "id",
+		"form_anonimo:boton_login", 10);
+	
+	ThreadUtil.wait(600);
+
 	
 	SeleniumUtils.ClickSubopcionMenuHover(driver,
 		"form_menu_superior:submenu_idiomas",
 		"form_menu_superior:boton_eng");
 
-	new ValidadorLogIn("en", driver);
 	ThreadUtil.wait(1500);
+	// nos logeamos como usuario normal
+	new PO_LoginForm().completeForm(driver, "user1", "user1");
+	// (3.3) Comprobamos el idioma en la ventana principal de usuario
+	new ValidadorPrincipalUsuario("en", driver);
+	// Cerramos sesion
+	ThreadUtil.wait(1500);
+	SeleniumUtils.ClickSubopcionMenuHover(driver,
+		"form_menu_superior:submenu_usuario",
+		"form_menu_superior:boton_logout");
+
+	SeleniumUtils.EsperaCargaPagina(driver, "id",
+		"form_anonimo:boton_login", 10);
+	
+ThreadUtil.wait(600);
+
+	
+	SeleniumUtils.ClickSubopcionMenuHover(driver,
+		"form_menu_superior:submenu_idiomas",
+		"form_menu_superior:boton_eng");
+
+	ThreadUtil.wait(1500);
+	// cambiamos la ventana de registro
+	 registrarseEnlace = driver.findElement(By
+		.id("form_menu_superior:enlace_registro"));
+	registrarseEnlace.click();
+	ThreadUtil.wait(600);
+	// (3.4) Comprobamos el idioma en la ventana de registro
+	new ValidadorRegistro("en", driver);
+	// cambiamos a la ventana de login
+	loginEnlace = driver.findElement(By
+		.id("form_menu_superior:enlace_login"));
+	loginEnlace.click();
+	ThreadUtil.wait(600);
+
     }
 
     // PR36: Cambio del idioma por defecto a un segundo idioma y vuelta al

@@ -9,7 +9,6 @@ import org.openqa.selenium.WebElement;
 
 import com.sdi.tests.utils.PropertiesReader;
 import com.sdi.tests.utils.SeleniumUtils;
-import com.sdi.tests.utils.ThreadUtil;
 
 public class ValidadorLogIn {
 
