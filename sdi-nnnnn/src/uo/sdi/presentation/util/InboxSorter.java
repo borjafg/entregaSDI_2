@@ -36,14 +36,8 @@ public class InboxSorter {
 	TaskDTO task1 = (TaskDTO) task_1;
 	TaskDTO task2 = (TaskDTO) task_2;
 
-	if (task1.getFinished() != null || task2.getFinished() != null) {
-	    // Tareas finalizadas al final
-	    return sortByFinished(task1, task2);
-	}
-
-	else { // Tareas no finalizadas
-	    return task1.getTitle().compareToIgnoreCase(task2.getTitle());
-	}
+	return sortByString_finishedAtEnd(task1.getFinished(),
+		task2.getFinished(), task1.getTitle(), task2.getTitle());
     }
 
     /**
@@ -69,31 +63,8 @@ public class InboxSorter {
 	TaskDTO task1 = (TaskDTO) task_1;
 	TaskDTO task2 = (TaskDTO) task_2;
 
-	String comments1 = task1.getComments();
-	String comments2 = task2.getComments();
-
-	if (task1.getFinished() != null || task2.getFinished() != null) {
-	    // Tareas finalizadas al final
-	    return sortByFinished(task1, task2);
-	}
-
-	else { // Tareas no finalizadas
-	    if (comments1 == null) {
-		if (comments2 == null) {
-		    return 0; // comentarios iguales
-		}
-
-		return 1; // null posterior a comment2
-	    }
-
-	    else { // task1.getComments() != null
-		if (comments2 == null) {
-		    return -1;
-		}
-
-		return comments1.compareToIgnoreCase(comments2);
-	    }
-	}
+	return sortByString_finishedAtEnd(task1.getFinished(),
+		task2.getFinished(), task1.getComments(), task2.getComments());
     }
 
     /**
@@ -116,31 +87,8 @@ public class InboxSorter {
 	TaskDTO task1 = (TaskDTO) task_1;
 	TaskDTO task2 = (TaskDTO) task_2;
 
-	Date created1 = task1.getFinished();
-	Date created2 = task2.getFinished();
-
-	if (task1.getFinished() != null || task2.getFinished() != null) {
-	    // Tareas finalizadas al final
-	    return sortByFinished(task1, task2);
-	}
-
-	else { // Tareas no finalizadas
-	    if (created1 == null) {
-		if (created2 == null) {
-		    return 0; // fechas iguales
-		}
-
-		return 1; // null posterior a created2
-	    }
-
-	    else { // created1 != null
-		if (created2 == null) {
-		    return -1; // created1 anterior a null
-		}
-
-		return created1.compareTo(created2);
-	    }
-	}
+	return sortByDate_finishedAtEnd(task1.getFinished(),
+		task2.getFinished(), task1.getCreated(), task2.getCreated());
     }
 
     /**
@@ -163,31 +111,8 @@ public class InboxSorter {
 	TaskDTO task1 = (TaskDTO) task_1;
 	TaskDTO task2 = (TaskDTO) task_2;
 
-	Date planned1 = task1.getPlanned();
-	Date planned2 = task2.getPlanned();
-
-	if (task1.getFinished() != null || task2.getFinished() != null) {
-	    // Tareas finalizadas al final
-	    return sortByFinished(task1, task2);
-	}
-
-	else { // Tareas no finalizadas
-	    if (planned1 == null) {
-		if (planned2 == null) {
-		    return 0; // fechas iguales
-		}
-
-		return 1; // null posterior a planned2
-	    }
-
-	    else { // planned1 != null
-		if (planned2 == null) {
-		    return -1; // planned1 anterior a null
-		}
-
-		return planned1.compareTo(planned2);
-	    }
-	}
+	return sortByDate_finishedAtEnd(task1.getFinished(),
+		task2.getFinished(), task1.getPlanned(), task2.getPlanned());
     }
 
     /**
@@ -209,24 +134,96 @@ public class InboxSorter {
     public int sortByFinished(Object task_1, Object task_2) {
 	TaskDTO task1 = (TaskDTO) task_1;
 	TaskDTO task2 = (TaskDTO) task_2;
-	
-	Date finished1 = task1.getFinished();
-	Date finished2 = task2.getFinished();
 
-	if (finished1 == null) {
+	return sortByDate_finishedAtEnd(task1.getFinished(),
+		task2.getFinished(), task1.getFinished(), task2.getFinished());
+    }
+
+    // ===================================
+    // Métodos auxiliares
+    // ===================================
+
+    private int sortByString_finishedAtEnd(Date finished1, Date finished2,
+	    String text1, String text2) {
+
+	if (finished1 != null) {
+	    if (finished2 != null) {
+		return sortByString_aux(text1, text2);
+	    }
+
+	    else { // task2.getFinished() == null
+		return 1;
+	    }
+	}
+
+	else { // task1.getFinished() == null
 	    if (finished2 == null) {
+		return sortByString_aux(text1, text2);
+	    }
+
+	    else { // task2.getFinished() != null
+		return -1;
+	    }
+	}
+    }
+
+    private int sortByString_aux(String text1, String text2) {
+	if (text1 == null) {
+	    if (text2 == null) {
+		return 0; // comentarios iguales
+	    }
+
+	    return 1; // null posterior a comment2
+	}
+
+	else { // text1 != null
+	    if (text2 == null) {
+		return -1;
+	    }
+
+	    return text1.compareToIgnoreCase(text2);
+	}
+    }
+
+    private int sortByDate_finishedAtEnd(Date finished1, Date finished2,
+	    Date date1, Date date2) {
+
+	if (finished1 != null) {
+	    if (finished2 != null) {
+		return sortByDate_nullAtEnd(date1, date2);
+	    }
+
+	    else { // task2.getFinished() == null
+		return 1;
+	    }
+	}
+
+	else { // task1.getFinished() == null
+	    if (finished2 == null) {
+		return sortByDate_nullAtEnd(date1, date2);
+	    }
+
+	    else { // task2.getFinished() != null
+		return -1;
+	    }
+	}
+    }
+
+    private int sortByDate_nullAtEnd(Date date1, Date date2) {
+	if (date1 == null) {
+	    if (date2 == null) {
 		return 0; // iguales
 	    }
 
-	    return -1; // null anterior a date2
+	    return 1; // null posterior a date2
 	}
 
 	else { // task1 != null
-	    if (finished2 == null) {
-		return 1; // date1 posterior a null
+	    if (date2 == null) {
+		return -1; // date1 anterior a null
 	    }
 
-	    return finished1.compareTo(finished2);
+	    return date1.compareTo(date2);
 	}
     }
 
