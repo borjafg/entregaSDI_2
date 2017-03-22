@@ -18,13 +18,14 @@
 
 	<ui:define name="cuerpo">
 		<p:dataTable id="tabla_tareas" value="#{bean_inbox.tasks}" var="tarea"
-			rows="8" paginator="true" rowIndexVar="index"
+			rows="8" paginator="true"
 			paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
 
 
 			<p:column headerText="Titulo columna titulo"
 				id="columna_titulo_titulo" sortBy="#{tarea}"
-				sortFunction="#{bean_inbox.inboxSorter.sortByTitle}">
+				sortFunction="#{bean_inbox.inboxSorter.sortByTitle}"
+				filterMatchMode="contains">
 
 				<h:outputText value="#{tarea.title}" id="columna_titulo_normal"
 					rendered="#{tarea.finished eq null}" />
@@ -34,8 +35,7 @@
 			</p:column>
 
 
-			<p:column headerText="
-					Titulo columna comments"
+			<p:column headerText="Titulo columna comments"
 				id="columna_comentarios_titulo" sortBy="#{tarea}"
 				sortFunction="#{bean_inbox.inboxSorter.sortByComments}">
 
@@ -85,7 +85,8 @@
 
 				<p:commandLink value="#{msgs.listado_tareas_boton_finalizar}"
 					id="columna_finalizar" rendered="#{tarea.finished == null}"
-					action="#{bean_inbox.terminarTarea(tarea.id)}" update="form_user:tabla_tareas mensajes_user"/>
+					action="#{bean_inbox.terminarTarea(tarea.id)}"
+					update="form_user:tabla_tareas mensajes_user" />
 
 				<h:outputText value="-------" rendered="#{tarea.finished != null}" />
 			</p:column>

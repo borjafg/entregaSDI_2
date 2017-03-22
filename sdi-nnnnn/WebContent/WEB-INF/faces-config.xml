@@ -55,6 +55,18 @@
 		<managed-bean-class>uo.sdi.presentation.task.BeanInboxTasks</managed-bean-class>
 		<managed-bean-scope>view</managed-bean-scope>
 	</managed-bean>
+	
+	<managed-bean>
+		<managed-bean-name>bean_today</managed-bean-name>
+		<managed-bean-class>uo.sdi.presentation.task.BeanTodayTasks</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
+	</managed-bean>
+	
+	<managed-bean>
+		<managed-bean-name>bean_week</managed-bean-name>
+		<managed-bean-class>uo.sdi.presentation.task.BeanWeekTasks</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
+	</managed-bean>
 
 
 	<!-- ============================ -->
@@ -233,6 +245,33 @@
 	</navigation-rule>
 
 
+	<!-- - - - - - - - - - - - - -->
+	<!-- - Listar tareas inbox - -->
+	<!-- - - - - - - - - - - - - -->
+
+	<navigation-rule>
+		<from-view-id>/pages_user/listar_tareas_inbox.xhtml</from-view-id>
+
+		<navigation-case>
+			<from-outcome>volver</from-outcome>
+			<to-view-id>/pages_user/principal_usuario.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<navigation-case>
+			<from-action>#{bean_inbox.terminarTarea(tarea.id)}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/pages_user/listar_tareas_inbox.xhtml</to-view-id>
+		</navigation-case>
+
+		<navigation-case>
+			<from-action>#{bean_inbox.terminarTarea(tarea.id)}</from-action>
+			<from-outcome>fallo</from-outcome>
+			<to-view-id>/pages_user/listar_tareas_inbox.xhtml</to-view-id>
+		</navigation-case>
+
+	</navigation-rule>
+
 	<!-- - - - - - - - - - - - -->
 	<!-- - Listar tareas hoy - -->
 	<!-- - - - - - - - - - - - -->
@@ -246,31 +285,16 @@
 			<redirect />
 		</navigation-case>
 
-	</navigation-rule>
-
-	<!-- - - - - - - - - - - - - -->
-	<!-- - Listar tareas inbox - -->
-	<!-- - - - - - - - - - - - - -->
-
-	<navigation-rule>
-		<from-view-id>/pages_user/listar_tareas_inbox.xhtml</from-view-id>
-
 		<navigation-case>
-			<from-outcome>volver</from-outcome>
-			<to-view-id>/pages_user/principal_usuario.xhtml</to-view-id>
-			<redirect />
-		</navigation-case>
-		
-		<navigation-case>
+			<from-action>#{bean_today.terminarTarea(tarea.id)}</from-action>
 			<from-outcome>exito</from-outcome>
-			<to-view-id>/pages_user/listar_tareas_inbox.xhtml</to-view-id>
-			<redirect />
+			<to-view-id>/pages_user/listar_tareas_hoy.xhtml</to-view-id>
 		</navigation-case>
-		
+
 		<navigation-case>
+			<from-action>#{bean_today.terminarTarea(tarea.id)}</from-action>
 			<from-outcome>fallo</from-outcome>
-			<to-view-id>/pages_user/listar_tareas_inbox.xhtml</to-view-id>
-			<redirect />
+			<to-view-id>/pages_user/listar_tareas_hoy.xhtml</to-view-id>
 		</navigation-case>
 
 	</navigation-rule>
@@ -286,6 +310,18 @@
 			<from-outcome>volver</from-outcome>
 			<to-view-id>/pages_user/principal_usuario.xhtml</to-view-id>
 			<redirect />
+		</navigation-case>
+
+		<navigation-case>
+			<from-action>#{bean_week.terminarTarea(tarea.id)}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/pages_user/listar_tareas_semana.xhtml</to-view-id>
+		</navigation-case>
+
+		<navigation-case>
+			<from-action>#{bean_week.terminarTarea(tarea.id)}</from-action>
+			<from-outcome>fallo</from-outcome>
+			<to-view-id>/pages_user/listar_tareas_semana.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 

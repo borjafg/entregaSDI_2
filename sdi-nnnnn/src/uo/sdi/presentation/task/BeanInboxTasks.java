@@ -1,7 +1,6 @@
 package uo.sdi.presentation.task;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -10,21 +9,16 @@ import javax.faces.context.FacesContext;
 
 import uo.sdi.business.TaskService;
 import uo.sdi.business.exception.BusinessException;
-import uo.sdi.dto.TaskDTO;
 import uo.sdi.infrastructure.Services;
 import uo.sdi.presentation.util.InboxSorter;
-import uo.sdi.presentation.util.MessageManager;
 import uo.sdi.presentation.util.UserInfo;
-import alb.util.date.DateUtil;
 import alb.util.log.Log;
 
 @ManagedBean(name = "bean_inbox")
 @ViewScoped
-public class BeanInboxTasks implements Serializable {
+public class BeanInboxTasks extends AbstractBeanTasks implements Serializable {
 
     private static final long serialVersionUID = 52040729138582L;
-
-    private List<TaskDTO> tasks;
 
     private InboxSorter inboxSorter = new InboxSorter();
 
@@ -36,10 +30,6 @@ public class BeanInboxTasks implements Serializable {
 
     public InboxSorter getInboxSorter() {
 	return inboxSorter;
-    }
-
-    public List<TaskDTO> getTasks() {
-	return tasks;
     }
 
     // ===============================
@@ -82,7 +72,8 @@ public class BeanInboxTasks implements Serializable {
     // Métodos
     // ============================
 
-    private void cargarTareas() {
+    @Override
+    protected void cargarTareas() {
 	UserInfo user = (UserInfo) FacesContext.getCurrentInstance()
 		.getExternalContext().getSessionMap().get("user");
 	Long userId = user.getId();
@@ -111,60 +102,7 @@ public class BeanInboxTasks implements Serializable {
 		    user.getLogin(), bs.getMessage());
 
 	    throw new RuntimeException("Error al listar las tareas de la "
-		    + "categoria inbox del usuario " + user.getLogin());
-	}
-    }
-
-    public boolean estaRetrasada(TaskDTO tarea) {
-	if (tarea.getFinished() == null
-		&& alb.util.date.DateUtil.isBefore(tarea.getPlanned(),
-			DateUtil.today())) {
-	    return true;
-	}
-
-	return false;
-    }
-
-    public String terminarTarea(Long idTarea) {
-	FacesContext context = FacesContext.getCurrentInstance();
-
-	try {
-	    TaskService taskServ = Services.getTaskService();
-	    taskServ.markTaskAsFinished(idTarea);
-
-	    Log.debug("Se ha marcado como finalizada la tarea con id [%d]",
-		    idTarea);
-
-	    cargarTareas();
-
-	    MessageManager.info(context, "mensajes_usuario",
-		    "listado_tareas_inbox_exito_finalizar");
-
-	    FacesContext.getCurrentInstance().getExternalContext().getFlash()
-		    .setKeepMessages(true);
-
-	    return "exito";
-	}
-
-	catch (BusinessException bs) {
-	    Log.error("No se ha podido finalizar la tarea con id [%d]. "
-		    + "Causa: %s", idTarea, bs.getMessage());
-
-	    MessageManager.warning(context, "mensajes_usuario",
-		    bs.getClaveFicheroMensajes());
-
-	    FacesContext.getCurrentInstance().getExternalContext().getFlash()
-		    .setKeepMessages(true);
-
-	    return "fallo";
-	}
-
-	catch (Exception ex) {
-	    Log.error("Ha ocurrido un error al marcar como finalizada la tarea"
-		    + " con id [%d]", idTarea);
-	    Log.error(ex);
-
-	    return "error";
+		    + "categoría inbox del usuario " + user.getLogin());
 	}
     }
 
