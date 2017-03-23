@@ -4,6 +4,8 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -35,6 +37,7 @@ import com.sdi.tests.page_objects.PO_InboxRow;
 import com.sdi.tests.page_objects.PO_LoginForm;
 import com.sdi.tests.page_objects.PO_RegistryForm;
 import com.sdi.tests.utils.DatabaseReload;
+import com.sdi.tests.utils.DateUtil;
 import com.sdi.tests.utils.PropertiesReader;
 import com.sdi.tests.utils.SeleniumUtils;
 import com.sdi.tests.utils.ThreadUtil;
@@ -915,44 +918,98 @@ public class PlantillaSDI2_Tests1617 {
 	SeleniumUtils.EsperaCargaPagina(driver, "id",
 		"form_user:tabla_tareas_data", 10);
 	// comprobamos los elementos de la primera pagina
-	List<Map<String, String>> pestaña = new ArrayList<Map<String, String>>();
+	List<Map<String, Object>> pestaña = new ArrayList<Map<String, Object>>();
 	for (int i = 0; i < 8; i++) {
 	    pestaña.add(new PO_InboxRow().findRow(driver, i));
 	}
-	//comprobamos el nombre de las primeras 8 tareas
-	for(int i = 0; i <8; i++){
-	    assertTrue("Los nombres no son iguales",pestaña.get(i).get("titulo").equals("tarea0"+(i+1)));
+	// comprobamos el nombre de las primeras 8 tareas
+	for (int i = 0; i < 8; i++) {
+	    assertTrue("Los nombres no son iguales",
+		    pestaña.get(i).get("titulo").equals("tarea0" + (i + 1)));
 	}
-	
-	SeleniumUtils.EsperaCargaPagina(driver, "class", "ui-icon ui-icon-seek-next", 8).get(0).click();
+
+	SeleniumUtils
+		.EsperaCargaPagina(driver, "class",
+			"ui-icon ui-icon-seek-next", 8).get(0).click();
 	ThreadUtil.wait(600);
-	pestaña = new ArrayList<Map<String, String>>();
-	for (int i = 8; i <16 ; i++) {
+	pestaña = new ArrayList<Map<String, Object>>();
+	for (int i = 8; i < 16; i++) {
 	    pestaña.add(new PO_InboxRow().findRow(driver, i));
 	}
-	
-	for(int i = 0; i <8; i++){
-	    if(i==0){//porque es el ultimo que sigue terniendo de nombre 0X
-		assertTrue("Los nombres no son iguales",pestaña.get(i).get("titulo").equals("tarea09"));
-	    }else{
-		assertTrue("Los nombres no son iguales",pestaña.get(i).get("titulo").equals("tarea"+(i+9)));
+
+	for (int i = 0; i < 8; i++) {
+	    if (i == 0) {// porque es el ultimo que sigue terniendo de nombre 0X
+		assertTrue("Los nombres no son iguales",
+			pestaña.get(i).get("titulo").equals("tarea09"));
+	    } else {
+		assertTrue("Los nombres no son iguales",
+			pestaña.get(i).get("titulo").equals("tarea" + (i + 9)));
 	    }
 	}
-	SeleniumUtils.EsperaCargaPagina(driver, "class", "ui-icon ui-icon-seek-next", 8).get(0).click();
+	SeleniumUtils
+		.EsperaCargaPagina(driver, "class",
+			"ui-icon ui-icon-seek-next", 8).get(0).click();
 	ThreadUtil.wait(600);
-	pestaña = new ArrayList<Map<String, String>>();
-	for (int i = 16; i <=19 ; i++) {
+	pestaña = new ArrayList<Map<String, Object>>();
+	for (int i = 16; i <= 19; i++) {
 	    pestaña.add(new PO_InboxRow().findRow(driver, i));
 	}
-	for(int i = 0; i<4; i++){
-	    assertTrue("Los nombres no son iguales",pestaña.get(i).get("titulo").equals("tarea"+(i+17)));
+	for (int i = 0; i < 4; i++) {
+	    assertTrue("Los nombres no son iguales",
+		    pestaña.get(i).get("titulo").equals("tarea" + (i + 17)));
 	}
     }
 
     // PR17: Funcionamiento correcto de la ordenación por fecha planeada.
     @Test
     public void prueba17() {
-	assertTrue(false);
+	// variable para la comprobación
+	new PO_LoginForm().completeForm(driver, "user1", "user1");
+	// clicamos en el boton de tareas dentro de Inbox
+	ThreadUtil.wait(600);
+	WebElement botonInbox = driver.findElement(By.id("form_user:inbox"));
+	botonInbox.click();
+	SeleniumUtils.EsperaCargaPagina(driver, "id",
+		"form_user:tabla_tareas_data", 10);
+	// comprobamos los elementos de la primera pagina
+	SeleniumUtils
+		.EsperaCargaPagina(driver, "id",
+			"form_user:tabla_tareas:columna_planeada_titulo", 8)
+		.get(0).click();
+	ThreadUtil.wait(600);
+	// comprobamos los elementos de la primera pagina
+	List<Map<String, Object>> pestaña = new ArrayList<Map<String, Object>>();
+	for (int i = 0; i < 8; i++) {
+	    pestaña.add(new PO_InboxRow().findRow(driver, i));
+	}
+	Date hoy = new Date();
+
+	for (int i = 0; i < 8; i++) {
+	    assertTrue("Los nombres no son iguales",
+		    pestaña.get(i).get("titulo").equals("tarea" + (i + 11)));
+	    assertTrue("El dia no coincide", DateUtil.sameDay(
+		    DateUtil.convertStringToDate((String) pestaña.get(i).get(
+			    "fechaPLaneada")), hoy));
+
+	}
+	ThreadUtil.wait(600);
+	SeleniumUtils
+		.EsperaCargaPagina(driver, "class",
+			"ui-icon ui-icon-seek-next", 8).get(0).click();
+	pestaña = new ArrayList<Map<String, Object>>();
+	for (int i = 8; i < 16; i++) {
+	    pestaña.add(new PO_InboxRow().findRow(driver, i));
+	}
+	ThreadUtil.wait(600);
+	for (int i = 0; i < 8; i++) {
+	    assertTrue("Los nombres no son iguales",
+		    pestaña.get(i).get("titulo").equals("tarea" + (i + 11)));
+	    assertTrue("El dia no coincide", DateUtil.sameDay(
+		    DateUtil.convertStringToDate((String) pestaña.get(i).get(
+			    "fechaPLaneada")), hoy));
+
+	}
+
     }
 
     // PR18: Funcionamiento correcto del filtrado.

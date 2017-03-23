@@ -8,8 +8,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class PO_InboxRow {
-    public Map<String, String> findRow(WebDriver driver, int index) {
-	Map<String, String> row = new HashMap<String, String>();
+    public Map<String, Object> findRow(WebDriver driver, int index) {
+	Map<String, Object> row = new HashMap<String, Object>();
 
 	WebElement titulo = driver.findElement(By
 		.id("form_user:tabla_tareas:" + index + ":columna_titulo_normal"));
