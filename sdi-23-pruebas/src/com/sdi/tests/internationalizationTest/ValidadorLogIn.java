@@ -62,9 +62,8 @@ public class ValidadorLogIn {
 			.equals(new PropertiesReader().getValueOf(idioma,
 				"login_contrasena") + "*"));
 
-	//(2.3) Comprobamos los placeholders
-	
-	
+	// (2.3) Comprobamos los placeholders
+
 	mensajes = SeleniumUtils.EsperaCargaPagina(driver, "id",
 		"form_anonimo:usuario", 8);
 
@@ -74,7 +73,7 @@ public class ValidadorLogIn {
 			.getAttribute("placeholder")
 			.equals(new PropertiesReader().getValueOf(idioma,
 				"login_placeholder_usuario")));
-	
+
 	mensajes = SeleniumUtils.EsperaCargaPagina(driver, "id",
 		"form_anonimo:contrasena", 8);
 	assertTrue(
@@ -93,6 +92,40 @@ public class ValidadorLogIn {
 			.getText()
 			.equals(new PropertiesReader().getValueOf(idioma,
 				"login_boton")));
+
+	// validamos el boton de idioma del desplegable
+
+	mensajes = SeleniumUtils.EsperaCargaPagina(driver, "id",
+		"form_menu_superior:submenu_idiomas", 8);
+	assertTrue(
+		"No se ha encontrado mensaje del boton de cambio de idioma",
+		mensajes.get(0)
+			.getText()
+			.equals(new PropertiesReader().getValueOf(idioma,
+				"menu_idioma")));
+
+	SeleniumUtils.moverRatonPorEncimaDe(driver,
+		"form_menu_superior:submenu_idiomas");
+
+	// validamos el boton de cambio de idioma a español
+	mensajes = SeleniumUtils.EsperaCargaPagina(driver, "id",
+		"form_menu_superior:boton_esp", 8);
+	assertTrue(
+		"No se ha encontrado mensaje del boton de cambio a español",
+		mensajes.get(0)
+			.getText()
+			.equals(new PropertiesReader().getValueOf(idioma,
+				"menu_idioma_es")));
+
+	// validamos el boton de cambio de idioma a ingles
+	mensajes = SeleniumUtils.EsperaCargaPagina(driver, "id",
+		"form_menu_superior:boton_eng", 8);
+	assertTrue(
+		"No se ha encontrado mensaje del boton de cambio a ingles",
+		mensajes.get(0)
+			.getText()
+			.equals(new PropertiesReader().getValueOf(idioma,
+				"menu_idioma_en")));
 
     }
 

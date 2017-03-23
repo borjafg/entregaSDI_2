@@ -43,6 +43,20 @@ public class ValidadorRegistro {
 			.equals(new PropertiesReader().getValueOf(idioma,
 				"registro_titulo_panel")));
 
+	// validamos el boton de idioma del desplegable
+
+	mensajes = SeleniumUtils.EsperaCargaPagina(driver,
+		"id", "form_menu_superior:submenu_idiomas", 8);
+	assertTrue(
+		"No se ha encontrado mensaje del boton de cambio de idioma",
+		mensajes.get(0)
+			.getText()
+			.equals(new PropertiesReader().getValueOf(idioma,
+				"menu_idioma")));
+
+	SeleniumUtils.moverRatonPorEncimaDe(driver,
+		"form_menu_superior:submenu_idiomas");
+
 	// validamos el boton de cambio de idioma a español
 	mensajes = SeleniumUtils.EsperaCargaPagina(driver, "id",
 		"form_menu_superior:boton_esp", 8);
@@ -62,17 +76,6 @@ public class ValidadorRegistro {
 			.getText()
 			.equals(new PropertiesReader().getValueOf(idioma,
 				"menu_idioma_en")));
-
-	// validamos el boton de idioma del desplegable
-
-	mensajes = SeleniumUtils.EsperaCargaPagina(driver, "id",
-		"form_menu_superior:submenu_idiomas", 8);
-	assertTrue(
-		"No se ha encontrado mensaje del boton de cambio de idioma",
-		mensajes.get(0)
-			.getText()
-			.equals(new PropertiesReader().getValueOf(idioma,
-				"menu_idioma")));
 
 	// validamos label del nombre
 	mensajes = SeleniumUtils.EsperaCargaPagina(driver, "id",

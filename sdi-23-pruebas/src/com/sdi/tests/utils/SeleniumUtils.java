@@ -103,4 +103,20 @@ public class SeleniumUtils {
 
 	return EsperaCargaPaginaxpath(driver, busqueda, timeout);
     }
+
+    /**
+     * Permite colocar el raton encima del elemento al que le pasamos su id
+     * 
+     * @param driver
+     *            objeto que permite interactuar con el navegador web
+     * @param id
+     *            identificador que nos permite obtener el objeto sobre el que
+     *            queremos poner el raton por encima
+     */
+    static public void moverRatonPorEncimaDe(WebDriver driver, String id) {
+	Actions builder = new Actions(driver);
+
+	WebElement hoverElement = driver.findElement(By.id(id));
+	builder.moveToElement(hoverElement).perform();
+    }
 }

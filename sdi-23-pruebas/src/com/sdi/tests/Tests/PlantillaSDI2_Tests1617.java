@@ -3,10 +3,14 @@ package com.sdi.tests.Tests;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import junit.framework.Assert;
+
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -27,6 +31,7 @@ import com.sdi.tests.internationalizationTest.ValidadorPrincipalAdministrador;
 import com.sdi.tests.internationalizationTest.ValidadorPrincipalUsuario;
 import com.sdi.tests.internationalizationTest.ValidadorRegistro;
 import com.sdi.tests.page_objects.PO_AdminRow;
+import com.sdi.tests.page_objects.PO_InboxRow;
 import com.sdi.tests.page_objects.PO_LoginForm;
 import com.sdi.tests.page_objects.PO_RegistryForm;
 import com.sdi.tests.utils.DatabaseReload;
@@ -38,14 +43,30 @@ import com.sdi.tests.utils.ThreadUtil;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class PlantillaSDI2_Tests1617 {
 
-    WebDriver driver;
+    // WebDriver driver;
     List<WebElement> elementos = null;
 
     private final String defaultLocale = "es";
     private final String englishLocale = "en";
 
+    static WebDriver driver = getDriver();
+
+    static String URLExterno = "http://localhost:8180/sdi2-23";
+    static String URLInterno = "http://localhost:8280/sdi2-23";
+
     public PlantillaSDI2_Tests1617() {
 
+    }
+
+    public static WebDriver getDriver() {
+
+	File pathToBinary = new File("S:\\firefox\\FirefoxPortable.exe");
+
+	FirefoxBinary ffBinary = new FirefoxBinary(pathToBinary);
+
+	FirefoxProfile firefoxProfile = new FirefoxProfile();
+
+	return driver = new FirefoxDriver(ffBinary, firefoxProfile);
     }
 
     // ==================================
@@ -53,26 +74,43 @@ public class PlantillaSDI2_Tests1617 {
     // después de los test
     // ==================================
 
+    // @Before
+    // public void run() {
+    // // Este código es para ejecutar con la versión portale de Firefox 46.0
+    // File pathToBinary = new File("S:\\firefox\\FirefoxPortable.exe");
+    //
+    // FirefoxBinary ffBinary = new FirefoxBinary(pathToBinary);
+    // FirefoxProfile firefoxProfile = new FirefoxProfile();
+    //
+    // driver = new FirefoxDriver(ffBinary, firefoxProfile);
+    // driver.get("http://localhost:8280/sdi2-23");
+    //
+    // // Este código es para ejecutar con una versión instalada de Firex 46.0
+    // // driver = new FirefoxDriver();
+    // // driver.get("http://localhost:8180/sdi2-23");
+    // }
+
     @Before
-    public void run() {
-	// Este código es para ejecutar con la versión portale de Firefox 46.0
-	File pathToBinary = new File("S:\\firefox\\FirefoxPortable.exe");
-
-	FirefoxBinary ffBinary = new FirefoxBinary(pathToBinary);
-	FirefoxProfile firefoxProfile = new FirefoxProfile();
-
-	driver = new FirefoxDriver(ffBinary, firefoxProfile);
-	driver.get("http://localhost:8280/sdi2-23");
-
-	// Este código es para ejecutar con una versión instalada de Firex 46.0
-	// driver = new FirefoxDriver();
-	// driver.get("http://localhost:8180/sdi2-23");
+    public void setUp() {
+	driver.navigate().to(URLInterno);
+	// driver.navigate().to(URLExterno);
     }
 
+    // @After
+    // public void end() {
+    // // Cerramos el navegador
+    // driver.quit();
+    // }
+
     @After
-    public void end() {
-	// Cerramos el navegador
+    public void tearDown() {
+	driver.manage().deleteAllCookies();
+    }
+
+    @AfterClass
+    static public void end() {
 	driver.quit();
+
     }
 
     // =====================================
@@ -86,6 +124,7 @@ public class PlantillaSDI2_Tests1617 {
     // PR01: Autentificar correctamente al administrador.
     @Test
     public void prueba01() {
+
 	new PO_LoginForm().completeForm(driver, "admin", "admin");
 
 	// Esperamos a que se cargue la página del listado de usuarios
@@ -861,7 +900,53 @@ public class PlantillaSDI2_Tests1617 {
     // tres páginas.
     @Test
     public void prueba16() {
-	assertTrue(false);
+	/*
+	 * Vamos a reiniciar la base de datos, ya que es la primera prueba del
+	 * bloque de pruebas con los usaurios registrados
+	 */
+	new DatabaseReload().reload(driver);
+	ThreadUtil.wait(600);
+	// Las unicas categorias que tienen tarea son de la 21 a la 30
+	new PO_LoginForm().completeForm(driver, "user1", "user1");
+	// clicamos en el boton de tareas dentro de Inbox
+	ThreadUtil.wait(600);
+	WebElement botonInbox = driver.findElement(By.id("form_user:inbox"));
+	botonInbox.click();
+	SeleniumUtils.EsperaCargaPagina(driver, "id",
+		"form_user:tabla_tareas_data", 10);
+	// comprobamos los elementos de la primera pagina
+	List<Map<String, String>> pestaña = new ArrayList<Map<String, String>>();
+	for (int i = 0; i < 8; i++) {
+	    pestaña.add(new PO_InboxRow().findRow(driver, i));
+	}
+	//comprobamos el nombre de las primeras 8 tareas
+	for(int i = 0; i <8; i++){
+	    assertTrue("Los nombres no son iguales",pestaña.get(i).get("titulo").equals("tarea0"+(i+1)));
+	}
+	
+	SeleniumUtils.EsperaCargaPagina(driver, "class", "ui-icon ui-icon-seek-next", 8).get(0).click();
+	ThreadUtil.wait(600);
+	pestaña = new ArrayList<Map<String, String>>();
+	for (int i = 8; i <16 ; i++) {
+	    pestaña.add(new PO_InboxRow().findRow(driver, i));
+	}
+	
+	for(int i = 0; i <8; i++){
+	    if(i==0){//porque es el ultimo que sigue terniendo de nombre 0X
+		assertTrue("Los nombres no son iguales",pestaña.get(i).get("titulo").equals("tarea09"));
+	    }else{
+		assertTrue("Los nombres no son iguales",pestaña.get(i).get("titulo").equals("tarea"+(i+9)));
+	    }
+	}
+	SeleniumUtils.EsperaCargaPagina(driver, "class", "ui-icon ui-icon-seek-next", 8).get(0).click();
+	ThreadUtil.wait(600);
+	pestaña = new ArrayList<Map<String, String>>();
+	for (int i = 16; i <=19 ; i++) {
+	    pestaña.add(new PO_InboxRow().findRow(driver, i));
+	}
+	for(int i = 0; i<4; i++){
+	    assertTrue("Los nombres no son iguales",pestaña.get(i).get("titulo").equals("tarea"+(i+17)));
+	}
     }
 
     // PR17: Funcionamiento correcto de la ordenación por fecha planeada.
@@ -1160,7 +1245,7 @@ public class PlantillaSDI2_Tests1617 {
 	// form_menu_superior:boton_esp
 	// (1) Ventana de login
 	// (1.1) comprobamos idioma por defecto
-	new ValidadorLogIn("es", driver).comprobarTextos();
+	new ValidadorLogIn(defaultLocale, driver).comprobarTextos();
 	// (1.2) cambiamos idioma y comprobamos
 
 	SeleniumUtils.ClickSubopcionMenuHover(driver,
@@ -1175,84 +1260,83 @@ public class PlantillaSDI2_Tests1617 {
 		"form_menu_superior:submenu_idiomas",
 		"form_menu_superior:boton_esp");
 	ThreadUtil.wait(1000);
-	new ValidadorLogIn("es", driver).comprobarTextos();
+	new ValidadorLogIn(defaultLocale, driver).comprobarTextos();
 	// // (2) ventana principal de administrador
 
 	new PO_LoginForm().completeForm(driver, "admin", "admin");
 	// // (2.1)comprobamos idioma por defecto
 
-	new ValidadorPrincipalAdministrador("es", driver).comprobarTextos();
+	new ValidadorPrincipalAdministrador(defaultLocale, driver)
+		.comprobarTextos();
 	ThreadUtil.wait(1500);
 
-	// ThreadUtil.wait(1500);
-	// // (2.2)cambiamos idioma y comprobamos
-	// SeleniumUtils.ClickSubopcionMenuHover(driver,
-	// "form_menu_superior:submenu_idiomas",
-	// "form_menu_superior:boton_eng");
-	// ThreadUtil.wait(1500);
-	// new ValidadorPrincipalAdministrador(englishLocale,
-	// driver).comprobarTextos();
-	// ThreadUtil.wait(1500);
-	// // (2.3) volvemos al primer idioma y comprobamos
-	// SeleniumUtils.ClickSubopcionMenuHover(driver,
-	// "form_menu_superior:submenu_idiomas",
-	// "form_menu_superior:boton_esp");
-	// ThreadUtil.wait(1500);
-	// new ValidadorPrincipalAdministrador("es", driver).comprobarTextos();
-	// // (2.4) cerramos sesion
-	// ThreadUtil.wait(1500);
-	// SeleniumUtils.ClickSubopcionMenuHover(driver,
-	// "form_menu_superior:submenu_usuario",
-	// "form_menu_superior:boton_logout");
-	//
-	// SeleniumUtils.EsperaCargaPagina(driver, "id",
-	// "form_anonimo:boton_login", 10);
-	//
-	// // (3) ventana principal de usuario
-	// new PO_LoginForm().completeForm(driver, "user1", "user1");
-	// // (3.1)comprobamos idioma por defecto
-	// new ValidadorPrincipalUsuario("es", driver).comprobarTextos();
-	// // (3.2)cambiamos idioma y comprobamos
-	// SeleniumUtils.ClickSubopcionMenuHover(driver,
-	// "form_menu_superior:submenu_idiomas",
-	// "form_menu_superior:boton_eng");
-	//
-	// new ValidadorPrincipalUsuario(englishLocale,
-	// driver).comprobarTextos();
+	// (2.2)cambiamos idioma y comprobamos
+	SeleniumUtils.ClickSubopcionMenuHover(driver,
+		"form_menu_superior:submenu_idiomas",
+		"form_menu_superior:boton_eng");
+	ThreadUtil.wait(1500);
+	new ValidadorPrincipalAdministrador(englishLocale, driver)
+		.comprobarTextos();
+	ThreadUtil.wait(1500);
+	// (2.3) volvemos al primer idioma y comprobamos
+	SeleniumUtils.ClickSubopcionMenuHover(driver,
+		"form_menu_superior:submenu_idiomas",
+		"form_menu_superior:boton_esp");
+	ThreadUtil.wait(1500);
+	new ValidadorPrincipalAdministrador("es", driver).comprobarTextos();
+	// (2.4) cerramos sesion
+	ThreadUtil.wait(1500);
+	SeleniumUtils.ClickSubopcionMenuHover(driver,
+		"form_menu_superior:submenu_usuario",
+		"form_menu_superior:boton_logout");
+
+	SeleniumUtils.EsperaCargaPagina(driver, "id",
+		"form_anonimo:boton_login", 10);
+
+	// (3) ventana principal de usuario
+	new PO_LoginForm().completeForm(driver, "user1", "user1");
+	// (3.1)comprobamos idioma por defecto
+	new ValidadorPrincipalUsuario(defaultLocale, driver).comprobarTextos();
+	// (3.2)cambiamos idioma y comprobamos
+	SeleniumUtils.ClickSubopcionMenuHover(driver,
+		"form_menu_superior:submenu_idiomas",
+		"form_menu_superior:boton_eng");
+	ThreadUtil.wait(1500);
+	new ValidadorPrincipalUsuario(englishLocale, driver).comprobarTextos();
 	// // (3.3) volvemos al primer idioma y comprobamos
-	// SeleniumUtils.ClickSubopcionMenuHover(driver,
-	// "form_menu_superior:submenu_idiomas",
-	// "form_menu_superior:boton_esp");
-	//
-	// new ValidadorPrincipalUsuario("es", driver).comprobarTextos();
-	// // (3.4) cerramos sesion
-	// SeleniumUtils.ClickSubopcionMenuHover(driver,
-	// "form_menu_superior:submenu_usuario",
-	// "form_menu_superior:boton_logout");
-	//
-	// SeleniumUtils.EsperaCargaPagina(driver, "id",
-	// "form_anonimo:boton_login", 10);
-	//
-	// // (4) Ventana de registro
-	//
-	// WebElement registrarseEnlace = driver.findElement(By
-	// .id("form_menu_superior:enlace_registro"));
-	// registrarseEnlace.click();
-	//
-	// // (4.1)comprobamos idioma por defecto
-	// new ValidadorRegistro("es", driver).comprobarTextos();
-	// // (4.2)cambiamos idioma y comprobamos
-	// SeleniumUtils.ClickSubopcionMenuHover(driver,
-	// "form_menu_superior:submenu_idiomas",
-	// "form_menu_superior:boton_eng");
-	//
-	// new ValidadorRegistro(englishLocale, driver).comprobarTextos();
-	// // (4.3) volvemos al primer idioma y comprobamos
-	// SeleniumUtils.ClickSubopcionMenuHover(driver,
-	// "form_menu_superior:submenu_idiomas",
-	// "form_menu_superior:boton_esp");
-	//
-	// new ValidadorRegistro("es", driver).comprobarTextos();
+	SeleniumUtils.ClickSubopcionMenuHover(driver,
+		"form_menu_superior:submenu_idiomas",
+		"form_menu_superior:boton_esp");
+	ThreadUtil.wait(1500);
+	new ValidadorPrincipalUsuario(defaultLocale, driver).comprobarTextos();
+	// (3.4) cerramos sesion
+	SeleniumUtils.ClickSubopcionMenuHover(driver,
+		"form_menu_superior:submenu_usuario",
+		"form_menu_superior:boton_logout");
+	ThreadUtil.wait(1500);
+	SeleniumUtils.EsperaCargaPagina(driver, "id",
+		"form_anonimo:boton_login", 10);
+
+	// (4) Ventana de registro
+
+	WebElement registrarseEnlace = driver.findElement(By
+		.id("form_menu_superior:enlace_registro"));
+	registrarseEnlace.click();
+
+	// (4.1)comprobamos idioma por defecto
+	new ValidadorRegistro(defaultLocale, driver).comprobarTextos();
+	// (4.2)cambiamos idioma y comprobamos
+	SeleniumUtils.ClickSubopcionMenuHover(driver,
+		"form_menu_superior:submenu_idiomas",
+		"form_menu_superior:boton_eng");
+	ThreadUtil.wait(1500);
+	new ValidadorRegistro(englishLocale, driver).comprobarTextos();
+	// (4.3) volvemos al primer idioma y comprobamos
+	SeleniumUtils.ClickSubopcionMenuHover(driver,
+		"form_menu_superior:submenu_idiomas",
+		"form_menu_superior:boton_esp");
+	ThreadUtil.wait(1500);
+	new ValidadorRegistro(defaultLocale, driver).comprobarTextos();
 
     }
 
