@@ -49,11 +49,11 @@ public class BeanUserRegistry implements Serializable {
 	}
 
 	catch (BusinessException be) {
-	    MessageManager.warning(contexto, "panel_registry", be.getClaveFicheroMensajes());
+	    MessageManager.warning(contexto, "panel_registro",
+		    be.getClaveFicheroMensajes());
 
 	    Log.error("Ha ocurrido un error durante el registro de un nuevo "
-		    + "usuario. Causa del error: %s",
-		   be.getMessage());
+		    + "usuario. Causa del error: %s", be.getMessage());
 
 	    return "fallo";
 	}
@@ -62,11 +62,11 @@ public class BeanUserRegistry implements Serializable {
 	    Log.error("Excepcion generada durante la creacion de un usario");
 	    return "error";
 	}
-	
+
 	contexto.getExternalContext().getFlash().setKeepMessages(true);
 
 	Log.debug("Se ha registrado con exito al usuario [%s]", login);
-	MessageManager.info(contexto, "panel_login", "registro_exito");
+	MessageManager.info(contexto, "panel_login", "registro__exito");
 
 	return "exito";
     }

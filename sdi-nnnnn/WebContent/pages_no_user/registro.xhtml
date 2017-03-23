@@ -6,8 +6,8 @@
 	template="/templates/template_anonimo.xhtml">
 
 	<ui:define name="opcion_menu">
-		<p:menuitem id="enlace_login" value="#{msgs.registro_enlace_login}" action="login"
-			immediate="true" update="@all" />
+		<p:menuitem id="enlace_login" value="#{msgs.registro_enlace_login}"
+			action="login" immediate="true" />
 	</ui:define>
 
 	<ui:define name="cuerpo_form">
@@ -15,7 +15,8 @@
 			<p:panel id="panel_registry" header="#{msgs.registro_titulo_panel}">
 
 				<h:panelGrid columns="3" cellpadding="5">
-					<p:outputLabel id="label_login" for="usuario" value="#{msgs.registro_usuario}" />
+					<p:outputLabel id="label_login" for="usuario"
+						value="#{msgs.registro_usuario}" />
 
 					<p:inputText id="usuario" value="#{bean_registry.login}"
 						required="true" placeholder="#{msgs.registro_placeholder_usuario}"
@@ -25,7 +26,9 @@
 
 					<p:message for="usuario" />
 
-					<p:outputLabel id="label_email" for="email" value="#{msgs.registro_email}" />
+
+					<p:outputLabel id="label_email" for="email"
+						value="#{msgs.registro_email}" />
 
 					<p:inputText id="email" value="#{bean_registry.email}"
 						required="true" placeholder="#{msgs.registro_placeholder_email}"
@@ -35,7 +38,8 @@
 							pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
 					</p:inputText>
 
-					<p:message for="email " />
+					<p:message for="email" />
+
 
 					<p:outputLabel id="label_contrasena1" for="contrasena1"
 						value="#{msgs.registro_contrasena}" />
@@ -51,6 +55,7 @@
 
 					<p:message for="contrasena1" />
 
+
 					<p:outputLabel id="label_contrasena2" for="contrasena2"
 						value="#{msgs.registro_contrasena_rep}" />
 
@@ -60,17 +65,16 @@
 						requiredMessage="#{msgs.registro_contrasena_requerida}" size="30"
 						type="password" />
 
-
 					<p:message for="contrasena2" />
 
 
 					<p:outputLabel value="" />
 
-					<p:commandButton id="boton_registry" value="#{msgs.registro_boton}" update="@form"
-						action="#{bean_registry.registrar}" />
+					<p:commandButton id="boton_registro" value="#{msgs.registro_boton}"
+						update="@form" action="#{bean_registry.registrar}" />
 				</h:panelGrid>
 
-				<p:messages for="panel_registry" showDetail="true" closable="true" />
+				<p:messages for="panel_registro" showDetail="true" closable="true" />
 			</p:panel>
 		</h:panelGrid>
 	</ui:define>

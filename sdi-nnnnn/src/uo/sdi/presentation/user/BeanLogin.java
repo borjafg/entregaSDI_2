@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
@@ -17,7 +17,7 @@ import uo.sdi.presentation.util.UserInfo;
 import alb.util.log.Log;
 
 @ManagedBean(name = "bean_login")
-@ViewScoped
+@SessionScoped
 public class BeanLogin implements Serializable {
 
     private static final long serialVersionUID = -6023176887921451L;
@@ -39,9 +39,9 @@ public class BeanLogin implements Serializable {
 	}
 
 	// La cuenta se encuentra deshabilitada
-	catch (BusinessException bs) {	   
+	catch (BusinessException bs) {
 	    Log.error("No se ha podido hacer login con el usuario [%s]. "
-	    	+ "Causa: %s",login, bs.getMessage());
+		    + "Causa: %s", login, bs.getMessage());
 
 	    MessageManager.warning(contexto, "panel_login",
 		    bs.getClaveFicheroMensajes());
@@ -93,9 +93,17 @@ public class BeanLogin implements Serializable {
 	HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
 		.getExternalContext().getSession(true);
 
-	session.invalidate();
+	UserInfo user = (UserInfo) session.getAttribute("user");
 
-	Log.debug("Terminada la sesion del usuario");
+	if (user == null) {
+	    Log.info("Terminada la sesion del usuario");
+	}
+
+	else {
+	    Log.info("Terminada la sesión del usuario [%s]", user.getLogin());
+	}
+
+	session.invalidate();
 
 	return "exito";
     }

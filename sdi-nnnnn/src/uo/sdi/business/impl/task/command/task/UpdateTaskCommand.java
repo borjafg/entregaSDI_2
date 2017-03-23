@@ -25,16 +25,19 @@ public class UpdateTaskCommand implements Command<Void> {
 
 	Task task = TaskFinder.findById(taskDTO.getId());
 
-	BusinessCheck.isNotNull(task, "La tarea no existe",
-		"error_tarea_no_existe");
+	BusinessCheck.isNotNull(task, "La tarea [id=" + taskDTO.getId()
+		+ "] cuyos datos se intentan modificar no existe",
+		"error_creacion_edicion_tarea__no_existe");
 
 	task.setTittle(taskDTO.getTitle());
 
 	if (task.getId() != null && !taskDTO.getId().equals(task.getId())) {
 	    Category categ = CategoryFinder.findById(taskDTO.getId());
 
-	    BusinessCheck.isNotNull(categ, "La categoria indicada no existe",
-		    "errores_categoria_no_exite");
+	    BusinessCheck.isNotNull(categ, "La categoria que se pretende "
+		    + " asociar a la tarea [id=" + taskDTO.getId() + "] no "
+		    + "existe",
+		    "error_creacion_edicion_tarea__categoria_no_existe");
 
 	    task.setCategory(categ);
 	}

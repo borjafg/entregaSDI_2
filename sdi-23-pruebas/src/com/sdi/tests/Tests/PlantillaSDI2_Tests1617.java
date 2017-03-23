@@ -4,12 +4,9 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-
-import junit.framework.Assert;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -1346,6 +1343,7 @@ public class PlantillaSDI2_Tests1617 {
 	new PO_LoginForm().completeForm(driver, "admin", "admin");
 	// // (2.1)comprobamos idioma por defecto
 
+
 	new ValidadorPrincipalAdministrador(defaultLocale, driver)
 		.comprobarTextos();
 	ThreadUtil.wait(1500);
@@ -1363,6 +1361,10 @@ public class PlantillaSDI2_Tests1617 {
 		"form_menu_superior:submenu_idiomas",
 		"form_menu_superior:boton_esp");
 	ThreadUtil.wait(1500);
+
+	SeleniumUtils.EsperaCargaPagina(driver, "id",
+		"form_admin:tabla_usuarios", 8);
+
 	new ValidadorPrincipalAdministrador("es", driver).comprobarTextos();
 	// (2.4) cerramos sesion
 	ThreadUtil.wait(1500);

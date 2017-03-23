@@ -89,7 +89,7 @@ public class BeanUsersList implements Serializable {
 	    loadUsers();
 
 	    MessageManager.info(contexto, "mensajes_administrador",
-		    "administrador_exito_borrar_usuario");
+		    "administrador__exito_borrar_usuario");
 
 	    return "exito";
 	}
@@ -101,7 +101,7 @@ public class BeanUsersList implements Serializable {
 	    loadUsers();
 
 	    MessageManager.warning(contexto, "mensajes_administrador",
-		    "administrador_fallo_borrar_usuario");
+		    bs.getClaveFicheroMensajes());
 
 	    return "fallo";
 	}
@@ -131,37 +131,26 @@ public class BeanUsersList implements Serializable {
 
 	try {
 	    AdminService adminServ = Services.getAdminService();
+
+	    // Si no se encontrara el usuario se lanzaría una BusinessException
 	    UserDTO userInfo = adminServ.findUserById(id);
 
-	    if (userInfo != null) {
-		if (user.getStatus().equals(UserStatus.DISABLED)) {
-		    adminServ.enableUser(id);
-		}
-
-		else {
-		    adminServ.disableUser(id);
-		}
-
-		Log.debug("Se ha cambiado con exito el estado del usuario con "
-			+ "id [%d]", id);
-		loadUsers();
-
-		MessageManager.info(contexto, "mensajes_administrador",
-			"administrador_exito_cambiar_estado");
-
-		return "exito";
+	    if (userInfo.getStatus().equals(UserStatus.DISABLED)) {
+		adminServ.enableUser(id);
 	    }
 
 	    else {
-		Log.debug("No se ha podido cambiar el estado del usuario con "
-			+ "id [%d] porque no existe.", id);
-		loadUsers();
-
-		MessageManager.warning(contexto, "mensajes_administrador",
-			"administrador_fallo_cambiar_estado");
-
-		return "fallo";
+		adminServ.disableUser(id);
 	    }
+
+	    Log.debug("Se ha cambiado con exito el estado del usuario con "
+		    + "id [%d]", id);
+	    loadUsers();
+
+	    MessageManager.info(contexto, "mensajes_administrador",
+		    "administrador__exito_cambiar_estado");
+
+	    return "exito";
 	}
 
 	catch (BusinessException bs) {
@@ -171,7 +160,7 @@ public class BeanUsersList implements Serializable {
 	    loadUsers();
 
 	    MessageManager.warning(contexto, "mensajes_administrador",
-		    "administrador_fallo_cambiar_estado");
+		    bs.getClaveFicheroMensajes());
 
 	    return "fallo";
 	}
@@ -195,7 +184,7 @@ public class BeanUsersList implements Serializable {
 	    loadUsers();
 
 	    MessageManager.info(contexto, "mensajes_administrador",
-		    "administrador_exito_reinicio_base_datos");
+		    "administrador__exito_reinicio_base_datos");
 
 	    return "exito";
 	}

@@ -20,7 +20,7 @@ public class DeepDeleteUserCommand implements Command<Void> {
 	User user = UserFinder.findById(userId);
 
 	BusinessCheck.isNotNull(user, "El usuario no existe",
-		"errores_usuario_no_existe");
+		"error_administrador_borrar_usuario_no_existe");
 
 	// Borrado en cascada de las tareas y categorias
 	Jpa.getManager().remove(user);

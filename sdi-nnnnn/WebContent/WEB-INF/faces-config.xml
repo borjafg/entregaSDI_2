@@ -23,7 +23,7 @@
 	<managed-bean>
 		<managed-bean-name>bean_login</managed-bean-name>
 		<managed-bean-class>uo.sdi.presentation.user.BeanLogin</managed-bean-class>
-		<managed-bean-scope>view</managed-bean-scope>
+		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 
 	<managed-bean>

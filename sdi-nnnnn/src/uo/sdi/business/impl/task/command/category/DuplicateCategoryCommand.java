@@ -25,12 +25,17 @@ public class DuplicateCategoryCommand implements Command<Void> {
     public Void execute() throws BusinessException {
 	Category original = CategoryFinder.findById(origId);
 
-	BusinessCheck.isNotNull(original, "La categoria no existe",
-		"errores_categoria_no_exite");
+	BusinessCheck.isNotNull(original, "No se puede copiar la categoria "
+		+ "porque no existe",
+		"error_copia_categoria__original_no_encontrada");
+
 	checkUserNotDisabled(original);
+
 	BusinessCheck.isNull(CategoryFinder.findByUserIdAndName(original
 		.getUser().getId(), original.getName() + " - copy"),
-		"error_categoria_copiada_renombrar");
+		"Esta categoría ya ha sido duplicada. No puede volver a ser "
+			+ "duplicada hasta que se haya cambiado el nombre de "
+			+ "la copia.", "error_copia_categoria__ya_copiada");
 
 	Category copyCat = duplicateCategory(original);
 	duplicateTasks(original, copyCat);
@@ -53,9 +58,9 @@ public class DuplicateCategoryCommand implements Command<Void> {
 	User u = UserFinder.findById(categ.getUser().getId());
 
 	BusinessCheck.isTrue(u.getStatus().equals(UserStatus.ENABLED),
-		"El usuario esta deshabilitado, la categoria no "
-			+ "puede ser copiada.",
-		"error_categoria_copia_usuario_deshabilitado");
+		"No se puede copiar la categoría porque el usuario está "
+			+ "deshabilitado.",
+		"error_copia_categoria__usuario_deshabilitado");
     }
 
     /**

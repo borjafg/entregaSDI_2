@@ -20,9 +20,11 @@ public class EnableUserCommand implements Command<Void> {
 	User user = UserFinder.findById(id);
 
 	BusinessCheck.isNotNull(user, "El usuario no existe",
-		"errores_usuario_no_existe");
+		"error_administrador_cambiar_estado_usuario_no_existe");
+
 	BusinessCheck.isTrue(user.getStatus().equals(UserStatus.DISABLED),
-		"El usuario ya estaba habilitado.","error_user_habilitado");
+		"El usuario ya estaba habilitado.",
+		"error_administrador_cambiar_estado_usuario_ya_habilitado");
 
 	user.setStatus(UserStatus.ENABLED); // estado persistent
 
