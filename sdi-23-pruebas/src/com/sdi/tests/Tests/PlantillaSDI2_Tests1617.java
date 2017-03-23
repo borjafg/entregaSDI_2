@@ -1181,6 +1181,9 @@ public class PlantillaSDI2_Tests1617 {
 	new PO_LoginForm().completeForm(driver, "admin", "admin");
 	// // (2.1)comprobamos idioma por defecto
 
+	SeleniumUtils.EsperaCargaPagina(driver, "id",
+		"form_admin:tabla_usuarios", 8);
+
 	new ValidadorPrincipalAdministrador("es", driver).comprobarTextos();
 	ThreadUtil.wait(1500);
 

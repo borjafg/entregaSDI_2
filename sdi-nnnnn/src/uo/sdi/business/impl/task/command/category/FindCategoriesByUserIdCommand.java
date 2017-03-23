@@ -24,8 +24,9 @@ public class FindCategoriesByUserIdCommand implements
     public List<CategoryDTO> execute() throws BusinessException {
 	User user = UserFinder.findById(userId);
 
-	BusinessCheck.isNotNull(userId, "El usuario no existe",
-		"errores_usuario_no_existe");
+	BusinessCheck.isNotNull(userId, "El usuario cuyas tareas deben ser "
+		+ "listadas no existe.",
+		"error_listado_categorias__usuario_no_existe");
 
 	return DTOadapter.categoriesToDTO(CategoryFinder.findByUserId(user
 		.getId()));

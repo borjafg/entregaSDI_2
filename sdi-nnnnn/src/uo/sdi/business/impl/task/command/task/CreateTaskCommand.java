@@ -1,6 +1,5 @@
 package uo.sdi.business.impl.task.command.task;
 
-import uo.sdi.business.exception.BusinessCheck;
 import uo.sdi.business.exception.BusinessException;
 import uo.sdi.business.impl.command.Command;
 import uo.sdi.business.impl.util.TaskCheck;
@@ -35,8 +34,7 @@ public class CreateTaskCommand implements Command<Task> {
 	    Category categ = CategoryFinder.findById(taskDTO.getCategory()
 		    .getId());
 
-	    BusinessCheck.isNotNull(categ, "La categoria no existe",
-		    "errores_categoria_no_exite");
+	    TaskCheck.categoryExists(categ);
 
 	    task.setCategory(categ);
 	}

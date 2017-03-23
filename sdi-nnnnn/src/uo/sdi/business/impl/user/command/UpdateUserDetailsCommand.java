@@ -22,6 +22,7 @@ public class UpdateUserDetailsCommand implements Command<Void> {
 
 	BusinessCheck.isNotNull(previous, "El usuario no existe",
 		"error_usuario_no_existe");
+
 	UserCheck.isValidEmailSyntax(user);
 	UserCheck.minLoginLength(user);
 	UserCheck.minPasswordLength(user);

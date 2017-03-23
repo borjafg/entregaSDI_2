@@ -8,43 +8,45 @@ import uo.sdi.dto.UserDTO;
 import uo.sdi.model.User;
 import uo.sdi.persistence.UserFinder;
 
+/**
+ * Valida que los datos del usuario sean correctos. Se emplea en el registro de
+ * nuevos usuarios y en la modificación de los datos de los usuarios.
+ * 
+ */
 public class UserCheck {
 
     public static void isNotAdmin(UserDTO user) throws BusinessException {
-	String check = "error_registro_nuevo_admin";
-	BusinessCheck.isFalse(user.getIsAdmin(), check);
+	BusinessCheck.isFalse(user.getIsAdmin(), "No puede haber otro usuario "
+		+ "administrador en el sistema", "error_registro__nuevo_admin");
     }
 
-    public static void isValidEmailSyntax(UserDTO user)
-	    throws BusinessException {
-	String check = "error_registro_email_no_valido";
-	BusinessCheck.isTrue(isValidEmail(user.getEmail()), check);
-    }
+    // ------------------------
+    // Comprobaciones de login
+    // ------------------------
 
     public static void minLoginLength(UserDTO user) throws BusinessException {
-	String check = "error_registro_login_longitud";
-	BusinessCheck.isTrue(user.getLogin().length() >= 3, check);
-    }
-
-    public static void minPasswordLength(UserDTO user) throws BusinessException {
-	String check = "error_registro_password_longitud";
-	BusinessCheck.isTrue(user.getPassword().length() >= 8, check);
+	BusinessCheck.isTrue(user.getLogin().length() >= 3, "El login indicado"
+		+ " no cumple con los requisitos de tamaño (más 3 caracteres)",
+		"error_registro__login_longitud");
     }
 
     public static void notRepeatedLogin(UserDTO user) throws BusinessException {
 	User u = UserFinder.findByLogin(user.getLogin());
-	BusinessCheck.isNull(u, "error_registro_login_ya_existe");
+
+	BusinessCheck.isNull(u,
+		"Ya existe un usuario con este login [" + u.getLogin() + "]",
+		"error_registro__login_ya_existe");
     }
 
-    public static void isValidPassword(UserDTO user) throws BusinessException {
-	String check = "error_registro_password_contenido";
-	BusinessCheck.isTrue(isPasswordTypeCorrect(user.getPassword()), check);
-    }
+    // ------------------------
+    // Comprobaciones de email
+    // ------------------------
 
-    private static boolean isPasswordTypeCorrect(String password) {
-	String passPattern = "([0-9a-zA-Z]*[a-zA-Z]+[0-9a-zA-Z]*[0-9]+[0-9a-zA-Z]*)|"
-		+ "([0-9a-zA-Z]*[0-9]+[0-9a-zA-Z]*[a-zA-Z]+[0-9a-zA-Z]*)";
-	return Pattern.compile(passPattern).matcher(password).matches();
+    public static void isValidEmailSyntax(UserDTO user)
+	    throws BusinessException {
+	BusinessCheck.isTrue(isValidEmail(user.getEmail()), "El email del "
+		+ "usuario tiene un formato inválido",
+		"error_registro_edicion__email_no_valido");
     }
 
     private static boolean isValidEmail(String email) {
@@ -53,6 +55,29 @@ public class UserCheck {
 		+ "|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
 
 	return Pattern.compile(ePattern).matcher(email).matches();
+    }
+
+    // ---------------------------
+    // Comprobaciones de password
+    // ---------------------------
+
+    public static void minPasswordLength(UserDTO user) throws BusinessException {
+	BusinessCheck.isTrue(user.getPassword().length() >= 8, "La contraseña "
+		+ "indicada no cumple con los requisitos de longitud.",
+		"error_registro_edicion__password_longitud");
+    }
+
+    public static void isValidPassword(UserDTO user) throws BusinessException {
+	BusinessCheck.isTrue(isPasswordTypeCorrect(user.getPassword()), "La "
+		+ "contraseña indicada no es válida. No cumple con los "
+		+ "requisitos de complejidad.",
+		"error_registro_edicion__password_contenido");
+    }
+
+    private static boolean isPasswordTypeCorrect(String password) {
+	String passPattern = "([0-9a-zA-Z]*[a-zA-Z]+[0-9a-zA-Z]*[0-9]+[0-9a-zA-Z]*)|"
+		+ "([0-9a-zA-Z]*[0-9]+[0-9a-zA-Z]*[a-zA-Z]+[0-9a-zA-Z]*)";
+	return Pattern.compile(passPattern).matcher(password).matches();
     }
 
 }
