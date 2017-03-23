@@ -961,6 +961,7 @@ public class PlantillaSDI2_Tests1617 {
     }
 
     // PR17: Funcionamiento correcto de la ordenación por fecha planeada.
+    @SuppressWarnings("deprecation")
     @Test
     public void prueba17() {
 	// variable para la comprobación
@@ -996,17 +997,39 @@ public class PlantillaSDI2_Tests1617 {
 	SeleniumUtils
 		.EsperaCargaPagina(driver, "class",
 			"ui-icon ui-icon-seek-next", 8).get(0).click();
+	ThreadUtil.wait(600);
 	pestaña = new ArrayList<Map<String, Object>>();
 	for (int i = 8; i < 16; i++) {
 	    pestaña.add(new PO_InboxRow().findRow(driver, i));
 	}
 	ThreadUtil.wait(600);
-	for (int i = 0; i < 8; i++) {
+	for (int i = 0; i <= 1; i++) {
 	    assertTrue("Los nombres no son iguales",
-		    pestaña.get(i).get("titulo").equals("tarea" + (i + 11)));
+		    pestaña.get(i).get("titulo").equals("tarea" + (i + 19)));
 	    assertTrue("El dia no coincide", DateUtil.sameDay(
 		    DateUtil.convertStringToDate((String) pestaña.get(i).get(
 			    "fechaPLaneada")), hoy));
+
+	}
+	int num = 1;
+	int cont = 1;
+	int sum = 0;
+	for (int i = 2; i < 8; i++) {	   
+	    
+	    
+	    assertTrue("Los nombres no son iguales",
+		    pestaña.get(i).get("titulo").equals("tarea0" + (num)));
+	    if(cont == 3){
+		cont = 0;
+		sum = sum +1;
+	    }
+	    assertTrue("El dia no coincide", DateUtil.sameDay(
+		    DateUtil.convertStringToDate((String) pestaña.get(i).get(
+			    "fechaPLaneada")),
+		    DateUtil.convertStringToDate((hoy.getDay() + sum) + "/"
+			    + hoy.getMonth() + "/" + hoy.getYear())));
+	    ++num;
+	    ++cont;
 
 	}
 
