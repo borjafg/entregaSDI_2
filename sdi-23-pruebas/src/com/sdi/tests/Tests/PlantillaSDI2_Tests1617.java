@@ -30,6 +30,7 @@ import com.sdi.tests.internationalizationTest.ValidadorPrincipalAdministrador;
 import com.sdi.tests.internationalizationTest.ValidadorPrincipalUsuario;
 import com.sdi.tests.internationalizationTest.ValidadorRegistro;
 import com.sdi.tests.page_objects.PO_AdminRow;
+import com.sdi.tests.page_objects.PO_HoySemanaRow;
 import com.sdi.tests.page_objects.PO_InboxRow;
 import com.sdi.tests.page_objects.PO_LoginForm;
 import com.sdi.tests.page_objects.PO_RegistryForm;
@@ -960,7 +961,7 @@ public class PlantillaSDI2_Tests1617 {
     // PR17: Funcionamiento correcto de la ordenación por fecha planeada.
     @Test
     public void prueba17() {
-	// variable para la comprobación
+
 	new PO_LoginForm().completeForm(driver, "user1", "user1");
 	// clicamos en el boton de tareas dentro de Inbox
 	ThreadUtil.wait(600);
@@ -1008,7 +1009,7 @@ public class PlantillaSDI2_Tests1617 {
 
 	}
 
-	// @Clean codigo con deprected y no chirula
+	
 	int num = 1;
 
 	int sum = 1;
@@ -1081,7 +1082,38 @@ public class PlantillaSDI2_Tests1617 {
     // PR19: Funcionamiento correcto de la ordenación por categoría.
     @Test
     public void prueba19() {
-	assertTrue(false);
+	//@Clean rompe a la hora de buscar la columna
+	new PO_LoginForm().completeForm(driver, "user1", "user1");
+	// clicamos en el boton de tareas dentro de Inbox
+	ThreadUtil.wait(600);
+	WebElement botonInbox = driver.findElement(By.id("form_user:hoy"));
+	botonInbox.click();
+	// form_user:tabla_tareas
+
+	SeleniumUtils.EsperaCargaPagina(driver, "id",
+		"form_user:tabla_tareas_data", 10);
+	SeleniumUtils
+		.EsperaCargaPagina(driver, "id",
+			"form_user:tabla_tareas:columna_categoria_titulo", 8)
+		.get(0).click();
+	ThreadUtil.wait(600);
+	List<Map<String, Object>> pestaña = new ArrayList<Map<String, Object>>();
+	for (int i = 0; i < 8; i++) {
+	    pestaña.add(new PO_HoySemanaRow().findRow(driver, i));
+	}
+	// 1 1 1, 2 2 2, 3 3
+	int numCat = 1;
+	for (int i = 0; i < 8; i++) {
+	    if (i == 3)
+		numCat = 2;
+
+	    if (numCat == 6) {
+		numCat = 3;
+	    }
+	    assertTrue("Las categorias coinciden",
+		    pestaña.get(i).get("categoria")
+			    .equals("Categoria" + numCat));
+	}
     }
 
     // PR20: Funcionamiento correcto de la ordenación por fecha planeada.
