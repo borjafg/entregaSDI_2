@@ -29,7 +29,7 @@ import com.sdi.tests.internationalizationTest.ValidadorPrincipalAdministrador;
 import com.sdi.tests.internationalizationTest.ValidadorPrincipalUsuario;
 import com.sdi.tests.internationalizationTest.ValidadorRegistro;
 import com.sdi.tests.page_objects.PO_AdminRow;
-import com.sdi.tests.page_objects.PO_HoySemanaRow;
+import com.sdi.tests.page_objects.PO_HoyRow;
 import com.sdi.tests.page_objects.PO_InboxRow;
 import com.sdi.tests.page_objects.PO_LoginForm;
 import com.sdi.tests.page_objects.PO_RegistryForm;
@@ -883,6 +883,10 @@ public class PlantillaSDI2_Tests1617 {
     // ----- USUARIO -----
     // -------------------
 
+    /*
+     * ------------- Inbox -------------
+     */
+
     // PR16: Comprobar que en Inbox sólo aparecen listadas las tareas sin
     // categoría y que son las que tienen que. Usar paginación navegando por las
     // tres páginas.
@@ -1062,8 +1066,56 @@ public class PlantillaSDI2_Tests1617 {
     // PR18: Funcionamiento correcto del filtrado.
     @Test
     public void prueba18() {
-	assertTrue(false);
+	new PO_LoginForm().completeForm(driver, "user1", "user1");
+	ThreadUtil.wait(600);
+	WebElement botonInbox = driver.findElement(By.id("form_user:inbox"));
+	botonInbox.click();
+	SeleniumUtils.EsperaCargaPagina(driver, "id",
+		"form_user:tabla_tareas_data", 10);
+
+	WebElement field = driver.findElement(By
+		.id("form_user:tabla_tareas:columna_titulo_titulo:filter"));
+	field.click();
+	field.clear();
+	field.sendKeys("1");// vamos a mostrar todos las tareas que tienen un 1
+	List<Map<String, Object>> pestaña = new ArrayList<Map<String, Object>>();
+	for (int i = 0; i < 8; i++) {
+	    pestaña.add(new PO_InboxRow().findRow(driver, i));
+	}
+
+	int base = 10;
+	for (int i = 0; i < 8; i++) {
+	    if (i == 0) {
+		assertTrue("Los nombre coinciden", pestaña.get(i).get("titulo")
+			.equals("tarea01"));
+	    } else {
+		assertTrue("Los nombre coinciden", pestaña.get(i).get("titulo")
+			.equals("tarea" + base));
+	    }
+	    ++base;
+	}
+	// segunda pestaña
+	ThreadUtil.wait(600);
+	SeleniumUtils
+		.EsperaCargaPagina(driver, "class",
+			"ui-icon ui-icon-seek-next", 8).get(0).click();
+	ThreadUtil.wait(600);
+
+	pestaña = new ArrayList<Map<String, Object>>();
+	for (int i = 8; i <= 10; i++) {
+	    pestaña.add(new PO_InboxRow().findRow(driver, i));
+	}
+	for (int i = 0; i <= 2; i++) {
+	    assertTrue("Los nombre coinciden", pestaña.get(i).get("titulo")
+		    .equals("tarea" + base));
+	    ++base;
+	}
+
     }
+
+    /*
+     * ------------- Hoy -------------
+     */
 
     // PR19: Funcionamiento correcto de la ordenación por categoría.
     @Test
@@ -1074,7 +1126,6 @@ public class PlantillaSDI2_Tests1617 {
 	ThreadUtil.wait(600);
 	WebElement botonInbox = driver.findElement(By.id("form_user:hoy"));
 	botonInbox.click();
-	// form_user:tabla_tareas
 
 	SeleniumUtils.EsperaCargaPagina(driver, "id",
 		"form_user:tabla_tareas_data", 10);
@@ -1085,7 +1136,7 @@ public class PlantillaSDI2_Tests1617 {
 	ThreadUtil.wait(600);
 	List<Map<String, Object>> pestaña = new ArrayList<Map<String, Object>>();
 	for (int i = 0; i < 8; i++) {
-	    pestaña.add(new PO_HoySemanaRow().findRow(driver, i));
+	    pestaña.add(new PO_HoyRow().findRow(driver, i));
 	}
 	// 1 1 1, 2 2 2, 3 3
 	int numCat = 1;
@@ -1100,12 +1151,64 @@ public class PlantillaSDI2_Tests1617 {
 		    pestaña.get(i).get("categoria")
 			    .equals("Categoria" + numCat));
 	}
+
+	ThreadUtil.wait(300);
+	// cliacamos para pasar a la siguiente pestaña
+	SeleniumUtils
+		.EsperaCargaPagina(driver, "class",
+			"ui-icon ui-icon-seek-next", 8).get(0).click();
+	ThreadUtil.wait(600);
+	pestaña = new ArrayList<Map<String, Object>>();
+
+	for (int i = 8; i < 16; i++) {
+	    pestaña.add(new PO_HoyRow().findRow(driver, i));
+	}
+	numCat = 29;
+	for (int i = 0; i < 8; i++) {
+	    if (i <= 1) {
+		assertTrue(
+			"categoria es distinta",
+			pestaña.get(i).get("categoria")
+				.equals("Categoria" + numCat));
+		++numCat;
+	    } else {
+		assertTrue("categoria es distinta",
+			pestaña.get(i).get("categoria").equals("----------"));
+	    }
+	}
+	ThreadUtil.wait(300);
+	SeleniumUtils
+		.EsperaCargaPagina(driver, "class",
+			"ui-icon ui-icon-seek-next", 8).get(0).click();
+	ThreadUtil.wait(600);
+	pestaña = new ArrayList<Map<String, Object>>();
+	for (int i = 16; i < 20; i++) {
+	    pestaña.add(new PO_HoyRow().findRow(driver, i));
+	}
+
+	for (int i = 0; i <= 4; i++) {
+	    assertTrue("categoria es distinta", pestaña.get(i).get("categoria")
+		    .equals("----------"));
+	}
+
     }
 
     // PR20: Funcionamiento correcto de la ordenación por fecha planeada.
     @Test
     public void prueba20() {
-	assertTrue(false);
+	new PO_LoginForm().completeForm(driver, "user1", "user1");
+	// clicamos en el boton de tareas dentro de Inbox
+	ThreadUtil.wait(600);
+	WebElement botonInbox = driver.findElement(By.id("form_user:hoy"));
+	botonInbox.click();
+
+	SeleniumUtils.EsperaCargaPagina(driver, "id",
+		"form_user:tabla_tareas_data", 10);
+	
+	
+	
+	
+	
     }
 
     // PR21: Comprobar que las tareas que no están en rojo son las de hoy y
@@ -1121,6 +1224,10 @@ public class PlantillaSDI2_Tests1617 {
     public void prueba22() {
 	assertTrue(false);
     }
+
+    /*
+     * ------------- Semana -------------
+     */
 
     // PR23: Comprobar que las tareas de hoy y futuras no están en rojo y que
     // son las que deben ser.
