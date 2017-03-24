@@ -12,7 +12,7 @@ public class PO_InboxRow {
 	Map<String, Object> row = new HashMap<String, Object>();
 
 	WebElement titulo = driver.findElement(By.id("form_user:tabla_tareas:"
-		+ index + ":columna_titulo_normal"));
+		+ index + ":columna_titulo"));
 	row.put("titulo", titulo.getText());
 
 	WebElement comentario = driver
@@ -30,7 +30,7 @@ public class PO_InboxRow {
 
 	WebElement fechaFinalizada = driver.findElement(By
 		.id("form_user:tabla_tareas:" + index + ":columna_finalizar"));
-	row.put("fechaFinalizada", fechaFinalizada.getText());
+	row.put("fechaFinalizada", fechaFinalizada);
 
 	return row;
 
