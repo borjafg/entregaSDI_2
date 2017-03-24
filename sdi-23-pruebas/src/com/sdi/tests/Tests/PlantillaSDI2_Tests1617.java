@@ -883,6 +883,10 @@ public class PlantillaSDI2_Tests1617 {
     // ----- USUARIO -----
     // -------------------
 
+    /*
+     * ------------- Inbox -------------
+     */
+
     // PR16: Comprobar que en Inbox sólo aparecen listadas las tareas sin
     // categoría y que son las que tienen que. Usar paginación navegando por las
     // tres páginas.
@@ -1096,18 +1100,22 @@ public class PlantillaSDI2_Tests1617 {
 		.EsperaCargaPagina(driver, "class",
 			"ui-icon ui-icon-seek-next", 8).get(0).click();
 	ThreadUtil.wait(600);
-	
+
 	pestaña = new ArrayList<Map<String, Object>>();
-	for(int i = 8; i<=10;i++){
+	for (int i = 8; i <= 10; i++) {
 	    pestaña.add(new PO_InboxRow().findRow(driver, i));
 	}
-	for (int i = 0; i<=2; i++){
+	for (int i = 0; i <= 2; i++) {
 	    assertTrue("Los nombre coinciden", pestaña.get(i).get("titulo")
-			.equals("tarea" + base));
+		    .equals("tarea" + base));
 	    ++base;
 	}
 
     }
+
+    /*
+     * ------------- Hoy -------------
+     */
 
     // PR19: Funcionamiento correcto de la ordenación por categoría.
     @Test
@@ -1118,7 +1126,6 @@ public class PlantillaSDI2_Tests1617 {
 	ThreadUtil.wait(600);
 	WebElement botonInbox = driver.findElement(By.id("form_user:hoy"));
 	botonInbox.click();
-	// form_user:tabla_tareas
 
 	SeleniumUtils.EsperaCargaPagina(driver, "id",
 		"form_user:tabla_tareas_data", 10);
@@ -1189,7 +1196,19 @@ public class PlantillaSDI2_Tests1617 {
     // PR20: Funcionamiento correcto de la ordenación por fecha planeada.
     @Test
     public void prueba20() {
-	assertTrue(false);
+	new PO_LoginForm().completeForm(driver, "user1", "user1");
+	// clicamos en el boton de tareas dentro de Inbox
+	ThreadUtil.wait(600);
+	WebElement botonInbox = driver.findElement(By.id("form_user:hoy"));
+	botonInbox.click();
+
+	SeleniumUtils.EsperaCargaPagina(driver, "id",
+		"form_user:tabla_tareas_data", 10);
+	
+	
+	
+	
+	
     }
 
     // PR21: Comprobar que las tareas que no están en rojo son las de hoy y
@@ -1205,6 +1224,10 @@ public class PlantillaSDI2_Tests1617 {
     public void prueba22() {
 	assertTrue(false);
     }
+
+    /*
+     * ------------- Semana -------------
+     */
 
     // PR23: Comprobar que las tareas de hoy y futuras no están en rojo y que
     // son las que deben ser.
