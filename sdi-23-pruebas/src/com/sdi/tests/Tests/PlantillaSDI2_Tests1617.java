@@ -1525,21 +1525,278 @@ public class PlantillaSDI2_Tests1617 {
     // PR24: Funcionamiento correcto de la ordenación por día.
     @Test
     public void prueba24() {
-	assertTrue(false);
+
+	new PO_LoginForm().completeForm(driver, "user1", "user1");
+	// clicamos en el boton de tareas dentro de semana
+	ThreadUtil.wait(600);
+	WebElement botonInbox = driver.findElement(By.id("form_user:semana"));
+	botonInbox.click();
+	ThreadUtil.wait(300);
+
+	SeleniumUtils.EsperaCargaPagina(driver, "id",
+		"form_user:tabla_tareas_data", 10);
+
+	SeleniumUtils
+		.EsperaCargaPagina(driver, "id",
+			"form_user:tabla_tareas:columna_planeada_titulo", 8)
+		.get(0).click();
+	List<Map<String, Object>> pestaña = new ArrayList<Map<String, Object>>();
+	for (int i = 0; i < 8; i++) {
+	    pestaña.add(new PO_SemanaRow().findRow(driver, i));
+	}
+	Date hoy = new Date();
+
+	int base = 27;
+	for (int i = 0; i < 8; i++) {
+	    if (i <= 3) {
+		assertTrue("Los nombres no son iguales",
+			pestaña.get(i).get("titulo").equals("tarea" + (base)));
+
+		// hasta aquí funciona esta mierda
+
+		assertTrue("El dia no coincide", DateUtil.sameDay(DateUtil
+			.convertStringToDate((String) pestaña.get(i).get(
+				"fechaPlaneada")), DateUtil.diasSiguientes(hoy,
+			-4)));
+		++base;
+	    } else if (i > 3 && i <= 6) {
+		if (base == 31) {
+		    base = 24;
+		}
+		assertTrue("Los nombres no son iguales",
+			pestaña.get(i).get("titulo").equals("tarea" + (base)));
+		assertTrue("El dia no coincide", DateUtil.sameDay(DateUtil
+			.convertStringToDate((String) pestaña.get(i).get(
+				"fechaPlaneada")), DateUtil.diasSiguientes(hoy,
+			-3)));
+		++base;
+	    } else {
+		assertTrue("Los nombres no son iguales",
+			pestaña.get(i).get("titulo").equals("tarea21"));
+		assertTrue("El dia no coincide", DateUtil.sameDay(DateUtil
+			.convertStringToDate((String) pestaña.get(i).get(
+				"fechaPlaneada")), DateUtil.diasSiguientes(hoy,
+			-2)));
+	    }
+	}
+
+	ThreadUtil.wait(300);
+	// clicamos para pasar a la siguiente pestaña
+	SeleniumUtils
+		.EsperaCargaPagina(driver, "class",
+			"ui-icon ui-icon-seek-next", 8).get(0).click();
+	ThreadUtil.wait(600);
+
+	pestaña = new ArrayList<Map<String, Object>>();
+	for (int i = 8; i < 16; i++) {
+	    pestaña.add(new PO_SemanaRow().findRow(driver, i));
+	}
+	base = 22;
+	for (int i = 0; i < 8; i++) {
+	    if (i <= 1) {
+		assertTrue("Los nombres no son iguales",
+			pestaña.get(i).get("titulo").equals("tarea" + (base)));
+		assertTrue("El dia no coincide", DateUtil.sameDay(DateUtil
+			.convertStringToDate((String) pestaña.get(i).get(
+				"fechaPlaneada")), DateUtil.diasSiguientes(hoy,
+			-2)));
+		++base;
+	    } else {
+		if (base == 24) {
+		    base = 11;
+		}
+		assertTrue("Los nombres no son iguales",
+			pestaña.get(i).get("titulo").equals("tarea" + (base)));
+		assertTrue("El dia no coincide", DateUtil.sameDay(DateUtil
+			.convertStringToDate((String) pestaña.get(i).get(
+				"fechaPlaneada")), hoy));
+		++base;
+	    }
+	}
+	ThreadUtil.wait(300);
+	// clicamos para pasar a la siguiente pestaña
+	SeleniumUtils
+		.EsperaCargaPagina(driver, "class",
+			"ui-icon ui-icon-seek-next", 8).get(0).click();
+	ThreadUtil.wait(600);
+
+	pestaña = new ArrayList<Map<String, Object>>();
+	for (int i = 16; i < 24; i++) {
+	    pestaña.add(new PO_SemanaRow().findRow(driver, i));
+	}
+	base = 17;
+	int sum = 1;
+	for (int i = 0; i < 8; i++) {
+	    if (i <= 3) {
+		assertTrue("Los nombres no son iguales",
+			pestaña.get(i).get("titulo").equals("tarea" + (base)));
+		assertTrue("El dia no coincide", DateUtil.sameDay(DateUtil
+			.convertStringToDate((String) pestaña.get(i).get(
+				"fechaPlaneada")), hoy));
+		++base;
+
+	    } else {
+		if (base == 21) {
+		    base = 1;
+		}
+		assertTrue("Los nombres no son iguales",
+			pestaña.get(i).get("titulo").equals("tarea0" + (base)));
+		assertTrue("la fecha no es la correcta", DateUtil.sameDay(
+			DateUtil.convertStringToDate((String) pestaña.get(i)
+				.get("fechaPlaneada")), DateUtil
+				.diasSiguientes(hoy, sum)));
+		if (i % 2 != 0) {
+		    ++sum;
+		}
+		++base;
+	    }
+
+	}
+
+	ThreadUtil.wait(300);
+	// clicamos para pasar a la siguiente pestaña
+	SeleniumUtils
+		.EsperaCargaPagina(driver, "class",
+			"ui-icon ui-icon-seek-next", 8).get(0).click();
+	ThreadUtil.wait(600);
+
+	pestaña = new ArrayList<Map<String, Object>>();
+	for (int i = 24; i < 30; i++) {
+	    pestaña.add(new PO_SemanaRow().findRow(driver, i));
+	}
+	base = 5;
+	sum = 3;
+	for (int i = 0; i <= 5; i++) {
+	    if (i == 5) {
+		assertTrue("Los nombres no son iguales",
+			pestaña.get(i).get("titulo").equals("tarea" + (base)));
+	    } else {
+		assertTrue("Los nombres no son iguales",
+			pestaña.get(i).get("titulo").equals("tarea0" + (base)));
+		++base;
+	    }
+	    if (i != 5) {
+		assertTrue("la fecha no es la correcta", DateUtil.sameDay(
+			DateUtil.convertStringToDate((String) pestaña.get(i)
+				.get("fechaPlaneada")), DateUtil
+				.diasSiguientes(hoy, sum)));
+		if (i % 2 != 0) {
+		    ++sum;
+
+		}
+	    } else {
+		assertTrue("la fecha no es la correcta", DateUtil.sameDay(
+			DateUtil.convertStringToDate((String) pestaña.get(i)
+				.get("fechaPlaneada")), DateUtil
+				.diasSiguientes(hoy, 6)));
+	    }
+
+	}
+
     }
 
     // PR25: Funcionamiento correcto de la ordenación por nombre.
     @Test
     public void prueba25() {
-	assertTrue(false);
+	new PO_LoginForm().completeForm(driver, "user1", "user1");
+	// clicamos en el boton de tareas dentro de semana
+	ThreadUtil.wait(600);
+	WebElement botonInbox = driver.findElement(By.id("form_user:semana"));
+	botonInbox.click();
+	ThreadUtil.wait(300);
+
+	SeleniumUtils.EsperaCargaPagina(driver, "id",
+		"form_user:tabla_tareas_data", 10);
+	SeleniumUtils
+		.EsperaCargaPagina(driver, "id",
+			"form_user:tabla_tareas:columna_titulo_titulo", 8)
+		.get(0).click();
+
+	List<Map<String, Object>> pestaña = new ArrayList<Map<String, Object>>();
+	for (int i = 0; i < 8; i++) {
+	    pestaña.add(new PO_SemanaRow().findRow(driver, i));
+	}
+	int base = 1;
+	for (int i = 0; i < 8; i++) {
+	    assertTrue("el nombre es incorrecto", pestaña.get(i).get("titulo")
+		    .equals("tarea0" + (base)));
+	    ++base;
+	}
+
+	ThreadUtil.wait(300);
+	// clicamos para pasar a la siguiente pestaña
+	SeleniumUtils
+		.EsperaCargaPagina(driver, "class",
+			"ui-icon ui-icon-seek-next", 8).get(0).click();
+	ThreadUtil.wait(600);
+
+	pestaña = new ArrayList<Map<String, Object>>();
+	for (int i = 8; i < 16; i++) {
+	    pestaña.add(new PO_SemanaRow().findRow(driver, i));
+	}
+
+	for (int i = 0; i < 8; i++) {
+	    if (i == 0) {
+		assertTrue("el nombre es incorrecto",
+			pestaña.get(i).get("titulo").equals("tarea0" + (base)));
+	    } else {
+		assertTrue("el nombre es incorrecto",
+			pestaña.get(i).get("titulo").equals("tarea" + (base)));
+	    }
+	    ++base;
+	}
+
+	ThreadUtil.wait(300);
+	// clicamos para pasar a la siguiente pestaña
+	SeleniumUtils
+		.EsperaCargaPagina(driver, "class",
+			"ui-icon ui-icon-seek-next", 8).get(0).click();
+	ThreadUtil.wait(600);
+
+	pestaña = new ArrayList<Map<String, Object>>();
+	for (int i = 16; i < 24; i++) {
+	    pestaña.add(new PO_SemanaRow().findRow(driver, i));
+	}
+
+	for (int i = 0; i < 8; i++) {
+
+	    assertTrue("el nombre es incorrecto", pestaña.get(i).get("titulo")
+		    .equals("tarea" + (base)));
+
+	    ++base;
+	}
+
+	ThreadUtil.wait(300);
+	// clicamos para pasar a la siguiente pestaña
+	SeleniumUtils
+		.EsperaCargaPagina(driver, "class",
+			"ui-icon ui-icon-seek-next", 8).get(0).click();
+	ThreadUtil.wait(600);
+
+	pestaña = new ArrayList<Map<String, Object>>();
+	for (int i = 24; i < 30; i++) {
+	    pestaña.add(new PO_SemanaRow().findRow(driver, i));
+	}
+
+	for (int i = 0; i < 6; i++) {
+
+	    assertTrue("el nombre es incorrecto", pestaña.get(i).get("titulo")
+		    .equals("tarea" + (base)));
+
+	    ++base;
+	}
     }
 
     // PR26: Confirmar una tarea, inhabilitar el filtro de tareas terminadas, ir
     // a la pagina donde está la tarea terminada y comprobar que se muestra.
     @Test
     public void prueba26() {
-	assertTrue(false);
+	
     }
+
+    /*
+     * ---------------- Añadir tareas ----------------
+     */
 
     // PR27: Crear una tarea sin categoría y comprobar que se muestra en la
     // lista Inbox.
@@ -1562,6 +1819,10 @@ public class PlantillaSDI2_Tests1617 {
 	assertTrue(false);
     }
 
+    /*
+     * ---------------- Editar tareas ----------------
+     */
+
     // PR30: Editar el nombre, y categoría de una tarea (se le cambia a
     // categoría1) de la lista Inbox y comprobar que las tres pseudolista se
     // refresca correctamente.
@@ -1582,8 +1843,35 @@ public class PlantillaSDI2_Tests1617 {
     // tres pseudolistas.
     @Test
     public void prueba32() {
-	assertTrue(false);
+	//(1) reiniciamos la base de datos
+	new DatabaseReload().reload(driver);
+	//(2) iniciamos sesion como usuario
+	new PO_LoginForm().completeForm(driver, "user1", "user1");
+	//(3)vamos a inbox y eliminamos la tarea01  
+	ThreadUtil.wait(600);
+	WebElement botonInbox = driver.findElement(By.id("form_user:inbox"));
+	botonInbox.click();
+	ThreadUtil.wait(300);
+	
+	List<Map<String, Object>> pestaña = new ArrayList<Map<String, Object>>();
+	for (int i = 0; i < 8; i++) {
+	    pestaña.add(new PO_InboxRow().findRow(driver, i));
+	}
+	assertTrue("nombre no coincide", pestaña.get(0).get("titulo").equals("tarea01"));
+	((WebElement)pestaña.get(0).get("fechaFinalizada")).click();
+	ThreadUtil.wait(600);
+	//volvemos a buscar la tarea01
+	pestaña = new ArrayList<Map<String, Object>>();
+	for (int i = 0; i < 8; i++) {
+	    pestaña.add(new PO_InboxRow().findRow(driver, i));
+	}
+	assertTrue("nombre no coincide", !pestaña.get(0).get("titulo").equals("tarea01"));
+	ThreadUtil.wait(300);
     }
+
+    /*
+     * ---------------- Cerrar sesiones ----------------
+     */
 
     // PR33: Salir de sesión desde cuenta de administrador.
     @Test
@@ -1657,6 +1945,10 @@ public class PlantillaSDI2_Tests1617 {
 				defaultLocale, "login__titulo_panel")));
 
     }
+
+    /*
+     * --------------------- Internacionalizacion ----------------------
+     */
 
     // PR35: Cambio del idioma por defecto a un segundo idioma. (Probar algunas
     // vistas)
@@ -1871,6 +2163,10 @@ public class PlantillaSDI2_Tests1617 {
 	new ValidadorRegistro(defaultLocale, driver).comprobarTextos();
 
     }
+
+    /*
+     * ---------------- Seguridad ----------------
+     */
 
     // PR37: Intento de acceso a un URL privado de administrador con un usuario
     // autenticado como usuario normal.
