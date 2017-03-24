@@ -33,6 +33,7 @@ import com.sdi.tests.page_objects.PO_HoyRow;
 import com.sdi.tests.page_objects.PO_InboxRow;
 import com.sdi.tests.page_objects.PO_LoginForm;
 import com.sdi.tests.page_objects.PO_RegistryForm;
+import com.sdi.tests.page_objects.PO_SemanaRow;
 import com.sdi.tests.utils.DatabaseReload;
 import com.sdi.tests.utils.DateUtil;
 import com.sdi.tests.utils.PropertiesReader;
@@ -1078,6 +1079,7 @@ public class PlantillaSDI2_Tests1617 {
 	field.click();
 	field.clear();
 	field.sendKeys("1");// vamos a mostrar todos las tareas que tienen un 1
+	ThreadUtil.wait(600);
 	List<Map<String, Object>> pestaña = new ArrayList<Map<String, Object>>();
 	for (int i = 0; i < 8; i++) {
 	    pestaña.add(new PO_InboxRow().findRow(driver, i));
@@ -1091,8 +1093,9 @@ public class PlantillaSDI2_Tests1617 {
 	    } else {
 		assertTrue("Los nombre coinciden", pestaña.get(i).get("titulo")
 			.equals("tarea" + base));
+		++base;
 	    }
-	    ++base;
+
 	}
 	// segunda pestaña
 	ThreadUtil.wait(600);
@@ -1122,7 +1125,7 @@ public class PlantillaSDI2_Tests1617 {
     public void prueba19() {
 	// @Clean rompe a la hora de buscar la columna
 	new PO_LoginForm().completeForm(driver, "user1", "user1");
-	// clicamos en el boton de tareas dentro de Inbox
+	// clicamos en el boton de tareas dentro de hoy
 	ThreadUtil.wait(600);
 	WebElement botonInbox = driver.findElement(By.id("form_user:hoy"));
 	botonInbox.click();
@@ -1144,16 +1147,16 @@ public class PlantillaSDI2_Tests1617 {
 	    if (i == 3)
 		numCat = 2;
 
-	    if (numCat == 6) {
+	    if (i == 6) {
 		numCat = 3;
 	    }
-	    assertTrue("Las categorias coinciden",
+	    assertTrue("Las categorias no coinciden",
 		    pestaña.get(i).get("categoria")
-			    .equals("Categoria0" + numCat));
+			    .equals("Categoria" + numCat));
 	}
 
 	ThreadUtil.wait(300);
-	// cliacamos para pasar a la siguiente pestaña
+	// clicamos para pasar a la siguiente pestaña
 	SeleniumUtils
 		.EsperaCargaPagina(driver, "class",
 			"ui-icon ui-icon-seek-next", 8).get(0).click();
@@ -1163,14 +1166,14 @@ public class PlantillaSDI2_Tests1617 {
 	for (int i = 8; i < 16; i++) {
 	    pestaña.add(new PO_HoyRow().findRow(driver, i));
 	}
-	numCat = 29;
+	numCat = 3;
 	for (int i = 0; i < 8; i++) {
 	    if (i <= 1) {
 		assertTrue(
 			"categoria es distinta",
 			pestaña.get(i).get("categoria")
 				.equals("Categoria" + numCat));
-		++numCat;
+
 	    } else {
 		assertTrue("categoria es distinta",
 			pestaña.get(i).get("categoria").equals("----------"));
@@ -1186,7 +1189,7 @@ public class PlantillaSDI2_Tests1617 {
 	    pestaña.add(new PO_HoyRow().findRow(driver, i));
 	}
 
-	for (int i = 0; i <= 4; i++) {
+	for (int i = 0; i < 4; i++) {
 	    assertTrue("categoria es distinta", pestaña.get(i).get("categoria")
 		    .equals("----------"));
 	}
@@ -1197,7 +1200,7 @@ public class PlantillaSDI2_Tests1617 {
     @Test
     public void prueba20() {
 	new PO_LoginForm().completeForm(driver, "user1", "user1");
-	// clicamos en el boton de tareas dentro de Inbox
+	// clicamos en el boton de tareas dentro de hoy
 	ThreadUtil.wait(600);
 	WebElement botonInbox = driver.findElement(By.id("form_user:hoy"));
 	botonInbox.click();
@@ -1211,13 +1214,84 @@ public class PlantillaSDI2_Tests1617 {
 		.get(0).click();
 	ThreadUtil.wait(600);
 	List<Map<String, Object>> pestaña = new ArrayList<Map<String, Object>>();
-	for(int i  = 0; i<8; i++){
+	for (int i = 0; i < 8; i++) {
 	    pestaña.add(new PO_HoyRow().findRow(driver, i));
 	}
 	int base = 27;
-	for(int i = 0; i<8; i++){
-	    assertTrue("El nombre no es el mismo", pestaña.get(i).get("titulo").equals("Tarea"+base));
-	    //assertTrue("La fecha no se corresponde", pestaña.get(i).get("fechaPlaneada"));
+	for (int i = 0; i < 4; i++) {
+	    assertTrue("El nombre no es el mismo", pestaña.get(i).get("titulo")
+		    .equals("tarea" + base));
+	    assertTrue("Fecha no esta en rojo", ((WebElement) pestaña.get(i)
+		    .get("fechaPlaneadaWebElement")).getAttribute("class")
+		    .contains("elemento_color_rojo"));
+	    ++base;
+	}
+	base = 24;
+	for (int i = 4; i <= 6; i++) {
+	    assertTrue("El nombre no es el mismo", pestaña.get(i).get("titulo")
+		    .equals("tarea" + base));
+	    assertTrue("Fecha no esta en rojo", ((WebElement) pestaña.get(i)
+		    .get("fechaPlaneadaWebElement")).getAttribute("class")
+		    .contains("elemento_color_rojo"));
+	    ++base;
+	}
+	assertTrue("El nombre no es el mismo", pestaña.get(7).get("titulo")
+		.equals("tarea21"));
+	assertTrue("Fecha no esta en rojo",
+		((WebElement) pestaña.get(7).get("fechaPlaneadaWebElement"))
+			.getAttribute("class").contains("elemento_color_rojo"));
+
+	ThreadUtil.wait(300);
+	// clicamos para pasar a la siguiente pestaña
+	SeleniumUtils
+		.EsperaCargaPagina(driver, "class",
+			"ui-icon ui-icon-seek-next", 8).get(0).click();
+	ThreadUtil.wait(600);
+
+	pestaña = new ArrayList<Map<String, Object>>();
+	for (int i = 8; i < 16; i++) {
+	    pestaña.add(new PO_HoyRow().findRow(driver, i));
+	}
+	base = 11;
+	int base2 = 22;
+	for (int i = 0; i < 8; i++) {
+	    if (i <= 1) {
+		assertTrue("El nombre no es el mismo",
+			pestaña.get(i).get("titulo").equals("tarea" + base2));
+		assertTrue(
+			"Fecha no esta en rojo",
+			((WebElement) pestaña.get(i).get(
+				"fechaPlaneadaWebElement")).getAttribute(
+				"class").contains("elemento_color_rojo"));
+		++base2;
+	    } else {
+		assertTrue("El nombre no es el mismo",
+			pestaña.get(i).get("titulo").equals("tarea" + base));
+		assertTrue("Fecha  esta en rojo", ((WebElement) pestaña.get(i)
+			.get("fechaPlaneadaWebElement")).getAttribute("class")
+			.contains(""));// color negro
+		++base;
+	    }
+	}
+
+	ThreadUtil.wait(300);
+	// clicamos para pasar a la siguiente pestaña
+	SeleniumUtils
+		.EsperaCargaPagina(driver, "class",
+			"ui-icon ui-icon-seek-next", 8).get(0).click();
+	ThreadUtil.wait(600);
+	pestaña = new ArrayList<Map<String, Object>>();
+	for (int i = 16; i <= 19; i++) {
+	    pestaña.add(new PO_HoyRow().findRow(driver, i));
+	}
+	base = 17;
+	for (int i = 0; i < 4; i++) {
+	    assertTrue("El nombre no es el mismo", pestaña.get(i).get("titulo")
+		    .equals("tarea" + base));
+	    assertTrue(
+		    "Fecha  esta en rojo",
+		    ((WebElement) pestaña.get(i).get("fechaPlaneadaWebElement"))
+			    .getAttribute("class").contains(""));// color negro
 	    ++base;
 	}
 
@@ -1227,14 +1301,117 @@ public class PlantillaSDI2_Tests1617 {
     // además las que deben ser.
     @Test
     public void prueba21() {
-	assertTrue(false);
+	new PO_LoginForm().completeForm(driver, "user1", "user1");
+	// clicamos en el boton de tareas dentro de hoy
+	ThreadUtil.wait(600);
+	WebElement botonInbox = driver.findElement(By.id("form_user:hoy"));
+	botonInbox.click();
+	// tareas de la 11 a la 20, son las planeadas para hoy, el resto están
+	// retrasadas
+
+	SeleniumUtils.EsperaCargaPagina(driver, "id",
+		"form_user:tabla_tareas_data", 10);
+
+	Date hoy = new Date();
+
+	List<Map<String, Object>> pestaña = new ArrayList<Map<String, Object>>();
+	for (int i = 0; i < 8; i++) {
+	    pestaña.add(new PO_HoyRow().findRow(driver, i));
+	}
+	int base = 11;
+	for (int i = 0; i < 8; i++) {
+	    assertTrue("titulo no coincide", pestaña.get(i).get("titulo")
+		    .equals("tarea" + base));
+	    assertTrue("El dia no coincide", DateUtil.sameDay(
+		    DateUtil.convertStringToDate((String) pestaña.get(i).get(
+			    "fechaPlaneada")), hoy));
+	    assertTrue(
+		    "Fecha  esta en rojo",
+		    ((WebElement) pestaña.get(i).get("fechaPlaneadaWebElement"))
+			    .getAttribute("class").contains(""));// color negro
+	    ++base;
+	}
+
+	ThreadUtil.wait(300);
+	// clicamos para pasar a la siguiente pestaña
+	SeleniumUtils
+		.EsperaCargaPagina(driver, "class",
+			"ui-icon ui-icon-seek-next", 8).get(0).click();
+	ThreadUtil.wait(600);
+
+	pestaña = new ArrayList<Map<String, Object>>();
+	for (int i = 8; i <= 9; i++) {
+	    pestaña.add(new PO_HoyRow().findRow(driver, i));
+	}
+	for (int i = 0; i <= 1; i++) {
+	    assertTrue("titulo no coincide", pestaña.get(i).get("titulo")
+		    .equals("tarea" + base));
+
+	    assertTrue("El dia no coincide", DateUtil.sameDay(
+		    DateUtil.convertStringToDate((String) pestaña.get(i).get(
+			    "fechaPlaneada")), hoy));
+	    assertTrue(
+		    "Fecha  esta en rojo",
+		    ((WebElement) pestaña.get(i).get("fechaPlaneadaWebElement"))
+			    .getAttribute("class").contains(""));// color negro
+
+	    ++base;
+	}
+
     }
 
     // PR22: Comprobar que las tareas retrasadas están en rojo y son las que
     // deben ser.
     @Test
     public void prueba22() {
-	assertTrue(false);
+	new PO_LoginForm().completeForm(driver, "user1", "user1");
+	// clicamos en el boton de tareas dentro de hoy
+	ThreadUtil.wait(600);
+	WebElement botonInbox = driver.findElement(By.id("form_user:hoy"));
+	botonInbox.click();
+	// tareas de la 11 a la 20, son las planeadas para hoy, el resto están
+	// retrasadas
+
+	ThreadUtil.wait(300);
+	// clicamos para pasar a la siguiente pestaña
+	SeleniumUtils
+		.EsperaCargaPagina(driver, "class",
+			"ui-icon ui-icon-seek-next", 8).get(0).click();
+	ThreadUtil.wait(600);
+
+	List<Map<String, Object>> pestaña = new ArrayList<Map<String, Object>>();
+	for (int i = 10; i < 16; i++) {
+	    pestaña.add(new PO_HoyRow().findRow(driver, i));
+	}
+	int base = 21;
+	for (int i = 0; i < 6; i++) {
+	    assertTrue("titulo no coincide", pestaña.get(i).get("titulo")
+		    .equals("tarea" + base));
+	    assertTrue("Fecha no esta en rojo", ((WebElement) pestaña.get(i)
+		    .get("fechaPlaneadaWebElement")).getAttribute("class")
+		    .contains("elemento_color_rojo"));
+	    ++base;
+	}
+	ThreadUtil.wait(300);
+	// clicamos para pasar a la siguiente pestaña
+	SeleniumUtils
+		.EsperaCargaPagina(driver, "class",
+			"ui-icon ui-icon-seek-next", 8).get(0).click();
+	ThreadUtil.wait(600);
+
+	pestaña = new ArrayList<Map<String, Object>>();
+	for (int i = 16; i <= 19; i++) {
+	    pestaña.add(new PO_HoyRow().findRow(driver, i));
+	}
+	for (int i = 0; i < 4; i++) {
+	    assertTrue("titulo no coincide", pestaña.get(i).get("titulo")
+		    .equals("tarea" + base));
+	    assertTrue("Fecha no esta en rojo", ((WebElement) pestaña.get(i)
+		    .get("fechaPlaneadaWebElement")).getAttribute("class")
+		    .contains("elemento_color_rojo"));
+	    ++base;
+	}
+
     }
 
     /*
@@ -1245,7 +1422,104 @@ public class PlantillaSDI2_Tests1617 {
     // son las que deben ser.
     @Test
     public void prueba23() {
-	assertTrue(false);
+	// tareas de la 1 a la 20, tienen un afecha correcta
+	new PO_LoginForm().completeForm(driver, "user1", "user1");
+	// clicamos en el boton de tareas dentro de semana
+	ThreadUtil.wait(600);
+	WebElement botonInbox = driver.findElement(By.id("form_user:semana"));
+	botonInbox.click();
+	ThreadUtil.wait(300);
+
+	List<Map<String, Object>> pestaña = new ArrayList<Map<String, Object>>();
+	for (int i = 0; i < 8; i++) {
+	    pestaña.add(new PO_SemanaRow().findRow(driver, i));
+	}
+	Date hoy = new Date();
+	int base = 1;
+	int sum = 1;
+	for (int i = 0; i < 8; i++) {
+	    assertTrue("titulo no coincide", pestaña.get(i).get("titulo")
+		    .equals("tarea0" + base));
+	    assertTrue("Categoria esta en rojo", ((WebElement) pestaña.get(i)
+		    .get("categoriaWebElement")).getAttribute("class")
+		    .contains(""));
+	    assertTrue("la fecha no es la correcta", DateUtil.sameDay(
+		    DateUtil.convertStringToDate((String) pestaña.get(i).get(
+			    "fechaPlaneada")),
+		    DateUtil.diasSiguientes(hoy, sum)));
+
+	    if (i % 2 != 0) {
+		++sum;
+	    }
+	    ++base;
+	}
+
+	ThreadUtil.wait(300);
+	// clicamos para pasar a la siguiente pestaña
+	SeleniumUtils
+		.EsperaCargaPagina(driver, "class",
+			"ui-icon ui-icon-seek-next", 8).get(0).click();
+	ThreadUtil.wait(600);
+
+	pestaña = new ArrayList<Map<String, Object>>();
+	for (int i = 8; i < 16; i++) {
+	    pestaña.add(new PO_SemanaRow().findRow(driver, i));
+	}
+
+	for (int i = 0; i < 8; i++) {
+	    if (i == 0) {
+		assertTrue("titulo no coincide", pestaña.get(i).get("titulo")
+			.equals("tarea0" + base));
+		assertTrue("la fecha no es la correcta", DateUtil.sameDay(
+			DateUtil.convertStringToDate((String) pestaña.get(i)
+				.get("fechaPlaneada")), DateUtil
+				.diasSiguientes(hoy, 5)));
+	    } else {
+		if (i == 1) {
+		    assertTrue("la fecha no es la correcta", DateUtil.sameDay(
+			    DateUtil.convertStringToDate((String) pestaña
+				    .get(i).get("fechaPlaneada")), DateUtil
+				    .diasSiguientes(hoy, 6)));
+		} else {
+
+		    assertTrue("titulo no coincide",
+			    pestaña.get(i).get("titulo").equals("tarea" + base));
+		    assertTrue("El dia no coincide", DateUtil.sameDay(DateUtil
+			    .convertStringToDate((String) pestaña.get(i).get(
+				    "fechaPlaneada")), hoy));
+
+		}
+	    }
+	    assertTrue("Categoria esta en rojo", ((WebElement) pestaña.get(i)
+		    .get("categoriaWebElement")).getAttribute("class")
+		    .contains(""));
+	    ++base;
+	}
+
+	ThreadUtil.wait(300);
+	// clicamos para pasar a la siguiente pestaña
+	SeleniumUtils
+		.EsperaCargaPagina(driver, "class",
+			"ui-icon ui-icon-seek-next", 8).get(0).click();
+	ThreadUtil.wait(600);
+
+	pestaña = new ArrayList<Map<String, Object>>();
+	for (int i = 16; i < 20; i++) {
+	    pestaña.add(new PO_SemanaRow().findRow(driver, i));
+	}
+	for (int i = 0; i <= 3; i++) {
+	    assertTrue("Categoria esta en rojo", ((WebElement) pestaña.get(i)
+		    .get("categoriaWebElement")).getAttribute("class")
+		    .contains(""));
+	    assertTrue("titulo no coincide", pestaña.get(i).get("titulo")
+		    .equals("tarea" + base));
+	    assertTrue("El dia no coincide", DateUtil.sameDay(
+		    DateUtil.convertStringToDate((String) pestaña.get(i).get(
+			    "fechaPlaneada")), hoy));
+
+	    ++base;
+	}
+
     }
 
     // PR24: Funcionamiento correcto de la ordenación por día.

@@ -33,10 +33,15 @@ public class PO_HoyRow {
 		.id("form_user:tabla_tareas:" + index + ":columna_planeada"));
 
 	row.put("fechaPlaneada", fechaPlaneada.getText());
+	
+	WebElement fechaPlaneadaWeb = driver.findElement(By
+		.id("form_user:tabla_tareas:" + index + ":columna_planeada"));
+
+	row.put("fechaPlaneadaWebElement", fechaPlaneadaWeb);
 
 	WebElement fechaFinalizada = driver.findElement(By
 		.id("form_user:tabla_tareas:" + index + ":columna_finalizar"));
-	row.put("fechaFinalizada", fechaFinalizada.getText());
+	row.put("fechaFinalizada", fechaFinalizada);
 
 	return row;
 
