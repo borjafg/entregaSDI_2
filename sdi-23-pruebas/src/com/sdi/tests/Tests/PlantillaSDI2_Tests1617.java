@@ -1149,7 +1149,7 @@ public class PlantillaSDI2_Tests1617 {
 	    }
 	    assertTrue("Las categorias coinciden",
 		    pestaña.get(i).get("categoria")
-			    .equals("Categoria" + numCat));
+			    .equals("Categoria0" + numCat));
 	}
 
 	ThreadUtil.wait(300);
@@ -1204,11 +1204,23 @@ public class PlantillaSDI2_Tests1617 {
 
 	SeleniumUtils.EsperaCargaPagina(driver, "id",
 		"form_user:tabla_tareas_data", 10);
-	
-	
-	
-	
-	
+
+	SeleniumUtils
+		.EsperaCargaPagina(driver, "id",
+			"form_user:tabla_tareas:columna_planeada_titulo", 8)
+		.get(0).click();
+	ThreadUtil.wait(600);
+	List<Map<String, Object>> pestaña = new ArrayList<Map<String, Object>>();
+	for(int i  = 0; i<8; i++){
+	    pestaña.add(new PO_HoyRow().findRow(driver, i));
+	}
+	int base = 27;
+	for(int i = 0; i<8; i++){
+	    assertTrue("El nombre no es el mismo", pestaña.get(i).get("titulo").equals("Tarea"+base));
+	    //assertTrue("La fecha no se corresponde", pestaña.get(i).get("fechaPlaneada"));
+	    ++base;
+	}
+
     }
 
     // PR21: Comprobar que las tareas que no están en rojo son las de hoy y
