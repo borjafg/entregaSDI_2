@@ -35,7 +35,7 @@ public class PO_RegistryForm {
 	pass1.sendKeys(password1);
 
 	ThreadUtil.wait(500);
-	
+
 	WebElement pass2 = driver
 		.findElement(By.id("form_anonimo:contrasena2"));
 
@@ -44,10 +44,9 @@ public class PO_RegistryForm {
 	pass2.sendKeys(password2);
 
 	ThreadUtil.wait(500);
-	
-	
-	By boton = By.id("form_anonimo:boton_registry");
+
+	By boton = By.id("form_anonimo:boton_registro");
 	driver.findElement(boton).click();
-	
+
     }
 }

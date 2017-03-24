@@ -14,7 +14,7 @@
 	<h:body>
 		<h:form id="form_menu_superior">
 			<p:menubar>
-				<p:menuitem value="#{msgs.administrador_menu_reinicio}"
+				<p:menuitem value="#{msgs.administrador__menu_reinicio}"
 					action="#{bean_users_list.restartData}" id="boton_reinicio"
 					update="form_admin:tabla_usuarios mensajes_admin" />
 
@@ -32,20 +32,20 @@
 			<p:dataTable var="usuario" value="#{bean_users_list.users}"
 				id="tabla_usuarios">
 
-				<f:facet id="titulo_tabla_administrador" name="header">#{msgs.administrador_titulo_tabla_usuarios}</f:facet>
+				<f:facet id="titulo_tabla_administrador" name="header">#{msgs.administrador__titulo_tabla_usuarios}</f:facet>
 
 
-				<p:column headerText="#{msgs.administrador_columna_usuario}"
+				<p:column headerText="#{msgs.administrador__columna_usuario}"
 					sortBy="#{usuario.login}" id="column_login_title">
 					<h:outputText value="#{usuario.login}" id="column_login" />
 				</p:column>
 
-				<p:column headerText="#{msgs.administrador_columna_correo}"
+				<p:column headerText="#{msgs.administrador__columna_correo}"
 					sortBy="#{usuario.email}" id="column_email_title">
 					<h:outputText value="#{usuario.email}" id="column_email" />
 				</p:column>
 
-				<p:column headerText="#{msgs.administrador_columna_estado}"
+				<p:column headerText="#{msgs.administrador__columna_estado}"
 					sortBy="#{usuario.status}" id="column_status_title">
 
 					<h:outputText value="#{usuario.status.name().toLowerCase()}"
@@ -58,7 +58,7 @@
 					<p:commandLink action="#{bean_users_list.changeStatus(usuario)}"
 						immediate="true" type="submit" id="button_status"
 						update="form_admin:tabla_usuarios mensajes_admin"
-						value="#{msgs.administrador_boton_cambiar_estado}" />
+						value="#{msgs.administrador__boton_cambiar_estado}" />
 				</p:column>
 
 				<p:column
@@ -66,11 +66,11 @@
 					<p:commandLink action="#{bean_users_list.deleteUser(usuario)}"
 						immediate="true" type="submit" id="button_delete"
 						update="form_admin:tabla_usuarios mensajes_admin"
-						value="#{msgs.administrador_boton_eliminar_usuario}">
+						value="#{msgs.administrador__boton_eliminar_usuario}">
 
 						<p:confirm
-							header="#{msgs.administrador_cabecera_eliminar_usuario}"
-							message="#{msgs.administrador_mensaje_eliminar_usuario}"
+							header="#{msgs.administrador__cabecera_eliminar_usuario}"
+							message="#{msgs.administrador__mensaje_eliminar_usuario}"
 							icon="ui-icon-alert" />
 					</p:commandLink>
 				</p:column>
@@ -81,10 +81,10 @@
 				showEffect="fade" hideEffect="fade">
 
 				<p:commandButton id="confirm_delete" icon="ui-icon-check"
-					value="#{msgs.administrador_confirmar_eliminacion}" type="button"
+					value="#{msgs.administrador__confirmar_eliminacion}" type="button"
 					styleClass="ui-confirmdialog-yes" />
 
-				<p:commandButton value="#{msgs.administrador_denegar_eliminacion}"
+				<p:commandButton value="#{msgs.administrador__denegar_eliminacion}"
 					type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 			</p:confirmDialog>
 		</h:form>

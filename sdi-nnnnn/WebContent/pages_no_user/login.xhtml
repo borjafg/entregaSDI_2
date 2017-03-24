@@ -6,32 +6,32 @@
 	template="/templates/template_anonimo.xhtml">
 
 	<ui:define name="opcion_menu">
-		<p:menuitem id="enlace_registro" value="#{msgs.login_enlace_registro}"
+		<p:menuitem id="enlace_registro" value="#{msgs.login__enlace_registro}"
 			action="registro" immediate="true" />
 	</ui:define>
 
 
 	<ui:define name="cuerpo_form">
 		<h:panelGrid columns="1" cellpadding="5" style="margin: 0 auto;">
-			<p:panel id="panel_login" header="#{msgs.login_titulo_panel}">
+			<p:panel id="panel__login" header="#{msgs.login__titulo_panel}">
 
 				<h:panelGrid columns="3" cellpadding="5">
 					<p:outputLabel id="label_login" for="usuario"
-						value="#{msgs.login_usuario}" />
+						value="#{msgs.login__usuario}" />
 
 					<p:inputText id="usuario" value="#{bean_login.login}"
-						required="true" placeholder="#{msgs.login_placeholder_usuario}"
-						requiredMessage="#{msgs.login_usuario_requerido}" size="30" />
+						required="true" placeholder="#{msgs.login__placeholder_usuario}"
+						requiredMessage="#{msgs.login__usuario_requerido}" size="30" />
 
 					<p:message for="usuario" />
 
 
 					<p:outputLabel id="label_contrasena" for="contrasena"
-						value="#{msgs.login_contrasena}" />
+						value="#{msgs.login__contrasena}" />
 
 					<p:inputText id="contrasena" value="#{bean_login.password}"
-						required="true" placeholder="#{msgs.login_placeholder_contrasena}"
-						requiredMessage="#{msgs.login_contrasena_requerida}" size="30"
+						required="true" placeholder="#{msgs.login__placeholder_contrasena}"
+						requiredMessage="#{msgs.login__contrasena_requerida}" size="30"
 						type="password" />
 
 					<p:message for="contrasena" />
@@ -39,7 +39,7 @@
 
 					<p:outputLabel value="" />
 
-					<p:commandButton id="boton_login" value="#{msgs.login_boton}"
+					<p:commandButton id="boton_login" value="#{msgs.login__boton}"
 						update="@form" process="@form" action="#{bean_login.dologin}" />
 				</h:panelGrid>
 

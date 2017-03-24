@@ -65,7 +65,7 @@ public class ValidadorPrincipalUsuario {
 		mensajes.get(0)
 			.getText()
 			.equals(new PropertiesReader().getValueOf(idioma,
-				"menu_user_cuenta")));
+				"menu_user__cuenta")));
 
 	SeleniumUtils.moverRatonPorEncimaDe(driver,
 		"form_menu_superior:submenu_usuario");
@@ -79,7 +79,7 @@ public class ValidadorPrincipalUsuario {
 		mensajes.get(0)
 			.getText()
 			.equals(new PropertiesReader().getValueOf(idioma,
-				"menu_user_login")));
+				"menu_user__login")));
 
 	// validamos el boton de logout
 
@@ -90,7 +90,7 @@ public class ValidadorPrincipalUsuario {
 		mensajes.get(0)
 			.getText()
 			.equals(new PropertiesReader().getValueOf(idioma,
-				"menu_user_logout")));
+				"menu_user__logout")));
 
 	// validamos texto del titulo de la tabla de categorias de tarea
 
@@ -101,7 +101,7 @@ public class ValidadorPrincipalUsuario {
 		mensajes.get(0)
 			.getText()
 			.equals(new PropertiesReader().getValueOf(idioma,
-				"principal_usuario_titulo_panel")));
+				"principal_usuario__titulo_panel")));
 
 	// validamos texto del boton de listado en categoria: hoy
 
@@ -112,7 +112,7 @@ public class ValidadorPrincipalUsuario {
 		mensajes.get(0)
 			.getText()
 			.equals(new PropertiesReader().getValueOf(idioma,
-				"principal_usuario_hoy")));
+				"principal_usuario__hoy")));
 
 	// validamos texto del boton de listado en categoria: inbox
 
@@ -123,7 +123,7 @@ public class ValidadorPrincipalUsuario {
 		mensajes.get(0)
 			.getText()
 			.equals(new PropertiesReader().getValueOf(idioma,
-				"principal_usuario_inbox")));
+				"principal_usuario__inbox")));
 
 	// validamos texto del boton de listado en categoria: semana
 
@@ -134,7 +134,7 @@ public class ValidadorPrincipalUsuario {
 		mensajes.get(0)
 			.getText()
 			.equals(new PropertiesReader().getValueOf(idioma,
-				"principal_usuario_semana")));
+				"principal_usuario__semana")));
     }
 
 }

@@ -34,7 +34,7 @@ public class UserCheck {
 	User u = UserFinder.findByLogin(user.getLogin());
 
 	BusinessCheck.isNull(u,
-		"Ya existe un usuario con este login [" + u.getLogin() + "]",
+		"Ya existe un usuario con este login [" + user.getLogin() + "]",
 		"error_registro__login_ya_existe");
     }
 

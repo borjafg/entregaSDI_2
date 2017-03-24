@@ -31,7 +31,7 @@ public class ValidadorPrincipalAdministrador {
 		mensajes.get(0)
 			.getText()
 			.equals(new PropertiesReader().getValueOf(idioma,
-				"administrador_titulo_tabla_usuarios")));
+				"administrador__titulo_tabla_usuarios")));
 
 	// validamos el boton de idioma del desplegable
 
@@ -76,7 +76,7 @@ public class ValidadorPrincipalAdministrador {
 		mensajes.get(0)
 			.getText()
 			.equals(new PropertiesReader().getValueOf(idioma,
-				"menu_user_cuenta")));
+				"menu_user__cuenta")));
 
 	SeleniumUtils.moverRatonPorEncimaDe(driver,
 		"form_menu_superior:submenu_usuario");
@@ -90,7 +90,7 @@ public class ValidadorPrincipalAdministrador {
 		mensajes.get(0)
 			.getText()
 			.equals(new PropertiesReader().getValueOf(idioma,
-				"menu_user_login")));
+				"menu_user__login")));
 
 	// validamos el boton de logout
 
@@ -101,9 +101,7 @@ public class ValidadorPrincipalAdministrador {
 		mensajes.get(0)
 			.getText()
 			.equals(new PropertiesReader().getValueOf(idioma,
-				"menu_user_logout")));
-
-	
+				"menu_user__logout")));
 
     }
 

@@ -60,6 +60,7 @@ public class BeanUserRegistry implements Serializable {
 
 	catch (Exception excep) { // Error al ejecutar la comprobación
 	    Log.error("Excepcion generada durante la creacion de un usario");
+	    Log.error(excep);
 	    return "error";
 	}
 

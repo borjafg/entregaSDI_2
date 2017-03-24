@@ -30,7 +30,7 @@ public class ValidadorRegistro {
 		mensajes.get(0)
 			.getText()
 			.equals(new PropertiesReader().getValueOf(idioma,
-				"registro_enlace_login")));
+				"registro__enlace_login")));
 
 	// comprobamos el idioma del titulo del formulario de registro
 
@@ -41,12 +41,12 @@ public class ValidadorRegistro {
 		mensajes.get(0)
 			.getText()
 			.equals(new PropertiesReader().getValueOf(idioma,
-				"registro_titulo_panel")));
+				"registro__titulo_panel")));
 
 	// validamos el boton de idioma del desplegable
 
-	mensajes = SeleniumUtils.EsperaCargaPagina(driver,
-		"id", "form_menu_superior:submenu_idiomas", 8);
+	mensajes = SeleniumUtils.EsperaCargaPagina(driver, "id",
+		"form_menu_superior:submenu_idiomas", 8);
 	assertTrue(
 		"No se ha encontrado mensaje del boton de cambio de idioma",
 		mensajes.get(0)
@@ -85,7 +85,7 @@ public class ValidadorRegistro {
 		mensajes.get(0)
 			.getText()
 			.equals(new PropertiesReader().getValueOf(idioma,
-				"registro_usuario") + "*"));
+				"registro__usuario") + "*"));
 	// validamos label contraseña1
 	mensajes = SeleniumUtils.EsperaCargaPagina(driver, "id",
 		"form_anonimo:label_contrasena1", 8);
@@ -94,7 +94,7 @@ public class ValidadorRegistro {
 		mensajes.get(0)
 			.getText()
 			.equals(new PropertiesReader().getValueOf(idioma,
-				"registro_contrasena") + "*"));
+				"registro__contrasena") + "*"));
 	// validamos label contraseña2
 	mensajes = SeleniumUtils.EsperaCargaPagina(driver, "id",
 		"form_anonimo:label_contrasena2", 8);
@@ -103,7 +103,7 @@ public class ValidadorRegistro {
 		mensajes.get(0)
 			.getText()
 			.equals(new PropertiesReader().getValueOf(idioma,
-				"registro_contrasena_rep") + "*"));
+				"registro__contrasena_rep") + "*"));
 
 	// validamos label email
 	mensajes = SeleniumUtils.EsperaCargaPagina(driver, "id",
@@ -113,7 +113,7 @@ public class ValidadorRegistro {
 		mensajes.get(0)
 			.getText()
 			.equals(new PropertiesReader().getValueOf(idioma,
-				"registro_email") + "*"));
+				"registro__email") + "*"));
 
 	// validamos los placeholders
 
@@ -125,7 +125,7 @@ public class ValidadorRegistro {
 		mensajes.get(0)
 			.getAttribute("placeholder")
 			.equals(new PropertiesReader().getValueOf(idioma,
-				"registro_placeholder_usuario")));
+				"registro__placeholder_usuario")));
 	// --
 	mensajes = SeleniumUtils.EsperaCargaPagina(driver, "id",
 		"form_anonimo:email", 8);
@@ -135,7 +135,7 @@ public class ValidadorRegistro {
 		mensajes.get(0)
 			.getAttribute("placeholder")
 			.equals(new PropertiesReader().getValueOf(idioma,
-				"registro_placeholder_email")));
+				"registro__placeholder_email")));
 	// --
 	mensajes = SeleniumUtils.EsperaCargaPagina(driver, "id",
 		"form_anonimo:contrasena1", 8);
@@ -145,7 +145,7 @@ public class ValidadorRegistro {
 		mensajes.get(0)
 			.getAttribute("placeholder")
 			.equals(new PropertiesReader().getValueOf(idioma,
-				"registro_placeholder_contrasena")));
+				"registro__placeholder_contrasena")));
 	// --
 	mensajes = SeleniumUtils.EsperaCargaPagina(driver, "id",
 		"form_anonimo:contrasena2", 8);
@@ -155,7 +155,7 @@ public class ValidadorRegistro {
 		mensajes.get(0)
 			.getAttribute("placeholder")
 			.equals(new PropertiesReader().getValueOf(idioma,
-				"registro_placeholder_contrasena_rep")));
+				"registro__placeholder_contrasena_rep")));
 	// --
 
     }

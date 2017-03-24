@@ -6,7 +6,8 @@
 	template="/templates/template_usuario.xhtml">
 
 	<ui:define name="items_menu">
-		<p:menuitem value="volver" action="volver" inmediate="true" />
+		<p:menuitem value="#{msgs.listar_tareas__volver}" action="volver"
+			inmediate="true" />
 	</ui:define>
 
 	<ui:define name="cuerpo">
@@ -14,23 +15,25 @@
 			rows="8" paginator="true"
 			paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
 
+			<f:facet name="header">#{msgs.listar_tareas__titulo_semana}</f:facet>
 
-			<p:column headerText="Titulo columna titulo" sortBy="#{tarea.title}"
-				id="columna_titulo_titulo">
+
+			<p:column headerText="#{msgs.listar_tareas__columna_titulo}"
+				sortBy="#{tarea.title}" id="columna_titulo_titulo">
 
 				<h:outputText value="#{tarea.title}" id="columna_titulo"
 					rendered="#{tarea.finished eq null}" />
 			</p:column>
 
 
-			<p:column headerText="Titulo columna comments"
+			<p:column headerText="#{msgs.listar_tareas__columna_comentario}"
 				id="columna_comentarios_titulo">
 
 				<h:outputText value="#{tarea.comments}" id="columna_comentarios" />
 			</p:column>
 
 
-			<p:column headerText="Titulo columna category"
+			<p:column headerText="#{msgs.listar_tareas__columna_categoria}"
 				id="columna_categoria_titulo">
 
 				<h:outputText value="----------" id="columna_no_categoria"
@@ -50,7 +53,7 @@
 			</p:column>
 
 
-			<p:column headerText="Titulo columna planned"
+			<p:column headerText="#{msgs.listar_tareas__columna_planeada}"
 				id="columna_planeada_titulo" sortBy="#{tarea.planned}">
 
 				<h:outputText value="#{tarea.planned}"
@@ -66,11 +69,10 @@
 			</p:column>
 
 
-			<p:column headerText="Titulo columna finished"
-				id="columna_finalizar_titulo">
+			<p:column id="columna_finalizar_titulo">
 
 				<p:commandLink id="columna_finalizar"
-					value="#{msgs.listado_tareas_boton_finalizar}"
+					value="#{msgs.listar_tareas__boton_finalizar}"
 					action="#{bean_week.terminarTarea(tarea.id)}"
 					update="form_user:tabla_tareas mensajes_user" />
 			</p:column>

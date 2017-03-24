@@ -14,7 +14,7 @@
 		<p:panel>
 			<f:facet name="header">
 				<h:outputText id="titulo_tabla_usuario" style="text-align: center;"
-					value="#{msgs.principal_usuario_titulo_panel}" />
+					value="#{msgs.principal_usuario__titulo_panel}" />
 			</f:facet>
 
 			<p:panelGrid columns="3" layout="grid" id="panel_categorias"
@@ -25,17 +25,18 @@
 
 					<h:outputText id="tareas_inbox"
 						style="font-size:22px; font-weight:bold;"
-						value="#{msgs.principal_usuario_inbox}" />
+						value="#{msgs.principal_usuario__inbox}" />
 
 					<h:panelGroup>
-						<h:outputText value="¿Ver tareas terminadas?" />
+						<h:outputText
+							value="#{msgs.principal_usuario__mostrar_finalizadas}" />
 						<p:spacer height="1px" width="10px" />
 						<p:selectBooleanCheckbox id="check_terminadas"
 							value="#{bean_categ.mostrarFinalizadas}" />
 					</h:panelGroup>
 
 					<p:commandButton action="#{bean_categ.goToInbox}" id="inbox"
-						inmediate="true" value="#{msgs.principal_usuario_botones_listar}" />
+						inmediate="true" value="#{msgs.principal_usuario__botones_listar}" />
 				</p:panelGrid>
 
 
@@ -44,10 +45,10 @@
 
 					<h:outputText id="tareas_hoy"
 						style="font-size:22px; font-weight:bold;"
-						value="#{msgs.principal_usuario_hoy}" />
+						value="#{msgs.principal_usuario__hoy}" />
 					<p:spacer />
 					<p:commandButton action="hoy" id="hoy" inmediate="true"
-						value="#{msgs.principal_usuario_botones_listar}" />
+						value="#{msgs.principal_usuario__botones_listar}" />
 				</p:panelGrid>
 
 
@@ -56,10 +57,10 @@
 
 					<h:outputText id="tareas_semana"
 						style="font-size:22px; font-weight:bold;"
-						value="#{msgs.principal_usuario_semana}" />
+						value="#{msgs.principal_usuario__semana}" />
 					<p:spacer />
 					<p:commandButton action="semana" id="semana" inmediate="true"
-						value="#{msgs.principal_usuario_botones_listar}" />
+						value="#{msgs.principal_usuario__botones_listar}" />
 				</p:panelGrid>
 
 			</p:panelGrid>

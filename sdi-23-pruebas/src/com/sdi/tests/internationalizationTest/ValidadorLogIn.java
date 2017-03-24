@@ -31,7 +31,7 @@ public class ValidadorLogIn {
 		mensajes.get(0)
 			.getText()
 			.equals(new PropertiesReader().getValueOf(idioma,
-				"login_enlace_registro")));
+				"login__enlace_registro")));
 
 	// (2) Comprobamos el formulario de log-in
 	// (2.1)Comprobamos el titulo de login
@@ -42,7 +42,7 @@ public class ValidadorLogIn {
 		mensajes.get(0)
 			.getText()
 			.equals(new PropertiesReader().getValueOf(idioma,
-				"login_titulo_panel")));
+				"login__titulo_panel")));
 
 	// (2.2)Comprobamos los campos del formulario de login
 	mensajes = SeleniumUtils.EsperaCargaPagina(driver, "id",
@@ -52,7 +52,7 @@ public class ValidadorLogIn {
 		mensajes.get(0)
 			.getText()
 			.equals(new PropertiesReader().getValueOf(idioma,
-				"login_usuario") + "*"));
+				"login__usuario") + "*"));
 	mensajes = SeleniumUtils.EsperaCargaPagina(driver, "id",
 		"form_anonimo:label_contrasena", 8);
 	assertTrue(
@@ -60,7 +60,7 @@ public class ValidadorLogIn {
 		mensajes.get(0)
 			.getText()
 			.equals(new PropertiesReader().getValueOf(idioma,
-				"login_contrasena") + "*"));
+				"login__contrasena") + "*"));
 
 	// (2.3) Comprobamos los placeholders
 
@@ -72,7 +72,7 @@ public class ValidadorLogIn {
 		mensajes.get(0)
 			.getAttribute("placeholder")
 			.equals(new PropertiesReader().getValueOf(idioma,
-				"login_placeholder_usuario")));
+				"login__placeholder_usuario")));
 
 	mensajes = SeleniumUtils.EsperaCargaPagina(driver, "id",
 		"form_anonimo:contrasena", 8);
@@ -81,7 +81,7 @@ public class ValidadorLogIn {
 		mensajes.get(0)
 			.getAttribute("placeholder")
 			.equals(new PropertiesReader().getValueOf(idioma,
-				"login_placeholder_contrasena")));
+				"login__placeholder_contrasena")));
 
 	// (2.4) Comprobamos el boton de logueo
 	mensajes = SeleniumUtils.EsperaCargaPagina(driver, "id",
@@ -91,7 +91,7 @@ public class ValidadorLogIn {
 		mensajes.get(0)
 			.getText()
 			.equals(new PropertiesReader().getValueOf(idioma,
-				"login_boton")));
+				"login__boton")));
 
 	// validamos el boton de idioma del desplegable
 

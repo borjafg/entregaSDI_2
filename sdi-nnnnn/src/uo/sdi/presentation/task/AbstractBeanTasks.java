@@ -35,7 +35,7 @@ public abstract class AbstractBeanTasks {
 	    cargarTareas();
 
 	    MessageManager.info(context, "mensajes_usuario",
-		    "listado_tareas__exito_finalizar");
+		    "listar_tareas__exito_finalizar");
 
 	    FacesContext.getCurrentInstance().getExternalContext().getFlash()
 		    .setKeepMessages(true);

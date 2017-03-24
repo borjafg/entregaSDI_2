@@ -13,13 +13,16 @@
 	</ui:define>
 
 	<ui:define name="items_menu">
-		<p:menuitem value="volver" action="volver" inmediate="true" />
+		<p:menuitem value="#{msgs.listar_tareas__volver}" action="volver"
+			inmediate="true" />
 	</ui:define>
 
 	<ui:define name="cuerpo">
 		<p:dataTable id="tabla_tareas" value="#{bean_inbox.tasks}" var="tarea"
 			rows="8" paginator="true"
 			paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+
+			<f:facet name="header">#{msgs.listar_tareas__titulo_inbox}</f:facet>
 
 
 			<p:column headerText="Titulo columna titulo"
@@ -80,10 +83,9 @@
 			</p:column>
 
 
-			<p:column headerText="Titulo columna finished"
-				id="columna_finalizar_titulo">
+			<p:column id="columna_finalizar_titulo">
 
-				<p:commandLink value="#{msgs.listado_tareas_boton_finalizar}"
+				<p:commandLink value="#{msgs.listar_tareas__boton_finalizar}"
 					id="columna_finalizar" rendered="#{tarea.finished == null}"
 					action="#{bean_inbox.terminarTarea(tarea.id)}"
 					update="form_user:tabla_tareas mensajes_user" />

@@ -156,7 +156,7 @@ public class PlantillaSDI2_Tests1617 {
 		"No se encontró el mensaje de login inválido",
 		mensaje.getText().equals(
 			new PropertiesReader().getValueOf(defaultLocale,
-				"error_login_usuario_no_existe")));
+				"error_login__usuario_no_existe")));
 
 	ThreadUtil.wait(800); // Espera para ver el efecto del test
     }
@@ -179,7 +179,7 @@ public class PlantillaSDI2_Tests1617 {
 		"No se encontró el mensaje de login inválido",
 		mensaje.getText().equals(
 			new PropertiesReader().getValueOf(defaultLocale,
-				"error_login_usuario_no_existe")));
+				"error_login__usuario_no_existe")));
 
 	ThreadUtil.wait(800); // Espera para ver el efecto del test
     }
@@ -208,7 +208,7 @@ public class PlantillaSDI2_Tests1617 {
 		"No se encontró el mensaje de login inválido",
 		mensaje.getText().equals(
 			new PropertiesReader().getValueOf(defaultLocale,
-				"administrador_exito_reinicio_base_datos")));
+				"administrador__exito_reinicio_base_datos")));
 
 	// (6) Comprobar que los datos son los que deberían ser
 	try {
@@ -286,7 +286,7 @@ public class PlantillaSDI2_Tests1617 {
 		"No se encontró el mensaje de éxito al cambiar de usuario",
 		mensaje.getText().equals(
 			new PropertiesReader().getValueOf(defaultLocale,
-				"administrador_exito_cambiar_estado")));
+				"administrador__exito_cambiar_estado")));
 
 	ThreadUtil.wait(1000); // Espera para ver el efecto del test
 
@@ -311,7 +311,7 @@ public class PlantillaSDI2_Tests1617 {
 		"No se encontró el mensaje de usuario deshabilitado",
 		mensaje.getText().equals(
 			new PropertiesReader().getValueOf(defaultLocale,
-				"error_login_usuario_deshabilitado")));
+				"error_login__usuario_deshabilitado")));
 
 	ThreadUtil.wait(1000); // Espera para ver el efecto del test
     }
@@ -345,7 +345,7 @@ public class PlantillaSDI2_Tests1617 {
 		"No se encontró el mensaje de éxito al cambiar de usuario",
 		mensaje.getText().equals(
 			new PropertiesReader().getValueOf(defaultLocale,
-				"administrador_exito_cambiar_estado")));
+				"administrador__exito_cambiar_estado")));
 
 	ThreadUtil.wait(800); // Espera para ver el efecto del test
 
@@ -523,7 +523,7 @@ public class PlantillaSDI2_Tests1617 {
 		"No se encontró el mensaje de éxito al cambiar de usuario",
 		mensaje.getText().equals(
 			new PropertiesReader().getValueOf(defaultLocale,
-				"administrador_exito_cambiar_estado")));
+				"administrador__exito_cambiar_estado")));
 
 	ThreadUtil.wait(800); // Espera para ver el efecto del test
 
@@ -608,7 +608,7 @@ public class PlantillaSDI2_Tests1617 {
 		"No se encontró el mensaje de éxito al cambiar de usuario",
 		mensaje.getText().equals(
 			new PropertiesReader().getValueOf(defaultLocale,
-				"administrador_exito_cambiar_estado")));
+				"administrador__exito_cambiar_estado")));
 
 	ThreadUtil.wait(400);
 
@@ -666,7 +666,7 @@ public class PlantillaSDI2_Tests1617 {
 		"No se encontró el mensaje de usuario eliminado",
 		mensaje.getText().equals(
 			new PropertiesReader().getValueOf(defaultLocale,
-				"administrador_exito_borrar_usuario")));
+				"administrador__exito_borrar_usuario")));
 
 	ThreadUtil.wait(900);
 
@@ -694,7 +694,7 @@ public class PlantillaSDI2_Tests1617 {
 		"No se encontró el mensaje de login inválido",
 		mensaje.getText().equals(
 			new PropertiesReader().getValueOf(defaultLocale,
-				"error_login_usuario_no_existe")));
+				"error_login__usuario_no_existe")));
 
 	// (11) Comprobar que realmente se borraron sus datos
 	try {
@@ -741,7 +741,7 @@ public class PlantillaSDI2_Tests1617 {
 		mensajes.get(0)
 			.getText()
 			.equals(new PropertiesReader().getValueOf(
-				defaultLocale, "registro_exito")));
+				defaultLocale, "registro__exito")));
     }
 
     // PR13: Crear una cuenta de usuario normal con login repetido.
@@ -770,9 +770,9 @@ public class PlantillaSDI2_Tests1617 {
 		"No se ha encontrado el mensaje de login ya existente",
 		mensajes.get(0)
 			.getText()
-			.equals(new PropertiesReader()
-				.getValueOf(defaultLocale,
-					"error_registro_login_ya_existe")));
+			.equals(new PropertiesReader().getValueOf(
+				defaultLocale,
+				"error_registro__login_ya_existe")));
     }
 
     // PR14: Crear una cuenta de usuario normal con Email incorrecto.
@@ -799,9 +799,9 @@ public class PlantillaSDI2_Tests1617 {
 		"No se ha encontrado el mensaje de mail incorrecto",
 		mensajes.get(0)
 			.getText()
-			.equals(new PropertiesReader()
-				.getValueOf(defaultLocale,
-					"error_registro_email_no_valido")));
+			.equals(new PropertiesReader().getValueOf(
+				defaultLocale,
+				"error_registro__email_no_valido")));
     }
 
     // PR15: Crear una cuenta de usuario normal con Password incorrecta.
@@ -833,7 +833,7 @@ public class PlantillaSDI2_Tests1617 {
 			.getText()
 			.equals(new PropertiesReader().getValueOf(
 				defaultLocale,
-				"error_registro_password_contenido")));
+				"error_registro__password_contenido")));
 
 	// (6) rellenamos el formulario [caso contraseña solo letras]
 	new PO_RegistryForm().completeForm(driver, "usuario5",
@@ -852,7 +852,7 @@ public class PlantillaSDI2_Tests1617 {
 			.getText()
 			.equals(new PropertiesReader().getValueOf(
 				defaultLocale,
-				"error_registro_password_contenido")));
+				"error_registro__password_contenido")));
 
 	// (9) rellenamos el formulario [caso longitud contraseña inferior a 8
 	// digitos]
@@ -870,7 +870,7 @@ public class PlantillaSDI2_Tests1617 {
 		mensajes.get(0)
 			.getText()
 			.equals(new PropertiesReader().getValueOf(
-				defaultLocale, "error_registro_password")));
+				defaultLocale, "error_registro__password")));
 
 	// (12) rellenamos el formulario [caso contraseñas distintas]
 	new PO_RegistryForm().completeForm(driver, "usuario5",
@@ -888,7 +888,7 @@ public class PlantillaSDI2_Tests1617 {
 		mensajes.get(0)
 			.getText()
 			.equals(new PropertiesReader().getValueOf(
-				defaultLocale, "error_registro_password")));
+				defaultLocale, "error_registro__password")));
     }
 
     // -------------------
@@ -987,7 +987,7 @@ public class PlantillaSDI2_Tests1617 {
 		    pestaña.get(i).get("titulo").equals("tarea" + (i + 11)));
 	    assertTrue("El dia no coincide", DateUtil.sameDay(
 		    DateUtil.convertStringToDate((String) pestaña.get(i).get(
-			    "fechaPLaneada")), hoy));
+			    "fechaPlaneada")), hoy));
 
 	}
 	ThreadUtil.wait(600);
@@ -1005,24 +1005,23 @@ public class PlantillaSDI2_Tests1617 {
 		    pestaña.get(i).get("titulo").equals("tarea" + (i + 19)));
 	    assertTrue("El dia no coincide", DateUtil.sameDay(
 		    DateUtil.convertStringToDate((String) pestaña.get(i).get(
-			    "fechaPLaneada")), hoy));
+			    "fechaPlaneada")), hoy));
 
 	}
 	int num = 1;
 	int cont = 1;
 	int sum = 0;
-	for (int i = 2; i < 8; i++) {	   
-	    
-	    
+	for (int i = 2; i < 8; i++) {
+
 	    assertTrue("Los nombres no son iguales",
 		    pestaña.get(i).get("titulo").equals("tarea0" + (num)));
-	    if(cont == 3){
+	    if (cont == 3) {
 		cont = 0;
-		sum = sum +1;
+		sum = sum + 1;
 	    }
 	    assertTrue("El dia no coincide", DateUtil.sameDay(
 		    DateUtil.convertStringToDate((String) pestaña.get(i).get(
-			    "fechaPLaneada")),
+			    "fechaPlaneada")),
 		    DateUtil.convertStringToDate((hoy.getDay() + sum) + "/"
 			    + hoy.getMonth() + "/" + hoy.getYear())));
 	    ++num;
@@ -1151,7 +1150,7 @@ public class PlantillaSDI2_Tests1617 {
 			.getText()
 			.equals(new PropertiesReader().getValueOf(
 				defaultLocale,
-				"administrador_titulo_tabla_usuarios")));
+				"administrador__titulo_tabla_usuarios")));
 
 	// (3) cerramos sesión
 	SeleniumUtils.ClickSubopcionMenuHover(driver,
@@ -1167,7 +1166,7 @@ public class PlantillaSDI2_Tests1617 {
 		mensajes.get(0)
 			.getText()
 			.equals(new PropertiesReader().getValueOf(
-				defaultLocale, "login_titulo_panel")));
+				defaultLocale, "login__titulo_panel")));
 
     }
 
@@ -1185,9 +1184,9 @@ public class PlantillaSDI2_Tests1617 {
 		"No se ha encontrado el nombre de la tabla",
 		mensajes.get(0)
 			.getText()
-			.equals(new PropertiesReader()
-				.getValueOf(defaultLocale,
-					"principal_usuario_titulo_panel")));
+			.equals(new PropertiesReader().getValueOf(
+				defaultLocale,
+				"principal_usuario__titulo_panel")));
 
 	// (3) cerramos sesión
 	SeleniumUtils.ClickSubopcionMenuHover(driver,
@@ -1203,7 +1202,7 @@ public class PlantillaSDI2_Tests1617 {
 		mensajes.get(0)
 			.getText()
 			.equals(new PropertiesReader().getValueOf(
-				defaultLocale, "login_titulo_panel")));
+				defaultLocale, "login__titulo_panel")));
 
     }
 
@@ -1342,7 +1341,6 @@ public class PlantillaSDI2_Tests1617 {
 
 	new PO_LoginForm().completeForm(driver, "admin", "admin");
 	// // (2.1)comprobamos idioma por defecto
-
 
 	new ValidadorPrincipalAdministrador(defaultLocale, driver)
 		.comprobarTextos();

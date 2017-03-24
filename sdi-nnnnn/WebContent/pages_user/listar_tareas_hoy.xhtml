@@ -6,13 +6,16 @@
 	template="/templates/template_usuario.xhtml">
 
 	<ui:define name="items_menu">
-		<p:menuitem value="volver" action="volver" inmediate="true" />
+		<p:menuitem value="#{msgs.listar_tareas__volver}" action="volver"
+			inmediate="true" />
 	</ui:define>
 
 	<ui:define name="cuerpo">
 		<p:dataTable id="tabla_tareas" value="#{bean_today.tasks}" var="tarea"
 			rows="8" paginator="true"
 			paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+
+			<f:facet name="header">#{msgs.listar_tareas__titulo_hoy}</f:facet>
 
 
 			<p:column headerText="Titulo columna titulo"
@@ -66,11 +69,10 @@
 			</p:column>
 
 
-			<p:column headerText="Titulo columna finished"
-				id="columna_finalizar_titulo">
+			<p:column id="columna_finalizar_titulo">
 
 				<p:commandLink id="columna_finalizar"
-					value="#{msgs.listado_tareas_boton_finalizar}"
+					value="#{msgs.listar_tareas__boton_finalizar}"
 					action="#{bean_today.terminarTarea(tarea.id)}"
 					update="form_user:tabla_tareas mensajes_user" />
 			</p:column>
