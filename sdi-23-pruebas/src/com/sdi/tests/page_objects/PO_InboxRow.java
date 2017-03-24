@@ -29,7 +29,7 @@ public class PO_InboxRow {
 	row.put("fechaPlaneada", fechaPlaneada.getText());
 
 	WebElement fechaFinalizada = driver.findElement(By
-		.id("form_user:tabla_tareas:" + index + ":columna_finalizada"));
+		.id("form_user:tabla_tareas:" + index + ":columna_finalizar"));
 	row.put("fechaFinalizada", fechaFinalizada.getText());
 
 	return row;

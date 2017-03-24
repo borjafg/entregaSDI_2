@@ -7,7 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class PO_HoySemanaRow {
+public class PO_HoyRow {
     public Map<String, Object> findRow(WebDriver driver, int index) {
 	Map<String, Object> row = new HashMap<String, Object>();
 
@@ -22,6 +22,7 @@ public class PO_HoySemanaRow {
 
 	WebElement categoria = driver.findElement(By
 		.id("form_user:tabla_tareas:" + index + ":columna_categoria"));
+
 	row.put("categoria", categoria.getText());
 
 	WebElement fechaCreada = driver.findElement(By
@@ -30,10 +31,11 @@ public class PO_HoySemanaRow {
 
 	WebElement fechaPlaneada = driver.findElement(By
 		.id("form_user:tabla_tareas:" + index + ":columna_planeada"));
+
 	row.put("fechaPlaneada", fechaPlaneada.getText());
 
 	WebElement fechaFinalizada = driver.findElement(By
-		.id("form_user:tabla_tareas:" + index + ":columna_finalizada"));
+		.id("form_user:tabla_tareas:" + index + ":columna_finalizar"));
 	row.put("fechaFinalizada", fechaFinalizada.getText());
 
 	return row;

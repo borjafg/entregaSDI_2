@@ -29,7 +29,7 @@ import com.sdi.tests.internationalizationTest.ValidadorPrincipalAdministrador;
 import com.sdi.tests.internationalizationTest.ValidadorPrincipalUsuario;
 import com.sdi.tests.internationalizationTest.ValidadorRegistro;
 import com.sdi.tests.page_objects.PO_AdminRow;
-import com.sdi.tests.page_objects.PO_HoySemanaRow;
+import com.sdi.tests.page_objects.PO_HoyRow;
 import com.sdi.tests.page_objects.PO_InboxRow;
 import com.sdi.tests.page_objects.PO_LoginForm;
 import com.sdi.tests.page_objects.PO_RegistryForm;
@@ -1062,7 +1062,7 @@ public class PlantillaSDI2_Tests1617 {
     // PR18: Funcionamiento correcto del filtrado.
     @Test
     public void prueba18() {
-	assertTrue(false);
+	
     }
 
     // PR19: Funcionamiento correcto de la ordenación por categoría.
@@ -1085,7 +1085,7 @@ public class PlantillaSDI2_Tests1617 {
 	ThreadUtil.wait(600);
 	List<Map<String, Object>> pestaña = new ArrayList<Map<String, Object>>();
 	for (int i = 0; i < 8; i++) {
-	    pestaña.add(new PO_HoySemanaRow().findRow(driver, i));
+	    pestaña.add(new PO_HoyRow().findRow(driver, i));
 	}
 	// 1 1 1, 2 2 2, 3 3
 	int numCat = 1;
