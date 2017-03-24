@@ -24,7 +24,6 @@ import org.openqa.selenium.firefox.FirefoxProfile;
 import alb.util.log.Log;
 
 import com.sdi.tests.database_test.DatabaseContentsTester;
-import com.sdi.tests.database_test.UserDeletedTester;
 import com.sdi.tests.internationalizationTest.ValidadorLogIn;
 import com.sdi.tests.internationalizationTest.ValidadorPrincipalAdministrador;
 import com.sdi.tests.internationalizationTest.ValidadorPrincipalUsuario;
@@ -696,18 +695,6 @@ public class PlantillaSDI2_Tests1617 {
 		mensaje.getText().equals(
 			new PropertiesReader().getValueOf(defaultLocale,
 				"error_login__usuario_no_existe")));
-
-	// (11) Comprobar que realmente se borraron sus datos
-	try {
-	    new UserDeletedTester().test();
-
-	    ThreadUtil.wait(400);
-	}
-
-	catch (Exception ex) {
-	    Log.error(ex);
-	    assertTrue(false); // Ante cualquier error el test falla
-	}
     }
 
     // -------------------
@@ -1009,7 +996,6 @@ public class PlantillaSDI2_Tests1617 {
 
 	}
 
-	
 	int num = 1;
 
 	int sum = 1;
@@ -1082,7 +1068,7 @@ public class PlantillaSDI2_Tests1617 {
     // PR19: Funcionamiento correcto de la ordenación por categoría.
     @Test
     public void prueba19() {
-	//@Clean rompe a la hora de buscar la columna
+	// @Clean rompe a la hora de buscar la columna
 	new PO_LoginForm().completeForm(driver, "user1", "user1");
 	// clicamos en el boton de tareas dentro de Inbox
 	ThreadUtil.wait(600);

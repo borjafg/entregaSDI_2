@@ -25,9 +25,10 @@
 			<f:facet name="header">#{msgs.listar_tareas__titulo_inbox}</f:facet>
 
 
-			<p:column headerText="Titulo columna titulo"
+			<p:column headerText="#{msgs.listar_tareas__columna_titulo}"
 				id="columna_titulo_titulo" sortBy="#{tarea}"
 				sortFunction="#{bean_inbox.inboxSorter.sortByTitle}"
+				filterable="true" filterBy="#{tarea.title}"
 				filterMatchMode="contains">
 
 				<h:outputText value="#{tarea.title}" id="columna_titulo_normal"
@@ -38,7 +39,7 @@
 			</p:column>
 
 
-			<p:column headerText="Titulo columna comments"
+			<p:column headerText="#{msgs.listar_tareas__columna_comentario}"
 				id="columna_comentarios_titulo" sortBy="#{tarea}"
 				sortFunction="#{bean_inbox.inboxSorter.sortByComments}">
 
@@ -46,7 +47,7 @@
 			</p:column>
 
 
-			<p:column headerText="Titulo columna created"
+			<p:column headerText="#{msgs.listar_tareas__columna_creada}"
 				id="columna_creada_titulo" sortBy="#{tarea}"
 				sortFunction="#{bean_inbox.inboxSorter.sortByCreated}">
 
@@ -56,7 +57,7 @@
 			</p:column>
 
 
-			<p:column headerText="Titulo columna planned"
+			<p:column headerText="#{msgs.listar_tareas__columna_planeada}"
 				id="columna_planeada_titulo" sortBy="#{tarea}"
 				sortFunction="#{bean_inbox.inboxSorter.sortByPlanned}">
 
@@ -73,7 +74,7 @@
 			</p:column>
 
 
-			<p:column headerText="Titulo columna finished"
+			<p:column headerText="#{msgs.listar_tareas__columna_finalizada}"
 				id="columna_finalizada_titulo" sortBy="#{tarea}"
 				sortFunction="#{bean_inbox.inboxSorter.sortByFinished}">
 

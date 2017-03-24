@@ -18,7 +18,7 @@
 			<f:facet name="header">#{msgs.listar_tareas__titulo_hoy}</f:facet>
 
 
-			<p:column headerText="Titulo columna titulo"
+			<p:column headerText="#{msgs.listar_tareas__columna_titulo}"
 				id="columna_titulo_titulo">
 
 				<h:outputText value="#{tarea.title}" id="columna_titulo"
@@ -26,14 +26,14 @@
 			</p:column>
 
 
-			<p:column headerText="Titulo columna comments"
+			<p:column headerText="#{msgs.listar_tareas__columna_comentario}"
 				id="columna_comentarios_titulo">
 
 				<h:outputText value="#{tarea.comments}" id="columna_comentarios" />
 			</p:column>
 
 
-			<p:column headerText="Titulo columna category"
+			<p:column headerText="#{msgs.listar_tareas__columna_categoria}"
 				id="columna_categoria_titulo" sortBy="#{tarea.category.name}">
 
 				<h:outputText value="----------" id="columna_no_categoria"
@@ -44,7 +44,7 @@
 			</p:column>
 
 
-			<p:column headerText="Titulo columna created"
+			<p:column headerText="#{msgs.listar_tareas__columna_creada}"
 				id="columna_creada_titulo">
 
 				<h:outputText value="#{tarea.created}" id="columna_creada">
@@ -53,7 +53,7 @@
 			</p:column>
 
 
-			<p:column headerText="Titulo columna planned"
+			<p:column headerText="#{msgs.listar_tareas__columna_planeada}"
 				id="columna_planeada_titulo" sortBy="#{tarea.planned}">
 
 				<h:outputText value="#{tarea.planned}"
