@@ -1062,7 +1062,51 @@ public class PlantillaSDI2_Tests1617 {
     // PR18: Funcionamiento correcto del filtrado.
     @Test
     public void prueba18() {
+	new PO_LoginForm().completeForm(driver, "user1", "user1");
+	ThreadUtil.wait(600);
+	WebElement botonInbox = driver.findElement(By.id("form_user:inbox"));
+	botonInbox.click();
+	SeleniumUtils.EsperaCargaPagina(driver, "id",
+		"form_user:tabla_tareas_data", 10);
+
+	WebElement field = driver.findElement(By
+		.id("form_user:tabla_tareas:columna_titulo_titulo:filter"));
+	field.click();
+	field.clear();
+	field.sendKeys("1");// vamos a mostrar todos las tareas que tienen un 1
+	List<Map<String, Object>> pestaña = new ArrayList<Map<String, Object>>();
+	for (int i = 0; i < 8; i++) {
+	    pestaña.add(new PO_InboxRow().findRow(driver, i));
+	}
+
+	int base = 10;
+	for (int i = 0; i < 8; i++) {
+	    if (i == 0) {
+		assertTrue("Los nombre coinciden", pestaña.get(i).get("titulo")
+			.equals("tarea01"));
+	    } else {
+		assertTrue("Los nombre coinciden", pestaña.get(i).get("titulo")
+			.equals("tarea" + base));
+	    }
+	    ++base;
+	}
+	// segunda pestaña
+	ThreadUtil.wait(600);
+	SeleniumUtils
+		.EsperaCargaPagina(driver, "class",
+			"ui-icon ui-icon-seek-next", 8).get(0).click();
+	ThreadUtil.wait(600);
 	
+	pestaña = new ArrayList<Map<String, Object>>();
+	for(int i = 8; i<=10;i++){
+	    pestaña.add(new PO_InboxRow().findRow(driver, i));
+	}
+	for (int i = 0; i<=2; i++){
+	    assertTrue("Los nombre coinciden", pestaña.get(i).get("titulo")
+			.equals("tarea" + base));
+	    ++base;
+	}
+
     }
 
     // PR19: Funcionamiento correcto de la ordenación por categoría.
@@ -1100,6 +1144,46 @@ public class PlantillaSDI2_Tests1617 {
 		    pestaña.get(i).get("categoria")
 			    .equals("Categoria" + numCat));
 	}
+
+	ThreadUtil.wait(300);
+	// cliacamos para pasar a la siguiente pestaña
+	SeleniumUtils
+		.EsperaCargaPagina(driver, "class",
+			"ui-icon ui-icon-seek-next", 8).get(0).click();
+	ThreadUtil.wait(600);
+	pestaña = new ArrayList<Map<String, Object>>();
+
+	for (int i = 8; i < 16; i++) {
+	    pestaña.add(new PO_HoyRow().findRow(driver, i));
+	}
+	numCat = 29;
+	for (int i = 0; i < 8; i++) {
+	    if (i <= 1) {
+		assertTrue(
+			"categoria es distinta",
+			pestaña.get(i).get("categoria")
+				.equals("Categoria" + numCat));
+		++numCat;
+	    } else {
+		assertTrue("categoria es distinta",
+			pestaña.get(i).get("categoria").equals("----------"));
+	    }
+	}
+	ThreadUtil.wait(300);
+	SeleniumUtils
+		.EsperaCargaPagina(driver, "class",
+			"ui-icon ui-icon-seek-next", 8).get(0).click();
+	ThreadUtil.wait(600);
+	pestaña = new ArrayList<Map<String, Object>>();
+	for (int i = 16; i < 20; i++) {
+	    pestaña.add(new PO_HoyRow().findRow(driver, i));
+	}
+
+	for (int i = 0; i <= 4; i++) {
+	    assertTrue("categoria es distinta", pestaña.get(i).get("categoria")
+		    .equals("----------"));
+	}
+
     }
 
     // PR20: Funcionamiento correcto de la ordenación por fecha planeada.
