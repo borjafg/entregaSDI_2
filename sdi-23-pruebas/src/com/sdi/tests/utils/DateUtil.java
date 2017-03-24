@@ -11,8 +11,11 @@ import alb.util.log.Log;
 public class DateUtil {
 
     public static boolean sameDay(Date date1, Date date2) {
+	System.err.println("Same day ");
 	Date dateT1 = trunk(date1);
+	System.err.println("fecha 1: "+dateT1);
 	Date dateT2 = trunk(date2);
+	System.err.println("fecha 2: "+dateT2);
 	return dateT1.compareTo(dateT2) == 0;
 
     }
@@ -39,4 +42,22 @@ public class DateUtil {
 	return fechaDate;
 
     }
+
+   
+    public static Date diasSiguientes(Date fecha,int dias){
+	System.err.println("dias siguientes");
+	Calendar calendar = Calendar.getInstance(TimeZone
+		.getTimeZone("Europe/Madrid"));
+	System.err.println(calendar.getTime());
+	calendar.setTime(fecha);
+	calendar.set(Calendar.HOUR_OF_DAY, 0);
+	calendar.set(Calendar.MINUTE, 0);
+	calendar.set(Calendar.SECOND, 0);
+	calendar.set(Calendar.MILLISECOND, 0);	
+	calendar.add(Calendar.DAY_OF_YEAR, dias);
+	System.err.println(calendar.getTime());
+	return calendar.getTime();
+	
+    }
+    
 }

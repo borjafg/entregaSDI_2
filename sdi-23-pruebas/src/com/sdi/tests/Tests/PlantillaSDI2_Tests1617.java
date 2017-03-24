@@ -958,7 +958,6 @@ public class PlantillaSDI2_Tests1617 {
     }
 
     // PR17: Funcionamiento correcto de la ordenación por fecha planeada.
-    @SuppressWarnings("deprecation")
     @Test
     public void prueba17() {
 	// variable para la comprobación
@@ -1008,24 +1007,66 @@ public class PlantillaSDI2_Tests1617 {
 			    "fechaPlaneada")), hoy));
 
 	}
+
+	// @Clean codigo con deprected y no chirula
 	int num = 1;
-	int cont = 1;
-	int sum = 0;
+
+	int sum = 1;
 	for (int i = 2; i < 8; i++) {
 
 	    assertTrue("Los nombres no son iguales",
 		    pestaña.get(i).get("titulo").equals("tarea0" + (num)));
-	    if (cont == 3) {
-		cont = 0;
-		sum = sum + 1;
-	    }
+
+	    // hasta aquí funciona esta mierda
+
 	    assertTrue("El dia no coincide", DateUtil.sameDay(
 		    DateUtil.convertStringToDate((String) pestaña.get(i).get(
 			    "fechaPlaneada")),
-		    DateUtil.convertStringToDate((hoy.getDay() + sum) + "/"
-			    + hoy.getMonth() + "/" + hoy.getYear())));
+		    DateUtil.diasSiguientes(hoy, sum)));
 	    ++num;
-	    ++cont;
+	    if (i % 2 != 0) {
+		sum = sum + 1;
+	    }
+	}
+	// tercera pestaña
+	ThreadUtil.wait(600);
+	SeleniumUtils
+		.EsperaCargaPagina(driver, "class",
+			"ui-icon ui-icon-seek-next", 8).get(0).click();
+	ThreadUtil.wait(600);
+	pestaña = new ArrayList<Map<String, Object>>();
+
+	// 28,28,29,30 dias
+	// 16,17,18,19 index
+	for (int i = 16; i < 20; i++) {
+	    pestaña.add(new PO_InboxRow().findRow(driver, i));
+	}
+	// tareas 07,08,09,10
+	int numBase = 7;
+	int dias = 4;
+	for (int i = 0; i < 4; i++) {
+	    if (i != 3) {
+		assertTrue(
+			"Los nombres no son iguales",
+			pestaña.get(i).get("titulo")
+				.equals("tarea0" + (numBase)));
+		++numBase;
+	    } else {
+		assertTrue("Los nombres no son iguales",
+			pestaña.get(i).get("titulo").equals("tarea10"));
+	    }
+	    if (i < 2) {
+		assertTrue("El dia no coincide", DateUtil.sameDay(DateUtil
+			.convertStringToDate((String) pestaña.get(i).get(
+				"fechaPlaneada")), DateUtil.diasSiguientes(hoy,
+			dias)));
+	    } else {
+		++dias;
+		assertTrue("El dia no coincide", DateUtil.sameDay(DateUtil
+			.convertStringToDate((String) pestaña.get(i).get(
+				"fechaPlaneada")), DateUtil.diasSiguientes(hoy,
+			dias)));
+	    }
 
 	}
 
