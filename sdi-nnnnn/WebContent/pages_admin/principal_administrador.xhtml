@@ -9,6 +9,8 @@
 <f:view locale="#{bean_language_config.locale}">
 	<h:head>
 		<title>#{msgs.tituloHead}</title>
+		<link rel="stylesheet" type="text/css"
+			href="#{request.getContextPath()}/css/principal_administrador.css" />
 	</h:head>
 
 	<h:body>
@@ -54,7 +56,7 @@
 
 
 				<p:column
-					style="#{empty usuario ? '' : 'background-color: #f3f5a7;'}">
+					styleClass="#{empty usuario ? '' : 'campo_amarillo_claro'}">
 					<p:commandLink action="#{bean_users_list.changeStatus(usuario)}"
 						immediate="true" type="submit" id="button_status"
 						update="form_admin:tabla_usuarios mensajes_admin"
@@ -62,7 +64,7 @@
 				</p:column>
 
 				<p:column
-					style="#{empty usuario ? '' : 'background-color: #ffcccc;'}">
+					styleClass="#{empty usuario ? '' : 'campo_rojo_claro'}">
 					<p:commandLink action="#{bean_users_list.deleteUser(usuario)}"
 						immediate="true" type="submit" id="button_delete"
 						update="form_admin:tabla_usuarios mensajes_admin"
