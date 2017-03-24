@@ -6,6 +6,9 @@
 	template="/templates/template_usuario.xhtml">
 
 	<ui:define name="anadir_head">
+		<link rel="stylesheet" type="text/css"
+			href="#{request.getContextPath()}/css/listar_tareas.css" />
+
 		<f:metadata>
 			<f:event type="preRenderView"
 				listener="#{bean_inbox.mantenerOpcionFiltro}" />
@@ -31,11 +34,8 @@
 				filterable="true" filterBy="#{tarea.title}"
 				filterMatchMode="contains">
 
-				<h:outputText value="#{tarea.title}" id="columna_titulo_normal"
-					rendered="#{tarea.finished eq null}" />
-
-				<h:outputText value="#{tarea.title}" id="columna_titulo_verde"
-					rendered="#{tarea.finished ne null}" style="color: #347f35;" />
+				<h:outputText value="#{tarea.title}" id="columna_titulo"
+					styleClass="#{tarea.finished != null ? 'elemento_color_verde' : ''}" />
 			</p:column>
 
 
@@ -61,14 +61,8 @@
 				id="columna_planeada_titulo" sortBy="#{tarea}"
 				sortFunction="#{bean_inbox.inboxSorter.sortByPlanned}">
 
-				<h:outputText value="#{tarea.planned}"
-					id="columna_planeada_retrasada" style="color: #b30000;"
-					rendered="#{bean_inbox.estaRetrasada(tarea) == true}">
-					<f:convertDateTime dateStyle="short" type="date" />
-				</h:outputText>
-
-				<h:outputText value="#{tarea.planned}" id="columna_planeada"
-					rendered="#{bean_inbox.estaRetrasada(tarea) == false}">
+				<h:outputText id="columna_planeada" value="#{tarea.planned}"
+					styleClass="#{bean_inbox.estaRetrasada(tarea) ? 'elemento_color_rojo' : ''}">
 					<f:convertDateTime dateStyle="short" type="date" />
 				</h:outputText>
 			</p:column>
