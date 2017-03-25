@@ -42,7 +42,7 @@ public class CreateTaskCommand implements Command<Task> {
 	    task.setCategory(categ);
 	}
 
-	task.setPlanned(task.getPlanned());
+	task.setPlanned(taskDTO.getPlanned());
 	task.setFinished(null);
 
 	Jpa.getManager().persist(task);
