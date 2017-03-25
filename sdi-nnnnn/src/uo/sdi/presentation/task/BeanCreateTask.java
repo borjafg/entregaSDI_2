@@ -32,6 +32,8 @@ public class BeanCreateTask implements Serializable {
     private Map<String, Long> categories;
     private Date planned;
 
+    private Date today = new Date();
+
     // =============================
     // Inicialización
     // =============================
@@ -75,38 +77,47 @@ public class BeanCreateTask implements Serializable {
 
     public String crearTarea() {
 	FacesContext contexto = FacesContext.getCurrentInstance();
+	UserInfo user = (UserInfo) contexto.getExternalContext()
+		.getSessionMap().get("user");
 
 	try {
-	    UserInfo user = (UserInfo) contexto.getExternalContext()
-		    .getSessionMap().get("user");
-
 	    TaskDTO newTask = new TaskDTO(name, category, user.getId());
+
+	    newTask.setComments(comments);
+	    newTask.setPlanned(planned);
 
 	    Services.getTaskService().createTask(newTask);
 
 	    Log.debug("Se ha creado una nueva tarea para el usuario [%s]. "
 		    + "Datos de la tarea - [nombre: %s, comentarios: %s, "
-		    + "categoría: %s, planeada para: %D]", user.getLogin(),
-		    comments, category, planned);
+		    + "categoría: %s, planeada para: %5$td/%5$tm/%5$tY]",
+		    user.getLogin(), name, comments, category, planned);
 
-	    MessageManager.info(contexto, "mensajes_user", "");
+	    MessageManager.info(contexto, "mensajes_usuario",
+		    "crear_tarea__exito");
+
+	    contexto.getExternalContext().getFlash().setKeepMessages(true);
 
 	    return "exito";
 	}
 
 	catch (BusinessException bs) {
-	    Log.error("No se ha podido crear la nueva tarea. Causa: %s",
-		    bs.getMessage());
+	    Log.error("No se ha podido crear la nueva tarea para el usuario "
+		    + "[%s]. Causa: %s", user.getLogin(), bs.getMessage());
 
 	    cargarCategorias();
 
-	    MessageManager.warning(contexto, "mensajes_user",
+	    MessageManager.warning(contexto, "mensajes_usuario",
 		    bs.getClaveFicheroMensajes());
 
 	    return "fallo";
 	}
 
 	catch (Exception ex) {
+	    Log.error("Ha ocurrido un error al intentar crear una nueva tarea "
+		    + "para el usuario [%s]", user.getLogin());
+	    Log.error(ex);
+
 	    return "error";
 	}
     }
@@ -149,6 +160,10 @@ public class BeanCreateTask implements Serializable {
 
     public Date getPlanned() {
 	return planned;
+    }
+
+    public Date getToday() {
+	return today;
     }
 
     // =============================

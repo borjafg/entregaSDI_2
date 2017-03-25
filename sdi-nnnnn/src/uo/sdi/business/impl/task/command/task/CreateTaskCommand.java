@@ -22,7 +22,7 @@ public class CreateTaskCommand implements Command<Task> {
 
     @Override
     public Task execute() throws BusinessException {
-	User user = UserFinder.findById(taskDTO.getId());
+	User user = UserFinder.findById(taskDTO.getUserId());
 
 	TaskCheck.isUserValid(user);
 	TaskCheck.titleIsNotNull(taskDTO);
@@ -30,7 +30,11 @@ public class CreateTaskCommand implements Command<Task> {
 
 	Task task = new Task(taskDTO.getTitle(), user);
 
-	if (taskDTO.getCategory() != null) {
+	task.setComments(taskDTO.getComments());
+
+	if (taskDTO.getCategory() != null
+		&& taskDTO.getCategory().getId() != null) {
+
 	    Category categ = CategoryFinder.findById(taskDTO.getCategory()
 		    .getId());
 

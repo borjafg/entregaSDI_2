@@ -15,9 +15,12 @@
 	<ui:param name="valor_categorias" value="#{bean_new_task.categories}" />
 
 	<ui:param name="valor_planeada" value="#{bean_new_task.planned}" />
+	<ui:param name="fecha_hoy" value="#{bean_new_task.today}"></ui:param>
 
 
-	<ui:param name="boton_texto" value="#{msgs.crear_tarea__boton}" />
-	<ui:param name="boton_accion" value="#{bean_new_task.crearTarea}" />
+	<ui:define name="boton">
+		<p:commandButton id="boton_crear" value="#{msgs.crear_tarea__boton}"
+			action="#{bean_new_task.crearTarea}" update="@form" />
+	</ui:define>
 
 </ui:composition>

@@ -55,7 +55,7 @@
 						<p:message for="nombre" />
 
 						<p:outputLabel id="label_comentarios" for="comentarios"
-							value="#{msgs.crear_editar_tarea__nombre}" />
+							value="#{msgs.crear_editar_tarea__comentarios}" />
 
 						<p:inputText id="comentarios" value="#{valor_comentarios}"
 							placeholder="#{msgs.crear_editar_tarea__placeholder_comentarios}"
@@ -67,7 +67,9 @@
 						<p:outputLabel id="label_categoria" for="categoria"
 							value="#{msgs.crear_editar_tarea__categoria}" />
 
-						<p:selectOneMenu id="categoria" style="width: 275px">
+						<p:selectOneMenu id="categoria" style="width: 275px"
+							value="#{valor_categoria}">
+
 							<f:selectItems value="#{valor_categorias}" />
 						</p:selectOneMenu>
 
@@ -78,13 +80,13 @@
 							value="#{msgs.crear_editar_tarea__planeada}" />
 
 						<p:calendar id="planeada" value="#{valor_planeada}"
-							pattern="dd-MM-yyyy" mask="true" effect="blind" />
+							pattern="dd-MM-yyyy" mask="true" effect="blind"
+							mindate="#{fecha_hoy}" />
 
 
 						<p:outputLabel value="" />
 
-						<p:commandButton id="boton_crear" value="#{boton_texto}"
-							action="#{boton_accion}" update="@form" />
+						<ui:insert name="boton" />
 					</h:panelGrid>
 
 					<p:messages for="panel_registro" showDetail="true" closable="true" />
