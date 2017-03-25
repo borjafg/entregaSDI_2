@@ -3,6 +3,7 @@ package uo.sdi.presentation.task;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
@@ -10,9 +11,12 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
+import uo.sdi.business.TaskService;
 import uo.sdi.business.exception.BusinessException;
 import uo.sdi.dto.CategoryDTO;
+import uo.sdi.dto.TaskDTO;
 import uo.sdi.infrastructure.Services;
+import uo.sdi.presentation.util.MessageManager;
 import uo.sdi.presentation.util.UserInfo;
 import alb.util.log.Log;
 
@@ -24,8 +28,8 @@ public class BeanCreateTask implements Serializable {
 
     private String name;
     private String comments;
-    private String category; // nombre de la categoría
-    private Map<String, CategoryDTO> categories;
+    private Long category; // identificador de la categoría
+    private Map<String, Long> categories;
     private Date planned;
 
     // =============================
@@ -34,16 +38,25 @@ public class BeanCreateTask implements Serializable {
 
     @PostConstruct
     public void init() {
+	cargarCategorias();
+    }
+
+    private void cargarCategorias() {
 	UserInfo user = (UserInfo) FacesContext.getCurrentInstance()
 		.getExternalContext().getSessionMap().get("user");
 
 	try {
-	    categories = new HashMap<String, CategoryDTO>();
+	    TaskService taskServ = Services.getTaskService();
+
+	    List<CategoryDTO> categs = taskServ.findCategoriesByUserId(user
+		    .getId());
+
+	    categories = new HashMap<String, Long>();
 	    // cargar lista de categorias
 
-	    categories.put("--------", null);
-	    categories.put("dfge", null);
-	    categories.put("7654", null);
+	    for (CategoryDTO categ : categs) {
+		categories.put(categ.getName(), categ.getId());
+	    }
 
 	    Log.debug("Cargada lista de categorías del usuario [%s] para que "
 		    + "pueda decidir la categoría de la tarea que va a crear",
@@ -61,16 +74,22 @@ public class BeanCreateTask implements Serializable {
     // =============================
 
     public String crearTarea() {
-	try {
-	    UserInfo user = (UserInfo) FacesContext.getCurrentInstance()
-		    .getExternalContext().getSessionMap().get("user");
+	FacesContext contexto = FacesContext.getCurrentInstance();
 
-	    Services.getTaskService().createTask(null);
+	try {
+	    UserInfo user = (UserInfo) contexto.getExternalContext()
+		    .getSessionMap().get("user");
+
+	    TaskDTO newTask = new TaskDTO(name, category, user.getId());
+
+	    Services.getTaskService().createTask(newTask);
 
 	    Log.debug("Se ha creado una nueva tarea para el usuario [%s]. "
 		    + "Datos de la tarea - [nombre: %s, comentarios: %s, "
 		    + "categoría: %s, planeada para: %D]", user.getLogin(),
 		    comments, category, planned);
+
+	    MessageManager.info(contexto, "mensajes_user", "");
 
 	    return "exito";
 	}
@@ -78,6 +97,11 @@ public class BeanCreateTask implements Serializable {
 	catch (BusinessException bs) {
 	    Log.error("No se ha podido crear la nueva tarea. Causa: %s",
 		    bs.getMessage());
+
+	    cargarCategorias();
+
+	    MessageManager.warning(contexto, "mensajes_user",
+		    bs.getClaveFicheroMensajes());
 
 	    return "fallo";
 	}
@@ -107,15 +131,15 @@ public class BeanCreateTask implements Serializable {
 	return comments;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(Long category) {
 	this.category = category;
     }
 
-    public String getCategory() {
+    public Long getCategory() {
 	return category;
     }
 
-    public Map<String, CategoryDTO> getCategories() {
+    public Map<String, Long> getCategories() {
 	return categories;
     }
 

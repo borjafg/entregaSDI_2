@@ -2,7 +2,7 @@ package uo.sdi.business.impl.user.command;
 
 import uo.sdi.business.exception.BusinessException;
 import uo.sdi.business.impl.command.Command;
-import uo.sdi.business.impl.util.DTOadapter;
+import uo.sdi.dto.DTOadapter;
 import uo.sdi.dto.UserDTO;
 import uo.sdi.model.User;
 import uo.sdi.model.types.UserStatus;

@@ -1,11 +1,8 @@
-package uo.sdi.business.impl.util;
+package uo.sdi.dto;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import uo.sdi.dto.CategoryDTO;
-import uo.sdi.dto.TaskDTO;
-import uo.sdi.dto.UserDTO;
 import uo.sdi.model.Category;
 import uo.sdi.model.Task;
 import uo.sdi.model.User;

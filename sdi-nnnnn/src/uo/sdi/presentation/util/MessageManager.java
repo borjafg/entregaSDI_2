@@ -13,8 +13,11 @@ public class MessageManager {
      * @param context
      *            se usará para almacenar el mensaje de información.
      * 
-     * @param componentID
-     *            id del componente sobre el que hay que registrar el mensaje.
+     * @param componentIdent
+     *            indentificador del componente sobre el que hay que registrar
+     *            el mensaje. Se corresponde con el valor del atributo
+     *            <i>"for"</i> del componente message o messages del xhtml de
+     *            destino, que recogerá el mensaje y se lo mostrará al usuario.
      * 
      * @param messageKey
      *            identificador que permite obtener el mensaje a mostrar de
@@ -38,7 +41,10 @@ public class MessageManager {
      *            se usara para almacenar el mensaje de error.
      * 
      * @param componentID
-     *            id del componente sobre el que hay que registrar el error.
+     *            indentificador del componente sobre el que hay que registrar
+     *            el mensaje. Se corresponde con el valor del atributo
+     *            <i>"for"</i> del componente message o messages del xhtml de
+     *            destino, que recogerá el mensaje y se lo mostrará al usuario.
      * 
      * @param messageKey
      *            identificador que permite obtener el mensaje a mostrar de

@@ -11,7 +11,7 @@ import uo.sdi.business.impl.admin.command.FindAllUsers;
 import uo.sdi.business.impl.admin.command.RestartDatabase;
 import uo.sdi.business.impl.command.Command;
 import uo.sdi.business.impl.command.CommandExecutor;
-import uo.sdi.business.impl.util.DTOadapter;
+import uo.sdi.dto.DTOadapter;
 import uo.sdi.dto.UserDTO;
 import uo.sdi.persistence.UserFinder;
 

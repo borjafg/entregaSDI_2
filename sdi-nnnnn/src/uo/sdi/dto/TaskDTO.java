@@ -23,7 +23,7 @@ public class TaskDTO implements Serializable {
     /**
      * Se usa para transformar una categoría en un DTO
      */
-    public TaskDTO(Long id, Date created, Long userId) {
+    TaskDTO(Long id, Date created, Long userId) {
 	this.id = id;
 	this.created = created;
 	this.userId = userId;
