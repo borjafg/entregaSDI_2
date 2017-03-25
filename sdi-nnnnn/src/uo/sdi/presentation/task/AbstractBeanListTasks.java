@@ -66,10 +66,16 @@ public abstract class AbstractBeanListTasks {
     }
 
     public boolean estaRetrasada(TaskDTO tarea) {
-	if (tarea.getFinished() == null
-		&& alb.util.date.DateUtil.isBefore(tarea.getPlanned(),
-			DateUtil.today())) {
-	    return true;
+	if (tarea.getFinished() == null) {
+	    if (tarea.getPlanned() == null) {
+		return false;
+	    }
+
+	    if (DateUtil.isBefore(tarea.getPlanned(), DateUtil.today())) {
+		return true;
+	    }
+
+	    return false;
 	}
 
 	return false;
