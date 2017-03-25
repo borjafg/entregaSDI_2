@@ -1299,7 +1299,8 @@ public class PlantillaSDI2_Tests1617 {
 	    assertTrue(
 		    "Fecha  esta en rojo",
 		    ((WebElement) pestaña.get(i).get("fechaPlaneadaWebElement"))
-			    .getAttribute("class").contains(""));// color negro
+			    .getAttribute("class").contains(
+				    "elemento_color_negro"));// color negro
 	    ++base;
 	}
 
@@ -1336,7 +1337,8 @@ public class PlantillaSDI2_Tests1617 {
 	    assertTrue(
 		    "Fecha  esta en rojo",
 		    ((WebElement) pestaña.get(i).get("fechaPlaneadaWebElement"))
-			    .getAttribute("class").contains(""));// color negro
+			    .getAttribute("class").contains(
+				    "elemento_color_negro"));// color negro
 	    ++base;
 	}
 
@@ -1947,7 +1949,6 @@ public class PlantillaSDI2_Tests1617 {
 	assertTrue("La fecha planeada no coincide",
 		DateUtil.sameDay(DateUtil.convertStringToDate((String) tareaA
 			.get("fechaPlaneada")), hoy));
-
     }
 
     // PR29: Crear una tarea con categoría categoria1 y fecha planeada posterior
@@ -1959,6 +1960,45 @@ public class PlantillaSDI2_Tests1617 {
 	// (2) iniciamos sesion como usuario
 	new PO_LoginForm().completeForm(driver, "user1", "user1");
 	ThreadUtil.wait(600);
+
+	ThreadUtil.wait(600);
+	SeleniumUtils
+		.EsperaCargaPagina(driver, "id",
+			"form_menu_superior:menu_crear_tarea", 8).get(0)
+		.click();
+
+	ThreadUtil.wait(600);
+	new PO_CreateTask().completeFormWithoutCalendar(driver, "a", "a", 1, 6);
+
+	ThreadUtil.wait(600);
+	WebElement botonHoy = driver.findElement(By.id("form_user:semana"));
+	botonHoy.click();
+	ThreadUtil.wait(600);
+
+	SeleniumUtils
+		.EsperaCargaPagina(driver, "id",
+			"form_user:tabla_tareas:columna_planeada_titulo", 8)
+		.get(0).click();
+	ThreadUtil.wait(600);
+	SeleniumUtils
+		.EsperaCargaPagina(driver, "id",
+			"form_user:tabla_tareas:columna_planeada_titulo", 8)
+		.get(0).click();
+	ThreadUtil.wait(600);
+
+	Map<String, Object> tareaA = new PO_SemanaRow().findRow(driver, 1);
+
+	assertTrue("el nombre no coincide", tareaA.get("titulo").equals("a"));
+
+	assertTrue("el comentario no coincide", tareaA.get("comentario")
+		.equals("a"));
+	Date hoy = new Date();
+	assertTrue("La fecha creada no coincide",
+		DateUtil.sameDay(DateUtil.convertStringToDate((String) tareaA
+			.get("fechaCreacion")), hoy));
+	assertTrue("La fecha planeada no coincide", DateUtil.sameDay(DateUtil
+		.convertStringToDate((String) tareaA.get("fechaPlaneada")),
+		DateUtil.diasSiguientes(hoy, 6)));
 
     }
 
