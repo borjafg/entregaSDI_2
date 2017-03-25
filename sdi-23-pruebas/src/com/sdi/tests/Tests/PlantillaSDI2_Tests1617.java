@@ -859,7 +859,8 @@ public class PlantillaSDI2_Tests1617 {
 		mensajes.get(0)
 			.getText()
 			.equals(new PropertiesReader().getValueOf(
-				defaultLocale, "error_registro_edicion__password")));
+				defaultLocale,
+				"error_registro_edicion__password")));
 
 	// (12) rellenamos el formulario [caso contraseñas distintas]
 	new PO_RegistryForm().completeForm(driver, "usuario5",
@@ -877,7 +878,8 @@ public class PlantillaSDI2_Tests1617 {
 		mensajes.get(0)
 			.getText()
 			.equals(new PropertiesReader().getValueOf(
-				defaultLocale, "error_registro_edicion__password")));
+				defaultLocale,
+				"error_registro_edicion__password")));
     }
 
     // -------------------
@@ -1792,7 +1794,48 @@ public class PlantillaSDI2_Tests1617 {
     // a la pagina donde está la tarea terminada y comprobar que se muestra.
     @Test
     public void prueba26() {
-	
+	// (1) reiniciamos la base de datos
+	new DatabaseReload().reload(driver);
+	// (2) iniciamos sesion como usuario
+	new PO_LoginForm().completeForm(driver, "user1", "user1");
+	ThreadUtil.wait(600);
+	WebElement botonInbox = driver.findElement(By.id("form_user:inbox"));
+	botonInbox.click();
+	ThreadUtil.wait(300);
+	// (3) vamos a finalizar la tarea01
+	Map<String, Object> tarea01 = new PO_InboxRow().findRow(driver, 0);
+	// (4) comprobamos que es la tarea01
+	assertTrue("el nombre no coincide",
+		tarea01.get("titulo").equals("tarea01"));
+	// (5) eliminamos la tarea01
+	((WebElement) tarea01.get("fechaFinalizar")).click();
+	ThreadUtil.wait(600);
+	SeleniumUtils
+		.EsperaCargaPagina(driver, "id",
+			"form_menu_superior:boton_volver", 8).get(0).click();
+	// (6) hacemos click en el checkbox
+	SeleniumUtils
+		.EsperaCargaPagina(driver, "id", "form_user:check_terminadas",
+			8).get(0).click();
+	// (7) volvemos a la sub-lista inbox
+	SeleniumUtils.EsperaCargaPagina(driver, "id", "form_user:inbox", 8)
+		.get(0).click();
+	// (8) ordenamos por titulo, clicamos dos veces, para que las terminadas
+	// estén las primeras
+	SeleniumUtils
+		.EsperaCargaPagina(driver, "id",
+			"form_user:tabla_tareas:columna_titulo_titulo", 8)
+		.get(0).click();
+	SeleniumUtils
+		.EsperaCargaPagina(driver, "id",
+			"form_user:tabla_tareas:columna_titulo_titulo", 8)
+		.get(0).click();
+	//(9) seleccionamos la primera tarea (tarea01)
+	Date hoy = new Date();
+	tarea01 = new PO_InboxRow().findRow(driver, 0);
+	assertTrue("el nombre no coincide",
+		tarea01.get("titulo").equals("tarea01"));
+	assertTrue("la fecha finalizada no coincide ",DateUtil.sameDay(DateUtil.convertStringToDate((String)tarea01.get("fechaFinalizada")), hoy));
     }
 
     /*
@@ -1844,32 +1887,150 @@ public class PlantillaSDI2_Tests1617 {
     // tres pseudolistas.
     @Test
     public void prueba32() {
-	//(1) reiniciamos la base de datos
+	// (1) reiniciamos la base de datos
 	new DatabaseReload().reload(driver);
-	//(2) iniciamos sesion como usuario
+	// (2) iniciamos sesion como usuario
 	new PO_LoginForm().completeForm(driver, "user1", "user1");
-	//(3)vamos a inbox y eliminamos la tarea01  
+	// (3)vamos a inbox y eliminamos la tarea01
 	ThreadUtil.wait(600);
 	WebElement botonInbox = driver.findElement(By.id("form_user:inbox"));
 	botonInbox.click();
 	ThreadUtil.wait(300);
-	
+	// clicamos para pasar a la siguiente pestaña
+	SeleniumUtils
+		.EsperaCargaPagina(driver, "class",
+			"ui-icon ui-icon-seek-next", 8).get(0).click();
+	ThreadUtil.wait(600);
+
 	List<Map<String, Object>> pestaña = new ArrayList<Map<String, Object>>();
-	for (int i = 0; i < 8; i++) {
+	for (int i = 8; i < 16; i++) {
 	    pestaña.add(new PO_InboxRow().findRow(driver, i));
 	}
-	assertTrue("nombre no coincide", pestaña.get(0).get("titulo").equals("tarea01"));
-	((WebElement)pestaña.get(0).get("fechaFinalizada")).click();
+	assertTrue("nombre no coincide",
+		pestaña.get(2).get("titulo").equals("tarea11"));
+	((WebElement) pestaña.get(2).get("fechaFinalizar")).click();
 	ThreadUtil.wait(600);
-	//volvemos a buscar la tarea01
+	// volvemos a buscar la tarea11
+	// vamos a la segunda pestaña, que es donde se encontraba
+	ThreadUtil.wait(300);
+	SeleniumUtils
+		.EsperaCargaPagina(driver, "class",
+			"ui-icon ui-icon-seek-next", 8).get(0).click();
+	ThreadUtil.wait(600);
+	// sacamos los elementos
+	pestaña = new ArrayList<Map<String, Object>>();
+	for (int i = 8; i < 16; i++) {
+	    pestaña.add(new PO_InboxRow().findRow(driver, i));
+	}
+	assertTrue("nombre no coincide",
+		!pestaña.get(2).get("titulo").equals("tarea11"));
+	ThreadUtil.wait(300);
+	// salimos de la pseudolista de inbox
+
+	SeleniumUtils
+		.EsperaCargaPagina(driver, "id",
+			"form_menu_superior:boton_volver", 8).get(0).click();
+	ThreadUtil.wait(600);
+	WebElement botonHoy = driver.findElement(By.id("form_user:hoy"));
+	botonHoy.click();
+	ThreadUtil.wait(600);
+	// sublista hoy
 	pestaña = new ArrayList<Map<String, Object>>();
 	for (int i = 0; i < 8; i++) {
-	    pestaña.add(new PO_InboxRow().findRow(driver, i));
+	    pestaña.add(new PO_HoyRow().findRow(driver, i));
 	}
-	assertTrue("nombre no coincide", !pestaña.get(0).get("titulo").equals("tarea01"));
+	for (int i = 0; i < 8; i++) {
+	    assertTrue("El nombre es el mismo", !pestaña.get(i).get("titulo")
+		    .equals("tarea11"));
+	}
 	ThreadUtil.wait(300);
-	//salimos de la pseudolista de inbox
-	
+	// clicamos para pasar a la siguiente pestaña
+	SeleniumUtils
+		.EsperaCargaPagina(driver, "class",
+			"ui-icon ui-icon-seek-next", 8).get(0).click();
+	ThreadUtil.wait(600);
+	pestaña = new ArrayList<Map<String, Object>>();
+	for (int i = 8; i < 16; i++) {
+	    pestaña.add(new PO_HoyRow().findRow(driver, i));
+	}
+	for (int i = 0; i < 8; i++) {
+	    assertTrue("El nombre es el mismo", !pestaña.get(i).get("titulo")
+		    .equals("tarea11"));
+	}
+	ThreadUtil.wait(300);
+	// clicamos para pasar a la siguiente pestaña
+	SeleniumUtils
+		.EsperaCargaPagina(driver, "class",
+			"ui-icon ui-icon-seek-next", 8).get(0).click();
+	ThreadUtil.wait(600);
+	pestaña = new ArrayList<Map<String, Object>>();
+	for (int i = 16; i <= 18; i++) {
+	    pestaña.add(new PO_HoyRow().findRow(driver, i));
+	}
+	for (int i = 0; i < 3; i++) {
+	    assertTrue("El nombre es el mismo", !pestaña.get(i).get("titulo")
+		    .equals("tarea11"));
+	}
+	// salimos de la sublista hoy
+
+	ThreadUtil.wait(300);
+	SeleniumUtils
+		.EsperaCargaPagina(driver, "id",
+			"form_menu_superior:boton_volver", 8).get(0).click();
+	ThreadUtil.wait(600);
+	WebElement botonSemana = driver.findElement(By.id("form_user:semana"));
+	botonSemana.click();
+	ThreadUtil.wait(600);
+	pestaña = new ArrayList<Map<String, Object>>();
+	for (int i = 0; i < 8; i++) {
+	    pestaña.add(new PO_SemanaRow().findRow(driver, i));
+	}
+	for (int i = 0; i < 8; i++) {
+	    assertTrue("El nombre es el mismo", !pestaña.get(i).get("titulo")
+		    .equals("tarea11"));
+	}
+	ThreadUtil.wait(300);
+	// clicamos para pasar a la siguiente pestaña
+	SeleniumUtils
+		.EsperaCargaPagina(driver, "class",
+			"ui-icon ui-icon-seek-next", 8).get(0).click();
+	ThreadUtil.wait(600);
+	pestaña = new ArrayList<Map<String, Object>>();
+	for (int i = 8; i < 16; i++) {
+	    pestaña.add(new PO_SemanaRow().findRow(driver, i));
+	}
+	for (int i = 0; i < 8; i++) {
+	    assertTrue("El nombre es el mismo", !pestaña.get(i).get("titulo")
+		    .equals("tarea11"));
+	}
+	ThreadUtil.wait(300);
+	// clicamos para pasar a la siguiente pestaña
+	SeleniumUtils
+		.EsperaCargaPagina(driver, "class",
+			"ui-icon ui-icon-seek-next", 8).get(0).click();
+	ThreadUtil.wait(600);
+	pestaña = new ArrayList<Map<String, Object>>();
+	for (int i = 16; i < 24; i++) {
+	    pestaña.add(new PO_SemanaRow().findRow(driver, i));
+	}
+	for (int i = 0; i < 8; i++) {
+	    assertTrue("El nombre es el mismo", !pestaña.get(i).get("titulo")
+		    .equals("tarea11"));
+	}
+	ThreadUtil.wait(300);
+	// clicamos para pasar a la siguiente pestaña
+	SeleniumUtils
+		.EsperaCargaPagina(driver, "class",
+			"ui-icon ui-icon-seek-next", 8).get(0).click();
+	ThreadUtil.wait(600);
+	for (int i = 24; i < 29; i++) {
+	    pestaña.add(new PO_SemanaRow().findRow(driver, i));
+	}
+	for (int i = 0; i <= 4; i++) {
+	    assertTrue("El nombre es el mismo", !pestaña.get(i).get("titulo")
+		    .equals("tarea11"));
+	}
+
     }
 
     /*
