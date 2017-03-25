@@ -1,25 +1,31 @@
 package uo.sdi.presentation.task;
 
 import java.io.Serializable;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
+import uo.sdi.business.TaskService;
 import uo.sdi.business.exception.BusinessException;
+import uo.sdi.dto.CategoryDTO;
 import uo.sdi.dto.TaskDTO;
 import uo.sdi.infrastructure.Services;
 import uo.sdi.presentation.util.MessageManager;
 import uo.sdi.presentation.util.UserInfo;
 import alb.util.log.Log;
 
-@ManagedBean(name = "bean_new_task")
+@ManagedBean(name = "bean_edit_task")
 @ViewScoped
-public class BeanCreateTask extends AbstractBeanModifyTasks implements
+public class BeanEditTask extends AbstractBeanModifyTasks implements
 	Serializable {
 
     private static final long serialVersionUID = -655967066031189L;
+
+    private Long idTarea;
 
     // =============================
     // Inicialización
@@ -28,7 +34,32 @@ public class BeanCreateTask extends AbstractBeanModifyTasks implements
     @PostConstruct
     public void init() {
 	cargarCategorias();
+	// cargarDatosTarea();
     }
+
+    // private void cargarDatosTarea() {
+    // UserInfo user = (UserInfo) FacesContext.getCurrentInstance()
+    // .getExternalContext().getSessionMap().get("user");
+    //
+    // Boolean mostrarFinalizadas = (Boolean) FacesContext
+    // .getCurrentInstance().getExternalContext().getFlash()
+    // .get("mostrarFinalizadas");
+    //
+    // try {
+    // TaskService taskServ = Services.getTaskService();
+    //
+    // TaskDTO task = taskServ.findTaskById(id);
+    //
+    // Log.debug("Cargados datos de la tarea del usuario [%s] para su "
+    // + "posterior modificación.", user.getLogin());
+    // }
+    //
+    // catch (Exception excep) {
+    // Log.error("Ha ocurrido un error al listar las categorías del "
+    // + "usuario [%s]", user.getLogin());
+    // Log.error(excep);
+    // }
+    // }
 
     // =============================
     // Métodos

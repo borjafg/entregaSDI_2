@@ -45,13 +45,13 @@ public class AbstractBeanModifyTasks {
 	    }
 
 	    Log.debug("Cargada lista de categorías del usuario [%s] para que "
-		    + "pueda decidir la categoría de la tarea que va a crear",
-		    user.getLogin());
+		    + "pueda decidir la categoría de la tarea", user.getLogin());
 	}
 
 	catch (Exception excep) {
 	    Log.error("Ha ocurrido un error al listar las categorías del "
 		    + "usuario [%s]", user.getLogin());
+	    Log.error(excep);
 	}
     }
 

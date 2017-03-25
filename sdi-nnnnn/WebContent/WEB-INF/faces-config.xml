@@ -74,6 +74,12 @@
 		<managed-bean-scope>view</managed-bean-scope>
 	</managed-bean>
 
+	<managed-bean>
+		<managed-bean-name>bean_edit_task</managed-bean-name>
+		<managed-bean-class>uo.sdi.presentation.task.BeanEditTask</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
+	</managed-bean>
+
 
 	<!-- ============================ -->
 	<!-- === Reglas de navegación === -->
