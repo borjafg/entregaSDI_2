@@ -917,7 +917,8 @@ public class PlantillaSDI2_Tests1617 {
 	// comprobamos el nombre de las primeras 8 tareas
 	for (int i = 0; i < 8; i++) {
 	    assertTrue("Los nombres no son iguales",
-		    ((WebElement)pestaña.get(i).get("titulo")).getText().equals("tarea0" + (i + 1)));
+		    ((WebElement) pestaña.get(i).get("titulo")).getText()
+			    .equals("tarea0" + (i + 1)));
 	}
 
 	SeleniumUtils
@@ -931,11 +932,12 @@ public class PlantillaSDI2_Tests1617 {
 
 	for (int i = 0; i < 8; i++) {
 	    if (i == 0) {// porque es el ultimo que sigue terniendo de nombre 0X
-		assertTrue("Los nombres no son iguales",
-			((WebElement)pestaña.get(i).get("titulo")).getText().equals("tarea09"));
+		assertTrue("Los nombres no son iguales", ((WebElement) pestaña
+			.get(i).get("titulo")).getText().equals("tarea09"));
 	    } else {
 		assertTrue("Los nombres no son iguales",
-			((WebElement)pestaña.get(i).get("titulo")).getText().equals("tarea" + (i + 9)));
+			((WebElement) pestaña.get(i).get("titulo")).getText()
+				.equals("tarea" + (i + 9)));
 	    }
 	}
 	SeleniumUtils
@@ -948,7 +950,8 @@ public class PlantillaSDI2_Tests1617 {
 	}
 	for (int i = 0; i < 4; i++) {
 	    assertTrue("Los nombres no son iguales",
-		   ((WebElement) pestaña.get(i).get("titulo")).getText().equals("tarea" + (i + 17)));
+		    ((WebElement) pestaña.get(i).get("titulo")).getText()
+			    .equals("tarea" + (i + 17)));
 	}
     }
 
@@ -978,7 +981,8 @@ public class PlantillaSDI2_Tests1617 {
 
 	for (int i = 0; i < 8; i++) {
 	    assertTrue("Los nombres no son iguales",
-		   ((WebElement) pestaña.get(i).get("titulo")).getText().equals("tarea" + (i + 11)));
+		    ((WebElement) pestaña.get(i).get("titulo")).getText()
+			    .equals("tarea" + (i + 11)));
 	    assertTrue("El dia no coincide", DateUtil.sameDay(
 		    DateUtil.convertStringToDate((String) pestaña.get(i).get(
 			    "fechaPlaneada")), hoy));
@@ -996,7 +1000,8 @@ public class PlantillaSDI2_Tests1617 {
 	ThreadUtil.wait(600);
 	for (int i = 0; i <= 1; i++) {
 	    assertTrue("Los nombres no son iguales",
-		    ((WebElement)pestaña.get(i).get("titulo")).getText().equals("tarea" + (i + 19)));
+		    ((WebElement) pestaña.get(i).get("titulo")).getText()
+			    .equals("tarea" + (i + 19)));
 	    assertTrue("El dia no coincide", DateUtil.sameDay(
 		    DateUtil.convertStringToDate((String) pestaña.get(i).get(
 			    "fechaPlaneada")), hoy));
@@ -1009,7 +1014,8 @@ public class PlantillaSDI2_Tests1617 {
 	for (int i = 2; i < 8; i++) {
 
 	    assertTrue("Los nombres no son iguales",
-		   ((WebElement) pestaña.get(i).get("titulo")).getText().equals("tarea0" + (num)));
+		    ((WebElement) pestaña.get(i).get("titulo")).getText()
+			    .equals("tarea0" + (num)));
 
 	    // hasta aquí funciona esta mierda
 
@@ -1040,14 +1046,13 @@ public class PlantillaSDI2_Tests1617 {
 	int dias = 4;
 	for (int i = 0; i < 4; i++) {
 	    if (i != 3) {
-		assertTrue(
-			"Los nombres no son iguales",
-			((WebElement)pestaña.get(i).get("titulo")).getText()
+		assertTrue("Los nombres no son iguales",
+			((WebElement) pestaña.get(i).get("titulo")).getText()
 				.equals("tarea0" + (numBase)));
 		++numBase;
 	    } else {
-		assertTrue("Los nombres no son iguales",
-			((WebElement)pestaña.get(i).get("titulo")).getText().equals("tarea10"));
+		assertTrue("Los nombres no son iguales", ((WebElement) pestaña
+			.get(i).get("titulo")).getText().equals("tarea10"));
 	    }
 	    if (i < 2) {
 		assertTrue("El dia no coincide", DateUtil.sameDay(DateUtil
@@ -1090,11 +1095,11 @@ public class PlantillaSDI2_Tests1617 {
 	int base = 10;
 	for (int i = 0; i < 8; i++) {
 	    if (i == 0) {
-		assertTrue("Los nombre coinciden", ((WebElement)pestaña.get(i).get("titulo")).getText()
-			.equals("tarea01"));
+		assertTrue("Los nombre coinciden", ((WebElement) pestaña.get(i)
+			.get("titulo")).getText().equals("tarea01"));
 	    } else {
-		assertTrue("Los nombre coinciden", ((WebElement)pestaña.get(i).get("titulo")).getText()
-			.equals("tarea" + base));
+		assertTrue("Los nombre coinciden", ((WebElement) pestaña.get(i)
+			.get("titulo")).getText().equals("tarea" + base));
 		++base;
 	    }
 
@@ -1111,8 +1116,8 @@ public class PlantillaSDI2_Tests1617 {
 	    pestaña.add(new PO_InboxRow().findRow(driver, i));
 	}
 	for (int i = 0; i <= 2; i++) {
-	    assertTrue("Los nombre coinciden", ((WebElement)pestaña.get(i).get("titulo")).getText()
-		    .equals("tarea" + base));
+	    assertTrue("Los nombre coinciden", ((WebElement) pestaña.get(i)
+		    .get("titulo")).getText().equals("tarea" + base));
 	    ++base;
 	}
 
@@ -1806,7 +1811,8 @@ public class PlantillaSDI2_Tests1617 {
 	Map<String, Object> tarea01 = new PO_InboxRow().findRow(driver, 0);
 	// (4) comprobamos que es la tarea01
 	assertTrue("el nombre no coincide",
-		((WebElement)tarea01.get("titulo")).getText().equals("tarea01"));
+		((WebElement) tarea01.get("titulo")).getText()
+			.equals("tarea01"));
 	// (5) eliminamos la tarea01
 	((WebElement) tarea01.get("fechaFinalizar")).click();
 	ThreadUtil.wait(600);
@@ -1839,7 +1845,8 @@ public class PlantillaSDI2_Tests1617 {
 	Date hoy = new Date();
 	tarea01 = new PO_InboxRow().findRow(driver, 0);
 	assertTrue("el nombre no coincide",
-		((WebElement)tarea01.get("titulo")).getText().equals("tarea01"));
+		((WebElement) tarea01.get("titulo")).getText()
+			.equals("tarea01"));
 	assertTrue("la fecha finalizada no coincide ", DateUtil.sameDay(
 		DateUtil.convertStringToDate((String) tarea01
 			.get("fechaFinalizada")), hoy));
@@ -1856,21 +1863,43 @@ public class PlantillaSDI2_Tests1617 {
     // lista Inbox.
     @Test
     public void prueba27() {
-	assertTrue(false);
+	// (1) reiniciamos la base de datos
+	new DatabaseReload().reload(driver);
+	// (2) iniciamos sesion como usuario
+	new PO_LoginForm().completeForm(driver, "user1", "user1");
+	ThreadUtil.wait(600);
+	// (3) clicamos en el boton para acceder a la ventana de creacion de
+	// tareas
+	SeleniumUtils
+		.EsperaCargaPagina(driver, "id",
+			"form_menu_superior:menu_crear_tarea", 8).get(0)
+		.click();
+
+	
+	
+	
     }
 
     // PR28: Crear una tarea con categoría categoria1 y fecha planeada Hoy y
     // comprobar que se muestra en la lista Hoy.
     @Test
     public void prueba28() {
-	assertTrue(false);
+	// (1) reiniciamos la base de datos
+	new DatabaseReload().reload(driver);
+	// (2) iniciamos sesion como usuario
+	new PO_LoginForm().completeForm(driver, "user1", "user1");
+	ThreadUtil.wait(600);
     }
 
     // PR29: Crear una tarea con categoría categoria1 y fecha planeada posterior
     // a Hoy y comprobar que se muestra en la lista Semana.
     @Test
     public void prueba29() {
-	assertTrue(false);
+	// (1) reiniciamos la base de datos
+	new DatabaseReload().reload(driver);
+	// (2) iniciamos sesion como usuario
+	new PO_LoginForm().completeForm(driver, "user1", "user1");
+	ThreadUtil.wait(600);
     }
 
     /*
@@ -1916,8 +1945,10 @@ public class PlantillaSDI2_Tests1617 {
 	for (int i = 8; i < 16; i++) {
 	    pestaña.add(new PO_InboxRow().findRow(driver, i));
 	}
-	assertTrue("nombre no coincide",
-		((WebElement)pestaña.get(2).get("titulo")).getText().equals("tarea11"));
+	assertTrue(
+		"nombre no coincide",
+		((WebElement) pestaña.get(2).get("titulo")).getText().equals(
+			"tarea11"));
 	((WebElement) pestaña.get(2).get("fechaFinalizar")).click();
 	ThreadUtil.wait(600);
 	// volvemos a buscar la tarea11
@@ -1932,8 +1963,10 @@ public class PlantillaSDI2_Tests1617 {
 	for (int i = 8; i < 16; i++) {
 	    pestaña.add(new PO_InboxRow().findRow(driver, i));
 	}
-	assertTrue("nombre no coincide",
-		!((WebElement)pestaña.get(2).get("titulo")).getText().equals("tarea11"));
+	assertTrue(
+		"nombre no coincide",
+		!((WebElement) pestaña.get(2).get("titulo")).getText().equals(
+			"tarea11"));
 	ThreadUtil.wait(300);
 	// salimos de la pseudolista de inbox
 
