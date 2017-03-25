@@ -10,7 +10,6 @@ import uo.sdi.model.User;
 import uo.sdi.persistence.CategoryFinder;
 import uo.sdi.persistence.UserFinder;
 import uo.sdi.persistence.util.Jpa;
-import alb.util.date.DateUtil;
 
 public class CreateTaskCommand implements Command<Task> {
 
@@ -43,7 +42,7 @@ public class CreateTaskCommand implements Command<Task> {
 	    task.setCategory(categ);
 	}
 
-	task.setPlanned(DateUtil.today());
+	task.setPlanned(task.getPlanned());
 	task.setFinished(null);
 
 	Jpa.getManager().persist(task);

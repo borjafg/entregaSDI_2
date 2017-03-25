@@ -1,6 +1,5 @@
 package uo.sdi.model;
 
-
 // Clase con ocultacion de paquete (sólo la usan
 // las clases del modelo de dominio). Gestiona
 // las asociaciones entre esas clases.
@@ -18,12 +17,10 @@ class Association {
 	    user._getCategories().add(category);
 	}
 
-	static void unlink(User user, Category category) {	    
+	static void unlink(User user, Category category) {
 	    user._getCategories().remove(category);
 	    category._setUser(null);
 	}
-	
-	
 
     }
 

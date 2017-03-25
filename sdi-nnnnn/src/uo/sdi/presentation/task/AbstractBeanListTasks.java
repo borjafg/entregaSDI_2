@@ -12,7 +12,7 @@ import uo.sdi.dto.TaskDTO;
 import uo.sdi.infrastructure.Services;
 import uo.sdi.presentation.util.MessageManager;
 
-public abstract class AbstractBeanTasks {
+public abstract class AbstractBeanListTasks {
 
     protected List<TaskDTO> tasks;
 
