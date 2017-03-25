@@ -1868,6 +1868,8 @@ public class PlantillaSDI2_Tests1617 {
 	}
 	assertTrue("nombre no coincide", !pestaña.get(0).get("titulo").equals("tarea01"));
 	ThreadUtil.wait(300);
+	//salimos de la pseudolista de inbox
+	
     }
 
     /*
