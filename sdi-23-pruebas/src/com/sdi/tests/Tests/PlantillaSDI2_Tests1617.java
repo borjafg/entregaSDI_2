@@ -1875,18 +1875,36 @@ public class PlantillaSDI2_Tests1617 {
 		.EsperaCargaPagina(driver, "id",
 			"form_menu_superior:menu_crear_tarea", 8).get(0)
 		.click();
-	
+
 	ThreadUtil.wait(600);
-	new PO_CreateTask().completeFormWithoutCalendar(driver, "a", "a",  0, 1);
-	
+	new PO_CreateTask().completeFormWithoutCalendar(driver, "a", "a", 0, 1);
+	// vamos a mirar a inbox
 	ThreadUtil.wait(600);
 	WebElement botonInbox = driver.findElement(By.id("form_user:inbox"));
 	botonInbox.click();
 	ThreadUtil.wait(300);
-	
-	
-	
-	
+	// entramos en inbox
+	SeleniumUtils
+		.EsperaCargaPagina(driver, "id",
+			"form_user:tabla_tareas:columna_titulo_titulo", 8)
+		.get(0).findElement(By.className("ui-sortable-column-icon"))
+		.click();
+	ThreadUtil.wait(600);
+
+	Map<String, Object> tareaA = new PO_InboxRow().findRow(driver, 0);
+
+	assertTrue("el nombre no coincide", ((WebElement) tareaA.get("titulo"))
+		.getText().equals("a"));
+
+	assertTrue("el comentario no coincide", tareaA.get("comentario")
+		.equals("a"));
+	Date hoy = new Date();
+	assertTrue("La fecha creada no coincide",
+		DateUtil.sameDay(DateUtil.convertStringToDate((String) tareaA
+			.get("fechaCreacion")), hoy));
+	assertTrue("La fecha planeada no coincide", DateUtil.sameDay(DateUtil
+		.convertStringToDate((String) tareaA.get("fechaPlaneada")),
+		DateUtil.diasSiguientes(hoy, 1)));
     }
 
     // PR28: Crear una tarea con categoría categoria1 y fecha planeada Hoy y
@@ -1898,6 +1916,38 @@ public class PlantillaSDI2_Tests1617 {
 	// (2) iniciamos sesion como usuario
 	new PO_LoginForm().completeForm(driver, "user1", "user1");
 	ThreadUtil.wait(600);
+	SeleniumUtils
+		.EsperaCargaPagina(driver, "id",
+			"form_menu_superior:menu_crear_tarea", 8).get(0)
+		.click();
+
+	ThreadUtil.wait(600);
+	new PO_CreateTask().completeFormWithoutCalendar(driver, "a", "a", 1, 0);
+	// vamos a mirar a hoy
+	ThreadUtil.wait(600);
+	WebElement botonHoy = driver.findElement(By.id("form_user:hoy"));
+	botonHoy.click();
+	ThreadUtil.wait(300);
+	// clicamos en el filtrado por categoria
+	SeleniumUtils
+		.EsperaCargaPagina(driver, "id",
+			"form_user:tabla_tareas:columna_categoria_titulo", 8)
+		.get(0).click();
+	ThreadUtil.wait(600);
+	Map<String, Object> tareaA = new PO_HoyRow().findRow(driver, 3);
+	ThreadUtil.wait(600);
+	assertTrue("el nombre no coincide", (tareaA.get("titulo")).equals("a"));
+
+	assertTrue("el comentario no coincide", tareaA.get("comentario")
+		.equals("a"));
+	Date hoy = new Date();
+	assertTrue("La fecha creada no coincide",
+		DateUtil.sameDay(DateUtil.convertStringToDate((String) tareaA
+			.get("fechaCreacion")), hoy));
+	assertTrue("La fecha planeada no coincide",
+		DateUtil.sameDay(DateUtil.convertStringToDate((String) tareaA
+			.get("fechaPlaneada")), hoy));
+
     }
 
     // PR29: Crear una tarea con categoría categoria1 y fecha planeada posterior
@@ -1909,6 +1959,7 @@ public class PlantillaSDI2_Tests1617 {
 	// (2) iniciamos sesion como usuario
 	new PO_LoginForm().completeForm(driver, "user1", "user1");
 	ThreadUtil.wait(600);
+
     }
 
     /*

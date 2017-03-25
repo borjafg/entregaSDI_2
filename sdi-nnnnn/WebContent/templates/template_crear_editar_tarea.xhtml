@@ -67,10 +67,10 @@
 						<p:outputLabel id="label_categoria" for="categoria"
 							value="#{msgs.crear_editar_tarea__categoria}" />
 
-						<p:selectOneMenu id="categoria" style="width: 275px">
+						<p:selectOneMenu id="categoria" style="width: 275px"
+							value="#{valor_categoria}">
 							<f:selectItem
-								itemLabel="#{msgs.crear_editar_tarea__seleccionar_categoria}"
-								value="#{valor_categoria}" />
+								itemLabel="#{msgs.crear_editar_tarea__seleccionar_categoria}" />
 
 							<f:selectItems value="#{valor_categorias}" />
 						</p:selectOneMenu>
