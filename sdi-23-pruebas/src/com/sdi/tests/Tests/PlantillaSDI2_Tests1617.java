@@ -29,6 +29,7 @@ import com.sdi.tests.internationalizationTest.ValidadorPrincipalAdministrador;
 import com.sdi.tests.internationalizationTest.ValidadorPrincipalUsuario;
 import com.sdi.tests.internationalizationTest.ValidadorRegistro;
 import com.sdi.tests.page_objects.PO_AdminRow;
+import com.sdi.tests.page_objects.PO_CreateTask;
 import com.sdi.tests.page_objects.PO_HoyRow;
 import com.sdi.tests.page_objects.PO_InboxRow;
 import com.sdi.tests.page_objects.PO_LoginForm;
@@ -1874,7 +1875,15 @@ public class PlantillaSDI2_Tests1617 {
 		.EsperaCargaPagina(driver, "id",
 			"form_menu_superior:menu_crear_tarea", 8).get(0)
 		.click();
-
+	
+	ThreadUtil.wait(600);
+	new PO_CreateTask().completeFormWithoutCalendar(driver, "a", "a",  0, 1);
+	
+	ThreadUtil.wait(600);
+	WebElement botonInbox = driver.findElement(By.id("form_user:inbox"));
+	botonInbox.click();
+	ThreadUtil.wait(300);
+	
 	
 	
 	

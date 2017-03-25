@@ -39,6 +39,22 @@ public class DateUtil {
 
     }
 
+    public static String convertDateToString(Date fecha) {
+	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+	String fechaString = null;
+
+	fechaString = sdf.format(fecha);
+
+	return fechaString;
+    }
+
+    public static Calendar getCalendario(Date fecha) {
+	Calendar calendar = Calendar.getInstance(TimeZone
+		.getTimeZone("Europe/Madrid"));
+	calendar.setTime(fecha);
+	return calendar;
+    }
+
     public static Date diasSiguientes(Date fecha, int dias) {
 	Calendar calendar = Calendar.getInstance(TimeZone
 		.getTimeZone("Europe/Madrid"));
