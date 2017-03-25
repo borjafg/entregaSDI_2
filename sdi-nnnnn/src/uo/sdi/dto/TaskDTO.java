@@ -30,7 +30,7 @@ public class TaskDTO implements Serializable {
     }
 
     /**
-     * Se usa para crear una nueva categoría
+     * Se usa para crear una nueva tarea
      */
     public TaskDTO(String title, Long categoryId, Long userId) {
 	this.title = title;

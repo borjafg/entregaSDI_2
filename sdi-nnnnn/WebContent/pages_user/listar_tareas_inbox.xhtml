@@ -34,8 +34,14 @@
 				filterable="true" filterBy="#{tarea.title}"
 				filterMatchMode="contains">
 
-				<h:outputText value="#{tarea.title}" id="columna_titulo"
-					styleClass="#{tarea.finished != null ? 'elemento_color_verde' : ''}" />
+				<p:commandLink value="#{tarea.title}" id="columna_titulo"
+					actionListener="#{bean_inbox.editarTarea(tarea.id)}"
+					action="editar" styleClass="elemento_color_negro"
+					rendered="#{tarea.finished == null}" />
+
+				<h:outputText value="#{tarea.title}" id="columna_titulo_finalizada"
+					styleClass="elemento_color_verde"
+					rendered="#{tarea.finished != null}" />
 			</p:column>
 
 

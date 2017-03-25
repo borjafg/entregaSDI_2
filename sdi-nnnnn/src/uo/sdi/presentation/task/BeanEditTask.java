@@ -32,6 +32,7 @@ public class BeanEditTask extends AbstractBeanModifyTasks implements
     @PostConstruct
     public void init() {
 	cargarCategorias();
+	cargarIdTarea();
 	cargarDatosTarea();
     }
 
@@ -42,11 +43,15 @@ public class BeanEditTask extends AbstractBeanModifyTasks implements
 	try {
 	    TaskService taskServ = Services.getTaskService();
 
-	    TaskDTO task = taskServ.findTaskById(idTarea);
+	    task = taskServ.findTaskById(idTarea);
 
 	    title = task.getTitle();
 	    comments = task.getComments();
-	    category = task.getCategory().getId();
+
+	    if (task.getCategory() != null) {
+		category = task.getCategory().getId();
+	    }
+
 	    planned = task.getPlanned();
 
 	    Log.debug("Cargados datos de la tarea [id = %d] del usuario [%s] "
@@ -73,10 +78,10 @@ public class BeanEditTask extends AbstractBeanModifyTasks implements
 
 	else {
 	    throw new RuntimeException(
-		    "El usuario ha intentado acceder a la "
-			    + "página de edición de tareas directamente. Al no saber cual "
-			    + "es la tarea que se quiere editar se le redireccionará a "
-			    + "la página de error.");
+		    "El usuario ha intentado acceder a la página de edición de"
+			    + " tareas directamente. Al no saber cual es la "
+			    + "tarea que se quiere editar se le redireccionará"
+			    + "a la página de error.");
 	}
     }
 
@@ -84,7 +89,7 @@ public class BeanEditTask extends AbstractBeanModifyTasks implements
     // Métodos
     // =============================
 
-    public String crearTarea() {
+    public String editarTarea() {
 	FacesContext contexto = FacesContext.getCurrentInstance();
 	UserInfo user = (UserInfo) contexto.getExternalContext()
 		.getSessionMap().get("user");
@@ -92,11 +97,7 @@ public class BeanEditTask extends AbstractBeanModifyTasks implements
 	try {
 	    task.setTitle(title);
 	    task.setComments(comments);
-
-	    if (category != null) {
-		task.setCategoryId(category);
-	    }
-
+	    task.setCategoryId(category);
 	    task.setPlanned(planned);
 
 	    Services.getTaskService().updateTask(task);

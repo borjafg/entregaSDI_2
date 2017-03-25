@@ -26,7 +26,9 @@
 			<p:column headerText="#{msgs.listar_tareas__columna_titulo}"
 				id="columna_titulo_titulo">
 
-				<h:outputText value="#{tarea.title}" id="columna_titulo" />
+				<p:commandLink value="#{tarea.title}" id="columna_titulo"
+					actionListener="#{bean_today.editarTarea(tarea.id)}"
+					action="editar" />
 			</p:column>
 
 

@@ -21,6 +21,7 @@
 </style>
 		<!-- ================== -->
 
+		<ui:insert name="anadir_head" />
 	</h:head>
 
 	<h:body>
@@ -69,7 +70,8 @@
 
 						<p:selectOneMenu id="categoria" style="width: 275px"
 							value="#{valor_categoria}">
-							<f:selectItem
+
+							<f:selectItem value="#{null}"
 								itemLabel="#{msgs.crear_editar_tarea__seleccionar_categoria}" />
 
 							<f:selectItems value="#{valor_categorias}" />
@@ -83,10 +85,12 @@
 
 						<p:calendar id="planeada" value="#{valor_planeada}"
 							pattern="dd-MM-yyyy" mask="true" effect="blind"
-							mindate="#{fecha_hoy}" />
+							mindate="#{fecha_hoy}" style="width: 275px" />
+
+						<p:message for=" planeada" />
 
 
-						<p:outputLabel value="" />
+						<h:outputText value="" />
 
 						<ui:insert name="boton" />
 					</h:panelGrid>

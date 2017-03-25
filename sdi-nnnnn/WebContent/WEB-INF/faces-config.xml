@@ -277,6 +277,12 @@
 		</navigation-case>
 
 		<navigation-case>
+			<from-outcome>editar</from-outcome>
+			<to-view-id>/pages_user/editar_tarea.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<navigation-case>
 			<from-outcome>volver</from-outcome>
 			<to-view-id>/pages_user/principal_usuario.xhtml</to-view-id>
 			<redirect />
@@ -310,6 +316,12 @@
 		</navigation-case>
 
 		<navigation-case>
+			<from-outcome>editar</from-outcome>
+			<to-view-id>/pages_user/editar_tarea.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<navigation-case>
 			<from-outcome>volver</from-outcome>
 			<to-view-id>/pages_user/principal_usuario.xhtml</to-view-id>
 			<redirect />
@@ -339,6 +351,12 @@
 		<navigation-case>
 			<from-outcome>crear</from-outcome>
 			<to-view-id>/pages_user/crear_tarea.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<navigation-case>
+			<from-outcome>editar</from-outcome>
+			<to-view-id>/pages_user/editar_tarea.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
 

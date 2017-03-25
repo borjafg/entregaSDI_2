@@ -8,7 +8,7 @@
 	<ui:param name="panel_titulo" value="#{msgs.crear_tarea__titulo}" />
 
 
-	<ui:param name="valor_nombre" value="#{bean_new_task.name}" />
+	<ui:param name="valor_nombre" value="#{bean_new_task.title}" />
 	<ui:param name="valor_comentarios" value="#{bean_new_task.comments}" />
 
 	<ui:param name="valor_categoria" value="#{bean_new_task.category}" />
@@ -20,7 +20,7 @@
 
 	<ui:define name="boton">
 		<p:commandButton id="boton_crear" value="#{msgs.crear_tarea__boton}"
-			action="#{bean_new_task.crearTarea}" update="@form" />
+			action="#{bean_new_task.crearTarea}" update="@form mensajes_user" />
 	</ui:define>
 
 </ui:composition>

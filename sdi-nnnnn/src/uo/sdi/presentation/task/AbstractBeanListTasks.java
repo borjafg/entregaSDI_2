@@ -65,6 +65,11 @@ public abstract class AbstractBeanListTasks {
 	}
     }
 
+    public void editarTarea(Long id) {
+	FacesContext.getCurrentInstance().getExternalContext().getFlash()
+		.put("idTarea", id);
+    }
+
     public boolean estaRetrasada(TaskDTO tarea) {
 	if (tarea.getFinished() == null) {
 	    if (tarea.getPlanned() == null) {

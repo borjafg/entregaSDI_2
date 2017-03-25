@@ -15,7 +15,7 @@
 	<ui:param name="panel_titulo" value="#{msgs.editar_tarea__titulo}" />
 
 
-	<ui:param name="valor_nombre" value="#{bean_edit_task.name}" />
+	<ui:param name="valor_nombre" value="#{bean_edit_task.title}" />
 	<ui:param name="valor_comentarios" value="#{bean_edit_task.comments}" />
 
 	<ui:param name="valor_categoria" value="#{bean_edit_task.category}" />
@@ -27,7 +27,7 @@
 
 	<ui:define name="boton">
 		<p:commandButton id="boton_editar" value="#{msgs.editar_tarea__boton}"
-			action="#{bean_edit_task.editarTarea}" update="@form" />
+			action="#{bean_edit_task.editarTarea}" update="@form mensajes_user" />
 	</ui:define>
 
 </ui:composition>
