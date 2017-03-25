@@ -2316,11 +2316,10 @@ public class PlantillaSDI2_Tests1617 {
 		"form_anonimo:boton_login", 10);
 
 	// (4) Ventana de registro
-
 	WebElement registrarseEnlace = driver.findElement(By
 		.id("form_menu_superior:enlace_registro"));
 	registrarseEnlace.click();
-
+	ThreadUtil.wait(1000);
 	// (4.1)comprobamos idioma por defecto
 	new ValidadorRegistro(defaultLocale, driver).comprobarTextos();
 	// (4.2)cambiamos idioma y comprobamos
@@ -2347,12 +2346,12 @@ public class PlantillaSDI2_Tests1617 {
     @Test
     public void prueba37() {
 	new PO_LoginForm().completeForm(driver, "user1", "user1");
-	ThreadUtil.wait(600);
+	ThreadUtil.wait(1000);
 	new ValidadorPrincipalUsuario(defaultLocale, driver);
 	driver.get("http://localhost:8280/sdi2-23/pages_admin/principal_administrador.xhtml");
 	// no permitimos que el usuario se desplace por la aplicación, entonces
 	// se queda en la ventana principal de usuario
-	ThreadUtil.wait(600);
+	ThreadUtil.wait(1000);
 	new ValidadorPrincipalUsuario(defaultLocale, driver);
     }
 
@@ -2363,9 +2362,9 @@ public class PlantillaSDI2_Tests1617 {
 	// no permitimos que el usuario se desplace por la aplicación, entonces
 	// se queda en la ventana de login
 	new ValidadorLogIn(defaultLocale, driver);
-	ThreadUtil.wait(600);
+	ThreadUtil.wait(1000);
 	driver.get("http://localhost:8280/sdi2-23/pages_user/principal_usuario.xhtml");
-	ThreadUtil.wait(600);
+	ThreadUtil.wait(1000);
 	new ValidadorLogIn(defaultLocale, driver);
     }
 
