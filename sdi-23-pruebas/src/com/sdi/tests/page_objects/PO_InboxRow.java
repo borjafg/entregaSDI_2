@@ -13,7 +13,7 @@ public class PO_InboxRow {
 
 	WebElement titulo = driver.findElement(By.id("form_user:tabla_tareas:"
 		+ index + ":columna_titulo"));
-	row.put("titulo", titulo.getText());
+	row.put("titulo", titulo);
 
 	WebElement comentario = driver
 		.findElement(By.id("form_user:tabla_tareas:" + index
@@ -27,15 +27,22 @@ public class PO_InboxRow {
 	WebElement fechaPlaneada = driver.findElement(By
 		.id("form_user:tabla_tareas:" + index + ":columna_planeada"));
 	row.put("fechaPlaneada", fechaPlaneada.getText());
-	
+
 	WebElement fechaFinalizada = driver.findElement(By
 		.id("form_user:tabla_tareas:" + index + ":columna_finalizada"));
 	row.put("fechaFinalizada", fechaFinalizada.getText());
 
-	WebElement fechaFinalizar = driver.findElement(By
-		.id("form_user:tabla_tareas:" + index + ":columna_finalizar"));
-	row.put("fechaFinalizar", fechaFinalizar);
+	// Comporbacion porque cuando un atarea está finalizada, no tiene ningún
+	// boton para finalizarla
 
+	if (fechaFinalizada.getText().length() == 0) {
+	    WebElement fechaFinalizar = driver.findElement(By
+		    .id("form_user:tabla_tareas:" + index
+			    + ":columna_finalizar"));
+	    row.put("fechaFinalizar", fechaFinalizar);
+	} else {
+	    row.put("fechaFinalizar", "-------");
+	}
 	return row;
 
     }
