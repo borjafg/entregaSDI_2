@@ -40,7 +40,7 @@ public class BeanCreateTask extends AbstractBeanModifyTasks implements
 		.getSessionMap().get("user");
 
 	try {
-	    TaskDTO newTask = new TaskDTO(name, category, user.getId());
+	    TaskDTO newTask = new TaskDTO(title, category, user.getId());
 
 	    newTask.setComments(comments);
 	    newTask.setPlanned(planned);
@@ -48,9 +48,9 @@ public class BeanCreateTask extends AbstractBeanModifyTasks implements
 	    Services.getTaskService().createTask(newTask);
 
 	    Log.debug("Se ha creado una nueva tarea para el usuario [%s]. "
-		    + "Datos de la tarea - [nombre: %s, comentarios: %s, "
+		    + "Datos de la tarea - [título: %s, comentarios: %s, "
 		    + "categoría: %s, planeada para: %5$td/%5$tm/%5$tY]",
-		    user.getLogin(), name, comments, category, planned);
+		    user.getLogin(), title, comments, category, planned);
 
 	    MessageManager.info(contexto, "mensajes_usuario",
 		    "crear_tarea__exito");

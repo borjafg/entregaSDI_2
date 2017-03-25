@@ -1,8 +1,6 @@
 package uo.sdi.presentation.task;
 
 import java.io.Serializable;
-import java.util.LinkedHashMap;
-import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -11,7 +9,6 @@ import javax.faces.context.FacesContext;
 
 import uo.sdi.business.TaskService;
 import uo.sdi.business.exception.BusinessException;
-import uo.sdi.dto.CategoryDTO;
 import uo.sdi.dto.TaskDTO;
 import uo.sdi.infrastructure.Services;
 import uo.sdi.presentation.util.MessageManager;
@@ -26,6 +23,7 @@ public class BeanEditTask extends AbstractBeanModifyTasks implements
     private static final long serialVersionUID = -655967066031189L;
 
     private Long idTarea;
+    private TaskDTO task;
 
     // =============================
     // Inicialización
@@ -34,32 +32,53 @@ public class BeanEditTask extends AbstractBeanModifyTasks implements
     @PostConstruct
     public void init() {
 	cargarCategorias();
-	// cargarDatosTarea();
+	cargarDatosTarea();
     }
 
-    // private void cargarDatosTarea() {
-    // UserInfo user = (UserInfo) FacesContext.getCurrentInstance()
-    // .getExternalContext().getSessionMap().get("user");
-    //
-    // Boolean mostrarFinalizadas = (Boolean) FacesContext
-    // .getCurrentInstance().getExternalContext().getFlash()
-    // .get("mostrarFinalizadas");
-    //
-    // try {
-    // TaskService taskServ = Services.getTaskService();
-    //
-    // TaskDTO task = taskServ.findTaskById(id);
-    //
-    // Log.debug("Cargados datos de la tarea del usuario [%s] para su "
-    // + "posterior modificación.", user.getLogin());
-    // }
-    //
-    // catch (Exception excep) {
-    // Log.error("Ha ocurrido un error al listar las categorías del "
-    // + "usuario [%s]", user.getLogin());
-    // Log.error(excep);
-    // }
-    // }
+    private void cargarDatosTarea() {
+	UserInfo user = (UserInfo) FacesContext.getCurrentInstance()
+		.getExternalContext().getSessionMap().get("user");
+
+	try {
+	    TaskService taskServ = Services.getTaskService();
+
+	    TaskDTO task = taskServ.findTaskById(idTarea);
+
+	    title = task.getTitle();
+	    comments = task.getComments();
+	    category = task.getCategory().getId();
+	    planned = task.getPlanned();
+
+	    Log.debug("Cargados datos de la tarea [id = %d] del usuario [%s] "
+		    + "para su posterior modificación.", idTarea,
+		    user.getLogin());
+	}
+
+	catch (Exception excep) {
+	    Log.error("Ha ocurrido un error al listar las categorías del "
+		    + "usuario [%s]", user.getLogin());
+	    Log.error(excep);
+	}
+    }
+
+    public void cargarIdTarea() {
+	FacesContext contexto = FacesContext.getCurrentInstance();
+
+	idTarea = (Long) contexto.getExternalContext().getFlash()
+		.get("idTarea");
+
+	if (idTarea != null) {
+	    contexto.getExternalContext().getFlash().put("idTarea", idTarea);
+	}
+
+	else {
+	    throw new RuntimeException(
+		    "El usuario ha intentado acceder a la "
+			    + "página de edición de tareas directamente. Al no saber cual "
+			    + "es la tarea que se quiere editar se le redireccionará a "
+			    + "la página de error.");
+	}
+    }
 
     // =============================
     // Métodos
@@ -71,20 +90,25 @@ public class BeanEditTask extends AbstractBeanModifyTasks implements
 		.getSessionMap().get("user");
 
 	try {
-	    TaskDTO newTask = new TaskDTO(name, category, user.getId());
+	    task.setTitle(title);
+	    task.setComments(comments);
 
-	    newTask.setComments(comments);
-	    newTask.setPlanned(planned);
+	    if (category != null) {
+		task.setCategoryId(category);
+	    }
 
-	    Services.getTaskService().createTask(newTask);
+	    task.setPlanned(planned);
 
-	    Log.debug("Se ha creado una nueva tarea para el usuario [%s]. "
-		    + "Datos de la tarea - [nombre: %s, comentarios: %s, "
-		    + "categoría: %s, planeada para: %5$td/%5$tm/%5$tY]",
-		    user.getLogin(), name, comments, category, planned);
+	    Services.getTaskService().updateTask(task);
+
+	    Log.debug("Se ha modificado la tarea [id = %d] del usuario [%s]. "
+		    + "Nuevos datos de la tarea - [título: %s, "
+		    + "comentarios: %s, categoría: %s, "
+		    + "planeada para: %6$td/%6$tm/%6$tY]", idTarea,
+		    user.getLogin(), title, comments, category, planned);
 
 	    MessageManager.info(contexto, "mensajes_usuario",
-		    "crear_tarea__exito");
+		    "editar_tarea__exito");
 
 	    contexto.getExternalContext().getFlash().setKeepMessages(true);
 
@@ -92,8 +116,9 @@ public class BeanEditTask extends AbstractBeanModifyTasks implements
 	}
 
 	catch (BusinessException bs) {
-	    Log.error("No se ha podido crear la nueva tarea para el usuario "
-		    + "[%s]. Causa: %s", user.getLogin(), bs.getMessage());
+	    Log.error("No se ha podido editar la tarea [id = %d] del usuario "
+		    + "[%s]. Causa: %s", idTarea, user.getLogin(),
+		    bs.getMessage());
 
 	    cargarCategorias();
 
@@ -104,8 +129,8 @@ public class BeanEditTask extends AbstractBeanModifyTasks implements
 	}
 
 	catch (Exception ex) {
-	    Log.error("Ha ocurrido un error al intentar crear una nueva tarea "
-		    + "para el usuario [%s]", user.getLogin());
+	    Log.error("Ha ocurrido un error al intentar editar una tarea "
+		    + "[id = %d] del usuario [%s]", idTarea, user.getLogin());
 	    Log.error(ex);
 
 	    return "error";
