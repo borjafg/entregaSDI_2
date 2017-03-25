@@ -790,7 +790,7 @@ public class PlantillaSDI2_Tests1617 {
 			.getText()
 			.equals(new PropertiesReader().getValueOf(
 				defaultLocale,
-				"error_registro__email_no_valido")));
+				"error_registro_edicion__email_no_valido")));
     }
 
     // PR15: Crear una cuenta de usuario normal con Password incorrecta.
@@ -822,7 +822,7 @@ public class PlantillaSDI2_Tests1617 {
 			.getText()
 			.equals(new PropertiesReader().getValueOf(
 				defaultLocale,
-				"error_registro__password_contenido")));
+				"error_registro_edicion__password_contenido")));
 
 	// (6) rellenamos el formulario [caso contraseña solo letras]
 	new PO_RegistryForm().completeForm(driver, "usuario5",
@@ -841,7 +841,7 @@ public class PlantillaSDI2_Tests1617 {
 			.getText()
 			.equals(new PropertiesReader().getValueOf(
 				defaultLocale,
-				"error_registro__password_contenido")));
+				"error_registro_edicion__password_contenido")));
 
 	// (9) rellenamos el formulario [caso longitud contraseña inferior a 8
 	// digitos]
@@ -859,7 +859,7 @@ public class PlantillaSDI2_Tests1617 {
 		mensajes.get(0)
 			.getText()
 			.equals(new PropertiesReader().getValueOf(
-				defaultLocale, "error_registro__password")));
+				defaultLocale, "error_registro_edicion__password")));
 
 	// (12) rellenamos el formulario [caso contraseñas distintas]
 	new PO_RegistryForm().completeForm(driver, "usuario5",
@@ -877,7 +877,7 @@ public class PlantillaSDI2_Tests1617 {
 		mensajes.get(0)
 			.getText()
 			.equals(new PropertiesReader().getValueOf(
-				defaultLocale, "error_registro__password")));
+				defaultLocale, "error_registro_edicion__password")));
     }
 
     // -------------------
@@ -1540,6 +1540,7 @@ public class PlantillaSDI2_Tests1617 {
 		.EsperaCargaPagina(driver, "id",
 			"form_user:tabla_tareas:columna_planeada_titulo", 8)
 		.get(0).click();
+	ThreadUtil.wait(600);
 	List<Map<String, Object>> pestaña = new ArrayList<Map<String, Object>>();
 	for (int i = 0; i < 8; i++) {
 	    pestaña.add(new PO_SemanaRow().findRow(driver, i));
