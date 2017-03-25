@@ -15,7 +15,8 @@ import alb.util.log.Log;
 
 @ManagedBean(name = "bean_today")
 @ViewScoped
-public class BeanTodayTasks extends AbstractBeanTasks implements Serializable {
+public class BeanTodayTasks extends AbstractBeanListTasks implements
+	Serializable {
 
     private static final long serialVersionUID = -10248859391L;
 

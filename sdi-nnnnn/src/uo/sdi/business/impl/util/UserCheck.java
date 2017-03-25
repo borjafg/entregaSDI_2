@@ -33,9 +33,11 @@ public class UserCheck {
     public static void notRepeatedLogin(UserDTO user) throws BusinessException {
 	User u = UserFinder.findByLogin(user.getLogin());
 
-	BusinessCheck.isNull(u,
-		"Ya existe un usuario con este login [" + user.getLogin() + "]",
-		"error_registro__login_ya_existe");
+	BusinessCheck
+		.isNull(u,
+			"Ya existe un usuario con este login ["
+				+ user.getLogin() + "]",
+			"error_registro__login_ya_existe");
     }
 
     // ------------------------

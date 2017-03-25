@@ -3,18 +3,17 @@ package uo.sdi.business.exception;
 public class BusinessException extends Exception {
 
     private static final long serialVersionUID = 4001710687990554589L;
-    
+
     private String claveFicheroMensajes = "";
-    
-    
+
     public String getClaveFicheroMensajes() {
-        return claveFicheroMensajes;
+	return claveFicheroMensajes;
     }
 
     public BusinessException() {
     }
 
-    public BusinessException(String message,String clave) {
+    public BusinessException(String message, String clave) {
 	super(message);
 	this.claveFicheroMensajes = clave;
     }
@@ -26,7 +25,5 @@ public class BusinessException extends Exception {
     public BusinessException(String message, Throwable cause) {
 	super(message, cause);
     }
-    
-    
 
 }

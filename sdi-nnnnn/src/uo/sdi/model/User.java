@@ -32,10 +32,10 @@ public class User {
     @Enumerated(EnumType.STRING)
     private UserStatus status = UserStatus.ENABLED;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval=true)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private Set<Category> categories = new HashSet<Category>();
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval=true)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private Set<Task> tasks = new HashSet<Task>();
 
     User() {
@@ -64,7 +64,7 @@ public class User {
     public void eliminarTarea(Task tarea) throws BusinessException {
 	if (!tasks.contains(tarea)) {
 	    throw new BusinessException("El usuario no tiene asignada esa "
-		    + "tarea.","errores_usuario_no_tiene_tarea_asignada");
+		    + "tarea.", "errores_usuario_no_tiene_tarea_asignada");
 	}
 
 	Association.Classifies.unlink(tarea, tarea.getCategory());
@@ -84,16 +84,16 @@ public class User {
      *             eliminadas)
      * 
      */
-    public void eliminarCategoria(Category categoria)
-	    throws BusinessException {
+    public void eliminarCategoria(Category categoria) throws BusinessException {
 
 	if (!categories.contains(categoria)) {
-	    throw new BusinessException("La categoria no pertenece al usuario","");
+	    throw new BusinessException("La categoria no pertenece al usuario",
+		    "");
 	}
 
 	if (categoria.getTasks().size() > 0) {
 	    throw new BusinessException("No se puede eliminar una categoria "
-		    + "que tiene tareas asociadas.","");
+		    + "que tiene tareas asociadas.", "");
 	}
 
 	categories.remove(categoria);

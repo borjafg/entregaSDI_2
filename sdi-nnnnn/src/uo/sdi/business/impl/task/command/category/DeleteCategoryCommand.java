@@ -30,7 +30,6 @@ public class DeleteCategoryCommand implements Command<Void> {
 	}
 
 	user.eliminarCategoria(category);
-	
 
 	return null;
     }
