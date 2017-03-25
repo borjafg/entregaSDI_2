@@ -15,7 +15,7 @@ import alb.util.log.Log;
 
 public class AbstractBeanModifyTasks {
 
-    protected String name;
+    protected String title;
     protected String comments;
     protected Long category; // identificador de la categoría
     protected Map<String, Long> categories;
@@ -59,12 +59,12 @@ public class AbstractBeanModifyTasks {
     // Getters y Setters
     // =============================
 
-    public void setName(String name) {
-	this.name = name;
+    public void setTitle(String title) {
+	this.title = title;
     }
 
-    public String getName() {
-	return name;
+    public String getTitle() {
+	return title;
     }
 
     public void setComments(String comments) {

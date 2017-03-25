@@ -5,6 +5,13 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/templates/template_crear_editar_tarea.xhtml">
 
+	<ui:define name="anadir_head">
+		<f:metadata>
+			<f:event type="preRenderView"
+				listener="#{bean_edit_task.cargarIdTarea}" />
+		</f:metadata>
+	</ui:define>
+
 	<ui:param name="panel_titulo" value="#{msgs.editar_tarea__titulo}" />
 
 

@@ -90,6 +90,10 @@ public class TaskDTO implements Serializable {
 	this.category = category;
     }
 
+    public void setCategoryId(Long idCategory) {
+	this.category = new CategoryDTO(idCategory);
+    }
+
     public Long getUserId() {
 	return userId;
     }

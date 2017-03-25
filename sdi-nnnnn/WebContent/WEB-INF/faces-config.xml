@@ -400,6 +400,19 @@
 			<to-view-id>/pages_user/principal_usuario.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
+
+		<navigation-case>
+			<from-action>#{bean_edit_task.editarTarea}</from-action>
+			<from-outcome>fallo</from-outcome>
+			<to-view-id>/pages_user/editar_tarea.xhtml</to-view-id>
+		</navigation-case>
+
+		<navigation-case>
+			<from-action>#{bean_edit_task.editarTarea}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/pages_user/principal_usuario.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
 	</navigation-rule>
 
 </faces-config>
