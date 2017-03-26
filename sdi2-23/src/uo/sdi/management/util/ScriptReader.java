@@ -2,6 +2,7 @@ package uo.sdi.management.util;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import alb.util.log.Log;
@@ -27,13 +28,14 @@ public class ScriptReader {
      */
     public ScriptReader(String fileName) {
 	try {
-	    URL ruta = this.getClass().getClassLoader().getResource(fileName);
-	    File file = new File(ruta.getPath());
+	    InputStream inputStream = getClass().getClassLoader()
+		    .getResourceAsStream("/" + fileName);
 
-	    reader = new BufferedReader(new FileReader(file));
+	    reader = new BufferedReader(new InputStreamReader(
+		    inputStream));
 	}
 
-	catch (FileNotFoundException fnfe) {
+	catch (Exception fnfe) {
 	    Log.error("No se ha encontrado el fichero de sentencias sql de "
 		    + "nombre [%s]", fileName);
 

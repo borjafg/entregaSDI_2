@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-import alb.util.log.Log;
-
 public class PropertiesReader {
 
     /**

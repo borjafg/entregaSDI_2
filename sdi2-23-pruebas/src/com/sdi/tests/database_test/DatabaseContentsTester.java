@@ -10,6 +10,7 @@ import java.sql.SQLException;
 
 import com.sdi.tests.database_test.util.DatabaseInfo;
 import com.sdi.tests.database_test.util.ScriptReader;
+import com.sdi.tests.utils.Log;
 
 public class DatabaseContentsTester {
 
@@ -56,6 +57,10 @@ public class DatabaseContentsTester {
 
 		}
 	    }
+
+	    Log.error("Ha ocurrido un error al comprobar si el contenido de la"
+		    + "base de datos se ha restaurado. Causa del error: %s",
+		    ex.getMessage());
 
 	    assertTrue("Error al ejecutar las consultas que comprueban "
 		    + "que la base de datos tiene los datos adecuados.", false);

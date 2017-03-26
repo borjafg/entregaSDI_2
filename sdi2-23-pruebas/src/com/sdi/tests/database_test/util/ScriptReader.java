@@ -1,13 +1,10 @@
 package com.sdi.tests.database_test.util;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.net.URL;
+import java.io.InputStreamReader;
 
-import alb.util.log.Log;
+import com.sdi.tests.utils.Log;
 
 public class ScriptReader {
 
@@ -30,13 +27,11 @@ public class ScriptReader {
      */
     public ScriptReader(String fileName) {
 	try {
-	    URL ruta = this.getClass().getClassLoader().getResource(fileName);
-	    File file = new File(ruta.getPath());
-
-	    reader = new BufferedReader(new FileReader(file));
+	    reader = new BufferedReader(new InputStreamReader(
+		    ScriptReader.class.getResourceAsStream("/" + fileName)));
 	}
 
-	catch (FileNotFoundException fnfe) {
+	catch (Exception fnfe) {
 	    Log.error("No se ha encontrado el fichero de sentencias sql de "
 		    + "nombre [%s]", fileName);
 

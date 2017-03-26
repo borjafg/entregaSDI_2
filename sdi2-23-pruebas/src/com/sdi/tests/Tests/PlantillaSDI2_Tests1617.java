@@ -22,8 +22,6 @@ import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 
-import alb.util.log.Log;
-
 import com.sdi.tests.database_test.DatabaseContentsTester;
 import com.sdi.tests.internationalizationTest.ValidadorLogIn;
 import com.sdi.tests.internationalizationTest.ValidadorPrincipalAdministrador;
@@ -39,6 +37,7 @@ import com.sdi.tests.page_objects.PO_RegistryForm;
 import com.sdi.tests.page_objects.PO_SemanaRow;
 import com.sdi.tests.utils.DatabaseReload;
 import com.sdi.tests.utils.DateUtil;
+import com.sdi.tests.utils.Log;
 import com.sdi.tests.utils.PropertiesReader;
 import com.sdi.tests.utils.SeleniumUtils;
 import com.sdi.tests.utils.ThreadUtil;
@@ -79,7 +78,7 @@ public class PlantillaSDI2_Tests1617 {
     @BeforeClass
     public static void esperarDespliegue() {
 	// Esperar x segundos por el despliegue
-	int segundosEspera = 16;
+	int segundosEspera = 12;
 
 	ThreadUtil.wait(segundosEspera * 1000);
     }
@@ -208,7 +207,11 @@ public class PlantillaSDI2_Tests1617 {
 	}
 
 	catch (Exception ex) {
+	    Log.error("Ha ocurrido un error al comprobar que el contenido de "
+		    + "la base de datos se ha reiniciado. A continuación se "
+		    + "mostrará una traza del error:");
 	    Log.error(ex);
+
 	    assertTrue(false); // Ante cualquier error el test falla
 	}
     }
