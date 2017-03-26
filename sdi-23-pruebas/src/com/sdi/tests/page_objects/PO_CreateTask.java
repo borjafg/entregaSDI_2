@@ -55,6 +55,8 @@ public class PO_CreateTask {
 	WebElement botonCrear = driver.findElement(By
 		.id("form_usuario:boton_crear"));
 	ThreadUtil.wait(600);
+	nombreC.click();//lo hacemos para cerrar el calendario
+	ThreadUtil.wait(600);
 	botonCrear.click();
 	
     }

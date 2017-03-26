@@ -13,7 +13,7 @@ public class PO_HoyRow {
 
 	WebElement titulo = driver.findElement(By.id("form_user:tabla_tareas:"
 		+ index + ":columna_titulo"));
-	row.put("titulo", titulo.getText());
+	row.put("titulo", titulo);
 
 	WebElement comentario = driver
 		.findElement(By.id("form_user:tabla_tareas:" + index

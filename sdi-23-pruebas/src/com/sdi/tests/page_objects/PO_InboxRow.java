@@ -4,16 +4,28 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class PO_InboxRow {
     public Map<String, Object> findRow(WebDriver driver, int index) {
 	Map<String, Object> row = new HashMap<String, Object>();
-
-	WebElement titulo = driver.findElement(By.id("form_user:tabla_tareas:"
+	
+	WebElement titulo = null;
+	try{
+	titulo = driver.findElement(By.id("form_user:tabla_tareas:"
 		+ index + ":columna_titulo"));
 	row.put("titulo", titulo);
+	
+	    
+	}catch(NoSuchElementException e){
+	    titulo = driver.findElement(By.id("form_user:tabla_tareas:"
+			+ index + ":columna_titulo_finalizada"));
+	    row.put("titulo", titulo);
+	}
+	
+	
 
 	WebElement comentario = driver
 		.findElement(By.id("form_user:tabla_tareas:" + index
