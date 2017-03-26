@@ -95,8 +95,8 @@ public class PlantillaSDI2_Tests1617 {
 
     @Before
     public void setUp() {
-	driver.navigate().to(URLInterno);
-	// driver.navigate().to(URLExterno);
+	// driver.navigate().to(URLInterno);
+	driver.navigate().to(URLExterno);
     }
 
     // @After
@@ -113,7 +113,6 @@ public class PlantillaSDI2_Tests1617 {
     @AfterClass
     static public void end() {
 	driver.quit();
-
     }
 
     // =====================================
@@ -902,20 +901,27 @@ public class PlantillaSDI2_Tests1617 {
 	 * bloque de pruebas con los usaurios registrados
 	 */
 	new DatabaseReload().reload(driver);
+
 	ThreadUtil.wait(600);
+
 	// Las unicas categorias que tienen tarea son de la 21 a la 30
 	new PO_LoginForm().completeForm(driver, "user1", "user1");
+
 	// clicamos en el boton de tareas dentro de Inbox
 	ThreadUtil.wait(600);
+
 	WebElement botonInbox = driver.findElement(By.id("form_user:inbox"));
 	botonInbox.click();
+
 	SeleniumUtils.EsperaCargaPagina(driver, "id",
 		"form_user:tabla_tareas_data", 10);
+
 	// comprobamos los elementos de la primera pagina
 	List<Map<String, Object>> pestaña = new ArrayList<Map<String, Object>>();
 	for (int i = 0; i < 8; i++) {
 	    pestaña.add(new PO_InboxRow().findRow(driver, i));
 	}
+
 	// comprobamos el nombre de las primeras 8 tareas
 	for (int i = 0; i < 8; i++) {
 	    assertTrue("Los nombres no son iguales",
@@ -926,7 +932,9 @@ public class PlantillaSDI2_Tests1617 {
 	SeleniumUtils
 		.EsperaCargaPagina(driver, "class",
 			"ui-icon ui-icon-seek-next", 8).get(0).click();
+
 	ThreadUtil.wait(600);
+
 	pestaña = new ArrayList<Map<String, Object>>();
 	for (int i = 8; i < 16; i++) {
 	    pestaña.add(new PO_InboxRow().findRow(driver, i));
@@ -936,20 +944,27 @@ public class PlantillaSDI2_Tests1617 {
 	    if (i == 0) {// porque es el ultimo que sigue terniendo de nombre 0X
 		assertTrue("Los nombres no son iguales", ((WebElement) pestaña
 			.get(i).get("titulo")).getText().equals("tarea09"));
-	    } else {
+	    }
+
+	    else {
 		assertTrue("Los nombres no son iguales",
 			((WebElement) pestaña.get(i).get("titulo")).getText()
 				.equals("tarea" + (i + 9)));
 	    }
 	}
+
 	SeleniumUtils
 		.EsperaCargaPagina(driver, "class",
 			"ui-icon ui-icon-seek-next", 8).get(0).click();
+
 	ThreadUtil.wait(600);
+
 	pestaña = new ArrayList<Map<String, Object>>();
+
 	for (int i = 16; i <= 19; i++) {
 	    pestaña.add(new PO_InboxRow().findRow(driver, i));
 	}
+
 	for (int i = 0; i < 4; i++) {
 	    assertTrue("Los nombres no son iguales",
 		    ((WebElement) pestaña.get(i).get("titulo")).getText()
@@ -960,27 +975,32 @@ public class PlantillaSDI2_Tests1617 {
     // PR17: Funcionamiento correcto de la ordenación por fecha planeada.
     @Test
     public void prueba17() {
-
 	new PO_LoginForm().completeForm(driver, "user1", "user1");
+
 	// clicamos en el boton de tareas dentro de Inbox
 	ThreadUtil.wait(600);
+
 	WebElement botonInbox = driver.findElement(By.id("form_user:inbox"));
 	botonInbox.click();
+
 	SeleniumUtils.EsperaCargaPagina(driver, "id",
 		"form_user:tabla_tareas_data", 10);
+
 	// comprobamos los elementos de la primera pagina
 	SeleniumUtils
 		.EsperaCargaPagina(driver, "id",
 			"form_user:tabla_tareas:columna_planeada_titulo", 8)
 		.get(0).click();
+
 	ThreadUtil.wait(600);
+
 	// comprobamos los elementos de la primera pagina
 	List<Map<String, Object>> pestaña = new ArrayList<Map<String, Object>>();
 	for (int i = 0; i < 8; i++) {
 	    pestaña.add(new PO_InboxRow().findRow(driver, i));
 	}
-	Date hoy = new Date();
 
+	Date hoy = new Date();
 	for (int i = 0; i < 8; i++) {
 	    assertTrue("Los nombres no son iguales",
 		    ((WebElement) pestaña.get(i).get("titulo")).getText()
@@ -988,18 +1008,23 @@ public class PlantillaSDI2_Tests1617 {
 	    assertTrue("El dia no coincide", DateUtil.sameDay(
 		    DateUtil.convertStringToDate((String) pestaña.get(i).get(
 			    "fechaPlaneada")), hoy));
-
 	}
+
 	ThreadUtil.wait(600);
+
 	SeleniumUtils
 		.EsperaCargaPagina(driver, "class",
 			"ui-icon ui-icon-seek-next", 8).get(0).click();
+
 	ThreadUtil.wait(600);
+
 	pestaña = new ArrayList<Map<String, Object>>();
 	for (int i = 8; i < 16; i++) {
 	    pestaña.add(new PO_InboxRow().findRow(driver, i));
 	}
+
 	ThreadUtil.wait(600);
+
 	for (int i = 0; i <= 1; i++) {
 	    assertTrue("Los nombres no son iguales",
 		    ((WebElement) pestaña.get(i).get("titulo")).getText()
@@ -1007,35 +1032,36 @@ public class PlantillaSDI2_Tests1617 {
 	    assertTrue("El dia no coincide", DateUtil.sameDay(
 		    DateUtil.convertStringToDate((String) pestaña.get(i).get(
 			    "fechaPlaneada")), hoy));
-
 	}
 
 	int num = 1;
-
 	int sum = 1;
 	for (int i = 2; i < 8; i++) {
-
 	    assertTrue("Los nombres no son iguales",
 		    ((WebElement) pestaña.get(i).get("titulo")).getText()
 			    .equals("tarea0" + (num)));
-
-	    // hasta aquí funciona esta mierda
 
 	    assertTrue("El dia no coincide", DateUtil.sameDay(
 		    DateUtil.convertStringToDate((String) pestaña.get(i).get(
 			    "fechaPlaneada")),
 		    DateUtil.diasSiguientes(hoy, sum)));
+
 	    ++num;
+
 	    if (i % 2 != 0) {
 		sum = sum + 1;
 	    }
 	}
+
 	// tercera pestaña
 	ThreadUtil.wait(600);
+
 	SeleniumUtils
 		.EsperaCargaPagina(driver, "class",
 			"ui-icon ui-icon-seek-next", 8).get(0).click();
+
 	ThreadUtil.wait(600);
+
 	pestaña = new ArrayList<Map<String, Object>>();
 
 	// 28,28,29,30 dias
@@ -1043,6 +1069,7 @@ public class PlantillaSDI2_Tests1617 {
 	for (int i = 16; i < 20; i++) {
 	    pestaña.add(new PO_InboxRow().findRow(driver, i));
 	}
+
 	// tareas 07,08,09,10
 	int numBase = 7;
 	int dias = 4;
@@ -1051,24 +1078,30 @@ public class PlantillaSDI2_Tests1617 {
 		assertTrue("Los nombres no son iguales",
 			((WebElement) pestaña.get(i).get("titulo")).getText()
 				.equals("tarea0" + (numBase)));
+
 		++numBase;
-	    } else {
+	    }
+
+	    else {
 		assertTrue("Los nombres no son iguales", ((WebElement) pestaña
 			.get(i).get("titulo")).getText().equals("tarea10"));
 	    }
+
 	    if (i < 2) {
-		assertTrue("El dia no coincide", DateUtil.sameDay(DateUtil
-			.convertStringToDate((String) pestaña.get(i).get(
-				"fechaPlaneada")), DateUtil.diasSiguientes(hoy,
-			dias)));
-	    } else {
-		++dias;
 		assertTrue("El dia no coincide", DateUtil.sameDay(DateUtil
 			.convertStringToDate((String) pestaña.get(i).get(
 				"fechaPlaneada")), DateUtil.diasSiguientes(hoy,
 			dias)));
 	    }
 
+	    else {
+		++dias;
+
+		assertTrue("El dia no coincide", DateUtil.sameDay(DateUtil
+			.convertStringToDate((String) pestaña.get(i).get(
+				"fechaPlaneada")), DateUtil.diasSiguientes(hoy,
+			dias)));
+	    }
 	}
 
     }
@@ -1077,18 +1110,24 @@ public class PlantillaSDI2_Tests1617 {
     @Test
     public void prueba18() {
 	new PO_LoginForm().completeForm(driver, "user1", "user1");
+
 	ThreadUtil.wait(600);
+
 	WebElement botonInbox = driver.findElement(By.id("form_user:inbox"));
 	botonInbox.click();
+
 	SeleniumUtils.EsperaCargaPagina(driver, "id",
 		"form_user:tabla_tareas_data", 10);
 
 	WebElement field = driver.findElement(By
 		.id("form_user:tabla_tareas:columna_titulo_titulo:filter"));
+
 	field.click();
 	field.clear();
 	field.sendKeys("1");// vamos a mostrar todos las tareas que tienen un 1
+
 	ThreadUtil.wait(600);
+
 	List<Map<String, Object>> pestaña = new ArrayList<Map<String, Object>>();
 	for (int i = 0; i < 8; i++) {
 	    pestaña.add(new PO_InboxRow().findRow(driver, i));
@@ -1099,30 +1138,34 @@ public class PlantillaSDI2_Tests1617 {
 	    if (i == 0) {
 		assertTrue("Los nombre coinciden", ((WebElement) pestaña.get(i)
 			.get("titulo")).getText().equals("tarea01"));
-	    } else {
+	    }
+
+	    else {
 		assertTrue("Los nombre coinciden", ((WebElement) pestaña.get(i)
 			.get("titulo")).getText().equals("tarea" + base));
 		++base;
 	    }
-
 	}
+
 	// segunda pestaña
 	ThreadUtil.wait(600);
+
 	SeleniumUtils
 		.EsperaCargaPagina(driver, "class",
 			"ui-icon ui-icon-seek-next", 8).get(0).click();
+
 	ThreadUtil.wait(600);
 
 	pestaña = new ArrayList<Map<String, Object>>();
 	for (int i = 8; i <= 10; i++) {
 	    pestaña.add(new PO_InboxRow().findRow(driver, i));
 	}
+
 	for (int i = 0; i <= 2; i++) {
 	    assertTrue("Los nombre coinciden", ((WebElement) pestaña.get(i)
 		    .get("titulo")).getText().equals("tarea" + base));
 	    ++base;
 	}
-
     }
 
     /*
@@ -1132,10 +1175,11 @@ public class PlantillaSDI2_Tests1617 {
     // PR19: Funcionamiento correcto de la ordenación por categoría.
     @Test
     public void prueba19() {
-	// @Clean rompe a la hora de buscar la columna
 	new PO_LoginForm().completeForm(driver, "user1", "user1");
+
 	// clicamos en el boton de tareas dentro de hoy
 	ThreadUtil.wait(600);
+
 	WebElement botonInbox = driver.findElement(By.id("form_user:hoy"));
 	botonInbox.click();
 
@@ -1145,11 +1189,14 @@ public class PlantillaSDI2_Tests1617 {
 		.EsperaCargaPagina(driver, "id",
 			"form_user:tabla_tareas:columna_categoria_titulo", 8)
 		.get(0).click();
+
 	ThreadUtil.wait(600);
+
 	List<Map<String, Object>> pestaña = new ArrayList<Map<String, Object>>();
 	for (int i = 0; i < 8; i++) {
 	    pestaña.add(new PO_HoyRow().findRow(driver, i));
 	}
+
 	// 1 1 1, 2 2 2, 3 3
 	int numCat = 1;
 	for (int i = 0; i < 8; i++) {
@@ -1159,22 +1206,26 @@ public class PlantillaSDI2_Tests1617 {
 	    if (i == 6) {
 		numCat = 3;
 	    }
+
 	    assertTrue("Las categorias no coinciden",
 		    pestaña.get(i).get("categoria")
 			    .equals("Categoria" + numCat));
 	}
 
 	ThreadUtil.wait(300);
+
 	// clicamos para pasar a la siguiente pestaña
 	SeleniumUtils
 		.EsperaCargaPagina(driver, "class",
 			"ui-icon ui-icon-seek-next", 8).get(0).click();
-	ThreadUtil.wait(600);
-	pestaña = new ArrayList<Map<String, Object>>();
 
+	ThreadUtil.wait(600);
+
+	pestaña = new ArrayList<Map<String, Object>>();
 	for (int i = 8; i < 16; i++) {
 	    pestaña.add(new PO_HoyRow().findRow(driver, i));
 	}
+
 	numCat = 3;
 	for (int i = 0; i < 8; i++) {
 	    if (i <= 1) {
@@ -1182,17 +1233,22 @@ public class PlantillaSDI2_Tests1617 {
 			"categoria es distinta",
 			pestaña.get(i).get("categoria")
 				.equals("Categoria" + numCat));
+	    }
 
-	    } else {
+	    else {
 		assertTrue("categoria es distinta",
 			pestaña.get(i).get("categoria").equals("----------"));
 	    }
 	}
+
 	ThreadUtil.wait(300);
+
 	SeleniumUtils
 		.EsperaCargaPagina(driver, "class",
 			"ui-icon ui-icon-seek-next", 8).get(0).click();
+
 	ThreadUtil.wait(600);
+
 	pestaña = new ArrayList<Map<String, Object>>();
 	for (int i = 16; i < 20; i++) {
 	    pestaña.add(new PO_HoyRow().findRow(driver, i));
@@ -1202,15 +1258,16 @@ public class PlantillaSDI2_Tests1617 {
 	    assertTrue("categoria es distinta", pestaña.get(i).get("categoria")
 		    .equals("----------"));
 	}
-
     }
 
     // PR20: Funcionamiento correcto de la ordenación por fecha planeada.
     @Test
     public void prueba20() {
 	new PO_LoginForm().completeForm(driver, "user1", "user1");
+
 	// clicamos en el boton de tareas dentro de hoy
 	ThreadUtil.wait(600);
+
 	WebElement botonInbox = driver.findElement(By.id("form_user:hoy"));
 	botonInbox.click();
 
@@ -1221,11 +1278,14 @@ public class PlantillaSDI2_Tests1617 {
 		.EsperaCargaPagina(driver, "id",
 			"form_user:tabla_tareas:columna_planeada_titulo", 8)
 		.get(0).click();
+
 	ThreadUtil.wait(600);
+
 	List<Map<String, Object>> pestaña = new ArrayList<Map<String, Object>>();
 	for (int i = 0; i < 8; i++) {
 	    pestaña.add(new PO_HoyRow().findRow(driver, i));
 	}
+
 	int base = 27;
 	for (int i = 0; i < 4; i++) {
 	    assertTrue("El nombre no es el mismo", ((WebElement) pestaña.get(i)
@@ -1233,8 +1293,10 @@ public class PlantillaSDI2_Tests1617 {
 	    assertTrue("Fecha no esta en rojo", ((WebElement) pestaña.get(i)
 		    .get("fechaPlaneadaWebElement")).getAttribute("class")
 		    .contains("elemento_color_rojo"));
+
 	    ++base;
 	}
+
 	base = 24;
 	for (int i = 4; i <= 6; i++) {
 	    assertTrue("El nombre no es el mismo", ((WebElement) pestaña.get(i)
@@ -1242,8 +1304,10 @@ public class PlantillaSDI2_Tests1617 {
 	    assertTrue("Fecha no esta en rojo", ((WebElement) pestaña.get(i)
 		    .get("fechaPlaneadaWebElement")).getAttribute("class")
 		    .contains("elemento_color_rojo"));
+
 	    ++base;
 	}
+
 	assertTrue("El nombre no es el mismo", ((WebElement) pestaña.get(7)
 		.get("titulo")).getText().equals("tarea21"));
 	assertTrue("Fecha no esta en rojo",
@@ -1251,16 +1315,19 @@ public class PlantillaSDI2_Tests1617 {
 			.getAttribute("class").contains("elemento_color_rojo"));
 
 	ThreadUtil.wait(300);
+
 	// clicamos para pasar a la siguiente pestaña
 	SeleniumUtils
 		.EsperaCargaPagina(driver, "class",
 			"ui-icon ui-icon-seek-next", 8).get(0).click();
+
 	ThreadUtil.wait(600);
 
 	pestaña = new ArrayList<Map<String, Object>>();
 	for (int i = 8; i < 16; i++) {
 	    pestaña.add(new PO_HoyRow().findRow(driver, i));
 	}
+
 	base = 11;
 	int base2 = 22;
 	for (int i = 0; i < 8; i++) {
@@ -1273,27 +1340,35 @@ public class PlantillaSDI2_Tests1617 {
 			((WebElement) pestaña.get(i).get(
 				"fechaPlaneadaWebElement")).getAttribute(
 				"class").contains("elemento_color_rojo"));
+
 		++base2;
-	    } else {
+	    }
+
+	    else {
 		assertTrue("El nombre no es el mismo", ((WebElement) pestaña
 			.get(i).get("titulo")).getText().equals("tarea" + base));
 		assertTrue("Fecha  esta en rojo", ((WebElement) pestaña.get(i)
 			.get("fechaPlaneadaWebElement")).getAttribute("class")
 			.contains(""));// color negro
+
 		++base;
 	    }
 	}
 
 	ThreadUtil.wait(300);
+
 	// clicamos para pasar a la siguiente pestaña
 	SeleniumUtils
 		.EsperaCargaPagina(driver, "class",
 			"ui-icon ui-icon-seek-next", 8).get(0).click();
+
 	ThreadUtil.wait(600);
+
 	pestaña = new ArrayList<Map<String, Object>>();
 	for (int i = 16; i <= 19; i++) {
 	    pestaña.add(new PO_HoyRow().findRow(driver, i));
 	}
+
 	base = 17;
 	for (int i = 0; i < 4; i++) {
 	    assertTrue("El nombre no es el mismo", ((WebElement) pestaña.get(i)
@@ -1304,7 +1379,6 @@ public class PlantillaSDI2_Tests1617 {
 			    .getAttribute("class").contains(""));// color negro
 	    ++base;
 	}
-
     }
 
     // PR21: Comprobar que las tareas que no están en rojo son las de hoy y
@@ -1312,13 +1386,15 @@ public class PlantillaSDI2_Tests1617 {
     @Test
     public void prueba21() {
 	new PO_LoginForm().completeForm(driver, "user1", "user1");
+
 	// clicamos en el boton de tareas dentro de hoy
 	ThreadUtil.wait(600);
+
 	WebElement botonInbox = driver.findElement(By.id("form_user:hoy"));
 	botonInbox.click();
+
 	// tareas de la 11 a la 20, son las planeadas para hoy, el resto están
 	// retrasadas
-
 	SeleniumUtils.EsperaCargaPagina(driver, "id",
 		"form_user:tabla_tareas_data", 10);
 
@@ -1328,6 +1404,7 @@ public class PlantillaSDI2_Tests1617 {
 	for (int i = 0; i < 8; i++) {
 	    pestaña.add(new PO_HoyRow().findRow(driver, i));
 	}
+
 	int base = 11;
 	for (int i = 0; i < 8; i++) {
 	    assertTrue("titulo no coincide",
@@ -1340,20 +1417,24 @@ public class PlantillaSDI2_Tests1617 {
 		    "Fecha  esta en rojo",
 		    ((WebElement) pestaña.get(i).get("fechaPlaneadaWebElement"))
 			    .getAttribute("class").contains(""));// color negro
+
 	    ++base;
 	}
 
 	ThreadUtil.wait(300);
+
 	// clicamos para pasar a la siguiente pestaña
 	SeleniumUtils
 		.EsperaCargaPagina(driver, "class",
 			"ui-icon ui-icon-seek-next", 8).get(0).click();
+
 	ThreadUtil.wait(600);
 
 	pestaña = new ArrayList<Map<String, Object>>();
 	for (int i = 8; i <= 9; i++) {
 	    pestaña.add(new PO_HoyRow().findRow(driver, i));
 	}
+
 	for (int i = 0; i <= 1; i++) {
 	    assertTrue("titulo no coincide",
 		    ((WebElement) pestaña.get(i).get("titulo")).getText()
@@ -1377,24 +1458,30 @@ public class PlantillaSDI2_Tests1617 {
     @Test
     public void prueba22() {
 	new PO_LoginForm().completeForm(driver, "user1", "user1");
+
 	// clicamos en el boton de tareas dentro de hoy
 	ThreadUtil.wait(600);
+
 	WebElement botonInbox = driver.findElement(By.id("form_user:hoy"));
 	botonInbox.click();
+
 	// tareas de la 11 a la 20, son las planeadas para hoy, el resto están
 	// retrasadas
 
 	ThreadUtil.wait(300);
+
 	// clicamos para pasar a la siguiente pestaña
 	SeleniumUtils
 		.EsperaCargaPagina(driver, "class",
 			"ui-icon ui-icon-seek-next", 8).get(0).click();
+
 	ThreadUtil.wait(600);
 
 	List<Map<String, Object>> pestaña = new ArrayList<Map<String, Object>>();
 	for (int i = 10; i < 16; i++) {
 	    pestaña.add(new PO_HoyRow().findRow(driver, i));
 	}
+
 	int base = 21;
 	for (int i = 0; i < 6; i++) {
 	    assertTrue("titulo no coincide",
@@ -1403,19 +1490,24 @@ public class PlantillaSDI2_Tests1617 {
 	    assertTrue("Fecha no esta en rojo", ((WebElement) pestaña.get(i)
 		    .get("fechaPlaneadaWebElement")).getAttribute("class")
 		    .contains("elemento_color_rojo"));
+
 	    ++base;
 	}
+
 	ThreadUtil.wait(300);
+
 	// clicamos para pasar a la siguiente pestaña
 	SeleniumUtils
 		.EsperaCargaPagina(driver, "class",
 			"ui-icon ui-icon-seek-next", 8).get(0).click();
+
 	ThreadUtil.wait(600);
 
 	pestaña = new ArrayList<Map<String, Object>>();
 	for (int i = 16; i <= 19; i++) {
 	    pestaña.add(new PO_HoyRow().findRow(driver, i));
 	}
+
 	for (int i = 0; i < 4; i++) {
 	    assertTrue("titulo no coincide",
 		    ((WebElement) pestaña.get(i).get("titulo")).getText()
@@ -1423,9 +1515,9 @@ public class PlantillaSDI2_Tests1617 {
 	    assertTrue("Fecha no esta en rojo", ((WebElement) pestaña.get(i)
 		    .get("fechaPlaneadaWebElement")).getAttribute("class")
 		    .contains("elemento_color_rojo"));
+
 	    ++base;
 	}
-
     }
 
     /*
@@ -1438,16 +1530,20 @@ public class PlantillaSDI2_Tests1617 {
     public void prueba23() {
 	// tareas de la 1 a la 20, tienen un afecha correcta
 	new PO_LoginForm().completeForm(driver, "user1", "user1");
+
 	// clicamos en el boton de tareas dentro de semana
 	ThreadUtil.wait(600);
+
 	WebElement botonInbox = driver.findElement(By.id("form_user:semana"));
 	botonInbox.click();
+
 	ThreadUtil.wait(300);
 
 	List<Map<String, Object>> pestaña = new ArrayList<Map<String, Object>>();
 	for (int i = 0; i < 8; i++) {
 	    pestaña.add(new PO_SemanaRow().findRow(driver, i));
 	}
+
 	Date hoy = new Date();
 	int base = 1;
 	int sum = 1;
@@ -1465,14 +1561,17 @@ public class PlantillaSDI2_Tests1617 {
 	    if (i % 2 != 0) {
 		++sum;
 	    }
+
 	    ++base;
 	}
 
 	ThreadUtil.wait(300);
+
 	// clicamos para pasar a la siguiente pestaña
 	SeleniumUtils
 		.EsperaCargaPagina(driver, "class",
 			"ui-icon ui-icon-seek-next", 8).get(0).click();
+
 	ThreadUtil.wait(600);
 
 	pestaña = new ArrayList<Map<String, Object>>();
@@ -1488,22 +1587,25 @@ public class PlantillaSDI2_Tests1617 {
 			DateUtil.convertStringToDate((String) pestaña.get(i)
 				.get("fechaPlaneada")), DateUtil
 				.diasSiguientes(hoy, 5)));
-	    } else {
+	    }
+
+	    else {
 		if (i == 1) {
 		    assertTrue("la fecha no es la correcta", DateUtil.sameDay(
 			    DateUtil.convertStringToDate((String) pestaña
 				    .get(i).get("fechaPlaneada")), DateUtil
 				    .diasSiguientes(hoy, 6)));
-		} else {
+		}
 
+		else {
 		    assertTrue("titulo no coincide",
 			    pestaña.get(i).get("titulo").equals("tarea" + base));
 		    assertTrue("El dia no coincide", DateUtil.sameDay(DateUtil
 			    .convertStringToDate((String) pestaña.get(i).get(
 				    "fechaPlaneada")), hoy));
-
 		}
 	    }
+
 	    assertTrue("Categoria esta en rojo", ((WebElement) pestaña.get(i)
 		    .get("categoriaWebElement")).getAttribute("class")
 		    .contains(""));
@@ -1511,16 +1613,19 @@ public class PlantillaSDI2_Tests1617 {
 	}
 
 	ThreadUtil.wait(300);
+
 	// clicamos para pasar a la siguiente pestaña
 	SeleniumUtils
 		.EsperaCargaPagina(driver, "class",
 			"ui-icon ui-icon-seek-next", 8).get(0).click();
+
 	ThreadUtil.wait(600);
 
 	pestaña = new ArrayList<Map<String, Object>>();
 	for (int i = 16; i < 20; i++) {
 	    pestaña.add(new PO_SemanaRow().findRow(driver, i));
 	}
+
 	for (int i = 0; i <= 3; i++) {
 	    assertTrue("Categoria esta en rojo", ((WebElement) pestaña.get(i)
 		    .get("categoriaWebElement")).getAttribute("class")
@@ -1533,18 +1638,19 @@ public class PlantillaSDI2_Tests1617 {
 
 	    ++base;
 	}
-
     }
 
     // PR24: Funcionamiento correcto de la ordenación por día.
     @Test
     public void prueba24() {
-
 	new PO_LoginForm().completeForm(driver, "user1", "user1");
+
 	// clicamos en el boton de tareas dentro de semana
 	ThreadUtil.wait(600);
+
 	WebElement botonInbox = driver.findElement(By.id("form_user:semana"));
 	botonInbox.click();
+
 	ThreadUtil.wait(300);
 
 	SeleniumUtils.EsperaCargaPagina(driver, "id",
@@ -1554,11 +1660,14 @@ public class PlantillaSDI2_Tests1617 {
 		.EsperaCargaPagina(driver, "id",
 			"form_user:tabla_tareas:columna_planeada_titulo", 8)
 		.get(0).click();
+
 	ThreadUtil.wait(600);
+
 	List<Map<String, Object>> pestaña = new ArrayList<Map<String, Object>>();
 	for (int i = 0; i < 8; i++) {
 	    pestaña.add(new PO_SemanaRow().findRow(driver, i));
 	}
+
 	Date hoy = new Date();
 
 	int base = 27;
@@ -1567,17 +1676,18 @@ public class PlantillaSDI2_Tests1617 {
 		assertTrue("Los nombres no son iguales",
 			pestaña.get(i).get("titulo").equals("tarea" + (base)));
 
-		// hasta aquí funciona esta mierda
-
 		assertTrue("El dia no coincide", DateUtil.sameDay(DateUtil
 			.convertStringToDate((String) pestaña.get(i).get(
 				"fechaPlaneada")), DateUtil.diasSiguientes(hoy,
 			-4)));
 		++base;
-	    } else if (i > 3 && i <= 6) {
+	    }
+
+	    else if (i > 3 && i <= 6) {
 		if (base == 31) {
 		    base = 24;
 		}
+
 		assertTrue("Los nombres no son iguales",
 			pestaña.get(i).get("titulo").equals("tarea" + (base)));
 		assertTrue("El dia no coincide", DateUtil.sameDay(DateUtil
@@ -1585,7 +1695,9 @@ public class PlantillaSDI2_Tests1617 {
 				"fechaPlaneada")), DateUtil.diasSiguientes(hoy,
 			-3)));
 		++base;
-	    } else {
+	    }
+
+	    else {
 		assertTrue("Los nombres no son iguales",
 			pestaña.get(i).get("titulo").equals("tarea21"));
 		assertTrue("El dia no coincide", DateUtil.sameDay(DateUtil
@@ -1596,16 +1708,19 @@ public class PlantillaSDI2_Tests1617 {
 	}
 
 	ThreadUtil.wait(300);
+
 	// clicamos para pasar a la siguiente pestaña
 	SeleniumUtils
 		.EsperaCargaPagina(driver, "class",
 			"ui-icon ui-icon-seek-next", 8).get(0).click();
+
 	ThreadUtil.wait(600);
 
 	pestaña = new ArrayList<Map<String, Object>>();
 	for (int i = 8; i < 16; i++) {
 	    pestaña.add(new PO_SemanaRow().findRow(driver, i));
 	}
+
 	base = 22;
 	for (int i = 0; i < 8; i++) {
 	    if (i <= 1) {
@@ -1616,10 +1731,13 @@ public class PlantillaSDI2_Tests1617 {
 				"fechaPlaneada")), DateUtil.diasSiguientes(hoy,
 			-2)));
 		++base;
-	    } else {
+	    }
+
+	    else {
 		if (base == 24) {
 		    base = 11;
 		}
+
 		assertTrue("Los nombres no son iguales",
 			pestaña.get(i).get("titulo").equals("tarea" + (base)));
 		assertTrue("El dia no coincide", DateUtil.sameDay(DateUtil
@@ -1628,7 +1746,9 @@ public class PlantillaSDI2_Tests1617 {
 		++base;
 	    }
 	}
+
 	ThreadUtil.wait(300);
+
 	// clicamos para pasar a la siguiente pestaña
 	SeleniumUtils
 		.EsperaCargaPagina(driver, "class",
@@ -1639,6 +1759,7 @@ public class PlantillaSDI2_Tests1617 {
 	for (int i = 16; i < 24; i++) {
 	    pestaña.add(new PO_SemanaRow().findRow(driver, i));
 	}
+
 	base = 17;
 	int sum = 1;
 	for (int i = 0; i < 8; i++) {
@@ -1649,26 +1770,30 @@ public class PlantillaSDI2_Tests1617 {
 			.convertStringToDate((String) pestaña.get(i).get(
 				"fechaPlaneada")), hoy));
 		++base;
+	    }
 
-	    } else {
+	    else {
 		if (base == 21) {
 		    base = 1;
 		}
+
 		assertTrue("Los nombres no son iguales",
 			pestaña.get(i).get("titulo").equals("tarea0" + (base)));
 		assertTrue("la fecha no es la correcta", DateUtil.sameDay(
 			DateUtil.convertStringToDate((String) pestaña.get(i)
 				.get("fechaPlaneada")), DateUtil
 				.diasSiguientes(hoy, sum)));
+
 		if (i % 2 != 0) {
 		    ++sum;
 		}
+
 		++base;
 	    }
-
 	}
 
 	ThreadUtil.wait(300);
+
 	// clicamos para pasar a la siguiente pestaña
 	SeleniumUtils
 		.EsperaCargaPagina(driver, "class",
@@ -1679,33 +1804,38 @@ public class PlantillaSDI2_Tests1617 {
 	for (int i = 24; i < 30; i++) {
 	    pestaña.add(new PO_SemanaRow().findRow(driver, i));
 	}
+
 	base = 5;
 	sum = 3;
 	for (int i = 0; i <= 5; i++) {
 	    if (i == 5) {
 		assertTrue("Los nombres no son iguales",
 			pestaña.get(i).get("titulo").equals("tarea" + (base)));
-	    } else {
+	    }
+
+	    else {
 		assertTrue("Los nombres no son iguales",
 			pestaña.get(i).get("titulo").equals("tarea0" + (base)));
 		++base;
 	    }
+
 	    if (i != 5) {
 		assertTrue("la fecha no es la correcta", DateUtil.sameDay(
 			DateUtil.convertStringToDate((String) pestaña.get(i)
 				.get("fechaPlaneada")), DateUtil
 				.diasSiguientes(hoy, sum)));
+
 		if (i % 2 != 0) {
 		    ++sum;
-
 		}
-	    } else {
+	    }
+
+	    else {
 		assertTrue("la fecha no es la correcta", DateUtil.sameDay(
 			DateUtil.convertStringToDate((String) pestaña.get(i)
 				.get("fechaPlaneada")), DateUtil
 				.diasSiguientes(hoy, 6)));
 	    }
-
 	}
 
     }
@@ -1716,8 +1846,10 @@ public class PlantillaSDI2_Tests1617 {
 	new PO_LoginForm().completeForm(driver, "user1", "user1");
 	// clicamos en el boton de tareas dentro de semana
 	ThreadUtil.wait(600);
+
 	WebElement botonInbox = driver.findElement(By.id("form_user:semana"));
 	botonInbox.click();
+
 	ThreadUtil.wait(300);
 
 	SeleniumUtils.EsperaCargaPagina(driver, "id",
@@ -1726,11 +1858,14 @@ public class PlantillaSDI2_Tests1617 {
 		.EsperaCargaPagina(driver, "id",
 			"form_user:tabla_tareas:columna_titulo_titulo", 8)
 		.get(0).click();
+
 	ThreadUtil.wait(600);
+
 	List<Map<String, Object>> pestaña = new ArrayList<Map<String, Object>>();
 	for (int i = 0; i < 8; i++) {
 	    pestaña.add(new PO_SemanaRow().findRow(driver, i));
 	}
+
 	int base = 1;
 	for (int i = 0; i < 8; i++) {
 	    assertTrue("el nombre es incorrecto", pestaña.get(i).get("titulo")
@@ -1739,10 +1874,12 @@ public class PlantillaSDI2_Tests1617 {
 	}
 
 	ThreadUtil.wait(300);
+
 	// clicamos para pasar a la siguiente pestaña
 	SeleniumUtils
 		.EsperaCargaPagina(driver, "class",
 			"ui-icon ui-icon-seek-next", 8).get(0).click();
+
 	ThreadUtil.wait(600);
 
 	pestaña = new ArrayList<Map<String, Object>>();
@@ -1754,14 +1891,18 @@ public class PlantillaSDI2_Tests1617 {
 	    if (i == 0) {
 		assertTrue("el nombre es incorrecto",
 			pestaña.get(i).get("titulo").equals("tarea0" + (base)));
-	    } else {
+	    }
+
+	    else {
 		assertTrue("el nombre es incorrecto",
 			pestaña.get(i).get("titulo").equals("tarea" + (base)));
 	    }
+
 	    ++base;
 	}
 
 	ThreadUtil.wait(300);
+
 	// clicamos para pasar a la siguiente pestaña
 	SeleniumUtils
 		.EsperaCargaPagina(driver, "class",
@@ -1769,12 +1910,12 @@ public class PlantillaSDI2_Tests1617 {
 	ThreadUtil.wait(600);
 
 	pestaña = new ArrayList<Map<String, Object>>();
+
 	for (int i = 16; i < 24; i++) {
 	    pestaña.add(new PO_SemanaRow().findRow(driver, i));
 	}
 
 	for (int i = 0; i < 8; i++) {
-
 	    assertTrue("el nombre es incorrecto", pestaña.get(i).get("titulo")
 		    .equals("tarea" + (base)));
 
@@ -1782,6 +1923,7 @@ public class PlantillaSDI2_Tests1617 {
 	}
 
 	ThreadUtil.wait(300);
+
 	// clicamos para pasar a la siguiente pestaña
 	SeleniumUtils
 		.EsperaCargaPagina(driver, "class",
@@ -1794,7 +1936,6 @@ public class PlantillaSDI2_Tests1617 {
 	}
 
 	for (int i = 0; i < 6; i++) {
-
 	    assertTrue("el nombre es incorrecto", pestaña.get(i).get("titulo")
 		    .equals("tarea" + (base)));
 
@@ -1808,31 +1949,41 @@ public class PlantillaSDI2_Tests1617 {
     public void prueba26() {
 	// (1) reiniciamos la base de datos
 	new DatabaseReload().reload(driver);
+
 	// (2) iniciamos sesion como usuario
 	new PO_LoginForm().completeForm(driver, "user1", "user1");
+
 	ThreadUtil.wait(600);
+
 	WebElement botonInbox = driver.findElement(By.id("form_user:inbox"));
 	botonInbox.click();
+
 	ThreadUtil.wait(300);
+
 	// (3) vamos a finalizar la tarea01
 	Map<String, Object> tarea01 = new PO_InboxRow().findRow(driver, 0);
+
 	// (4) comprobamos que es la tarea01
 	assertTrue("el nombre no coincide",
 		((WebElement) tarea01.get("titulo")).getText()
 			.equals("tarea01"));
+
 	// (5) eliminamos la tarea01
 	((WebElement) tarea01.get("fechaFinalizar")).click();
 	ThreadUtil.wait(600);
 	SeleniumUtils
 		.EsperaCargaPagina(driver, "id",
 			"form_menu_superior:boton_volver", 8).get(0).click();
+
 	// (6) hacemos click en el checkbox
 	SeleniumUtils
 		.EsperaCargaPagina(driver, "id", "form_user:check_terminadas",
 			8).get(0).click();
+
 	// (7) volvemos a la sub-lista inbox
 	SeleniumUtils.EsperaCargaPagina(driver, "id", "form_user:inbox", 8)
 		.get(0).click();
+
 	// (8) ordenamos por titulo, clicamos dos veces, para que las terminadas
 	// estén las primeras
 	SeleniumUtils
@@ -1851,6 +2002,7 @@ public class PlantillaSDI2_Tests1617 {
 	ThreadUtil.wait(600);
 	Date hoy = new Date();
 	tarea01 = new PO_InboxRow().findRow(driver, 0);
+
 	assertTrue("el nombre no coincide",
 		((WebElement) tarea01.get("titulo")).getText()
 			.equals("tarea01"));
@@ -1872,9 +2024,11 @@ public class PlantillaSDI2_Tests1617 {
     public void prueba27() {
 	// (1) reiniciamos la base de datos
 	new DatabaseReload().reload(driver);
+
 	// (2) iniciamos sesion como usuario
 	new PO_LoginForm().completeForm(driver, "user1", "user1");
 	ThreadUtil.wait(600);
+
 	// (3) clicamos en el boton para acceder a la ventana de creacion de
 	// tareas
 	SeleniumUtils
@@ -1884,11 +2038,15 @@ public class PlantillaSDI2_Tests1617 {
 
 	ThreadUtil.wait(600);
 	new PO_CreateTask().completeFormWithoutCalendar(driver, "a", "a", 0, 1);
+
 	// vamos a mirar a inbox
 	ThreadUtil.wait(600);
+
 	WebElement botonInbox = driver.findElement(By.id("form_user:inbox"));
 	botonInbox.click();
+
 	ThreadUtil.wait(300);
+
 	// entramos en inbox
 	SeleniumUtils
 		.EsperaCargaPagina(driver, "id",
@@ -1904,7 +2062,9 @@ public class PlantillaSDI2_Tests1617 {
 
 	assertTrue("el comentario no coincide", tareaA.get("comentario")
 		.equals("a"));
+
 	Date hoy = new Date();
+
 	assertTrue("La fecha creada no coincide",
 		DateUtil.sameDay(DateUtil.convertStringToDate((String) tareaA
 			.get("fechaCreacion")), hoy));
@@ -1919,6 +2079,7 @@ public class PlantillaSDI2_Tests1617 {
     public void prueba28() {
 	// (1) reiniciamos la base de datos
 	new DatabaseReload().reload(driver);
+
 	// (2) iniciamos sesion como usuario
 	new PO_LoginForm().completeForm(driver, "user1", "user1");
 	ThreadUtil.wait(600);
@@ -1928,26 +2089,36 @@ public class PlantillaSDI2_Tests1617 {
 		.click();
 
 	ThreadUtil.wait(600);
+
 	new PO_CreateTask().completeFormWithoutCalendar(driver, "a", "a", 1, 0);
+
 	// vamos a mirar a hoy
 	ThreadUtil.wait(600);
+
 	WebElement botonHoy = driver.findElement(By.id("form_user:hoy"));
 	botonHoy.click();
+
 	ThreadUtil.wait(300);
+
 	// clicamos en el filtrado por categoria
 	SeleniumUtils
 		.EsperaCargaPagina(driver, "id",
 			"form_user:tabla_tareas:columna_categoria_titulo", 8)
 		.get(0).click();
 	ThreadUtil.wait(600);
+
 	Map<String, Object> tareaA = new PO_HoyRow().findRow(driver, 3);
+
 	ThreadUtil.wait(600);
+
 	assertTrue("el nombre no coincide",
 		(((WebElement) tareaA.get("titulo")).getText().equals("a")));
 
 	assertTrue("el comentario no coincide", tareaA.get("comentario")
 		.equals("a"));
+
 	Date hoy = new Date();
+
 	assertTrue("La fecha creada no coincide",
 		DateUtil.sameDay(DateUtil.convertStringToDate((String) tareaA
 			.get("fechaCreacion")), hoy));
@@ -1962,33 +2133,41 @@ public class PlantillaSDI2_Tests1617 {
     public void prueba29() {
 	// (1) reiniciamos la base de datos
 	new DatabaseReload().reload(driver);
+
 	// (2) iniciamos sesion como usuario
 	new PO_LoginForm().completeForm(driver, "user1", "user1");
 	ThreadUtil.wait(600);
 
 	ThreadUtil.wait(600);
+
 	SeleniumUtils
 		.EsperaCargaPagina(driver, "id",
 			"form_menu_superior:menu_crear_tarea", 8).get(0)
 		.click();
 
 	ThreadUtil.wait(600);
+
 	new PO_CreateTask().completeFormWithoutCalendar(driver, "a", "a", 1, 6);
 
 	ThreadUtil.wait(600);
+
 	WebElement botonHoy = driver.findElement(By.id("form_user:semana"));
 	botonHoy.click();
+
 	ThreadUtil.wait(600);
 
 	SeleniumUtils
 		.EsperaCargaPagina(driver, "id",
 			"form_user:tabla_tareas:columna_planeada_titulo", 8)
 		.get(0).click();
+
 	ThreadUtil.wait(600);
+
 	SeleniumUtils
 		.EsperaCargaPagina(driver, "id",
 			"form_user:tabla_tareas:columna_planeada_titulo", 8)
 		.get(0).click();
+
 	ThreadUtil.wait(600);
 
 	Map<String, Object> tareaA = new PO_SemanaRow().findRow(driver, 1);
@@ -1997,7 +2176,9 @@ public class PlantillaSDI2_Tests1617 {
 
 	assertTrue("el comentario no coincide", tareaA.get("comentario")
 		.equals("a"));
+
 	Date hoy = new Date();
+
 	assertTrue("La fecha creada no coincide",
 		DateUtil.sameDay(DateUtil.convertStringToDate((String) tareaA
 			.get("fechaCreacion")), hoy));
@@ -2018,23 +2199,32 @@ public class PlantillaSDI2_Tests1617 {
     public void prueba30() {
 	// (1) reiniciamos la base de datos
 	new DatabaseReload().reload(driver);
+
 	// (2) iniciamos sesion como usuario
 	new PO_LoginForm().completeForm(driver, "user1", "user1");
 	ThreadUtil.wait(600);
+
 	// (3) vamos a inbox
 	WebElement botonInbox = driver.findElement(By.id("form_user:inbox"));
 	botonInbox.click();
+
 	ThreadUtil.wait(600);
+
 	Map<String, Object> tarea01 = new PO_InboxRow().findRow(driver, 0);
 	((WebElement) tarea01.get("titulo")).click();
+
 	ThreadUtil.wait(600);
+
 	new PO_EditTaskNameAndCategory().completeForm(driver, "a", 1);
+
 	ThreadUtil.wait(600);
 
 	// volvemos a inbox
 	botonInbox = driver.findElement(By.id("form_user:inbox"));
 	botonInbox.click();
+
 	ThreadUtil.wait(600);
+
 	List<Map<String, Object>> pestaña = new ArrayList<Map<String, Object>>();
 	for (int i = 0; i < 8; i++) {
 	    pestaña.add(new PO_InboxRow().findRow(driver, i));
@@ -2047,6 +2237,7 @@ public class PlantillaSDI2_Tests1617 {
 	}
 
 	ThreadUtil.wait(300);
+
 	// clicamos para pasar a la siguiente pestaña
 	SeleniumUtils
 		.EsperaCargaPagina(driver, "class",
@@ -2054,9 +2245,11 @@ public class PlantillaSDI2_Tests1617 {
 	ThreadUtil.wait(600);
 
 	pestaña = new ArrayList<Map<String, Object>>();
+
 	for (int i = 8; i < 16; i++) {
 	    pestaña.add(new PO_InboxRow().findRow(driver, i));
 	}
+
 	for (int i = 0; i < 8; i++) {
 	    assertTrue("El nombre coincide",
 		    !((WebElement) pestaña.get(i).get("titulo")).getText()
@@ -2064,30 +2257,38 @@ public class PlantillaSDI2_Tests1617 {
 	}
 
 	ThreadUtil.wait(300);
+
 	// clicamos para pasar a la siguiente pestaña
 	SeleniumUtils
 		.EsperaCargaPagina(driver, "class",
 			"ui-icon ui-icon-seek-next", 8).get(0).click();
+
 	ThreadUtil.wait(600);
+
 	pestaña = new ArrayList<Map<String, Object>>();
 	for (int i = 16; i <= 18; i++) {
 	    pestaña.add(new PO_InboxRow().findRow(driver, i));
 	}
+
 	for (int i = 0; i <= 2; i++) {
 	    assertTrue("El nombre coincide",
 		    !((WebElement) pestaña.get(i).get("titulo")).getText()
 			    .equals("a"));
 	}
+
 	ThreadUtil.wait(300);
 
 	SeleniumUtils
 		.EsperaCargaPagina(driver, "id",
 			"form_menu_superior:boton_volver", 8).get(0).click();
+
 	ThreadUtil.wait(600);
 
 	WebElement botonHoy = driver.findElement(By.id("form_user:hoy"));
 	botonHoy.click();
+
 	ThreadUtil.wait(600);
+
 	// ordenamos por categoria
 	SeleniumUtils
 		.EsperaCargaPagina(driver, "id",
@@ -2107,12 +2308,15 @@ public class PlantillaSDI2_Tests1617 {
 			    .equals("a"));
 	}
 	ThreadUtil.wait(600);
+
 	SeleniumUtils
 		.EsperaCargaPagina(driver, "id",
 			"form_menu_superior:boton_volver", 8).get(0).click();
 	ThreadUtil.wait(600);
+
 	WebElement botonSemana = driver.findElement(By.id("form_user:semana"));
 	botonSemana.click();
+
 	ThreadUtil.wait(600);
 
 	// La fecha se encuentra la ultima de la tabla, por eso saltamos hasta
@@ -2133,7 +2337,6 @@ public class PlantillaSDI2_Tests1617 {
 	Map<String, Object> tareaA = new PO_SemanaRow().findRow(driver, 29);
 	assertTrue("El nombre coincide", tareaA.get("titulo").equals("a"));
 	// form_menu_superior:boton_volver
-
     }
 
     // PR31: Editar el nombre, y categoría (Se cambia a sin categoría) de una
@@ -2143,40 +2346,55 @@ public class PlantillaSDI2_Tests1617 {
     public void prueba31() {
 	// (1) reiniciamos la base de datos
 	new DatabaseReload().reload(driver);
+
 	// (2) iniciamos sesion como usuario
 	new PO_LoginForm().completeForm(driver, "user1", "user1");
+
 	ThreadUtil.wait(600);
+
 	// (3) vamos a inbox
 	WebElement botonInbox = driver.findElement(By.id("form_user:hoy"));
 	botonInbox.click();
+
 	ThreadUtil.wait(600);
+
 	SeleniumUtils
 		.EsperaCargaPagina(driver, "class",
 			"ui-icon ui-icon-seek-next", 8).get(0).click();
+
 	ThreadUtil.wait(600);
+
 	Map<String, Object> tarea21 = new PO_HoyRow().findRow(driver, 10);
 	assertTrue("EL nombre no coincide",
 		((WebElement) tarea21.get("titulo")).getText()
 			.equals("tarea21"));
+
 	ThreadUtil.wait(300);
+
 	((WebElement) tarea21.get("titulo")).click();
+
 	ThreadUtil.wait(600);
 
 	// modificamos la tarea
-
 	new PO_EditTaskNameAndCategory().completeForm(driver, "a", 0);
 	ThreadUtil.wait(600);
+
 	botonInbox = driver.findElement(By.id("form_user:hoy"));
 	botonInbox.click();
+
 	ThreadUtil.wait(600);
+
 	SeleniumUtils
 		.EsperaCargaPagina(driver, "class",
 			"ui-icon ui-icon-seek-next", 8).get(0).click();
 	ThreadUtil.wait(600);
+
 	SeleniumUtils
 		.EsperaCargaPagina(driver, "class",
 			"ui-icon ui-icon-seek-next", 8).get(0).click();
+
 	ThreadUtil.wait(600);
+
 	// 19 ----------
 	tarea21 = new PO_HoyRow().findRow(driver, 19);
 	assertTrue("nombres no coinciden", ((WebElement) tarea21.get("titulo"))
@@ -2185,11 +2403,13 @@ public class PlantillaSDI2_Tests1617 {
 		tarea21.get("categoria").equals("----------"));
 
 	ThreadUtil.wait(600);
+
 	// nos movemos al menu principal
 	SeleniumUtils
 		.EsperaCargaPagina(driver, "id",
 			"form_menu_superior:boton_volver", 8).get(0).click();
 	ThreadUtil.wait(600);
+
 	// vamos a la sublista semana
 	botonInbox = driver.findElement(By.id("form_user:semana"));
 	botonInbox.click();
@@ -2206,6 +2426,7 @@ public class PlantillaSDI2_Tests1617 {
 		.EsperaCargaPagina(driver, "class",
 			"ui-icon ui-icon-seek-next", 8).get(0).click();
 	ThreadUtil.wait(600);
+
 	// la sacamos porque es la ultima
 	tarea21 = new PO_SemanaRow().findRow(driver, 29);
 	ThreadUtil.wait(600);
@@ -2213,6 +2434,7 @@ public class PlantillaSDI2_Tests1617 {
 	assertTrue("el nombre es distinto",
 		tarea21.get("categoria").equals("----------"));
 	ThreadUtil.wait(600);
+
 	// nos movemos al menu principal
 	SeleniumUtils
 		.EsperaCargaPagina(driver, "id",
@@ -2246,13 +2468,18 @@ public class PlantillaSDI2_Tests1617 {
     public void prueba32() {
 	// (1) reiniciamos la base de datos
 	new DatabaseReload().reload(driver);
+
 	// (2) iniciamos sesion como usuario
 	new PO_LoginForm().completeForm(driver, "user1", "user1");
-	// (3)vamos a inbox y eliminamos la tarea11
+
+	// (3) vamos a inbox y eliminamos la tarea11
 	ThreadUtil.wait(600);
+
 	WebElement botonInbox = driver.findElement(By.id("form_user:inbox"));
 	botonInbox.click();
+
 	ThreadUtil.wait(300);
+
 	// clicamos para pasar a la siguiente pestaña
 	SeleniumUtils
 		.EsperaCargaPagina(driver, "class",
@@ -2260,133 +2487,169 @@ public class PlantillaSDI2_Tests1617 {
 	ThreadUtil.wait(600);
 
 	List<Map<String, Object>> pestaña = new ArrayList<Map<String, Object>>();
+
 	for (int i = 8; i < 16; i++) {
 	    pestaña.add(new PO_InboxRow().findRow(driver, i));
 	}
+
 	assertTrue(
 		"nombre no coincide",
 		((WebElement) pestaña.get(2).get("titulo")).getText().equals(
 			"tarea11"));
+
 	((WebElement) pestaña.get(2).get("fechaFinalizar")).click();
 	ThreadUtil.wait(600);
+
 	// volvemos a buscar la tarea11
 	// vamos a la segunda pestaña, que es donde se encontraba
 	ThreadUtil.wait(300);
+
 	SeleniumUtils
 		.EsperaCargaPagina(driver, "class",
 			"ui-icon ui-icon-seek-next", 8).get(0).click();
 	ThreadUtil.wait(600);
+
 	// sacamos los elementos
 	pestaña = new ArrayList<Map<String, Object>>();
+
 	for (int i = 8; i < 16; i++) {
 	    pestaña.add(new PO_InboxRow().findRow(driver, i));
 	}
+
 	assertTrue(
 		"nombre no coincide",
 		!((WebElement) pestaña.get(2).get("titulo")).getText().equals(
 			"tarea11"));
 	ThreadUtil.wait(300);
-	// salimos de la pseudolista de inbox
 
+	// salimos de la pseudolista de inbox
 	SeleniumUtils
 		.EsperaCargaPagina(driver, "id",
 			"form_menu_superior:boton_volver", 8).get(0).click();
 	ThreadUtil.wait(600);
+
 	WebElement botonHoy = driver.findElement(By.id("form_user:hoy"));
 	botonHoy.click();
+
 	ThreadUtil.wait(600);
+
 	// sublista hoy
+
 	pestaña = new ArrayList<Map<String, Object>>();
 	for (int i = 0; i < 8; i++) {
 	    pestaña.add(new PO_HoyRow().findRow(driver, i));
 	}
+
 	for (int i = 0; i < 8; i++) {
 	    assertTrue("El nombre es el mismo", !((WebElement) pestaña.get(i)
 		    .get("titulo")).getText().equals("tarea11"));
 	}
+
 	ThreadUtil.wait(300);
+
 	// clicamos para pasar a la siguiente pestaña
 	SeleniumUtils
 		.EsperaCargaPagina(driver, "class",
 			"ui-icon ui-icon-seek-next", 8).get(0).click();
 	ThreadUtil.wait(600);
+
 	pestaña = new ArrayList<Map<String, Object>>();
 	for (int i = 8; i < 16; i++) {
 	    pestaña.add(new PO_HoyRow().findRow(driver, i));
 	}
+
 	for (int i = 0; i < 8; i++) {
 	    assertTrue("El nombre es el mismo", !((WebElement) pestaña.get(i)
 		    .get("titulo")).getText().equals("tarea11"));
 	}
 	ThreadUtil.wait(300);
+
 	// clicamos para pasar a la siguiente pestaña
 	SeleniumUtils
 		.EsperaCargaPagina(driver, "class",
 			"ui-icon ui-icon-seek-next", 8).get(0).click();
 	ThreadUtil.wait(600);
+
 	pestaña = new ArrayList<Map<String, Object>>();
 	for (int i = 16; i <= 18; i++) {
 	    pestaña.add(new PO_HoyRow().findRow(driver, i));
 	}
+
 	for (int i = 0; i < 3; i++) {
 	    assertTrue("El nombre es el mismo", !((WebElement) pestaña.get(i)
 		    .get("titulo")).getText().equals("tarea11"));
 	}
-	// salimos de la sublista hoy
 
+	// salimos de la sublista hoy
 	ThreadUtil.wait(300);
+
 	SeleniumUtils
 		.EsperaCargaPagina(driver, "id",
 			"form_menu_superior:boton_volver", 8).get(0).click();
 	ThreadUtil.wait(600);
+
+	// Entramos al listado de tareas de la semana
 	WebElement botonSemana = driver.findElement(By.id("form_user:semana"));
 	botonSemana.click();
+
 	ThreadUtil.wait(600);
+
 	pestaña = new ArrayList<Map<String, Object>>();
 	for (int i = 0; i < 8; i++) {
 	    pestaña.add(new PO_SemanaRow().findRow(driver, i));
 	}
+
 	for (int i = 0; i < 8; i++) {
 	    assertTrue("El nombre es el mismo", !pestaña.get(i).get("titulo")
 		    .equals("tarea11"));
 	}
 	ThreadUtil.wait(300);
+
 	// clicamos para pasar a la siguiente pestaña
 	SeleniumUtils
 		.EsperaCargaPagina(driver, "class",
 			"ui-icon ui-icon-seek-next", 8).get(0).click();
 	ThreadUtil.wait(600);
+
 	pestaña = new ArrayList<Map<String, Object>>();
 	for (int i = 8; i < 16; i++) {
 	    pestaña.add(new PO_SemanaRow().findRow(driver, i));
 	}
+
 	for (int i = 0; i < 8; i++) {
 	    assertTrue("El nombre es el mismo", !pestaña.get(i).get("titulo")
 		    .equals("tarea11"));
 	}
+
 	ThreadUtil.wait(300);
+
 	// clicamos para pasar a la siguiente pestaña
 	SeleniumUtils
 		.EsperaCargaPagina(driver, "class",
 			"ui-icon ui-icon-seek-next", 8).get(0).click();
 	ThreadUtil.wait(600);
 	pestaña = new ArrayList<Map<String, Object>>();
+
 	for (int i = 16; i < 24; i++) {
 	    pestaña.add(new PO_SemanaRow().findRow(driver, i));
 	}
+
 	for (int i = 0; i < 8; i++) {
 	    assertTrue("El nombre es el mismo", !pestaña.get(i).get("titulo")
 		    .equals("tarea11"));
 	}
 	ThreadUtil.wait(300);
+
 	// clicamos para pasar a la siguiente pestaña
 	SeleniumUtils
 		.EsperaCargaPagina(driver, "class",
 			"ui-icon ui-icon-seek-next", 8).get(0).click();
 	ThreadUtil.wait(600);
+
 	for (int i = 24; i < 29; i++) {
 	    pestaña.add(new PO_SemanaRow().findRow(driver, i));
 	}
+
 	for (int i = 0; i <= 4; i++) {
 	    assertTrue("El nombre es el mismo", !pestaña.get(i).get("titulo")
 		    .equals("tarea11"));
@@ -2401,9 +2664,9 @@ public class PlantillaSDI2_Tests1617 {
     // PR33: Salir de sesión desde cuenta de administrador.
     @Test
     public void prueba33() {
-
 	// (1) Hacer login como administrador
 	new PO_LoginForm().completeForm(driver, "admin", "admin");
+
 	// (2) comprobamos que nos hemos logeado
 	List<WebElement> mensajes = SeleniumUtils.EsperaCargaPagina(driver,
 		"class", "ui-datatable-header ui-widget-header ui-corner-top",
@@ -2421,8 +2684,8 @@ public class PlantillaSDI2_Tests1617 {
 	SeleniumUtils.ClickSubopcionMenuHover(driver,
 		"form_menu_superior:submenu_usuario",
 		"form_menu_superior:boton_logout");
-	// (4) comprobamos que hemos salido a la pestaña de login
 
+	// (4) comprobamos que hemos salido a la pestaña de login
 	mensajes = SeleniumUtils.EsperaCargaPagina(driver, "class",
 		"ui-panel-title", 8);
 
@@ -2432,15 +2695,14 @@ public class PlantillaSDI2_Tests1617 {
 			.getText()
 			.equals(new PropertiesReader().getValueOf(
 				defaultLocale, "login__titulo_panel")));
-
     }
 
     // PR34: Salir de sesión desde cuenta de usuario normal.
     @Test
     public void prueba34() {
-
 	// (1) Hacer login como administrador
 	new PO_LoginForm().completeForm(driver, "user1", "user1");
+
 	// (2) comprobamos que nos hemos logeado
 	List<WebElement> mensajes = SeleniumUtils.EsperaCargaPagina(driver,
 		"class", "ui-panel-title", 8);
@@ -2459,7 +2721,6 @@ public class PlantillaSDI2_Tests1617 {
 		"form_menu_superior:boton_logout");
 
 	// (4) comprobamos que hemos salido a la pestaña de login
-
 	mensajes = SeleniumUtils.EsperaCargaPagina(driver, "class",
 		"ui-panel-title", 8);
 	assertTrue(
@@ -2468,7 +2729,6 @@ public class PlantillaSDI2_Tests1617 {
 			.getText()
 			.equals(new PropertiesReader().getValueOf(
 				defaultLocale, "login__titulo_panel")));
-
     }
 
     /*
@@ -2482,10 +2742,13 @@ public class PlantillaSDI2_Tests1617 {
 	// (1) Comprobamos idioma por defecto
 	// (1.1) comprobamos el idioma en la pagina de login
 	new ValidadorLogIn("es", driver).comprobarTextos();
+
 	// nos registramos como administrador
 	new PO_LoginForm().completeForm(driver, "admin", "admin");
+
 	// (1.2) Comprobamos el idioma en la pestaña principal de administrador
 	new ValidadorPrincipalAdministrador("es", driver);
+
 	// Cerramos sesion
 	ThreadUtil.wait(1500);
 	SeleniumUtils.ClickSubopcionMenuHover(driver,
@@ -2496,10 +2759,13 @@ public class PlantillaSDI2_Tests1617 {
 		"form_anonimo:boton_login", 10);
 
 	ThreadUtil.wait(1500);
+
 	// nos logeamos como usuario normal
 	new PO_LoginForm().completeForm(driver, "user1", "user1");
+
 	// (1.3) Comprobamos el idioma en la ventana principal de usuario
 	new ValidadorPrincipalUsuario("es", driver);
+
 	// Cerramos sesion
 	ThreadUtil.wait(1500);
 	SeleniumUtils.ClickSubopcionMenuHover(driver,
@@ -2510,6 +2776,7 @@ public class PlantillaSDI2_Tests1617 {
 		"form_anonimo:boton_login", 10);
 
 	ThreadUtil.wait(1500);
+
 	// cambiamos la ventana de registro
 	WebElement registrarseEnlace = driver.findElement(By
 		.id("form_menu_superior:enlace_registro"));
@@ -2518,23 +2785,29 @@ public class PlantillaSDI2_Tests1617 {
 	// (1.4) Comprobamos el idioma en la ventana de registro
 	new ValidadorRegistro("es", driver);
 	ThreadUtil.wait(1500);
+
 	// cambiamos a la ventana de login
 	WebElement loginEnlace = driver.findElement(By
 		.id("form_menu_superior:enlace_login"));
 	loginEnlace.click();
 	ThreadUtil.wait(1500);
+
 	// (2) Cambiamos de idioma
 	SeleniumUtils.ClickSubopcionMenuHover(driver,
 		"form_menu_superior:submenu_idiomas",
 		"form_menu_superior:boton_eng");
+
 	// (3) Comprobamos con el otro idioma
 	// (3.1) validamos el login
 	new ValidadorLogIn(englishLocale, driver);
 	ThreadUtil.wait(1500);
+
 	// nos registramos como administrador
 	new PO_LoginForm().completeForm(driver, "admin", "admin");
+
 	// (3.2) Comprobamos el idioma en la pestaña principal de administrador
 	new ValidadorPrincipalAdministrador("en", driver);
+
 	// Cerramos sesion
 	ThreadUtil.wait(1500);
 	SeleniumUtils.ClickSubopcionMenuHover(driver,
@@ -2549,10 +2822,13 @@ public class PlantillaSDI2_Tests1617 {
 		"form_menu_superior:boton_eng");
 
 	ThreadUtil.wait(1500);
+
 	// nos logeamos como usuario normal
 	new PO_LoginForm().completeForm(driver, "user1", "user1");
+
 	// (3.3) Comprobamos el idioma en la ventana principal de usuario
 	new ValidadorPrincipalUsuario(englishLocale, driver);
+
 	// Cerramos sesion
 	ThreadUtil.wait(1500);
 	SeleniumUtils.ClickSubopcionMenuHover(driver,
@@ -2567,6 +2843,7 @@ public class PlantillaSDI2_Tests1617 {
 		"form_menu_superior:boton_eng");
 
 	ThreadUtil.wait(1500);
+
 	// cambiamos la ventana de registro
 	registrarseEnlace = driver.findElement(By
 		.id("form_menu_superior:enlace_registro"));
@@ -2574,13 +2851,13 @@ public class PlantillaSDI2_Tests1617 {
 
 	// (3.4) Comprobamos el idioma en la ventana de registro
 	new ValidadorRegistro(englishLocale, driver);
+
 	// cambiamos a la ventana de login
 	ThreadUtil.wait(1500);
 	loginEnlace = driver.findElement(By
 		.id("form_menu_superior:enlace_login"));
 	loginEnlace.click();
 	ThreadUtil.wait(600);
-
     }
 
     // PR36: Cambio del idioma por defecto a un segundo idioma y vuelta al
@@ -2591,22 +2868,22 @@ public class PlantillaSDI2_Tests1617 {
 	// (1) Ventana de login
 	// (1.1) comprobamos idioma por defecto
 	new ValidadorLogIn(defaultLocale, driver).comprobarTextos();
-	// (1.2) cambiamos idioma y comprobamos
 
+	// (1.2) cambiamos idioma y comprobamos
 	SeleniumUtils.ClickSubopcionMenuHover(driver,
 		"form_menu_superior:submenu_idiomas",
 		"form_menu_superior:boton_eng");
 	ThreadUtil.wait(1000);
 	new ValidadorLogIn(englishLocale, driver).comprobarTextos();
 	ThreadUtil.wait(1000);
-	// // (1.3)volvemos al primer idioma y comprobamos
-	//
+
+	// (1.3)volvemos al primer idioma y comprobamos
 	SeleniumUtils.ClickSubopcionMenuHover(driver,
 		"form_menu_superior:submenu_idiomas",
 		"form_menu_superior:boton_esp");
 	ThreadUtil.wait(1000);
 	new ValidadorLogIn(defaultLocale, driver).comprobarTextos();
-	// // (2) ventana principal de administrador
+	// (2) ventana principal de administrador
 
 	new PO_LoginForm().completeForm(driver, "admin", "admin");
 	// // (2.1)comprobamos idioma por defecto
@@ -2623,6 +2900,7 @@ public class PlantillaSDI2_Tests1617 {
 	new ValidadorPrincipalAdministrador(englishLocale, driver)
 		.comprobarTextos();
 	ThreadUtil.wait(1500);
+
 	// (2.3) volvemos al primer idioma y comprobamos
 	SeleniumUtils.ClickSubopcionMenuHover(driver,
 		"form_menu_superior:submenu_idiomas",
@@ -2633,6 +2911,7 @@ public class PlantillaSDI2_Tests1617 {
 		"form_admin:tabla_usuarios", 8);
 
 	new ValidadorPrincipalAdministrador("es", driver).comprobarTextos();
+
 	// (2.4) cerramos sesion
 	ThreadUtil.wait(1500);
 	SeleniumUtils.ClickSubopcionMenuHover(driver,
@@ -2644,20 +2923,24 @@ public class PlantillaSDI2_Tests1617 {
 
 	// (3) ventana principal de usuario
 	new PO_LoginForm().completeForm(driver, "user1", "user1");
+
 	// (3.1)comprobamos idioma por defecto
 	new ValidadorPrincipalUsuario(defaultLocale, driver).comprobarTextos();
+
 	// (3.2)cambiamos idioma y comprobamos
 	SeleniumUtils.ClickSubopcionMenuHover(driver,
 		"form_menu_superior:submenu_idiomas",
 		"form_menu_superior:boton_eng");
 	ThreadUtil.wait(1500);
 	new ValidadorPrincipalUsuario(englishLocale, driver).comprobarTextos();
+
 	// // (3.3) volvemos al primer idioma y comprobamos
 	SeleniumUtils.ClickSubopcionMenuHover(driver,
 		"form_menu_superior:submenu_idiomas",
 		"form_menu_superior:boton_esp");
 	ThreadUtil.wait(1500);
 	new ValidadorPrincipalUsuario(defaultLocale, driver).comprobarTextos();
+
 	// (3.4) cerramos sesion
 	SeleniumUtils.ClickSubopcionMenuHover(driver,
 		"form_menu_superior:submenu_usuario",
@@ -2671,21 +2954,23 @@ public class PlantillaSDI2_Tests1617 {
 		.id("form_menu_superior:enlace_registro"));
 	registrarseEnlace.click();
 	ThreadUtil.wait(1000);
+
 	// (4.1)comprobamos idioma por defecto
 	new ValidadorRegistro(defaultLocale, driver).comprobarTextos();
+
 	// (4.2)cambiamos idioma y comprobamos
 	SeleniumUtils.ClickSubopcionMenuHover(driver,
 		"form_menu_superior:submenu_idiomas",
 		"form_menu_superior:boton_eng");
 	ThreadUtil.wait(1500);
 	new ValidadorRegistro(englishLocale, driver).comprobarTextos();
+
 	// (4.3) volvemos al primer idioma y comprobamos
 	SeleniumUtils.ClickSubopcionMenuHover(driver,
 		"form_menu_superior:submenu_idiomas",
 		"form_menu_superior:boton_esp");
 	ThreadUtil.wait(1500);
 	new ValidadorRegistro(defaultLocale, driver).comprobarTextos();
-
     }
 
     /*
