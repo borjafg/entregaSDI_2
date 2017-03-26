@@ -1,0 +1,70 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/template_usuario.xhtml">
+
+	<ui:define name="anadir_head">
+		<link rel="stylesheet" type="text/css"
+			href="#{request.getContextPath()}/css/categorias_sistema.css" />
+	</ui:define>
+
+	<ui:define name="cuerpo">
+		<p:panel>
+			<f:facet name="header">
+				<h:outputText id="titulo_tabla_usuario" style="text-align: center;"
+					value="#{msgs.principal_usuario__titulo_panel}" />
+			</f:facet>
+
+			<p:panelGrid columns="3" layout="grid" id="panel_categorias"
+				style="text-align:center;" styleClass="ui-panelgrid-blank">
+
+				<p:panelGrid columns="1" layout="grid"
+					styleClass="ui-panelgrid-blank quitar_bordes">
+
+					<h:outputText id="tareas_inbox"
+						style="font-size:22px; font-weight:bold;"
+						value="#{msgs.principal_usuario__inbox}" />
+
+					<h:panelGroup>
+						<h:outputText
+							value="#{msgs.principal_usuario__mostrar_finalizadas}" />
+						<p:spacer height="1px" width="10px" />
+						<p:selectBooleanCheckbox id="check_terminadas"
+							value="#{bean_categ.mostrarFinalizadas}" />
+					</h:panelGroup>
+
+					<p:commandButton action="#{bean_categ.goToInbox}" id="inbox"
+						inmediate="true" value="#{msgs.principal_usuario__botones_listar}" />
+				</p:panelGrid>
+
+
+				<p:panelGrid columns="1" layout="grid"
+					styleClass="ui-panelgrid-blank quitar_bordes">
+
+					<h:outputText id="tareas_hoy"
+						style="font-size:22px; font-weight:bold;"
+						value="#{msgs.principal_usuario__hoy}" />
+					<p:spacer />
+					<p:commandButton action="hoy" id="hoy" inmediate="true"
+						value="#{msgs.principal_usuario__botones_listar}" />
+				</p:panelGrid>
+
+
+				<p:panelGrid columns="1" layout="grid"
+					styleClass="ui-panelgrid-blank quitar_bordes">
+
+					<h:outputText id="tareas_semana"
+						style="font-size:22px; font-weight:bold;"
+						value="#{msgs.principal_usuario__semana}" />
+					<p:spacer />
+					<p:commandButton action="semana" id="semana" inmediate="true"
+						value="#{msgs.principal_usuario__botones_listar}" />
+				</p:panelGrid>
+
+			</p:panelGrid>
+		</p:panel>
+	</ui:define>
+
+</ui:composition>

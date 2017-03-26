@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<f:view locale="#{bean_language_config.locale}">
+	<h:head>
+		<title>#{msgs.tituloHead}</title>
+
+		<!-- ================== -->
+		<!-- === Estilo css === -->
+		<!-- ================== -->
+
+		<style>
+.ui-panel-titlebar {
+	text-align: center !important;
+}
+</style>
+		<!-- ================== -->
+
+		<ui:insert name="anadir_head" />
+	</h:head>
+
+	<h:body>
+		<h:form id="form_menu_superior">
+			<p:menubar>
+				<p:menuitem value="#{msgs.crear_editar_tarea__volver}"
+					action="volver" immediate="true" />
+
+				<ui:include src="/snippets/submenu_user_admin.xhtml" />
+				<ui:include src="/snippets/submenu_idiomas.xhtml" />
+			</p:menubar>
+		</h:form>
+
+		<p:spacer />
+		<p:messages id="mensajes_user" for="mensajes_usuario"
+			showDetail="true" closable="true" />
+		<p:spacer />
+
+		<h:form id="form_usuario">
+			<h:panelGrid columns="1" cellpadding="5" style="margin: 0 auto;">
+				<p:panel id="panel_tarea" header="#{panel_titulo}">
+
+					<h:panelGrid columns="3" cellpadding="5">
+						<p:outputLabel id="label_nombre" for="nombre"
+							value="#{msgs.crear_editar_tarea__nombre}" />
+
+						<p:inputText id="nombre" value="#{valor_nombre}" required="true"
+							placeholder="#{msgs.crear_editar_tarea__placeholder_nombre}"
+							requiredMessage="#{msgs.crear_editar_tarea__nombre_requerido}"
+							size="35" />
+
+						<p:message for="nombre" />
+
+						<p:outputLabel id="label_comentarios" for="comentarios"
+							value="#{msgs.crear_editar_tarea__comentarios}" />
+
+						<p:inputText id="comentarios" value="#{valor_comentarios}"
+							placeholder="#{msgs.crear_editar_tarea__placeholder_comentarios}"
+							size="35" />
+
+						<p:message for="comentarios" />
+
+
+						<p:outputLabel id="label_categoria" for="categoria"
+							value="#{msgs.crear_editar_tarea__categoria}" />
+
+						<p:selectOneMenu id="categoria" style="width: 275px"
+							value="#{valor_categoria}">
+
+							<f:selectItem value="#{null}"
+								itemLabel="#{msgs.crear_editar_tarea__seleccionar_categoria}" />
+
+							<f:selectItems value="#{valor_categorias}" />
+						</p:selectOneMenu>
+
+						<p:message for="categoria" />
+
+
+						<p:outputLabel id="label_planeada" for="planeada"
+							value="#{msgs.crear_editar_tarea__planeada}" />
+
+						<p:calendar id="planeada" value="#{valor_planeada}"
+							pattern="dd-MM-yyyy" mask="true" effect="blind"
+							mindate="#{fecha_hoy}" style="width: 275px" />
+
+						<p:message for=" planeada" />
+
+
+						<h:outputText value="" />
+
+						<ui:insert name="boton" />
+					</h:panelGrid>
+
+					<p:messages for="panel_registro" showDetail="true" closable="true" />
+
+				</p:panel>
+			</h:panelGrid>
+		</h:form>
+
+	</h:body>
+</f:view>
+
+</html>

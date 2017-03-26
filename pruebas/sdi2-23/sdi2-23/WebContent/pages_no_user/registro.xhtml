@@ -1,0 +1,82 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/template_anonimo.xhtml">
+
+	<ui:define name="opcion_menu">
+		<p:menuitem id="enlace_login" value="#{msgs.registro__enlace_login}"
+			action="login" immediate="true" />
+	</ui:define>
+
+	<ui:define name="cuerpo_form">
+		<h:panelGrid columns="1" cellpadding="5" style="margin: 0 auto;">
+			<p:panel id="panel_registry" header="#{msgs.registro__titulo_panel}">
+
+				<h:panelGrid columns="3" cellpadding="5">
+					<p:outputLabel id="label_login" for="usuario"
+						value="#{msgs.registro__usuario}" />
+
+					<p:inputText id="usuario" value="#{bean_registry.login}"
+						required="true" placeholder="#{msgs.registro__placeholder_usuario}"
+						requiredMessage="#{msgs.registro__usuario_requerido}" size="30">
+						<f:validateLength minimum="3" />
+					</p:inputText>
+
+					<p:message for="usuario" />
+
+
+					<p:outputLabel id="label_email" for="email"
+						value="#{msgs.registro__email}" />
+
+					<p:inputText id="email" value="#{bean_registry.email}"
+						required="true" placeholder="#{msgs.registro__placeholder_email}"
+						requiredMessage="#{msgs.registro__email_requerido}" size="30"
+						validatorMessage="#{msgs.error_registro_edicion__email_no_valido}">
+						<f:validateRegex
+							pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+					</p:inputText>
+
+					<p:message for="email" />
+
+
+					<p:outputLabel id="label_contrasena1" for="contrasena1"
+						value="#{msgs.registro__contrasena}" />
+
+					<p:password id="contrasena1" value="#{bean_registry.password}"
+						required="true"
+						placeholder="#{msgs.registro__placeholder_contrasena}"
+						requiredMessage="#{msgs.registro__contrasena_requerida}" size="30"
+						validatorMessage="#{msgs.error_registro_edicion__password}" type="password"
+						match="contrasena2">
+						<f:validateLength minimum="8" />
+					</p:password>
+
+					<p:message for="contrasena1" />
+
+
+					<p:outputLabel id="label_contrasena2" for="contrasena2"
+						value="#{msgs.registro__contrasena_rep}" />
+
+					<p:password id="contrasena2"
+						value="#{bean_registry.repeatPassword}" required="true"
+						placeholder="#{msgs.registro__placeholder_contrasena_rep}"
+						requiredMessage="#{msgs.registro__contrasena_requerida}" size="30"
+						type="password" />
+
+					<p:message for="contrasena2" />
+
+
+					<p:outputLabel value="" />
+
+					<p:commandButton id="boton_registro" value="#{msgs.registro__boton}"
+						update="@form" action="#{bean_registry.registrar}" />
+				</h:panelGrid>
+
+				<p:messages for="panel_registro" showDetail="true" closable="true" />
+			</p:panel>
+		</h:panelGrid>
+	</ui:define>
+
+</ui:composition>

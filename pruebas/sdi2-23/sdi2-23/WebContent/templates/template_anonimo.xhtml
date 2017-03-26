@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<f:view locale="#{bean_language_config.locale}">
+	<h:head>
+		<title>#{msgs.tituloHead}</title>
+		
+		<!-- ================== -->
+		<!-- === Estilo css === -->
+		<!-- ================== -->
+
+		<style>
+.ui-panel-titlebar {
+	text-align: center !important;
+}
+</style>
+		<!-- ================== -->
+	</h:head>
+
+	<h:body>
+		<h:form id="form_menu_superior">
+			<p:menubar>
+				<ui:insert name="opcion_menu" />
+
+				<ui:include src="/snippets/submenu_idiomas.xhtml" />
+			</p:menubar>
+		</h:form>
+
+		<p:spacer />
+
+		<h:form id="form_anonimo">
+			<ui:insert name="cuerpo_form" />
+		</h:form>
+	</h:body>
+</f:view>
+
+</html>

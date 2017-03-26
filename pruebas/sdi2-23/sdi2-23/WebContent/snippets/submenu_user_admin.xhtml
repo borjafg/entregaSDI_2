@@ -1,0 +1,20 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+	<p:submenu id="submenu_usuario" label="#{msgs.menu_user__cuenta}" style="float: right;">
+		<p:menuitem>
+			<h:panelGroup>
+				<h:outputText id="output_Text_user_login" style="font-weight: bold;" value="#{msgs.menu_user__login}" />
+				<p:spacer height="1px" width="7px" />
+				<h:outputText value="#{sessionScope.user.login}" />
+			</h:panelGroup>
+		</p:menuitem>
+
+		<p:menuitem value="#{msgs.menu_user__logout}" id="boton_logout"
+			immediate="true" action="#{bean_login.dologout}" />
+	</p:submenu>
+
+</ui:composition>

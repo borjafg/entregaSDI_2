@@ -1,0 +1,217 @@
+
+-- ==================================
+-- Eliminación del contenido de la
+-- base de datos
+-- ==================================
+
+delete from TTasks where 1 = 1;       -- Eliminar todas las filas
+delete from tcategories where 1 = 1;  -- Eliminar todas las filas
+delete from tusers where id <> 1;     -- Eliminar todos menos el administrador
+
+
+-- ==================================
+-- Creación de usuarios
+-- ==================================
+
+INSERT INTO TUsers (id, login, email, password, isadmin, status) VALUES (2, 'user1', 'user1@mail.com', 'user1', FALSE, 'ENABLED');
+INSERT INTO TUsers (id, login, email, password, isadmin, status) VALUES (3, 'user2', 'user2@mail.com', 'user2', FALSE, 'ENABLED');
+INSERT INTO TUsers (id, login, email, password, isadmin, status) VALUES (4, 'user3', 'user3@mail.com', 'user3', FALSE, 'ENABLED');
+
+
+-- ==================================
+-- Creación de categorías
+-- ==================================
+
+INSERT INTO TCategories (id, user_id, created, name) VALUES (1, 2, DATE_ADD(current_timestamp, 1 second), 'Categoria1');
+INSERT INTO TCategories (id, user_id, created, name) VALUES (2, 2, DATE_ADD(current_timestamp, 3 second), 'Categoria2');
+INSERT INTO TCategories (id, user_id, created, name) VALUES (3, 2, DATE_ADD(current_timestamp, 5 second), 'Categoria3');
+
+INSERT INTO TCategories (id, user_id, created, name) VALUES (4, 3, DATE_ADD(current_timestamp, 1 second), 'Categoria1');
+INSERT INTO TCategories (id, user_id, created, name) VALUES (5, 3, DATE_ADD(current_timestamp, 3 second), 'Categoria2');
+INSERT INTO TCategories (id, user_id, created, name) VALUES (6, 3, DATE_ADD(current_timestamp, 5 second), 'Categoria3');
+
+INSERT INTO TCategories (id, user_id, created, name) VALUES (7, 4, DATE_ADD(current_timestamp, 1 second), 'Categoria1');
+INSERT INTO TCategories (id, user_id, created, name) VALUES (8, 4, DATE_ADD(current_timestamp, 3 second), 'Categoria2');
+INSERT INTO TCategories (id, user_id, created, name) VALUES (9, 4, DATE_ADD(current_timestamp, 5 second), 'Categoria3');
+
+
+-- ==================================
+-- Creación de tareas
+-- ==================================
+
+
+-- --------------------------------------
+-- --- Parte 1 (Tareas del usuario 1) ---
+-- --------------------------------------
+
+-- Usuario 1: diez tareas para los siguientes seis días (sin categoría)
+
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (1, 2, DATE_ADD(current_timestamp, 1 second), DATE_ADD(current_date, 1 day), NULL, NULL, 'tarea01', 'tarea 01 de user1');
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (2, 2, DATE_ADD(current_timestamp, 3 second), DATE_ADD(current_date, 1 day), NULL, NULL, 'tarea02', 'tarea 02 de user1');
+
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (3, 2, DATE_ADD(current_timestamp, 5 second), DATE_ADD(current_date, 2 day), NULL, NULL, 'tarea03', 'tarea 03 de user1');
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (4, 2, DATE_ADD(current_timestamp, 7 second), DATE_ADD(current_date, 2 day), NULL, NULL, 'tarea04', 'tarea 04 de user1');
+
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (5, 2, DATE_ADD(current_timestamp, 9 second), DATE_ADD(current_date, 3 day), NULL, NULL, 'tarea05', 'tarea 05 de user1');
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (6, 2, DATE_ADD(current_timestamp, 11 second), DATE_ADD(current_date, 3 day), NULL, NULL, 'tarea06', 'tarea 06 de user1');
+
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (7, 2, DATE_ADD(current_timestamp, 13 second), DATE_ADD(current_date, 4 day), NULL, NULL, 'tarea07', 'tarea 07 de user1');
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (8, 2, DATE_ADD(current_timestamp, 15 second), DATE_ADD(current_date, 4 day), NULL, NULL, 'tarea08', 'tarea 08 de user1');
+
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (9, 2, DATE_ADD(current_timestamp, 17 second), DATE_ADD(current_date, 5 day), NULL, NULL, 'tarea09', 'tarea 09 de user1');
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (10, 2, DATE_ADD(current_timestamp, 19 second), DATE_ADD(current_date, 6 day), NULL, NULL, 'tarea10', 'tarea 10 de user1');
+
+
+-- Usuario 1: diez tareas para el día de hoy (sin categoría)
+
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (11, 2, DATE_ADD(current_timestamp, 21 second), current_date, NULL, NULL, 'tarea11', 'tarea 11 de user1');
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (12, 2, DATE_ADD(current_timestamp, 23 second), current_date, NULL, NULL, 'tarea12', 'tarea 12 de user1');
+
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (13, 2, DATE_ADD(current_timestamp, 25 second), current_date, NULL, NULL, 'tarea13', 'tarea 13 de user1');
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (14, 2, DATE_ADD(current_timestamp, 27 second), current_date, NULL, NULL, 'tarea14', 'tarea 14 de user1');
+
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (15, 2, DATE_ADD(current_timestamp, 29 second), current_date, NULL, NULL, 'tarea15', 'tarea 15 de user1');
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (16, 2, DATE_ADD(current_timestamp, 31 second), current_date, NULL, NULL, 'tarea16', 'tarea 16 de user1');
+
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (17, 2, DATE_ADD(current_timestamp, 33 second), current_date, NULL, NULL, 'tarea17', 'tarea 17 de user1');
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (18, 2, DATE_ADD(current_timestamp, 35 second), current_date, NULL, NULL, 'tarea18', 'tarea 18 de user1');
+
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (19, 2, DATE_ADD(current_timestamp, 37 second), current_date, NULL, NULL, 'tarea19', 'tarea 19 de user1');
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (20, 2, DATE_ADD(current_timestamp, 39 second), current_date, NULL, NULL, 'tarea20', 'tarea 20 de user1');
+
+
+-- Usuario 1: diez tareas retrasadas respecto al día de hoy (con categoria)
+-- ==> 3 tareas: categoria1
+-- ==> 3 tareas: categoria2
+-- ==> 4 tareas: categoria3
+
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (21, 2, DATE_ADD(current_timestamp, 41 second), DATE_SUB(current_date, 2 day), NULL, 1, 'tarea21', 'tarea 21 de la categoria1 de user1');
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (22, 2, DATE_ADD(current_timestamp, 43 second), DATE_SUB(current_date, 2 day), NULL, 1, 'tarea22', 'tarea 22 de la categoria1 de user1');
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (23, 2, DATE_ADD(current_timestamp, 45 second), DATE_SUB(current_date, 2 day), NULL, 1, 'tarea23', 'tarea 23 de la categoria1 de user1');
+
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (24, 2, DATE_ADD(current_timestamp, 47 second), DATE_SUB(current_date, 3 day), NULL, 2, 'tarea24', 'tarea 24 de la categoria2 de user1');
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (25, 2, DATE_ADD(current_timestamp, 49 second), DATE_SUB(current_date, 3 day), NULL, 2, 'tarea25', 'tarea 25 de la categoria2 de user1');
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (26, 2, DATE_ADD(current_timestamp, 51 second), DATE_SUB(current_date, 3 day), NULL, 2, 'tarea26', 'tarea 26 de la categoria2 de user1');
+
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (27, 2, DATE_ADD(current_timestamp, 53 second), DATE_SUB(current_date, 4 day), NULL, 3, 'tarea27', 'tarea 27 de la categoria3 de user1');
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (28, 2, DATE_ADD(current_timestamp, 55 second), DATE_SUB(current_date, 4 day), NULL, 3, 'tarea28', 'tarea 28 de la categoria3 de user1');
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (29, 2, DATE_ADD(current_timestamp, 57 second), DATE_SUB(current_date, 4 day), NULL, 3, 'tarea29', 'tarea 29 de la categoria3 de user1');
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (30, 2, DATE_ADD(current_timestamp, 59 second), DATE_SUB(current_date, 4 day), NULL, 3, 'tarea30', 'tarea 30 de la categoria3 de user1');
+
+
+-- --------------------------------------
+-- --- Parte 2 (Tareas del usuario 2) ---
+-- --------------------------------------
+
+-- Usuario 2: diez tareas para los siguientes seis días (sin categoría)
+
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (31, 3, DATE_ADD(current_timestamp, 1 second), DATE_ADD(current_date, 1 day), NULL, NULL, 'tarea01', 'tarea 01 de user2');
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (32, 3, DATE_ADD(current_timestamp, 3 second), DATE_ADD(current_date, 1 day), NULL, NULL, 'tarea02', 'tarea 02 de user2');
+
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (33, 3, DATE_ADD(current_timestamp, 5 second), DATE_ADD(current_date, 2 day), NULL, NULL, 'tarea03', 'tarea 03 de user2');
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (34, 3, DATE_ADD(current_timestamp, 7 second), DATE_ADD(current_date, 2 day), NULL, NULL, 'tarea04', 'tarea 04 de user2');
+
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (35, 3, DATE_ADD(current_timestamp, 9 second), DATE_ADD(current_date, 3 day), NULL, NULL, 'tarea05', 'tarea 05 de user2');
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (36, 3, DATE_ADD(current_timestamp, 11 second), DATE_ADD(current_date, 3 day), NULL, NULL, 'tarea06', 'tarea 06 de user2');
+
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (37, 3, DATE_ADD(current_timestamp, 13 second), DATE_ADD(current_date, 4 day), NULL, NULL, 'tarea07', 'tarea 07 de user2');
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (38, 3, DATE_ADD(current_timestamp, 15 second), DATE_ADD(current_date, 4 day), NULL, NULL, 'tarea08', 'tarea 08 de user2');
+
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (39, 3, DATE_ADD(current_timestamp, 17 second), DATE_ADD(current_date, 5 day), NULL, NULL, 'tarea09', 'tarea 09 de user2');
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (40, 3, DATE_ADD(current_timestamp, 19 second), DATE_ADD(current_date, 6 day), NULL, NULL, 'tarea10', 'tarea 10 de user2');
+
+
+-- Usuario 2: diez tareas para el día de hoy (sin categoría)
+
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (41, 3, DATE_ADD(current_timestamp, 21 second), current_date, NULL, NULL, 'tarea11', 'tarea 11 de user2');
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (42, 3, DATE_ADD(current_timestamp, 23 second), current_date, NULL, NULL, 'tarea12', 'tarea 12 de user2');
+
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (43, 3, DATE_ADD(current_timestamp, 25 second), current_date, NULL, NULL, 'tarea13', 'tarea 13 de user2');
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (44, 3, DATE_ADD(current_timestamp, 27 second), current_date, NULL, NULL, 'tarea14', 'tarea 14 de user2');
+
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (45, 3, DATE_ADD(current_timestamp, 29 second), current_date, NULL, NULL, 'tarea15', 'tarea 15 de user2');
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (46, 3, DATE_ADD(current_timestamp, 31 second), current_date, NULL, NULL, 'tarea16', 'tarea 16 de user2');
+
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (47, 3, DATE_ADD(current_timestamp, 33 second), current_date, NULL, NULL, 'tarea17', 'tarea 17 de user2');
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (48, 3, DATE_ADD(current_timestamp, 35 second), current_date, NULL, NULL, 'tarea18', 'tarea 18 de user2');
+
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (49, 3, DATE_ADD(current_timestamp, 37 second), current_date, NULL, NULL, 'tarea19', 'tarea 19 de user2');
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (50, 3, DATE_ADD(current_timestamp, 39 second), current_date, NULL, NULL, 'tarea20', 'tarea 20 de user2');
+
+
+-- Usuario 2: diez tareas retrasadas respecto al día de hoy (con categoria)
+-- ==> 3 tareas: categoria1
+-- ==> 3 tareas: categoria2
+-- ==> 4 tareas: categoria3
+
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (51, 3, DATE_ADD(current_timestamp, 41 second), DATE_SUB(current_date, 2 day), NULL, 4, 'tarea21', 'tarea 21 de la categoria1 de user2');
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (52, 3, DATE_ADD(current_timestamp, 43 second), DATE_SUB(current_date, 2 day), NULL, 4, 'tarea22', 'tarea 22 de la categoria1 de user2');
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (53, 3, DATE_ADD(current_timestamp, 45 second), DATE_SUB(current_date, 2 day), NULL, 4, 'tarea23', 'tarea 23 de la categoria1 de user2');
+
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (54, 3, DATE_ADD(current_timestamp, 47 second), DATE_SUB(current_date, 3 day), NULL, 5, 'tarea24', 'tarea 24 de la categoria2 de user2');
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (55, 3, DATE_ADD(current_timestamp, 49 second), DATE_SUB(current_date, 3 day), NULL, 5, 'tarea25', 'tarea 25 de la categoria2 de user2');
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (56, 3, DATE_ADD(current_timestamp, 51 second), DATE_SUB(current_date, 3 day), NULL, 5, 'tarea26', 'tarea 26 de la categoria2 de user2');
+
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (57, 3, DATE_ADD(current_timestamp, 53 second), DATE_SUB(current_date, 4 day), NULL, 6, 'tarea27', 'tarea 27 de la categoria3 de user2');
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (58, 3, DATE_ADD(current_timestamp, 55 second), DATE_SUB(current_date, 4 day), NULL, 6, 'tarea28', 'tarea 28 de la categoria3 de user2');
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (59, 3, DATE_ADD(current_timestamp, 57 second), DATE_SUB(current_date, 4 day), NULL, 6, 'tarea29', 'tarea 29 de la categoria3 de user2');
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (60, 3, DATE_ADD(current_timestamp, 59 second), DATE_SUB(current_date, 4 day), NULL, 6, 'tarea30', 'tarea 30 de la categoria3 de user2');
+
+
+-- --------------------------------------
+-- --- Parte 3 (Tareas del usuario 3) ---
+-- --------------------------------------
+
+-- Usuario 3: diez tareas para los siguientes seis días (sin categoría)
+
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (61, 4, DATE_ADD(current_timestamp, 1 second), DATE_ADD(current_date, 1 day), NULL, NULL, 'tarea01', 'tarea 01 de user3');
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (62, 4, DATE_ADD(current_timestamp, 3 second), DATE_ADD(current_date, 1 day), NULL, NULL, 'tarea02', 'tarea 02 de user3');
+
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (63, 4, DATE_ADD(current_timestamp, 5 second), DATE_ADD(current_date, 2 day), NULL, NULL, 'tarea03', 'tarea 03 de user3');
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (64, 4, DATE_ADD(current_timestamp, 7 second), DATE_ADD(current_date, 2 day), NULL, NULL, 'tarea04', 'tarea 04 de user3');
+
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (65, 4, DATE_ADD(current_timestamp, 9 second), DATE_ADD(current_date, 3 day), NULL, NULL, 'tarea05', 'tarea 05 de user3');
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (66, 4, DATE_ADD(current_timestamp, 11 second), DATE_ADD(current_date, 3 day), NULL, NULL, 'tarea06', 'tarea 06 de user3');
+
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (67, 4, DATE_ADD(current_timestamp, 13 second), DATE_ADD(current_date, 4 day), NULL, NULL, 'tarea07', 'tarea 07 de user3');
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (68, 4, DATE_ADD(current_timestamp, 15 second), DATE_ADD(current_date, 4 day), NULL, NULL, 'tarea08', 'tarea 08 de user3');
+
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (69, 4, DATE_ADD(current_timestamp, 17 second), DATE_ADD(current_date, 5 day), NULL, NULL, 'tarea09', 'tarea 09 de user3');
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (70, 4, DATE_ADD(current_timestamp, 19 second), DATE_ADD(current_date, 6 day), NULL, NULL, 'tarea10', 'tarea 10 de user3');
+
+
+-- Usuario 3: diez tareas para el día de hoy (sin categoría)
+
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (71, 4, DATE_ADD(current_timestamp, 21 second), current_date, NULL, NULL, 'tarea11', 'tarea 11 de user3');
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (72, 4, DATE_ADD(current_timestamp, 23 second), current_date, NULL, NULL, 'tarea12', 'tarea 12 de user3');
+
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (73, 4, DATE_ADD(current_timestamp, 25 second), current_date, NULL, NULL, 'tarea13', 'tarea 13 de user3');
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (74, 4, DATE_ADD(current_timestamp, 27 second), current_date, NULL, NULL, 'tarea14', 'tarea 14 de user3');
+
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (75, 4, DATE_ADD(current_timestamp, 29 second), current_date, NULL, NULL, 'tarea15', 'tarea 15 de user3');
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (76, 4, DATE_ADD(current_timestamp, 31 second), current_date, NULL, NULL, 'tarea16', 'tarea 16 de user3');
+
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (77, 4, DATE_ADD(current_timestamp, 33 second), current_date, NULL, NULL, 'tarea17', 'tarea 17 de user3');
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (78, 4, DATE_ADD(current_timestamp, 35 second), current_date, NULL, NULL, 'tarea18', 'tarea 18 de user3');
+
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (79, 4, DATE_ADD(current_timestamp, 37 second), current_date, NULL, NULL, 'tarea19', 'tarea 19 de user3');
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (80, 4, DATE_ADD(current_timestamp, 39 second), current_date, NULL, NULL, 'tarea20', 'tarea 20 de user3');
+
+
+-- Usuario 3: diez tareas retrasadas respecto al día de hoy (con categoria)
+-- ==> 3 tareas: categoria1
+-- ==> 3 tareas: categoria2
+-- ==> 4 tareas: categoria3
+
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (81, 4, DATE_ADD(current_timestamp, 41 second), DATE_SUB(current_date, 2 day), NULL, 7, 'tarea21', 'tarea 21 de la categoria1 de user3');
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (82, 4, DATE_ADD(current_timestamp, 43 second), DATE_SUB(current_date, 2 day), NULL, 7, 'tarea22', 'tarea 22 de la categoria1 de user3');
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (83, 4, DATE_ADD(current_timestamp, 45 second), DATE_SUB(current_date, 2 day), NULL, 7, 'tarea23', 'tarea 23 de la categoria1 de user3');
+
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (84, 4, DATE_ADD(current_timestamp, 47 second), DATE_SUB(current_date, 3 day), NULL, 8, 'tarea24', 'tarea 24 de la categoria2 de user3');
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (85, 4, DATE_ADD(current_timestamp, 49 second), DATE_SUB(current_date, 3 day), NULL, 8, 'tarea25', 'tarea 25 de la categoria2 de user3');
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (86, 4, DATE_ADD(current_timestamp, 51 second), DATE_SUB(current_date, 3 day), NULL, 8, 'tarea26', 'tarea 26 de la categoria2 de user3');
+
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (87, 4, DATE_ADD(current_timestamp, 53 second), DATE_SUB(current_date, 4 day), NULL, 9, 'tarea27', 'tarea 27 de la categoria3 de user3');
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (88, 4, DATE_ADD(current_timestamp, 55 second), DATE_SUB(current_date, 4 day), NULL, 9, 'tarea28', 'tarea 28 de la categoria3 de user3');
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (89, 4, DATE_ADD(current_timestamp, 57 second), DATE_SUB(current_date, 4 day), NULL, 9, 'tarea29', 'tarea 29 de la categoria3 de user3');
+INSERT INTO TTasks (id, user_id, created, planned, finished, category_id, title, comments) VALUES (90, 4, DATE_ADD(current_timestamp, 59 second), DATE_SUB(current_date, 4 day), NULL, 9, 'tarea30', 'tarea 30 de la categoria3 de user3');

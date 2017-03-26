@@ -1,0 +1,101 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/template_usuario.xhtml">
+
+	<ui:define name="anadir_head">
+		<link rel="stylesheet" type="text/css"
+			href="#{request.getContextPath()}/css/listar_tareas.css" />
+
+		<f:metadata>
+			<f:event type="preRenderView"
+				listener="#{bean_inbox.mantenerOpcionFiltro}" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="items_menu">
+		<p:menuitem value="#{msgs.listar_tareas__volver}" action="volver"
+			inmediate="true" id="boton_volver" />
+	</ui:define>
+
+	<ui:define name="cuerpo">
+		<p:dataTable id="tabla_tareas" value="#{bean_inbox.tasks}" var="tarea"
+			rows="8" paginator="true"
+			paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+
+			<f:facet name="header">#{msgs.listar_tareas__titulo_inbox}</f:facet>
+
+
+			<p:column headerText="#{msgs.listar_tareas__columna_titulo}"
+				id="columna_titulo_titulo" sortBy="#{tarea}"
+				sortFunction="#{bean_inbox.inboxSorter.sortByTitle}"
+				filterable="true" filterBy="#{tarea.title}"
+				filterMatchMode="contains">
+
+				<p:commandLink value="#{tarea.title}" id="columna_titulo"
+					actionListener="#{bean_inbox.editarTarea(tarea.id)}"
+					action="editar" styleClass="elemento_color_negro"
+					rendered="#{tarea.finished == null}" />
+
+				<h:outputText value="#{tarea.title}" id="columna_titulo_finalizada"
+					styleClass="elemento_color_verde"
+					rendered="#{tarea.finished != null}" />
+			</p:column>
+
+
+			<p:column headerText="#{msgs.listar_tareas__columna_comentario}"
+				id="columna_comentarios_titulo" sortBy="#{tarea}"
+				sortFunction="#{bean_inbox.inboxSorter.sortByComments}">
+
+				<h:outputText value="#{tarea.comments}" id="columna_comentarios" />
+			</p:column>
+
+
+			<p:column headerText="#{msgs.listar_tareas__columna_creada}"
+				id="columna_creada_titulo" sortBy="#{tarea}"
+				sortFunction="#{bean_inbox.inboxSorter.sortByCreated}">
+
+				<h:outputText value="#{tarea.created}" id="columna_creada">
+					<f:convertDateTime dateStyle="short" type="date" />
+				</h:outputText>
+			</p:column>
+
+
+			<p:column headerText="#{msgs.listar_tareas__columna_planeada}"
+				id="columna_planeada_titulo" sortBy="#{tarea}"
+				sortFunction="#{bean_inbox.inboxSorter.sortByPlanned}">
+
+				<h:outputText id="columna_planeada" value="#{tarea.planned}"
+					styleClass="#{bean_inbox.estaRetrasada(tarea) ? 'elemento_color_rojo' : ''}">
+					<f:convertDateTime dateStyle="short" type="date" />
+				</h:outputText>
+			</p:column>
+
+
+			<p:column headerText="#{msgs.listar_tareas__columna_finalizada}"
+				id="columna_finalizada_titulo" sortBy="#{tarea}"
+				sortFunction="#{bean_inbox.inboxSorter.sortByFinished}">
+
+				<h:outputText value="#{tarea.finished}" id="columna_finalizada">
+					<f:convertDateTime dateStyle="short" type="date" />
+				</h:outputText>
+			</p:column>
+
+
+			<p:column id="columna_finalizar_titulo">
+
+				<p:commandLink value="#{msgs.listar_tareas__boton_finalizar}"
+					id="columna_finalizar" rendered="#{tarea.finished == null}"
+					action="#{bean_inbox.terminarTarea(tarea.id)}"
+					update="form_user:tabla_tareas mensajes_user" />
+
+				<h:outputText value="-------" rendered="#{tarea.finished != null}" />
+			</p:column>
+
+
+		</p:dataTable>
+	</ui:define>
+
+</ui:composition>

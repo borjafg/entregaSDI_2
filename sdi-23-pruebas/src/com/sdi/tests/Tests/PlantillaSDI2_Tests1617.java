@@ -52,21 +52,22 @@ public class PlantillaSDI2_Tests1617 {
     private final String defaultLocale = "es";
     private final String englishLocale = "en";
 
-    static WebDriver driver = getDriver();
+    private static WebDriver driver = getDriver();
 
-    static String URLExterno = "http://localhost:8180/sdi2-23";
-    static String URLInterno = "http://localhost:8280/sdi2-23";
+    // private static String URLInterno = "http://localhost:8280/sdi2-23";
+    private static String URLExterno = "http://localhost:8180/sdi2-23";
 
     public PlantillaSDI2_Tests1617() {
+	// Espera para asegurar que el proyecto está
+	// desplegado en Wildfly al ejecutar
 
+	ThreadUtil.wait(10000);
     }
 
     public static WebDriver getDriver() {
-
 	File pathToBinary = new File("S:\\firefox\\FirefoxPortable.exe");
 
 	FirefoxBinary ffBinary = new FirefoxBinary(pathToBinary);
-
 	FirefoxProfile firefoxProfile = new FirefoxProfile();
 
 	return driver = new FirefoxDriver(ffBinary, firefoxProfile);
@@ -77,33 +78,11 @@ public class PlantillaSDI2_Tests1617 {
     // después de los test
     // ==================================
 
-    // @Before
-    // public void run() {
-    // // Este código es para ejecutar con la versión portale de Firefox 46.0
-    // File pathToBinary = new File("S:\\firefox\\FirefoxPortable.exe");
-    //
-    // FirefoxBinary ffBinary = new FirefoxBinary(pathToBinary);
-    // FirefoxProfile firefoxProfile = new FirefoxProfile();
-    //
-    // driver = new FirefoxDriver(ffBinary, firefoxProfile);
-    // driver.get("http://localhost:8280/sdi2-23");
-    //
-    // // Este código es para ejecutar con una versión instalada de Firex 46.0
-    // // driver = new FirefoxDriver();
-    // // driver.get("http://localhost:8180/sdi2-23");
-    // }
-
     @Before
     public void setUp() {
 	// driver.navigate().to(URLInterno);
 	driver.navigate().to(URLExterno);
     }
-
-    // @After
-    // public void end() {
-    // // Cerramos el navegador
-    // driver.quit();
-    // }
 
     @After
     public void tearDown() {
@@ -112,6 +91,9 @@ public class PlantillaSDI2_Tests1617 {
 
     @AfterClass
     static public void end() {
+	// Espera para que la última prueba borre las cookies
+	ThreadUtil.wait(2000);
+
 	driver.quit();
     }
 

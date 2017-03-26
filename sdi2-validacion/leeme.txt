@@ -1,0 +1,42 @@
+Segunda Entrega de SDI - Scripts de prueba
+=======================
+Se suministran los siguientes scripts para que se prueben las entregas antes de subirlas al campus virtual:
+sdi2-fmt.bat n DirOrigen DirDestino -> Comprueba que el zip a subir al CV tiene el formato correcto así como los archivos con los nombres adecuados.
+sdi2-run.bat n DirDestino           -> a partir de la prueba DirDestino\sdi2-n lanza la base de datos entregada, coloca el WAR en el servidor externo y lanza las pruebas.
+sdi2.bat n DirOrigen DirDestino     -> Llama a sdi2-fmt.bat y si todo va bien llama a continuación a sdi2-run.bat.
+7z.exe								-> Ejecutable de 7zip que debe estar junto con su librería en la misma carpeta que los BAT anteriores.
+7z.dll 								-> DLL de 7zip.
+libtest								-> Carpeta con los jar necesarios para poder ejecutar las pruebas Selenium desde el script sdi2-run.bat.
+sdi2-n.zip							-> Entrega de prueba correspondiente al equipo número n. (Se toma n como número)
+
+NOTAS IMPORTANTES:
+* Estos scripts no se pueden alterar ya que son los que usará el profesor que va a evaluar las entregas. En el caso de que detectara
+alguna errata deberá ponerse en contacto con el profesor Enrique A. la Cal.
+* Estos script son totalmente independentes de modo que pueden lanzarse por separado. Lo único que el script sdi2-run.bat
+está pensando para que la entrega sdi2-n.zip haya sido procesadamente previamente por sdi2-fmt.bat. sdi2-fmt.bat dejará descomprimida
+la entrega en la carpeta DirDestino.
+
+Tamaño de la entrega <= 40 MB
+====================
+Con el fin de que el archivo sdi2-n.zip sea inferior a 40 MB se debe eliminar la carpeta lib de sdi2-n-pruebas que incluye el jar
+selenium-server-standalone-2.53.0.jar y sustituirlo por 
+un enlace en BuildPath al mismo jar que se deberá encontrarse en s:\lib\selenium-server-standalone-2.53.0.jar.
+Las pruebas se realizarán con un entorno-sdi que contendrá la carpeta s:\lib\selenium-server-standalone-2.53.0.jar
+
+El JAR del proyecto de pruebas
+===============================
+Se deberá incluir en la entrega el jar resultante de exportar el proyecto de pruebas sdi2-n-pruebas con nombre: sdi2-n-pruebas.jar
+Se ubicará en la raiz de la carpeta sdi2-n.
+Mirar el ejemplo suministrado: sdi2-n-zip.
+
+Ejemplo de prueba
+=================
+Se suminitra una entrega ficticeo pero funcional con el fin de que puedan probar los scripts: sdi2-n.zip
+
+La prueba se hace de la siguiente forma:
+1) Se copia sdi2-n.zip a una carpeta que ya debe existir, por ejemplo s:\entrega
+2) Crear la carpeta s:\pruebas
+3) Se lanza el script: sdi2.bat n s:\entrega s:\pruebas
+======
+4) También se pruede comprobar el formato de la entrega de forma independente: sdi2-fmt.bat n s:\entrega s:\pruebas
+5) O lanzar la entrega una vez descomprimida por sdi2-fmt.bat: sdi2-run.bat n s:\pruebas

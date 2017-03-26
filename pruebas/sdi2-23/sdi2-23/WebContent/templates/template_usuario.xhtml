@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<f:view locale="#{bean_language_config.locale}">
+	<h:head>
+		<title>#{msgs.tituloHead}</title>
+		<ui:insert name="anadir_head" />
+	</h:head>
+
+	<h:body>
+		<h:form id="form_menu_superior">
+			<p:menubar>
+				<ui:insert name="items_menu" />
+
+				<p:menuitem id="menu_crear_tarea" action="crear" value="#{msgs.menu_user__crear_tarea}" />
+
+				<ui:include src="/snippets/submenu_user_admin.xhtml" />
+				<ui:include src="/snippets/submenu_idiomas.xhtml" />
+			</p:menubar>
+		</h:form>
+
+		<p:spacer />
+		<p:messages id="mensajes_user" for="mensajes_usuario"
+			showDetail="true" closable="true" />
+		<p:spacer />
+
+		<h:form id="form_user">
+			<ui:insert name="cuerpo" />
+		</h:form>
+	</h:body>
+</f:view>
+
+</html>

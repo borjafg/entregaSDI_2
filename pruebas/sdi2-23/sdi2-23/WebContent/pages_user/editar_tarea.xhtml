@@ -1,0 +1,33 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/template_crear_editar_tarea.xhtml">
+
+	<ui:define name="anadir_head">
+		<f:metadata>
+			<f:event type="preRenderView"
+				listener="#{bean_edit_task.cargarIdTarea}" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:param name="panel_titulo" value="#{msgs.editar_tarea__titulo}" />
+
+
+	<ui:param name="valor_nombre" value="#{bean_edit_task.title}" />
+	<ui:param name="valor_comentarios" value="#{bean_edit_task.comments}" />
+
+	<ui:param name="valor_categoria" value="#{bean_edit_task.category}" />
+	<ui:param name="valor_categorias" value="#{bean_edit_task.categories}" />
+
+	<ui:param name="valor_planeada" value="#{bean_edit_task.planned}" />
+	<ui:param name="fecha_hoy" value="#{bean_edit_task.today}"></ui:param>
+
+
+	<ui:define name="boton">
+		<p:commandButton id="boton_editar" value="#{msgs.editar_tarea__boton}"
+			action="#{bean_edit_task.editarTarea}" update="@form mensajes_user" />
+	</ui:define>
+
+</ui:composition>

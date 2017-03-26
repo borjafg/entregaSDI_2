@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
+	version="2.2">
+
+	<!-- ==================================== -->
+	<!-- ===== Declaración de variables ===== -->
+	<!-- ==================================== -->
+
+	<application>
+		<resource-bundle>
+			<base-name>messages</base-name>
+			<var>msgs</var>
+		</resource-bundle>
+	</application>
+
+
+	<!-- =================== -->
+	<!-- ====== Beans ====== -->
+	<!-- =================== -->
+
+	<managed-bean>
+		<managed-bean-name>bean_login</managed-bean-name>
+		<managed-bean-class>uo.sdi.presentation.user.BeanLogin</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>bean_registry</managed-bean-name>
+		<managed-bean-class>uo.sdi.presentation.user.BeanUserRegistry</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>bean_language_config</managed-bean-name>
+		<managed-bean-class>uo.sdi.presentation.user.BeanLanguage</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>bean_users_list</managed-bean-name>
+		<managed-bean-class>uo.sdi.presentation.admin.BeanUsersList</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>bean_categ</managed-bean-name>
+		<managed-bean-class>uo.sdi.presentation.task.BeanCategories</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>bean_inbox</managed-bean-name>
+		<managed-bean-class>uo.sdi.presentation.task.BeanInboxTasks</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>bean_today</managed-bean-name>
+		<managed-bean-class>uo.sdi.presentation.task.BeanTodayTasks</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>bean_week</managed-bean-name>
+		<managed-bean-class>uo.sdi.presentation.task.BeanWeekTasks</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>bean_new_task</managed-bean-name>
+		<managed-bean-class>uo.sdi.presentation.task.BeanCreateTask</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>bean_edit_task</managed-bean-name>
+		<managed-bean-class>uo.sdi.presentation.task.BeanEditTask</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
+	</managed-bean>
+
+
+	<!-- ============================ -->
+	<!-- === Reglas de navegación === -->
+	<!-- ============================ -->
+
+	<!-- - - - - - - - -->
+	<!-- - - logout - - -->
+	<!-- - - - - - - - -->
+
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+
+		<navigation-case>
+			<from-action>#{bean_login.dologout}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/pages_no_user/login.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
+
+	<!-- - - - - - - - -->
+	<!-- - - Error - - -->
+	<!-- - - - - - - - -->
+
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+
+		<navigation-case>
+			<from-outcome>error</from-outcome>
+			<to-view-id>/pages_other/error.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>/pages_other/error.xhtml</from-view-id>
+
+		<navigation-case>
+			<from-outcome>volver</from-outcome>
+			<to-view-id>/pages_no_user/login.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
+
+	<!-- - - - - - - - -->
+	<!-- - - Login - - -->
+	<!-- - - - - - - - -->
+
+	<navigation-rule>
+		<from-view-id>/pages_no_user/login.xhtml</from-view-id>
+
+		<navigation-case>
+			<from-outcome>registro</from-outcome>
+			<to-view-id>/pages_no_user/registro.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<navigation-case>
+			<from-action>#{bean_login.dologin}</from-action>
+			<from-outcome>fallo</from-outcome>
+			<to-view-id>/pages_no_user/login.xhtml</to-view-id>
+		</navigation-case>
+
+		<navigation-case>
+			<from-action>#{bean_login.dologin}</from-action>
+			<from-outcome>admin</from-outcome>
+			<to-view-id>/pages_admin/principal_administrador.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<navigation-case>
+			<from-action>#{bean_login.dologin}</from-action>
+			<from-outcome>usuario</from-outcome>
+			<to-view-id>/pages_user/principal_usuario.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
+
+	<!-- - - - - - - - - -->
+	<!-- - - Registro - - -->
+	<!-- - - - - - - - - -->
+
+	<navigation-rule>
+		<from-view-id>/pages_no_user/registro.xhtml</from-view-id>
+
+		<navigation-case>
+			<from-action>#{bean_registry.registrar}</from-action>
+			<from-outcome>fallo</from-outcome>
+			<to-view-id>/pages_no_user/registro.xhtml</to-view-id>
+		</navigation-case>
+
+		<navigation-case>
+			<from-action>#{bean_registry.registrar}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/pages_no_user/login.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
+
+	<!-- - - - - - - - - - - - -->
+	<!-- - - Administrador - - -->
+	<!-- - - - - - - - - - - - -->
+
+	<navigation-rule>
+		<from-view-id>/pages_admin/principal_administrador.xhtml</from-view-id>
+
+		<navigation-case>
+			<from-action>#{bean_users_list.deleteUser(usuario)}</from-action>
+			<from-outcome>fallo</from-outcome>
+			<to-view-id>/pages_admin/principal_administrador.xhtml</to-view-id>
+		</navigation-case>
+
+		<navigation-case>
+			<from-action>#{bean_users_list.deleteUser(usuario)}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/pages_admin/principal_administrador.xhtml</to-view-id>
+		</navigation-case>
+
+		<navigation-case>
+			<from-action>#{bean_users_list.changeStatus(usuario)}</from-action>
+			<from-outcome>fallo</from-outcome>
+			<to-view-id>/pages_admin/principal_administrador.xhtml</to-view-id>
+		</navigation-case>
+
+		<navigation-case>
+			<from-action>#{bean_users_list.changeStatus(usuario)}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/pages_admin/principal_administrador.xhtml</to-view-id>
+		</navigation-case>
+
+		<navigation-case>
+			<from-action>#{bean_users_list.restartData}</from-action>
+			<from-outcome>fallo</from-outcome>
+			<to-view-id>/pages_admin/principal_administrador.xhtml</to-view-id>
+		</navigation-case>
+
+		<navigation-case>
+			<from-action>#{bean_users_list.restartData}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/pages_admin/principal_administrador.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+
+	<!-- - - - - - - - - - - - -->
+	<!-- - - - Usuario - - - - -->
+	<!-- - - - - - - - - - - - -->
+
+	<navigation-rule>
+		<from-view-id>/pages_user/principal_usuario.xhtml</from-view-id>
+
+		<navigation-case>
+			<from-outcome>crear</from-outcome>
+			<to-view-id>/pages_user/crear_tarea.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<navigation-case>
+			<from-action>#{bean_categ.goToInbox}</from-action>
+			<from-outcome>inbox</from-outcome>
+			<to-view-id>/pages_user/listar_tareas_inbox.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<navigation-case>
+			<from-outcome>hoy</from-outcome>
+			<to-view-id>/pages_user/listar_tareas_hoy.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<navigation-case>
+			<from-outcome>semana</from-outcome>
+			<to-view-id>/pages_user/listar_tareas_semana.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+	</navigation-rule>
+
+
+	<!-- - - - - - - - - - - - - -->
+	<!-- - Listar tareas inbox - -->
+	<!-- - - - - - - - - - - - - -->
+
+	<navigation-rule>
+		<from-view-id>/pages_user/listar_tareas_inbox.xhtml</from-view-id>
+
+		<navigation-case>
+			<from-outcome>crear</from-outcome>
+			<to-view-id>/pages_user/crear_tarea.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<navigation-case>
+			<from-outcome>editar</from-outcome>
+			<to-view-id>/pages_user/editar_tarea.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<navigation-case>
+			<from-outcome>volver</from-outcome>
+			<to-view-id>/pages_user/principal_usuario.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<navigation-case>
+			<from-action>#{bean_inbox.terminarTarea(tarea.id)}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/pages_user/listar_tareas_inbox.xhtml</to-view-id>
+		</navigation-case>
+
+		<navigation-case>
+			<from-action>#{bean_inbox.terminarTarea(tarea.id)}</from-action>
+			<from-outcome>fallo</from-outcome>
+			<to-view-id>/pages_user/listar_tareas_inbox.xhtml</to-view-id>
+		</navigation-case>
+
+	</navigation-rule>
+
+	<!-- - - - - - - - - - - - -->
+	<!-- - Listar tareas hoy - -->
+	<!-- - - - - - - - - - - - -->
+
+	<navigation-rule>
+		<from-view-id>/pages_user/listar_tareas_hoy.xhtml</from-view-id>
+
+		<navigation-case>
+			<from-outcome>crear</from-outcome>
+			<to-view-id>/pages_user/crear_tarea.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<navigation-case>
+			<from-outcome>editar</from-outcome>
+			<to-view-id>/pages_user/editar_tarea.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<navigation-case>
+			<from-outcome>volver</from-outcome>
+			<to-view-id>/pages_user/principal_usuario.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<navigation-case>
+			<from-action>#{bean_today.terminarTarea(tarea.id)}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/pages_user/listar_tareas_hoy.xhtml</to-view-id>
+		</navigation-case>
+
+		<navigation-case>
+			<from-action>#{bean_today.terminarTarea(tarea.id)}</from-action>
+			<from-outcome>fallo</from-outcome>
+			<to-view-id>/pages_user/listar_tareas_hoy.xhtml</to-view-id>
+		</navigation-case>
+
+	</navigation-rule>
+
+	<!-- - - - - - - - - - - - - -->
+	<!-- - Listar tareas semana - -->
+	<!-- - - - - - - - - - - - - -->
+
+	<navigation-rule>
+		<from-view-id>/pages_user/listar_tareas_semana.xhtml</from-view-id>
+
+		<navigation-case>
+			<from-outcome>crear</from-outcome>
+			<to-view-id>/pages_user/crear_tarea.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<navigation-case>
+			<from-outcome>editar</from-outcome>
+			<to-view-id>/pages_user/editar_tarea.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<navigation-case>
+			<from-outcome>volver</from-outcome>
+			<to-view-id>/pages_user/principal_usuario.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<navigation-case>
+			<from-action>#{bean_week.terminarTarea(tarea.id)}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/pages_user/listar_tareas_semana.xhtml</to-view-id>
+		</navigation-case>
+
+		<navigation-case>
+			<from-action>#{bean_week.terminarTarea(tarea.id)}</from-action>
+			<from-outcome>fallo</from-outcome>
+			<to-view-id>/pages_user/listar_tareas_semana.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<!-- - - - - - - - - -->
+	<!-- - Crear tarea - -->
+	<!-- - - - - - - - - -->
+
+	<navigation-rule>
+		<from-view-id>/pages_user/crear_tarea.xhtml</from-view-id>
+
+		<navigation-case>
+			<from-outcome>volver</from-outcome>
+			<to-view-id>/pages_user/principal_usuario.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<navigation-case>
+			<from-action>#{bean_new_task.crearTarea}</from-action>
+			<from-outcome>fallo</from-outcome>
+			<to-view-id>/pages_user/crear_tarea.xhtml</to-view-id>
+		</navigation-case>
+
+		<navigation-case>
+			<from-action>#{bean_new_task.crearTarea}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/pages_user/principal_usuario.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
+	<!-- - - - - - - - - -->
+	<!-- - Editar tarea - -->
+	<!-- - - - - - - - - -->
+
+	<navigation-rule>
+		<from-view-id>/pages_user/editar_tarea.xhtml</from-view-id>
+
+		<navigation-case>
+			<from-outcome>volver</from-outcome>
+			<to-view-id>/pages_user/principal_usuario.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<navigation-case>
+			<from-action>#{bean_edit_task.editarTarea}</from-action>
+			<from-outcome>fallo</from-outcome>
+			<to-view-id>/pages_user/editar_tarea.xhtml</to-view-id>
+		</navigation-case>
+
+		<navigation-case>
+			<from-action>#{bean_edit_task.editarTarea}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/pages_user/principal_usuario.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
+</faces-config>

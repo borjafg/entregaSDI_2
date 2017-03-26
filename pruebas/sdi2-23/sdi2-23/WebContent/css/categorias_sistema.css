@@ -1,0 +1,3 @@
+.quitar_bordes .ui-panelgrid-content .ui-grid-row:nth-of-type(n) {
+	border: none !important;
+}

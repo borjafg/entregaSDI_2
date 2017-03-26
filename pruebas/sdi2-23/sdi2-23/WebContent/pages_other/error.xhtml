@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<f:view locale="#{bean_language_config.locale}">
+	<h:head>
+		<title>TaskManager</title>
+	</h:head>
+
+	<h:body>
+		<h:form id="form_menu_administrador">
+			<p:menubar>
+				<p:menuitem value="#{msgs.pagina_error__volver_login}" action="volver" />
+
+				<ui:include src="/snippets/submenu_idiomas.xhtml" />
+			</p:menubar>
+		</h:form>
+
+		<p:spacer />
+
+		<h1 style="color: DarkRed; text-align: center;">#{msgs.pagina_error__titulo1}</h1>
+
+		<h3 style="text-align: center;">
+			#{msgs.pagina_error__titulo2_cabecera}<span style="font-weight: normal">#{msgs.pagina_error__titulo2_cuerpo}</span>
+		</h3>
+	</h:body>
+</f:view>
+
+</html>

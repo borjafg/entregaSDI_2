@@ -1,0 +1,50 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/template_anonimo.xhtml">
+
+	<ui:define name="opcion_menu">
+		<p:menuitem id="enlace_registro" value="#{msgs.login__enlace_registro}"
+			action="registro" immediate="true" />
+	</ui:define>
+
+
+	<ui:define name="cuerpo_form">
+		<h:panelGrid columns="1" cellpadding="5" style="margin: 0 auto;">
+			<p:panel id="panel__login" header="#{msgs.login__titulo_panel}">
+
+				<h:panelGrid columns="3" cellpadding="5">
+					<p:outputLabel id="label_login" for="usuario"
+						value="#{msgs.login__usuario}" />
+
+					<p:inputText id="usuario" value="#{bean_login.login}"
+						required="true" placeholder="#{msgs.login__placeholder_usuario}"
+						requiredMessage="#{msgs.login__usuario_requerido}" size="30" />
+
+					<p:message for="usuario" />
+
+
+					<p:outputLabel id="label_contrasena" for="contrasena"
+						value="#{msgs.login__contrasena}" />
+
+					<p:inputText id="contrasena" value="#{bean_login.password}"
+						required="true" placeholder="#{msgs.login__placeholder_contrasena}"
+						requiredMessage="#{msgs.login__contrasena_requerida}" size="30"
+						type="password" />
+
+					<p:message for="contrasena" />
+
+
+					<p:outputLabel value="" />
+
+					<p:commandButton id="boton_login" value="#{msgs.login__boton}"
+						update="@form" process="@form" action="#{bean_login.dologin}" />
+				</h:panelGrid>
+
+				<p:messages for="panel_login" showDetail="true" closable="true" />
+			</p:panel>
+		</h:panelGrid>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14885646375180" configfile="/sdi2-23/WebContent/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" x="122" y="279" id="pf14886561639490" referenceLink="//@navigationRule.0/@fromViewId|"/>
+  <nodes xsi:type="pageflow:PFPage" x="122" y="1532" id="pf148925729831619" referenceLink="//@navigationRule.0/@fromViewId|"/>
+  <nodes xsi:type="pageflow:PFPage" name="*" x="122" y="764" id="pf149022028340744" referenceLink="//@navigationRule.1/@fromViewId|" outlinks="pf149022028340745 pf149022028340746" path="*"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages_no_user/login.xhtml" x="554" y="562" id="pf149022028340747" referenceLink="//@navigationRule.4/@navigationCase.1/@toViewId|" outlinks="pf149022028340748 pf149022028340749 pf149022028340750 pf149022028340751" inlinks="pf149022028340745 pf149022028340752 pf149022028340749 pf149022028340753" path="/pages_no_user/login.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages_other/error.xhtml" x="338" y="562" id="pf149022028340754" referenceLink="//@navigationRule.2/@fromViewId|" outlinks="pf149022028340752" inlinks="pf149022028340746" path="/pages_other/error.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages_no_user/registro.xhtml" x="338" y="178" id="pf149022028340755" referenceLink="//@navigationRule.4/@fromViewId|" outlinks="pf149022028340756 pf149022028340753" inlinks="pf149022028340748 pf149022028340756" path="/pages_no_user/registro.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages_admin/principal_administrador.xhtml" x="770" y="562" id="pf149022028340757" referenceLink="//@navigationRule.5/@navigationCase.5/@toViewId|" outlinks="pf149022028340758 pf149022028340759 pf149022028340760 pf149022028340761 pf149022028340762 pf149022028340763" inlinks="pf149022028340750 pf149022028340758 pf149022028340759 pf149022028340760 pf149022028340761 pf149022028340762 pf149022028340763" path="/pages_admin/principal_administrador.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages_user/principal_usuario.xhtml" x="770" y="1372" id="pf149022028340764" referenceLink="//@navigationRule.11/@navigationCase.2/@toViewId|" outlinks="pf149022028340765 pf149022028340766 pf149022028340767 pf14903874616983" inlinks="pf149022028340751 pf149022028340768 pf149022028340769 pf149022028340770 pf14904609293690 pf14904609293691 pf14904609950907 pf14904767633549" path="/pages_user/principal_usuario.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages_user/listar_tareas_inbox.xhtml" x="338" y="1148" id="pf149022028340771" referenceLink="//@navigationRule.7/@navigationCase.3/@toViewId|" outlinks="pf149022028340768 pf149022028340772 pf149022028340773 pf14903874725295" inlinks="pf149022028340765 pf149022028340772 pf149022028340773" path="/pages_user/listar_tareas_inbox.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages_user/listar_tareas_hoy.xhtml" x="338" y="1532" id="pf149022028340774" referenceLink="//@navigationRule.8/@navigationCase.3/@toViewId|" outlinks="pf149022028340769 pf149022028340775 pf149022028340776 pf14903874784256" inlinks="pf149022028340766 pf149022028340775 pf149022028340776" path="/pages_user/listar_tareas_hoy.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages_user/listar_tareas_semana.xhtml" x="338" y="1916" id="pf149022028340777" referenceLink="//@navigationRule.9/@navigationCase.3/@toViewId|" outlinks="pf149022028340770 pf149022028340778 pf149022028340779 pf14903874939057" inlinks="pf149022028340767 pf149022028340778 pf149022028340779" path="/pages_user/listar_tareas_semana.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages_user/crear_tarea.xhtml" x="554" y="1372" id="pf14903874616984" referenceLink="//@navigationRule.10/@fromViewId|" outlinks="pf14904609293690 pf14904609950907 pf14904609950908" inlinks="pf14903874616983 pf14903874725295 pf14903874784256 pf14903874939057 pf14904609950908" path="/pages_user/crear_tarea.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages_user/editar_tarea.xhtml" x="554" y="946" id="pf14904609293692" referenceLink="//@navigationRule.11/@fromViewId|" outlinks="pf14904609293691 pf149047676335410 pf14904767633549" inlinks="pf149047676335410" path="/pages_user/editar_tarea.xhtml"/>
+  <links id="pf149022028340745" target="pf149022028340747" source="pf149022028340744" outcome="exito" redirect="true" fromaction="#{bean_login.dologout}"/>
+  <links id="pf149022028340746" target="pf149022028340754" source="pf149022028340744" outcome="error" redirect="true"/>
+  <links id="pf149022028340752" target="pf149022028340747" source="pf149022028340754" outcome="volver" redirect="true"/>
+  <links id="pf149022028340748" target="pf149022028340755" source="pf149022028340747" outcome="registro" redirect="true"/>
+  <links id="pf149022028340750" target="pf149022028340757" source="pf149022028340747" outcome="admin" redirect="true" fromaction="#{bean_login.dologin}"/>
+  <links id="pf149022028340751" target="pf149022028340764" source="pf149022028340747" outcome="usuario" redirect="true" fromaction="#{bean_login.dologin}"/>
+  <links id="pf149022028340753" target="pf149022028340747" source="pf149022028340755" outcome="exito" redirect="true" fromaction="#{bean_registry.registrar}"/>
+  <links id="pf149022028340765" target="pf149022028340771" source="pf149022028340764" outcome="inbox" redirect="true" fromaction="#{bean_categ.goToInbox}"/>
+  <links id="pf149022028340766" target="pf149022028340774" source="pf149022028340764" outcome="hoy" redirect="true"/>
+  <links id="pf149022028340767" target="pf149022028340777" source="pf149022028340764" outcome="semana" redirect="true"/>
+  <links id="pf149022028340768" target="pf149022028340764" source="pf149022028340771" outcome="volver" redirect="true"/>
+  <links id="pf149022028340769" target="pf149022028340764" source="pf149022028340774" outcome="volver" redirect="true"/>
+  <links id="pf149022028340770" target="pf149022028340764" source="pf149022028340777" outcome="volver" redirect="true"/>
+  <links id="pf14903874616983" target="pf14903874616984" source="pf149022028340764" outcome="crear" redirect="true"/>
+  <links id="pf14903874725295" target="pf14903874616984" source="pf149022028340771" outcome="crear" redirect="true"/>
+  <links id="pf14903874784256" target="pf14903874616984" source="pf149022028340774" outcome="crear" redirect="true"/>
+  <links id="pf14903874939057" target="pf14903874616984" source="pf149022028340777" outcome="crear" redirect="true"/>
+  <links id="pf14904609293690" target="pf149022028340764" source="pf14903874616984" outcome="volver" redirect="true"/>
+  <links id="pf14904609293691" target="pf149022028340764" source="pf14904609293692" outcome="volver" redirect="true"/>
+  <links id="pf14904609950907" target="pf149022028340764" source="pf14903874616984" outcome="exito" redirect="true" fromaction="#{bean_new_task.crearTarea}"/>
+  <links id="pf14904767633549" target="pf149022028340764" source="pf14904609293692" outcome="exito" redirect="true" fromaction="#{bean_edit_task.editarTarea}"/>
+  <links id="pf149022028340749" target="pf149022028340747" source="pf149022028340747" outcome="fallo" fromaction="#{bean_login.dologin}">
+    <bendPoints d1Height="-36" d2Height="-36"/>
+    <bendPoints d1Width="-64" d1Height="-36" d2Width="-64" d2Height="-36"/>
+    <bendPoints d1Width="-64" d2Width="-64"/>
+  </links>
+  <links id="pf149022028340756" target="pf149022028340755" source="pf149022028340755" outcome="fallo" fromaction="#{bean_registry.registrar}">
+    <bendPoints d1Height="-36" d2Height="-36"/>
+    <bendPoints d1Width="-64" d1Height="-36" d2Width="-64" d2Height="-36"/>
+    <bendPoints d1Width="-64" d2Width="-64"/>
+  </links>
+  <links id="pf149022028340758" target="pf149022028340757" source="pf149022028340757" outcome="fallo" fromaction="#{bean_users_list.deleteUser(usuario)}">
+    <bendPoints d1Height="-36" d2Height="-36"/>
+    <bendPoints d1Width="-64" d1Height="-36" d2Width="-64" d2Height="-36"/>
+    <bendPoints d1Width="-64" d2Width="-64"/>
+  </links>
+  <links id="pf149022028340759" target="pf149022028340757" source="pf149022028340757" outcome="exito" fromaction="#{bean_users_list.deleteUser(usuario)}">
+    <bendPoints d1Height="-66" d2Height="-66"/>
+    <bendPoints d1Width="-94" d1Height="-66" d2Width="-94" d2Height="-66"/>
+    <bendPoints d1Width="-94" d2Width="-94"/>
+  </links>
+  <links id="pf149022028340760" target="pf149022028340757" source="pf149022028340757" outcome="fallo" fromaction="#{bean_users_list.changeStatus(usuario)}">
+    <bendPoints d1Height="-96" d2Height="-96"/>
+    <bendPoints d1Width="-124" d1Height="-96" d2Width="-124" d2Height="-96"/>
+    <bendPoints d1Width="-124" d2Width="-124"/>
+  </links>
+  <links id="pf149022028340761" target="pf149022028340757" source="pf149022028340757" outcome="exito" fromaction="#{bean_users_list.changeStatus(usuario)}">
+    <bendPoints d1Height="-126" d2Height="-126"/>
+    <bendPoints d1Width="-154" d1Height="-126" d2Width="-154" d2Height="-126"/>
+    <bendPoints d1Width="-154" d2Width="-154"/>
+  </links>
+  <links id="pf149022028340762" target="pf149022028340757" source="pf149022028340757" outcome="fallo" fromaction="#{bean_users_list.restartData}">
+    <bendPoints d1Height="-156" d2Height="-156"/>
+    <bendPoints d1Width="-184" d1Height="-156" d2Width="-184" d2Height="-156"/>
+    <bendPoints d1Width="-184" d2Width="-184"/>
+  </links>
+  <links id="pf149022028340763" target="pf149022028340757" source="pf149022028340757" outcome="exito" fromaction="#{bean_users_list.restartData}">
+    <bendPoints d1Height="-186" d2Height="-186"/>
+    <bendPoints d1Width="-214" d1Height="-186" d2Width="-214" d2Height="-186"/>
+    <bendPoints d1Width="-214" d2Width="-214"/>
+  </links>
+  <links id="pf149022028340772" target="pf149022028340771" source="pf149022028340771" outcome="exito" fromaction="#{bean_inbox.terminarTarea(tarea.id)}">
+    <bendPoints d1Height="-36" d2Height="-36"/>
+    <bendPoints d1Width="-64" d1Height="-36" d2Width="-64" d2Height="-36"/>
+    <bendPoints d1Width="-64" d2Width="-64"/>
+  </links>
+  <links id="pf149022028340773" target="pf149022028340771" source="pf149022028340771" outcome="fallo" fromaction="#{bean_inbox.terminarTarea(tarea.id)}">
+    <bendPoints d1Height="-66" d2Height="-66"/>
+    <bendPoints d1Width="-94" d1Height="-66" d2Width="-94" d2Height="-66"/>
+    <bendPoints d1Width="-94" d2Width="-94"/>
+  </links>
+  <links id="pf149022028340775" target="pf149022028340774" source="pf149022028340774" outcome="exito" fromaction="#{bean_today.terminarTarea(tarea.id)}">
+    <bendPoints d1Height="-36" d2Height="-36"/>
+    <bendPoints d1Width="-64" d1Height="-36" d2Width="-64" d2Height="-36"/>
+    <bendPoints d1Width="-64" d2Width="-64"/>
+  </links>
+  <links id="pf149022028340776" target="pf149022028340774" source="pf149022028340774" outcome="fallo" fromaction="#{bean_today.terminarTarea(tarea.id)}">
+    <bendPoints d1Height="-66" d2Height="-66"/>
+    <bendPoints d1Width="-94" d1Height="-66" d2Width="-94" d2Height="-66"/>
+    <bendPoints d1Width="-94" d2Width="-94"/>
+  </links>
+  <links id="pf149022028340778" target="pf149022028340777" source="pf149022028340777" outcome="exito" fromaction="#{bean_week.terminarTarea(tarea.id)}">
+    <bendPoints d1Height="-36" d2Height="-36"/>
+    <bendPoints d1Width="-64" d1Height="-36" d2Width="-64" d2Height="-36"/>
+    <bendPoints d1Width="-64" d2Width="-64"/>
+  </links>
+  <links id="pf149022028340779" target="pf149022028340777" source="pf149022028340777" outcome="fallo" fromaction="#{bean_week.terminarTarea(tarea.id)}">
+    <bendPoints d1Height="-66" d2Height="-66"/>
+    <bendPoints d1Width="-94" d1Height="-66" d2Width="-94" d2Height="-66"/>
+    <bendPoints d1Width="-94" d2Width="-94"/>
+  </links>
+  <links id="pf14904609950908" target="pf14903874616984" source="pf14903874616984" outcome="fallo" fromaction="#{bean_new_task.crearTarea}">
+    <bendPoints d1Height="-36" d2Height="-36"/>
+    <bendPoints d1Width="-64" d1Height="-36" d2Width="-64" d2Height="-36"/>
+    <bendPoints d1Width="-64" d2Width="-64"/>
+  </links>
+  <links id="pf149047676335410" target="pf14904609293692" source="pf14904609293692" outcome="fallo" fromaction="#{bean_edit_task.editarTarea}">
+    <bendPoints d1Height="-36" d2Height="-36"/>
+    <bendPoints d1Width="-64" d1Height="-36" d2Width="-64" d2Height="-36"/>
+    <bendPoints d1Width="-64" d2Width="-64"/>
+  </links>
+</pageflow:Pageflow>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm
+        http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd"
+	version="2.1">
+
+	<!-- ================== -->
+	<!-- Consultas Category -->
+	<!-- ================== -->
+
+	<named-query name="Category.FindAll">
+		<query>select c from Category c</query>
+	</named-query>
+
+	<named-query name="Category.findByUserIdAndName">
+		<query>select c from Category c where
+			c.user.id = :userId and
+			c.name = :name</query>
+	</named-query>
+
+	<named-query name="Category.findByUserId">
+		<query>select c from Category c where
+			c.user.id = :userId</query>
+	</named-query>
+
+
+	<!-- ============== -->
+	<!-- Consultas Task -->
+	<!-- ============== -->
+
+	<named-query name="Task.FindAll">
+		<query>select t from Task t</query>
+	</named-query>
+
+	<named-query name="Task.findByUserId">
+		<query>select t from Task t where t.user.id = :userId</query>
+	</named-query>
+
+	<named-query name="Task.findInboxTasksByUserId">
+		<query>select t from Task t where
+			t.user.id = :userId and
+			t.category is null and
+			t.finished is null</query>
+	</named-query>
+
+	<named-query name="Task.findTodayTasksByUserId">
+		<query>
+			<![CDATA[select t from Task t where 
+				t.user.id = :userId and 
+				t.planned <= CURRENT_DATE and 
+				t.finished is null]]>
+		</query>
+	</named-query>
+
+	<named-query name="Task.findWeekTasksByUserId">
+		<query>
+			<![CDATA[select t from Task t where 
+				t.user.id = :userId and 
+				t.planned <= :fechaSemana and 
+				t.finished is null]]>
+		</query>
+	</named-query>
+
+	<named-query name="Task.FindUnfinishedTasksByCategoryId">
+		<query>select t from Task t where
+			t.category.id = :categId and
+			t.finished is null
+		</query>
+	</named-query>
+
+	<named-query name="Task.FindFinishedTasksByCategoryId">
+		<query>select t from Task t where
+			t.category.id = :categId and
+			t.finished is not null
+		</query>
+	</named-query>
+
+	<named-query name="Task.FindFinishedTasksInboxByUserId">
+		<query>select t from Task t where
+			t.user.id = :userId and
+			t.category is null and
+			t.finished is not null
+		</query>
+	</named-query>
+
+
+	<!-- ============== -->
+	<!-- Consultas User -->
+	<!-- ============== -->
+
+	<named-query name="User.findAll">
+		<query>select u from User u</query>
+	</named-query>
+
+	<named-query name="User.findByLogin">
+		<query>select u from User u where u.login = :login</query>
+	</named-query>
+
+	<named-query name="User.findByLoginAndPassword">
+		<query>select u from User u where
+			u.login = :login and
+			u.password = :password</query>
+	</named-query>
+
+
+</entity-mappings>
