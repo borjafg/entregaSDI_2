@@ -3,48 +3,86 @@ package com.sdi.tests.page_objects;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+
+import com.sdi.tests.utils.MySeleniumUtils;
 
 public class PO_SemanaRow {
 
     public Map<String, Object> findRow(WebDriver driver, int index) {
 	Map<String, Object> row = new HashMap<String, Object>();
 
-	WebElement titulo = driver.findElement(By.id("form_user:tabla_tareas:"
-		+ index + ":columna_titulo"));
+	// ----------------------------------
+	// (1) Extraer el título de la tarea
+	// ----------------------------------
+
+	WebElement titulo = MySeleniumUtils.waitForElementWithId(driver,
+		"form_user:tabla_tareas:" + index + ":columna_titulo");
+
 	row.put("titulo", titulo.getText());
 
-	WebElement comentario = driver
-		.findElement(By.id("form_user:tabla_tareas:" + index
-			+ ":columna_comentarios"));
+	// ----------------------------------------
+	// (2) Extraer los comentarios de la tarea
+	// ----------------------------------------
+
+	WebElement comentario = MySeleniumUtils.waitForElementWithId(driver,
+		"form_user:tabla_tareas:" + index + ":columna_comentarios");
+
 	row.put("comentario", comentario.getText());
 
-	WebElement categoria = driver.findElement(By
-		.id("form_user:tabla_tareas:" + index + ":columna_categoria"));
+	// --------------------------------------
+	// (3) Extraer el nombre de la categoría
+	// --------------------------------------
+
+	WebElement categoria = MySeleniumUtils.waitForElementWithId(driver,
+		"form_user:tabla_tareas:" + index + ":columna_categoria");
 
 	row.put("categoria", categoria.getText());
 
-	WebElement categoriaWebElement = driver.findElement(By
-		.id("form_user:tabla_tareas:" + index + ":columna_categoria"));
+	// ----------------------------------------------------------------
+	// (4) Extraer el elemento categoria (nos interesan sus atributos)
+	// ----------------------------------------------------------------
+
+	WebElement categoriaWebElement = MySeleniumUtils.waitForElementWithId(
+		driver, "form_user:tabla_tareas:" + index
+			+ ":columna_categoria");
 
 	row.put("categoriaWebElement", categoriaWebElement);
 
-	WebElement fechaCreada = driver.findElement(By
-		.id("form_user:tabla_tareas:" + index + ":columna_creada"));
+	// ---------------------------------------------
+	// (5) Extraer la fecha de creación de la tarea
+	// ---------------------------------------------
+
+	WebElement fechaCreada = MySeleniumUtils.waitForElementWithId(driver,
+		"form_user:tabla_tareas:" + index + ":columna_creada");
+
 	row.put("fechaCreacion", fechaCreada.getText());
 
-	WebElement fechaPlaneada = driver.findElement(By
-		.id("form_user:tabla_tareas:" + index + ":columna_planeada"));
+	// --------------------------------------------------------
+	// (6) Extraer la fecha para la que está planeada la tarea
+	// --------------------------------------------------------
+
+	WebElement fechaPlaneada = MySeleniumUtils.waitForElementWithId(driver,
+		"form_user:tabla_tareas:" + index + ":columna_planeada");
 
 	row.put("fechaPlaneada", fechaPlaneada.getText());
 
-	WebElement fechaFinalizada = driver.findElement(By
-		.id("form_user:tabla_tareas:" + index + ":columna_finalizar"));
-	row.put("fechaFinalizada", fechaFinalizada);
+	// ----------------------------------------------------
+	// (7) Extraer el botón que permite finalizar la tarea
+	// ----------------------------------------------------
+
+	WebElement botonFinalizar = MySeleniumUtils.waitForElementWithId(
+		driver, "form_user:tabla_tareas:" + index
+			+ ":columna_finalizar");
+
+	row.put("fechaFinalizada", botonFinalizar);
+
+	// -----------------------------------------
+	// (8) Devolvemos los elementos que sacamos
+	// -----------------------------------------
 
 	return row;
-
     }
+
 }

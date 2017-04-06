@@ -18,9 +18,12 @@
 	<ui:define name="cuerpo">
 		<p:dataTable id="tabla_tareas" value="#{bean_week.tasks}" var="tarea"
 			rows="8" paginator="true"
+			sortFunction="#{bean_week.weekSorter.sortAtInit}" sortBy="#{tarea}"
 			paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
 
-			<f:facet name="header">#{msgs.listar_tareas__titulo_semana}</f:facet>
+			<f:facet name="header">
+				<div id="titulo_tareas_semana">#{msgs.listar_tareas__titulo_semana}</div>
+			</f:facet>
 
 
 			<p:column headerText="#{msgs.listar_tareas__columna_titulo}"

@@ -23,9 +23,13 @@
 	<ui:define name="cuerpo">
 		<p:dataTable id="tabla_tareas" value="#{bean_inbox.tasks}" var="tarea"
 			rows="8" paginator="true"
+			sortFunction="#{bean_inbox.inboxSorter.sortAtInit}"
+			sortBy="#{bean_inbox.getInfoFromTask(tarea)}"
 			paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
 
-			<f:facet name="header">#{msgs.listar_tareas__titulo_inbox}</f:facet>
+			<f:facet name="header">
+				<div id="titulo_tareas_inbox">#{msgs.listar_tareas__titulo_inbox}</div>
+			</f:facet>
 
 
 			<p:column headerText="#{msgs.listar_tareas__columna_titulo}"
@@ -78,9 +82,14 @@
 				id="columna_finalizada_titulo" sortBy="#{tarea}"
 				sortFunction="#{bean_inbox.inboxSorter.sortByFinished}">
 
-				<h:outputText value="#{tarea.finished}" id="columna_finalizada">
+				<h:outputText value="#{tarea.finished}" id="columna_finalizada"
+					rendered="#{tarea.finished != null}">
+
 					<f:convertDateTime dateStyle="short" type="date" />
 				</h:outputText>
+
+				<h:outputText value="--------" id="columna_finalizada_no_acabada"
+					rendered="#{tarea.finished == null}" />
 			</p:column>
 
 
@@ -91,7 +100,8 @@
 					action="#{bean_inbox.terminarTarea(tarea.id)}"
 					update="form_user:tabla_tareas mensajes_user" />
 
-				<h:outputText value="-------" rendered="#{tarea.finished != null}" />
+				<h:outputText id="columna_finalizar_acabada" value="-------"
+					rendered="#{tarea.finished != null}" />
 			</p:column>
 
 

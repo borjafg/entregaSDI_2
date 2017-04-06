@@ -400,7 +400,28 @@
 
 		<navigation-case>
 			<from-action>#{bean_new_task.crearTarea}</from-action>
-			<from-outcome>exito</from-outcome>
+			<from-outcome>inbox</from-outcome>
+			<to-view-id>/pages_user/listar_tareas_inbox.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<navigation-case>
+			<from-action>#{bean_new_task.crearTarea}</from-action>
+			<from-outcome>hoy</from-outcome>
+			<to-view-id>/pages_user/listar_tareas_hoy.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<navigation-case>
+			<from-action>#{bean_new_task.crearTarea}</from-action>
+			<from-outcome>semana</from-outcome>
+			<to-view-id>/pages_user/listar_tareas_semana.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<navigation-case>
+			<from-action>#{bean_new_task.crearTarea}</from-action>
+			<from-outcome>ninguna</from-outcome>
 			<to-view-id>/pages_user/principal_usuario.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>

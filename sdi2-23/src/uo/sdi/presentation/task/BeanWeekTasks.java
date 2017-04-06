@@ -11,6 +11,7 @@ import uo.sdi.business.TaskService;
 import uo.sdi.business.exception.BusinessException;
 import uo.sdi.infrastructure.Services;
 import uo.sdi.presentation.util.UserInfo;
+import uo.sdi.presentation.util.sorting.WeekSorter;
 import alb.util.log.Log;
 
 @ManagedBean(name = "bean_week")
@@ -20,10 +21,28 @@ public class BeanWeekTasks extends AbstractBeanListTasks implements
 
     private static final long serialVersionUID = -215677556034035L;
 
+    private WeekSorter weekSorter = new WeekSorter();
+
+    // ============================
+    // Getters y Setters
+    // ============================
+
+    public WeekSorter getWeekSorter() {
+	return weekSorter;
+    }
+
+    // ===============================
+    // Inicialización y eliminación
+    // ===============================
+
     @PostConstruct
     public void init() {
 	cargarTareas();
     }
+
+    // ============================
+    // Métodos
+    // ============================
 
     @Override
     protected void cargarTareas() {

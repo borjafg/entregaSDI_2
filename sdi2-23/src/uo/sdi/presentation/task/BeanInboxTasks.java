@@ -9,9 +9,11 @@ import javax.faces.context.FacesContext;
 
 import uo.sdi.business.TaskService;
 import uo.sdi.business.exception.BusinessException;
+import uo.sdi.dto.TaskDTO;
 import uo.sdi.infrastructure.Services;
-import uo.sdi.presentation.util.InboxSorter;
 import uo.sdi.presentation.util.UserInfo;
+import uo.sdi.presentation.util.sorting.InboxSorter;
+import uo.sdi.presentation.util.sorting.InboxTaskInfo;
 import alb.util.log.Log;
 
 @ManagedBean(name = "bean_inbox")
@@ -31,6 +33,19 @@ public class BeanInboxTasks extends AbstractBeanListTasks implements
 
     public InboxSorter getInboxSorter() {
 	return inboxSorter;
+    }
+
+    /**
+     * Devuelve un objeto que permite establecer una ordenación por defecto en
+     * la tabla independientemente de la ordenación que tengan las columnas.
+     * 
+     */
+    public InboxTaskInfo getInfoFromTask(TaskDTO task) {
+	if (task != null) {
+	    return new InboxTaskInfo(task);
+	}
+
+	return null;
     }
 
     // ===============================

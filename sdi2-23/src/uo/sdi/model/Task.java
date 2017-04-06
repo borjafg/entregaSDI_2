@@ -119,14 +119,20 @@ public class Task {
     }
 
     public void setCategory(Category category) {
-	// Si no esta asociado a una categoria
-	if (this.category == null)
-	    Association.Classifies.link(this, category);
+	// Si no está asociado a una categoría
+	if (this.category == null) {
 
-	// Si ya esta asociado a una categoria
+	    // Y se le quiere asociar a una categoría
+	    if (category != null) {
+		Association.Classifies.link(this, category);
+	    }
+	}
+
+	// Si ya está asociado a una categoría (this.category != null)
 	else {
 	    Association.Classifies.unlink(this, this.category);
 
+	    // Y se le quiere asociar a otra
 	    if (category != null) {
 		Association.Classifies.link(this, category);
 	    }

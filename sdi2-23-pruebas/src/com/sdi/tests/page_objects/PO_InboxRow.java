@@ -3,59 +3,89 @@ package com.sdi.tests.page_objects;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import com.sdi.tests.utils.MySeleniumUtils;
+
 public class PO_InboxRow {
+
     public Map<String, Object> findRow(WebDriver driver, int index) {
 	Map<String, Object> row = new HashMap<String, Object>();
-	
-	WebElement titulo = null;
-	try{
-	titulo = driver.findElement(By.id("form_user:tabla_tareas:"
-		+ index + ":columna_titulo"));
-	row.put("titulo", titulo);
-	
-	    
-	}catch(NoSuchElementException e){
-	    titulo = driver.findElement(By.id("form_user:tabla_tareas:"
-			+ index + ":columna_titulo_finalizada"));
-	    row.put("titulo", titulo);
-	}
-	
-	
 
-	WebElement comentario = driver
-		.findElement(By.id("form_user:tabla_tareas:" + index
-			+ ":columna_comentarios"));
+	// ---------------------------------
+	// (1) Extrer el título de la tarea
+	// ---------------------------------
+
+	String titulo1 = "form_user:tabla_tareas:" + index + ":columna_titulo";
+	String titulo2 = "form_user:tabla_tareas:" + index
+		+ ":columna_titulo_finalizada";
+
+	row.put("titulo",
+		MySeleniumUtils.waitForElementByIds(driver, titulo1, titulo2));
+
+	// ------------------------------------------
+	// (2) Extraemos los comentarios de la tarea
+	// ------------------------------------------
+
+	WebElement comentario = MySeleniumUtils.waitForElementWithId(driver,
+		"form_user:tabla_tareas:" + index + ":columna_comentarios");
+
 	row.put("comentario", comentario.getText());
 
-	WebElement fechaCreada = driver.findElement(By
-		.id("form_user:tabla_tareas:" + index + ":columna_creada"));
+	// -----------------------------------------------
+	// (3) Extraemos la fecha de creación de la tarea
+	// -----------------------------------------------
+
+	WebElement fechaCreada = MySeleniumUtils.waitForElementWithId(driver,
+		"form_user:tabla_tareas:" + index + ":columna_creada");
+
 	row.put("fechaCreacion", fechaCreada.getText());
 
-	WebElement fechaPlaneada = driver.findElement(By
-		.id("form_user:tabla_tareas:" + index + ":columna_planeada"));
+	// ----------------------------------------------------------
+	// (4) Extraemos la fecha para la que está planeada la tarea
+	// ----------------------------------------------------------
+
+	WebElement fechaPlaneada = MySeleniumUtils.waitForElementWithId(driver,
+		"form_user:tabla_tareas:" + index + ":columna_planeada");
+
 	row.put("fechaPlaneada", fechaPlaneada.getText());
 
-	WebElement fechaFinalizada = driver.findElement(By
-		.id("form_user:tabla_tareas:" + index + ":columna_finalizada"));
+	// ---------------------------------------------------
+	// (5) Extraemos la fecha de finalización de la tarea
+	// ---------------------------------------------------
+
+	String idFecha = "form_user:tabla_tareas:" + index
+		+ ":columna_finalizada";
+
+	String idTexto = "form_user:tabla_tareas:" + index
+		+ ":columna_finalizada_no_acabada";
+
+	WebElement fechaFinalizada = MySeleniumUtils.waitForElementByIds(
+		driver, idFecha, idTexto);
+
 	row.put("fechaFinalizada", fechaFinalizada.getText());
 
-	// Comporbacion porque cuando un atarea está finalizada, no tiene ningún
-	// boton para finalizarla
+	// -------------------------------------------------------
+	// (6) Extraemos el botón que permite finalizar una tarea
+	// -------------------------------------------------------
 
-	if (fechaFinalizada.getText().length() == 0) {
-	    WebElement fechaFinalizar = driver.findElement(By
-		    .id("form_user:tabla_tareas:" + index
-			    + ":columna_finalizar"));
-	    row.put("fechaFinalizar", fechaFinalizar);
-	} else {
-	    row.put("fechaFinalizar", "-------");
-	}
+	String idBoton = "form_user:tabla_tareas:" + index
+		+ ":columna_finalizar";
+
+	idTexto = "form_user:tabla_tareas:" + index
+		+ ":columna_finalizar_acabada";
+
+	WebElement fechaFinalizar = MySeleniumUtils.waitForElementByIds(driver,
+		idBoton, idTexto);
+
+	row.put("fechaFinalizar", fechaFinalizar);
+
+	// --------------------------------
+	// (7) Devolvemos todos los campos
+	// --------------------------------
+
 	return row;
-
     }
+
 }

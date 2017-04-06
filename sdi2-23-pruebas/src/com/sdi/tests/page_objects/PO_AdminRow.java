@@ -3,9 +3,10 @@ package com.sdi.tests.page_objects;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+
+import com.sdi.tests.utils.MySeleniumUtils;
 
 public class PO_AdminRow {
 
@@ -38,33 +39,44 @@ public class PO_AdminRow {
     public Map<String, Object> findRow(WebDriver driver, int index) {
 	Map<String, Object> row = new HashMap<String, Object>();
 
-	// ------------------------------
-	// Información del usuario
-	// ------------------------------
+	// ----------------------------
+	// (1) Información del usuario
+	// ----------------------------
 
-	WebElement login = driver.findElement(By
-		.id("form_admin:tabla_usuarios:" + index + ":column_login"));
+	// === login ===
+
+	WebElement login = MySeleniumUtils.waitForElementWithId(driver,
+		"form_admin:tabla_usuarios:" + index + ":column_login");
+
 	row.put("login", login.getText());
 
-	WebElement email = driver.findElement(By
-		.id("form_admin:tabla_usuarios:" + index + ":column_email"));
+	// === email ===
+
+	WebElement email = MySeleniumUtils.waitForElementWithId(driver,
+		"form_admin:tabla_usuarios:" + index + ":column_email");
+
 	row.put("email", email.getText());
 
-	WebElement state = driver.findElement(By
-		.id("form_admin:tabla_usuarios:" + index + ":column_status"));
-	row.put("status", state.getText());
+	// === status ===
+
+	WebElement status = MySeleniumUtils.waitForElementWithId(driver,
+		"form_admin:tabla_usuarios:" + index + ":column_status");
+
+	row.put("status", status.getText());
 
 	// -------------------------------------------
-	// Botones que permiten alterar su cuenta
+	// (2) Botones que permiten alterar su cuenta
 	// -------------------------------------------
 
-	row.put("button_state",
-		driver.findElement(By.id("form_admin:tabla_usuarios:" + index
-			+ ":button_status")));
+	row.put("button_state", MySeleniumUtils.waitForElementWithId(driver,
+		"form_admin:tabla_usuarios:" + index + ":button_status"));
 
-	row.put("button_delete",
-		driver.findElement(By.id("form_admin:tabla_usuarios:" + index
-			+ ":button_delete")));
+	row.put("button_delete", MySeleniumUtils.waitForElementWithId(driver,
+		"form_admin:tabla_usuarios:" + index + ":button_delete"));
+
+	// ---------------------------
+	// (3) Devolver los elementos
+	// ---------------------------
 
 	return row;
     }

@@ -18,9 +18,12 @@
 	<ui:define name="cuerpo">
 		<p:dataTable id="tabla_tareas" value="#{bean_today.tasks}" var="tarea"
 			rows="8" paginator="true"
+			sortFunction="#{bean_today.todaySorter.sortAtInit}" sortBy="#{tarea}"
 			paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
 
-			<f:facet name="header">#{msgs.listar_tareas__titulo_hoy}</f:facet>
+			<f:facet name="header">
+				<div id="titulo_tareas_hoy">#{msgs.listar_tareas__titulo_hoy}</div>
+			</f:facet>
 
 
 			<p:column headerText="#{msgs.listar_tareas__columna_titulo}"

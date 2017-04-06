@@ -1,6 +1,7 @@
 package uo.sdi.presentation.task;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -12,6 +13,7 @@ import uo.sdi.dto.TaskDTO;
 import uo.sdi.infrastructure.Services;
 import uo.sdi.presentation.util.MessageManager;
 import uo.sdi.presentation.util.UserInfo;
+import alb.util.date.DateUtil;
 import alb.util.log.Log;
 
 @ManagedBean(name = "bean_new_task")
@@ -57,7 +59,7 @@ public class BeanCreateTask extends AbstractBeanModifyTasks implements
 
 	    contexto.getExternalContext().getFlash().setKeepMessages(true);
 
-	    return "exito";
+	    return controlarNavegacion(newTask);
 	}
 
 	catch (BusinessException bs) {
@@ -81,4 +83,53 @@ public class BeanCreateTask extends AbstractBeanModifyTasks implements
 	}
     }
 
+    private String controlarNavegacion(TaskDTO newTask) {
+	Date hoy = DateUtil.today();
+	Date semana = DateUtil.addDays(DateUtil.trunc(new Date()), 6);
+
+	Date planeada = newTask.getPlanned();
+
+	Log.debug("Creada una nueva tarea ===>  %s", newTask.toString());
+
+	// Sin categoría
+	if (newTask.getCategory() == null
+		|| newTask.getCategory().getId() == null) {
+
+	    Log.debug("Se ha creado una tarea. Redirigiendo al listado de "
+		    + "tareas en inbox.");
+
+	    return "inbox";
+	}
+
+	// Con categoría
+	else if (newTask.getCategory() != null
+		&& newTask.getCategory().getId() != null) {
+
+	    // Tarea planificada
+	    if (newTask.getPlanned() != null) {
+
+		// Para hoy
+		if (hoy.equals(newTask.getPlanned())) {
+		    Log.debug("Se ha creado una tarea. Redirigiendo al listado"
+			    + " de tareas para hoy.");
+
+		    return "hoy";
+		}
+
+		// Para esta semana
+		else if (DateUtil.isDateInWindow(planeada, hoy, semana)) {
+		    Log.debug("Se ha creado una tarea. Redirigiendo al listado"
+			    + " de tareas para esta semana.");
+
+		    return "semana";
+		}
+	    }
+	}
+
+	Log.debug("Se ha creado una tarea. Redirigiendo a la página principal"
+		+ " del usuario.");
+
+	// Cualquier otro caso
+	return "ninguna";
+    }
 }

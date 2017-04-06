@@ -2,13 +2,11 @@ package com.sdi.tests.internationalizationTest;
 
 import static org.junit.Assert.assertTrue;
 
-import java.util.List;
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import com.sdi.tests.utils.MySeleniumUtils;
 import com.sdi.tests.utils.PropertiesReader;
-import com.sdi.tests.utils.SeleniumUtils;
 
 public class ValidadorPrincipalUsuario {
 
@@ -21,119 +19,145 @@ public class ValidadorPrincipalUsuario {
     }
 
     public void comprobarTextos() {
+	// -------------------------------------------------
+	// (1) Validamos el botón de idioma del desplegable
+	// -------------------------------------------------
 
-	// validamos el boton de idioma del desplegable
-
-	List<WebElement> mensajes = SeleniumUtils.EsperaCargaPagina(driver,
-		"id", "form_menu_superior:submenu_idiomas", 8);
-	assertTrue(
-		"No se ha encontrado mensaje del boton de cambio de idioma",
-		mensajes.get(0)
-			.getText()
-			.equals(new PropertiesReader().getValueOf(idioma,
-				"menu_idioma")));
-
-	SeleniumUtils.moverRatonPorEncimaDe(driver,
+	WebElement elemento = MySeleniumUtils.waitForElementWithId(driver,
 		"form_menu_superior:submenu_idiomas");
 
-	// validamos el boton de cambio de idioma a español
-	mensajes = SeleniumUtils.EsperaCargaPagina(driver, "id",
-		"form_menu_superior:boton_esp", 8);
-	assertTrue(
-		"No se ha encontrado mensaje del boton de cambio a español",
-		mensajes.get(0)
-			.getText()
-			.equals(new PropertiesReader().getValueOf(idioma,
-				"menu_idioma_es")));
-
-	// validamos el boton de cambio de idioma a ingles
-	mensajes = SeleniumUtils.EsperaCargaPagina(driver, "id",
-		"form_menu_superior:boton_eng", 8);
-	assertTrue(
-		"No se ha encontrado mensaje del boton de cambio a ingles",
-		mensajes.get(0)
-			.getText()
-			.equals(new PropertiesReader().getValueOf(idioma,
-				"menu_idioma_en")));
-
-	// validamos texto de principal desplegable cuenta de usuario
-
-	mensajes = SeleniumUtils.EsperaCargaPagina(driver, "id",
-		"form_menu_superior:submenu_usuario", 8);
-	assertTrue(
-		"No se ha encontrado mensaje del titulo del desplegable cuenta de usuario",
-		mensajes.get(0)
-			.getText()
-			.equals(new PropertiesReader().getValueOf(idioma,
-				"menu_user__cuenta")));
-
-	SeleniumUtils.moverRatonPorEncimaDe(driver,
-		"form_menu_superior:submenu_usuario");
-
-	// validamos texto de usuario: <nombre de usuario>
-
-	mensajes = SeleniumUtils.EsperaCargaPagina(driver, "id",
-		"form_menu_superior:output_Text_user_login", 8);
 	assertTrue(
 		"No se ha encontrado mensaje del boton de cambio de idioma",
-		mensajes.get(0)
-			.getText()
-			.equals(new PropertiesReader().getValueOf(idioma,
+		elemento.getText().equals(
+			new PropertiesReader()
+				.getValueOf(idioma, "menu_idioma")));
+
+	MySeleniumUtils.moveHoverElement(driver,
+		"form_menu_superior:submenu_idiomas");
+
+	// -----------------------------------------------------
+	// (2) Validamos el botón de cambio de idioma a español
+	// -----------------------------------------------------
+
+	elemento = MySeleniumUtils.waitForElementWithId(driver,
+		"form_menu_superior:boton_esp");
+
+	assertTrue(
+		"No se ha encontrado mensaje del boton de cambio a español",
+		elemento.getText().equals(
+			new PropertiesReader().getValueOf(idioma,
+				"menu_idioma_es")));
+
+	// ----------------------------------------------------
+	// (3) Validamos el botón de cambio de idioma a inglés
+	// ----------------------------------------------------
+
+	elemento = MySeleniumUtils.waitForElementWithId(driver,
+		"form_menu_superior:boton_eng");
+
+	assertTrue(
+		"No se ha encontrado mensaje del botón de cambio a inglés",
+		elemento.getText().equals(
+			new PropertiesReader().getValueOf(idioma,
+				"menu_idioma_en")));
+
+	// -----------------------------------------------------------
+	// (4) Validamos el texto del desplegable "cuenta de usuario"
+	// -----------------------------------------------------------
+
+	elemento = MySeleniumUtils.waitForElementWithId(driver,
+		"form_menu_superior:submenu_usuario");
+
+	assertTrue(
+		"No se ha encontrado mensaje del titulo del desplegable "
+			+ "cuenta de usuario",
+		elemento.getText().equals(
+			new PropertiesReader().getValueOf(idioma,
+				"menu_user__cuenta")));
+
+	MySeleniumUtils.moveHoverElement(driver,
+		"form_menu_superior:submenu_usuario");
+
+	// ------------------------------------------------------
+	// (5) Validamos el texto [usuario: <nombre de usuario>]
+	// ------------------------------------------------------
+
+	elemento = MySeleniumUtils.waitForElementWithId(driver,
+		"form_menu_superior:output_Text_user_login");
+
+	assertTrue(
+		"No se ha encontrado mensaje del boton de cambio de idioma",
+		elemento.getText().equals(
+			new PropertiesReader().getValueOf(idioma,
 				"menu_user__login")));
 
-	// validamos el boton de logout
+	// ---------------------------------
+	// (6) Validamos el botón de logout
+	// ---------------------------------
 
-	mensajes = SeleniumUtils.EsperaCargaPagina(driver, "id",
-		"form_menu_superior:boton_logout", 8);
+	elemento = MySeleniumUtils.waitForElementWithId(driver,
+		"form_menu_superior:boton_logout");
+
 	assertTrue(
 		"No se ha encontrado mensaje del boton de logout",
-		mensajes.get(0)
-			.getText()
-			.equals(new PropertiesReader().getValueOf(idioma,
+		elemento.getText().equals(
+			new PropertiesReader().getValueOf(idioma,
 				"menu_user__logout")));
 
-	// validamos texto del titulo de la tabla de categorias de tarea
+	// --------------------------------------------------------------
+	// (7) Validamos el titulo de la tabla de categorías del sistema
+	// --------------------------------------------------------------
 
-	mensajes = SeleniumUtils.EsperaCargaPagina(driver, "id",
-		"form_user:titulo_tabla_usuario", 8);
+	elemento = MySeleniumUtils.waitForElementWithId(driver,
+		"form_user:titulo_tabla_usuario");
+
 	assertTrue(
-		"No se ha encontrado mensaje del titulo de tabla de categorias",
-		mensajes.get(0)
-			.getText()
-			.equals(new PropertiesReader().getValueOf(idioma,
+		"No se ha encontrado mensaje del titulo de tabla de categorias"
+			+ " del sistema.",
+		elemento.getText().equals(
+			new PropertiesReader().getValueOf(idioma,
 				"principal_usuario__titulo_panel")));
 
-	// validamos texto del boton de listado en categoria: hoy
+	// -----------------------------------------------------------
+	// (8) validamos texto del boton de listado en categoria: hoy
+	// -----------------------------------------------------------
 
-	mensajes = SeleniumUtils.EsperaCargaPagina(driver, "id",
-		"form_user:tareas_hoy", 8);
+	elemento = MySeleniumUtils.waitForElementWithId(driver,
+		"form_user:tareas_hoy");
+
 	assertTrue(
-		"No se ha encontrado mensaje del boton para listar tareas de hoy",
-		mensajes.get(0)
-			.getText()
-			.equals(new PropertiesReader().getValueOf(idioma,
+		"No se ha encontrado mensaje del boton para listar tareas de "
+			+ "hoy",
+		elemento.getText().equals(
+			new PropertiesReader().getValueOf(idioma,
 				"principal_usuario__hoy")));
 
-	// validamos texto del boton de listado en categoria: inbox
+	// -------------------------------------------------------------
+	// (9) Validamos texto del boton de listado en categoria: inbox
+	// -------------------------------------------------------------
 
-	mensajes = SeleniumUtils.EsperaCargaPagina(driver, "id",
-		"form_user:tareas_inbox", 8);
+	elemento = MySeleniumUtils.waitForElementWithId(driver,
+		"form_user:tareas_inbox");
+
 	assertTrue(
-		"No se ha encontrado mensaje del boton para listar tareas de inbox",
-		mensajes.get(0)
-			.getText()
-			.equals(new PropertiesReader().getValueOf(idioma,
+		"No se ha encontrado mensaje del boton para listar tareas de "
+			+ "inbox",
+		elemento.getText().equals(
+			new PropertiesReader().getValueOf(idioma,
 				"principal_usuario__inbox")));
 
-	// validamos texto del boton de listado en categoria: semana
+	// ---------------------------------------------------------------
+	// (10) Validamos texto del boton de listado en categoria: semana
+	// ---------------------------------------------------------------
 
-	mensajes = SeleniumUtils.EsperaCargaPagina(driver, "id",
-		"form_user:tareas_semana", 8);
+	elemento = MySeleniumUtils.waitForElementWithId(driver,
+		"form_user:tareas_semana");
+
 	assertTrue(
-		"No se ha encontrado mensaje del boton para listar tareas de inbox",
-		mensajes.get(0)
-			.getText()
-			.equals(new PropertiesReader().getValueOf(idioma,
+		"No se ha encontrado mensaje del boton para listar tareas de "
+			+ "semana",
+		elemento.getText().equals(
+			new PropertiesReader().getValueOf(idioma,
 				"principal_usuario__semana")));
     }
 

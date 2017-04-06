@@ -11,6 +11,7 @@ import uo.sdi.business.TaskService;
 import uo.sdi.business.exception.BusinessException;
 import uo.sdi.infrastructure.Services;
 import uo.sdi.presentation.util.UserInfo;
+import uo.sdi.presentation.util.sorting.TodaySorter;
 import alb.util.log.Log;
 
 @ManagedBean(name = "bean_today")
@@ -20,10 +21,28 @@ public class BeanTodayTasks extends AbstractBeanListTasks implements
 
     private static final long serialVersionUID = -10248859391L;
 
+    private TodaySorter todaySorter = new TodaySorter();
+
+    // ============================
+    // Getters y Setters
+    // ============================
+
+    public TodaySorter getTodaySorter() {
+	return todaySorter;
+    }
+
+    // ===============================
+    // Inicialización y eliminación
+    // ===============================
+
     @PostConstruct
     public void init() {
 	cargarTareas();
     }
+
+    // ============================
+    // Métodos
+    // ============================
 
     @Override
     protected void cargarTareas() {

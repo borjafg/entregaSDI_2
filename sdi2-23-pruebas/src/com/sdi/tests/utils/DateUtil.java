@@ -9,13 +9,13 @@ import java.util.TimeZone;
 public class DateUtil {
 
     public static boolean sameDay(Date date1, Date date2) {
-	Date dateT1 = trunk(date1);
-	Date dateT2 = trunk(date2);
+	Date dateT1 = trunc(date1);
+	Date dateT2 = trunc(date2);
 
 	return dateT1.compareTo(dateT2) == 0;
     }
 
-    private static Date trunk(Date fecha) {
+    private static Date trunc(Date fecha) {
 	Calendar calendar = Calendar.getInstance(TimeZone
 		.getTimeZone("Europe/Madrid"));
 
@@ -62,17 +62,17 @@ public class DateUtil {
 	return calendar;
     }
 
-    public static Date diasSiguientes(Date fecha, int dias) {
+    public static Date sumDaysToDate(Date date, int numDays) {
 	Calendar calendar = Calendar.getInstance(TimeZone
 		.getTimeZone("Europe/Madrid"));
 
-	calendar.setTime(fecha);
+	calendar.setTime(date);
 
 	calendar.set(Calendar.HOUR_OF_DAY, 0);
 	calendar.set(Calendar.MINUTE, 0);
 	calendar.set(Calendar.SECOND, 0);
 	calendar.set(Calendar.MILLISECOND, 0);
-	calendar.add(Calendar.DAY_OF_YEAR, dias);
+	calendar.add(Calendar.DAY_OF_YEAR, numDays);
 
 	return calendar.getTime();
     }

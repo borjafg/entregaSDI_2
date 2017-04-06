@@ -2,70 +2,103 @@ package com.sdi.tests.page_objects;
 
 import java.util.Date;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import com.sdi.tests.utils.DateUtil;
+import com.sdi.tests.utils.MySeleniumUtils;
 import com.sdi.tests.utils.ThreadUtil;
 
 public class PO_CreateTask {
 
     public void completeFormWithoutCalendar(WebDriver driver, String nombre,
-	    String comentario,  int categoria, int dia) {
+	    String comentario, int categoria, int dia) {
 
-	WebElement nombreC = driver.findElement(By.id("form_usuario:nombre"));
+	int tiempoVerResultadoTest = 620;
+
+	// ------------------------------------
+	// (Parte 1) Completar el campo nombre
+	// ------------------------------------
+
+	WebElement nombreC = MySeleniumUtils.waitForElementWithId(driver,
+		"form_usuario:nombre");
 
 	nombreC.click();
 	nombreC.clear();
+
 	nombreC.sendKeys(nombre);
 
-	ThreadUtil.wait(500);
+	ThreadUtil.wait(tiempoVerResultadoTest);
 
-	WebElement comentarioC = driver.findElement(By
-		.id("form_usuario:comentarios"));
+	// -----------------------------------------
+	// (Parte 2) Completar el campo comentarios
+	// -----------------------------------------
+
+	WebElement comentarioC = MySeleniumUtils.waitForElementWithId(driver,
+		"form_usuario:comentarios");
+
 	comentarioC.click();
 	comentarioC.clear();
+
 	comentarioC.sendKeys(comentario);
 
-	ThreadUtil.wait(500);
+	ThreadUtil.wait(tiempoVerResultadoTest);
 
-	WebElement categoriaSelector = driver.findElement(By
-		.id("form_usuario:categoria_label"));
-	ThreadUtil.wait(600);
-	categoriaSelector.click();
-	ThreadUtil.wait(600);
-	categoriaSelector = driver.findElement(By.id("form_usuario:categoria_"
-		+ categoria));
+	// ------------------------------------------
+	// (Parte 3) Elegir la categoría de la tarea
+	// ------------------------------------------
 
-	ThreadUtil.wait(500);
+	WebElement categoriaSelector = MySeleniumUtils.waitForElementWithId(
+		driver, "form_usuario:categoria_label");
+
 	categoriaSelector.click();
-	ThreadUtil.wait(600);
-	Date diaCategoria = DateUtil.diasSiguientes(new Date(), dia);
-	
-	String fechaString = DateUtil.convertDateToString(diaCategoria).replace("/", "");
-		WebElement fechaSelector = driver.findElement(By
-			.id("form_usuario:planeada_input"));
-	ThreadUtil.wait(600);
+
+	ThreadUtil.wait(tiempoVerResultadoTest);
+
+	// Buscar la categoría elegida
+	categoriaSelector = MySeleniumUtils.waitForElementWithId(driver,
+		"form_usuario:categoria_" + categoria);
+
+	// Hacer click en ella para seleccionarla
+	categoriaSelector.click();
+
+	ThreadUtil.wait(tiempoVerResultadoTest);
+
+	// ----------------------------------
+	// (Parte 4) Elegir la fecha para la
+	// que está planificada la tarea
+	// ----------------------------------
+
+	// La fecha se elige respecto al día de hoy
+	Date diaCategoria = DateUtil.sumDaysToDate(new Date(), dia);
+
+	String fechaString = DateUtil.convertDateToString(diaCategoria)
+		.replace("/", "");
+
+	WebElement fechaSelector = MySeleniumUtils.waitForElementWithId(driver,
+		"form_usuario:planeada_input");
+
 	fechaSelector.click();
 	fechaSelector.clear();
-	fechaSelector.sendKeys(fechaString);
-	ThreadUtil.wait(600);
-	
-	WebElement botonCrear = driver.findElement(By
-		.id("form_usuario:boton_crear"));
-	ThreadUtil.wait(600);
-	nombreC.click();//lo hacemos para cerrar el calendario
-	ThreadUtil.wait(600);
-	botonCrear.click();
-	
-    }
 
-    //
-    // String fechaString = String.valueOf(calendario
-    // .get(Calendar.DAY_OF_MONTH))
-    // + String.valueOf(calendario.get(Calendar.MONTH))
-    // + String.valueOf(calendario.get(Calendar.YEAR));
-    //
+	fechaSelector.sendKeys(fechaString);
+
+	ThreadUtil.wait(tiempoVerResultadoTest);
+
+	nombreC.click(); // Hay que hacerlo para cerrar el calendario
+
+	ThreadUtil.wait(tiempoVerResultadoTest);
+
+	// --------------------------------------------------
+	// (Parte 5) Hacer click en el boton de confirmación
+	// --------------------------------------------------
+
+	WebElement botonCrear = MySeleniumUtils.waitForElementWithId(driver,
+		"form_usuario:boton_crear");
+
+	ThreadUtil.wait(tiempoVerResultadoTest);
+
+	botonCrear.click();
+    }
 
 }
