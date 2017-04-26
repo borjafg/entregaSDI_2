@@ -19,8 +19,9 @@ public class MarkTaskAsFinishedCommand implements Command<Void> {
     public Void execute() throws BusinessException {
 	Task t = TaskFinder.findById(id);
 
-	BusinessCheck.isNotNull(t, "La tarea que se pretende marcar como "
-		+ "finalizada no existe", "error_tarea_no_existe");
+	BusinessCheck.isNotNull(t, "La tarea que se pretende marcar "
+		+ "como finalizada no existe",
+		"error_finalizacion_tarea__no_existe");
 
 	t.setFinished(DateUtil.today()); // Estado persistent
 
